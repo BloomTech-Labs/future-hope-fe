@@ -1,6 +1,7 @@
 # Future-Hope-Client
 
-> Staging Branch
+
+> QA branch
 
 ## Install
 
