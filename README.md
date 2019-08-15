@@ -1,7 +1,7 @@
 # Future-Hope-Client
 
 
-> QA branch
+> Ready For Stakeholder Branch
 
 ## Install
 
