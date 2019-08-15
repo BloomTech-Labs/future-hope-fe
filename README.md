@@ -1,15 +1,17 @@
 # Future-Hope-Client
 
-> This is an example file with default selections.
+> Ready For Stakeholder Branch
 
 ## Install
 
 ```
+
 ```
 
 ## Usage
 
 ```
+
 ```
 
 ## Contributing
