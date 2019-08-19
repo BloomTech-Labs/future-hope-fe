@@ -14,8 +14,5 @@ const firebaseConfig = {
 
 //Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.firestore(); //lol i don't think we even need settings. I know that timestamp is true by default now; yea I dont think we need it at all.
-// Im gonna create env variables for our api info. I posted the syntax in the slack channel that Im using.
-// coolbeans
-//this is amazing!
+firebase.firestore().settings({ timestampsInSnapshots: true });
 export default firebase;
