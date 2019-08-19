@@ -5,7 +5,9 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL
-} from "../actions/signup";
+} from "../actions/auth";
+
+const initialState = {};
 
 //! Just basic scaffolding, what to do with the payload?
 export const authReducer = (state = initialState, action) => {
@@ -32,6 +34,10 @@ export const authReducer = (state = initialState, action) => {
         ...state
       };
     case LOGIN_FAIL:
+      return {
+        ...state
+      };
+    default:
       return {
         ...state
       };
