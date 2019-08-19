@@ -38,4 +38,5 @@ oof i'im not sure. I know you can do it with master but i'm not sure how to with
 lol
 
 maybe just git merge feature.......whatever the branch name is? so switch to that branch. do a pull. then do a git merge with it?
+
 */
