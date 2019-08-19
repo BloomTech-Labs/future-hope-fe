@@ -9,7 +9,7 @@ export const createMeeting = meeting => dispatch => {
   // meeting = meeting data?
   dispatch({ type: MEETING_CREATE });
   return axios
-    .post("/api/meetings", user) //! endpoint unknonwn
+    .post("/api/meetings", meeting) //! endpoint unknonwn
     .then(res => {
       dispatch({ type: MEETING_CREATE_SUCCESS, payload: res.data }); //! Not sure what to return yet
     })
