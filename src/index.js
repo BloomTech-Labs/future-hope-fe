@@ -11,10 +11,31 @@ import rootReducer from "./reducers/rootReducer";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 import fbConfig from "./config/fbConfig";
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(
+    applyMiddleware(thunk, logger).withExtraArgument({
+      getFirebase,
+      getFirestore
+    }),
+    reactReduxFirebase(fbConfig, {
+      useFirestoreForProfile: true,
+      userProfile: "users"
+    }),
+    reduxFirestore(fbConfig)
+  )
+);
 
-
+ReactDOM.render(
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById("root")
+);
 
 /*
 import React from "react";
