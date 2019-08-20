@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Page404 from "./components/Page404";
+import SignUp from "./components/auth/SignUp.js";
+
 import "./App.css";
 
 function App() {
@@ -14,10 +16,14 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
-        <Route component={Page404} />
+       
+        <Route path = '/signup' component={SignUp} />
       </Switch>
     </Router>
   );
 }
 
 export default withRouter(App);
+
+
+// <Route component={Page404} />
