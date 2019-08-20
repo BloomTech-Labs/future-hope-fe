@@ -19,6 +19,11 @@ class Login extends React.Component {
     });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.login(this.state);
+  };
+
   toggleEmailLogin = e => {
     e.preventDefault();
     this.setState({
@@ -45,7 +50,7 @@ class Login extends React.Component {
           }`}
         >
           <h3>Please Login</h3>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <TextField
               required
               id='standard-required-email-input'
@@ -77,4 +82,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => {
+  return {
+    login: creds => dispatch(login(creds))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

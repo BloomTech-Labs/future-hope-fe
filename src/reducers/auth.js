@@ -17,7 +17,8 @@ export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP_START:
       return {
-        ...state
+        ...state,
+        authError: null
       };
     case SIGNUP_SUCCESS:
       console.log("singup succes");
@@ -33,15 +34,19 @@ export const authReducer = (state = initialState, action) => {
       };
     case LOGIN_START:
       return {
-        ...state
+        ...state,
+        authError: null
       };
     case LOGIN_SUCCESS:
+      console.log("login success!");
       return {
-        ...state
+        ...state,
+        authError: null
       };
     case LOGIN_FAIL:
       return {
-        ...state
+        ...state,
+        authError: action.err.message
       };
     default:
       return {

@@ -51,18 +51,20 @@ export const signUp = user => {
 };
 
 // Login
-export const login = user => dispatch => {
-  // user = form data?
-  dispatch({ type: LOGIN_START });
-  return axios
-    .post("/api/register", user) //! endpoint unknonwn
-    .then(res => {
-      dispatch({ type: LOGIN_SUCCESS, payload: user.displayName }); //! using displayName?
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({ type: LOGIN_FAIL });
-    });
+export const login = creds => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(creds.email, creds.password)
+      .then(() => {
+        dispatch({ type: LOGIN_SUCCESS });
+      })
+      .catch(err => {
+        dispatch({ type: LOGIN_FAIL, err });
+      });
+  };
 };
 
 // user = form data?

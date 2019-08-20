@@ -17,7 +17,16 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
-        <Route path='/signup' component={SignUp} />
+        <Route
+          exact
+          path='/signup/mentor'
+          render={props => <SignUp type='Mentor' />}
+        />
+        <Route
+          exact
+          path='/signup/teacher'
+          render={props => <SignUp type='Teacher' />}
+        />
         <Route path='/login' component={Login} />
       </Switch>
     </Router>

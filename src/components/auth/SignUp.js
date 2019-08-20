@@ -8,7 +8,7 @@ class SignUp extends React.Component {
   state = {
     fullName: "",
     email: "",
-    userType: "",
+    userType: this.props.type,
     city: "",
     stateProvince: "",
     country: "",
@@ -28,10 +28,11 @@ class SignUp extends React.Component {
   };
   //! Reuse this component for all types of sign-ups - maybe have code here that shows only relevant text-fields
   render() {
+    console.log(this.props.type);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h5>Sign Up as USERTYPEHERE</h5>
+          <h5>Sign Up as {this.props.type}</h5>
           <TextField
             required
             id='standard-name'
@@ -104,6 +105,14 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             margin='normal'
             name='aboutMe'
+          />
+          <TextField
+            disabled
+            id='standard-name'
+            label='Account Type'
+            value={this.props.type}
+            margin='normal'
+            name='userType'
           />
           <Button
             variant='outlined'
