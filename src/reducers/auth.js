@@ -8,7 +8,7 @@ import {
 } from "../actions/auth";
 
 const initialState = {
-  authError: null,
+  authError: null
 };
 
 //! Just basic scaffolding, what to do with the payload?
@@ -20,12 +20,13 @@ export const authReducer = (state = initialState, action) => {
         ...state
       };
     case SIGNUP_SUCCESS:
-      console.log('singup succes');
+      console.log("singup succes");
       return {
         ...state,
-        authError: null,
+        authError: null
       };
     case SIGNUP_FAIL:
+      console.log("signup fail");
       return {
         ...state,
         authError: action.err.message
