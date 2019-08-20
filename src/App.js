@@ -8,6 +8,7 @@ import {
 import LandingPage from "./components/LandingPage";
 import Page404 from "./components/Page404";
 import SignUp from "./components/auth/SignUp.js";
+import Login from "./components/auth/Login";
 
 import "./App.css";
 
@@ -16,14 +17,13 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
-       
-        <Route path = '/signup' component={SignUp} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/login' component={Login} />
       </Switch>
     </Router>
   );
 }
 
 export default withRouter(App);
-
 
 // <Route component={Page404} />
