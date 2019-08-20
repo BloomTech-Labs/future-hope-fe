@@ -50,17 +50,17 @@ Deployed on Netlify
 
 ```
 Starting with the src root folder, the flow will be as follows:
---src
---components
---component folder
---component sub-folder
---component.js files
+> src
+> components
+> component folder
+> component sub-folder
+> component.js files
 ```
 
 ### Misc
 
 
-** auth **
+**auth**
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
 login.js    |   logs in     |   head to '/login'    |
@@ -70,7 +70,7 @@ SignUp.js    |   signs up     |   head to '/signup'    |
 
 ### Navigation
 
-** navbar **
+**navbar**
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
 navbar.js    |   navbar routing     |   n/a    |
@@ -80,7 +80,7 @@ SignedInNavBar.js    |   navbar routing post sign-in    |   n/a    |
 
 ### Pages
 
-** landing page **
+**landing page**
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
 landingpage.js    |   marketing splash     |   "/"    |
@@ -141,12 +141,12 @@ Documentation -
 
 Eric Fugleberg  |   George Kando    |   Joel Perez  |   Kedasha Kerr    |   Micah Jones |   Steven Barrett  |
 | ------ | ------------------ | --------------- |   -----------------   |   ----------  |   --------------  |
-[Eric's github] (https://github.com/efugleberg) "Eric's github"         |   
-[George's github] (https://github.com/gkando)  "George's github"        |   
-[Joel's github] (https://github.com/Full-lifey) "Joel's github"          |   
-[Kedasha's github] (https://github.com/Ladykerr) "Kedasha's github"       |   
-[Micah's github] (https://github.com/micahjones13) "Micah's github"      |   
-[Steven's github] (https://github.com/steven-barrett) "Steven's github"   |
+[Eric's github](https://github.com/efugleberg) "Eric's github"         |   
+[George's github](https://github.com/gkando)  "George's github"        |   
+[Joel's github](https://github.com/Full-lifey) "Joel's github"          |   
+[Kedasha's github](https://github.com/Ladykerr) "Kedasha's github"       |   
+[Micah's github](https://github.com/micahjones13) "Micah's github"      |   
+[Steven's github](https://github.com/steven-barrett) "Steven's github"   |
 
 
 ## Contributing
