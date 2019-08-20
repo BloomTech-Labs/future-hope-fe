@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { signUp } from '../../actions/auth.js';
+import Button from '@material-ui/core/Button';
 
 class SignUp extends React.Component {
     state = {
@@ -24,12 +25,16 @@ class SignUp extends React.Component {
             [e.target.name]: e.target.value
         })
     }
-    
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.signUp(this.state); 
+    }
+    //! Reuse this component for all types of sign-ups - maybe have code here that shows only relevant text-fields
     render(){
         return(
             <div >
                 
-                <form>
+                <form onSubmit = {this.handleSubmit}>
                     <h5>Sign Up as USERTYPEHERE</h5>
                     <TextField
                     required
@@ -93,7 +98,7 @@ class SignUp extends React.Component {
                     value={this.state.phoneNumber}
                     onChange={this.handleChange}
                     margin="normal"
-                    name="fullName"
+                    name="phoneNumber"
                     />
                     <TextField
                     required
@@ -113,6 +118,7 @@ class SignUp extends React.Component {
                     margin="normal"
                     name="aboutMe"
                     />
+                    <Button variant = 'outlined' size = 'large' color = 'primary' onSubmit = {this.handleSubmit}>Sign Up</Button>
                 
                 </form>
                 
@@ -121,14 +127,15 @@ class SignUp extends React.Component {
     }
 }
 
-/*
+
 const mapStateToProps = (state) => {
     return{
-        probably need auth state here eventually
+        auth: state.firebase.auth,
+        authError: state.auth.authError
     }
 }
 
-*/
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -136,7 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignUp); //!need first arg of null on connect if not using mapStateToProps
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp); //!need first arg of null on connect if not using mapStateToProps
 
 
 

@@ -10,6 +10,7 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 
 // Sign up
 export const signUp = (user) => {
+  console.log('inside signup action');
 return (dispatch, getState, { getFirebase, getFirestore }) => {
   const firebase = getFirebase();
   const firestore = getFirestore();

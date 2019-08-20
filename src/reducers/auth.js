@@ -7,23 +7,28 @@ import {
   LOGIN_FAIL
 } from "../actions/auth";
 
-const initialState = {};
+const initialState = {
+  authError: null,
+};
 
 //! Just basic scaffolding, what to do with the payload?
 export const authReducer = (state = initialState, action) => {
-  console.log("signupReducer", action);
+  // console.log("signupReducer", action);
   switch (action.type) {
     case SIGNUP_START:
       return {
         ...state
       };
     case SIGNUP_SUCCESS:
+      console.log('singup succes');
       return {
-        ...state
+        ...state,
+        authError: null,
       };
     case SIGNUP_FAIL:
       return {
-        ...state
+        ...state,
+        authError: action.err.message
       };
     case LOGIN_START:
       return {
