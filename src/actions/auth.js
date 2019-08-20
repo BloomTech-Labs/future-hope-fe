@@ -11,20 +11,15 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 
 // Sign up
 export const signUp = user => {
-  console.log("inside signup action", user);
-  console.log(process.env);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // dispatch({ type: SIGNUP_START });
     const firebase = getFirebase();
-    console.log("firebase", firebase);
     const firestore = getFirestore();
-    console.log("firestore", firestore);
 
     firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
       .then(res => {
-        console.log(res.user, "user");
         return firestore
           .collection("usersAwaitingApproval")
           .doc(res.user.uid)
@@ -54,7 +49,7 @@ export const signUp = user => {
 export const login = creds => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
-
+    console.log("inside login action", creds);
     firebase
       .auth()
       .signInWithEmailAndPassword(creds.email, creds.password)

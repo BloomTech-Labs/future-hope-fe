@@ -21,7 +21,7 @@ export const authReducer = (state = initialState, action) => {
         authError: null
       };
     case SIGNUP_SUCCESS:
-      console.log("singup succes");
+      console.log("signup success");
       return {
         ...state,
         authError: null
