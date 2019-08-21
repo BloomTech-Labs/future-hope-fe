@@ -8,15 +8,26 @@ import "./Login.scss";
 
 class Login extends React.Component {
   state = {
-    email: "",
-    password: "",
+    user: {
+      email: "",
+      password: ""
+    },
     loginWithEmail: false
   };
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      user: {
+        ...this.state.user,
+        [e.target.name]: e.target.value
+      }
     });
+  };
+
+  handleSubmit = e => {
+    console.log("inside handlesubmit success");
+    // e.preventDefault();
+    this.props.login(this.state.user);
   };
 
   toggleEmailLogin = e => {
@@ -45,7 +56,7 @@ class Login extends React.Component {
           }`}
         >
           <h3>Please Login</h3>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <TextField
               required
               id='standard-required-email-input'
@@ -54,6 +65,8 @@ class Login extends React.Component {
               type='email'
               name='email'
               autoComplete='email'
+              value={this.state.user.email}
+              onChange={this.handleChange}
             />
             <TextField
               required
@@ -62,7 +75,17 @@ class Login extends React.Component {
               margin='normal'
               type='password'
               name='password'
+              value={this.state.user.password}
+              onChange={this.handleChange}
             />
+            <Button
+              variant='outlined'
+              size='large'
+              color='primary'
+              onClick={this.handleSubmit}
+            >
+              Sign Up
+            </Button>
           </form>
         </div>
       </div>
@@ -70,4 +93,20 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: creds => dispatch(login(creds))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import rootReducer from "./reducers/rootReducer";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
@@ -22,8 +22,7 @@ const store = createStore(
       thunk.withExtraArgument({
         getFirebase,
         getFirestore
-      }),
-      logger
+      })
     ),
     reactReduxFirebase(fbConfig, {
       useFirestoreForProfile: true,
