@@ -3,27 +3,31 @@ import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth.js";
 import Button from "@material-ui/core/Button";
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from "@material-ui/core/styles";
 
-
-import { signInWithGoogle, auth, firestore, signInWithFacebook } from '../../config/fbConfig.js';
+import {
+  signInWithGoogle,
+  auth,
+  firestore,
+  signInWithFacebook
+} from "../../config/fbConfig.js";
 import "./Login.scss";
 
 const FacebookButton = withStyles({
   root: {
-    background: '#3b5998',
+    background: "#3b5998",
     borderRadius: 3,
     border: 0,
-    color: 'white',
+    color: "white",
     height: 48,
-    padding: '0 30px',
-    '&:hover': {
-      backgroundColor: '#8b9dc3'
-    },
+    padding: "0 30px",
+    "&:hover": {
+      backgroundColor: "#8b9dc3"
+    }
   },
   label: {
-    textTransform: 'capitalize',
-  },
+    textTransform: "capitalize"
+  }
 })(Button);
 
 class Login extends React.Component {
@@ -32,7 +36,18 @@ class Login extends React.Component {
       email: "",
       password: ""
     },
-    loginWithEmail: false,
+    loginWithEmail: false
+  };
+
+  componentDidUpdate = () => {
+    // HEY FUTURE PERSON WHO DOSNT UNDERSTAND WHAT THE HELL IS GOING ON!@#!@#!
+    // OUR ROUTE WASNT RERENDERING, SO WE HAD TO FORCE IT TO :D
+    // CHECK OUT APP.JS TO SEE WHAT THE HECK IS GOING ON :D
+
+    // console.log("updating??", this.props.rerouteUser);
+    if (this.props.rerouteUser) {
+      this.props.history.push("/signup");
+    }
   };
 
   handleChange = e => {
@@ -57,26 +72,34 @@ class Login extends React.Component {
     });
   };
 
-
-
   render() {
-    
-   
     return (
-      <div className='login-container'>
-        
-        <FacebookButton variant='contained' color='secondary' onClick = {signInWithFacebook}>
+      <div className="login-container">
+        <FacebookButton
+          variant="contained"
+          color="secondary"
+          onClick={signInWithFacebook}
+        >
           Login with Facebook
         </FacebookButton>
-        <Button variant='contained' color='secondary' onClick = {signInWithGoogle}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={signInWithGoogle}
+        >
           Login with Google
         </Button>
-        <Button variant='contained' color='secondary' onClick = {() => auth.signOut()}>
-        signout
-        </Button> //! Button needs to be added to Navbar
         <Button
-          variant='contained'
-          color='primary'
+          variant="contained"
+          color="secondary"
+          onClick={() => auth.signOut()}
+        >
+          signout
+        </Button>{" "}
+        //! Button needs to be added to Navbar
+        <Button
+          variant="contained"
+          color="primary"
           onClick={e => this.toggleEmailLogin(e)}
         >
           Login with Email
@@ -90,36 +113,36 @@ class Login extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <TextField
               required
-              id='standard-required-email-input'
-              label='Email'
-              margin='normal'
-              type='email'
-              name='email'
-              autoComplete='email'
+              id="standard-required-email-input"
+              label="Email"
+              margin="normal"
+              type="email"
+              name="email"
+              autoComplete="email"
               value={this.state.user.email}
               onChange={this.handleChange}
             />
             <TextField
               required
-              id='standard-password-input'
-              label='Password'
-              margin='normal'
-              type='password'
-              name='password'
+              id="standard-password-input"
+              label="Password"
+              margin="normal"
+              type="password"
+              name="password"
               value={this.state.user.password}
               onChange={this.handleChange}
             />
             <Button
-              variant='outlined'
-              size='large'
-              color='primary'
+              variant="outlined"
+              size="large"
+              color="primary"
               onClick={this.handleSubmit}
             >
               Sign Up
             </Button>
           </form>
         </div>
-        </div>
+      </div>
     );
   }
 }
