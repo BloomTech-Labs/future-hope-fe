@@ -4,8 +4,10 @@ import {
   FETCH_MENTOR_FAILURE
 } from "../actions/mentors";
 
+import mentors from "../components/mentors/mentor-data";
+
 const initialState = {
-  mentors: [],
+  mentors: mentors,
   fetchingMentors: false,
   error: ""
 };
@@ -21,7 +23,7 @@ const mentorReducer = (state = initialState, action) => {
     case FETCH_MENTOR_SUCCESS:
       return {
         ...state,
-        mentors: action.payload,
+        // mentors: action.payload,
         fetchingMentors: false,
         error: ""
       };
