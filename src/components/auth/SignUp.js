@@ -31,6 +31,7 @@ class SignUp extends React.Component {
     }
     //! Reuse this component for all types of sign-ups - maybe have code here that shows only relevant text-fields
     render(){
+        console.log(this.props, 'props');
         return(
             <div >
                 
