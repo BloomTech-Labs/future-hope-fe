@@ -13,6 +13,14 @@ const firebaseConfig = {
 };
 
 //Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.firestore().settings({ timestampsInSnapshots: true });
+
+export const firestore = firebase.initializeApp(firebaseConfig);
+export const auth = firebase.auth();
+
+export const provider = new firebase.auth.GoogleAuthProvider();
+export const fbProvider = new firebase.auth.FacebookAuthProvider();
+export const signInWithGoogle = () => auth.signInWithPopup(provider); //*provides the pop up window when loggin in with google
+export const signInWithFacebook = () => auth.signInWithPopup(fbProvider); //attempt at fb login
+
+firebase.firestore(); //! dropped the .settings({ timestampsInSnapshots: true }) due to the warning.
 export default firebase;

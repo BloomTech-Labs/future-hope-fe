@@ -3,8 +3,28 @@ import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth.js";
 import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles'
 
+
+import { signInWithGoogle, auth, firestore, signInWithFacebook } from '../../config/fbConfig.js';
 import "./Login.scss";
+
+const FacebookButton = withStyles({
+  root: {
+    background: '#3b5998',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    '&:hover': {
+      backgroundColor: '#8b9dc3'
+    },
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
 
 class Login extends React.Component {
   state = {
@@ -12,7 +32,7 @@ class Login extends React.Component {
       email: "",
       password: ""
     },
-    loginWithEmail: false
+    loginWithEmail: false,
   };
 
   handleChange = e => {
@@ -26,7 +46,7 @@ class Login extends React.Component {
 
   handleSubmit = e => {
     console.log("inside handlesubmit success");
-    // e.preventDefault();
+    e.preventDefault();
     this.props.login(this.state.user);
   };
 
@@ -37,10 +57,18 @@ class Login extends React.Component {
     });
   };
 
+
+
   render() {
+    
+   
     return (
       <div className='login-container'>
-        <Button variant='contained' color='secondary'>
+        
+        <FacebookButton variant='contained' color='secondary' onClick = {signInWithFacebook}>
+          Login with Facebook
+        </FacebookButton>
+        <Button variant='contained' color='secondary' onClick = {signInWithGoogle}>
           Login with Google
         </Button>
         <Button

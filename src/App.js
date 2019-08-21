@@ -5,12 +5,18 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
+
+import 'firebase/auth';
 import LandingPage from "./components/LandingPage";
 import Page404 from "./components/Page404";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 
+
 import "./App.css";
+
+
+
 
 function App() {
   return (
@@ -35,4 +41,3 @@ function App() {
 
 export default withRouter(App);
 
-// <Route component={Page404} />
