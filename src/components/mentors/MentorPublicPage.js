@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     marginBottom: 20
   },
   media: {
-    height: 140
+    height: 160
   }
 });
 
@@ -24,6 +24,7 @@ const MentorPublicPage = props => {
   const mentors = props.mentorData;
   console.log(mentors);
 
+  //grid is flexbox in material UI
   return (
     <Grid
       container
