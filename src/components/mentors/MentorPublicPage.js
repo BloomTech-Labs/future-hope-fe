@@ -1,10 +1,13 @@
 import React from "react";
-import MentorList from "./MentorList";
 
-class MentorPublicPage extends React.Component {
-  render() {
-    return <div>Mentor Public Page View</div>;
-  }
-}
+const MentorPublicPage = props => {
+  const mentors = props.mentorData;
+  console.log(mentors);
+  return (
+    <div>
+      <h1>Our wonderful mentors span across the world</h1>
+    </div>
+  );
+};
 
 export default MentorPublicPage;

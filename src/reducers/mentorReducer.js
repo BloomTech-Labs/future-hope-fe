@@ -31,6 +31,8 @@ const mentorReducer = (state = initialState, action) => {
         fetchingMentors: false,
         error: action.payload
       };
+    default:
+      return state;
   }
 };
 
