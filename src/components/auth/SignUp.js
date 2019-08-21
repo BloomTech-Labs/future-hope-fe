@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { signUp } from "../../actions/auth.js";
 import Button from "@material-ui/core/Button";
+import { signInWithGoogle, firestore } from '../../config/fbConfig.js';
 
 class SignUp extends React.Component {
   state = {
@@ -22,12 +23,38 @@ class SignUp extends React.Component {
       [e.target.name]: e.target.value
     });
   };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.signUp(this.state);
   };
+
+  googleSignup = async e => {
+
+    if (this.props.user) {
+      let userRef = firestore.collection("users").doc(this.props.user.uid);
+        await userRef.set({
+          uid: this.props.user.uid,
+          email: this.props.user.email,
+          fullName: this.props.displayName,
+          photoUrl: this.props.photoURL,
+        });      
+        //!  this.props.history.push() Awaiting initial component after login success
+      
+    } else {
+      await signInWithGoogle();
+      // let userRef = firestore.collection('users').doc(this.props.user.uid)
+      // let isUser = await userRef.get()
+      // let userRef = firestore.collection('usersAwaitingApproval').doc(this.props.user.uid)
+      // console.log('isUser inside Signup', isUser)
+      // if (isUser.exists) {
+      //   console.log('user exists', isUser);
+    // }
+  }
+}
   
   render() {
+    console.log(this.props.user)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -122,6 +149,9 @@ class SignUp extends React.Component {
             Sign Up
           </Button>
         </form>
+        <Button variant='contained' color='secondary' onClick = {this.googleSignup}>
+         Sign Up With Google
+        </Button>
       </div>
     );
   }

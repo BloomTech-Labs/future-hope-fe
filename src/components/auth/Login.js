@@ -71,6 +71,9 @@ class Login extends React.Component {
         <Button variant='contained' color='secondary' onClick = {signInWithGoogle}>
           Login with Google
         </Button>
+        <Button variant='contained' color='secondary' onClick = {() => auth.signOut()}>
+        signout
+        </Button> //! Button needs to be added to Navbar
         <Button
           variant='contained'
           color='primary'
@@ -116,7 +119,7 @@ class Login extends React.Component {
             </Button>
           </form>
         </div>
-      </div>
+        </div>
     );
   }
 }
