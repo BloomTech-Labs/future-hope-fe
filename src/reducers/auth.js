@@ -11,7 +11,7 @@ const initialState = {};
 
 //! Just basic scaffolding, what to do with the payload?
 export const authReducer = (state = initialState, action) => {
-  console.log("signupReducer", action);
+  // console.log("signupReducer", action);
   switch (action.type) {
     case SIGNUP_START:
       return {

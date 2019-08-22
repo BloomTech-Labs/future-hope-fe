@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
+// import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,10 +37,15 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Future Hope School in the Sky
           </Typography>
-          <a href="/faq" alt="faq"><Button color="primary">FAQ</Button></a>
+          {/* <NavLink to="/mentors">View Mentors</NavLink> */}
+          <a href='/mentors' alt='laaaaaaaammmmmeeeee'>
+            <Button color="primary">
+              View Mentors
+            </Button>
+          </a>
           <Button color="primary">Mission</Button>
-          <Button color="primary">Login</Button>
-          <Button color="primary">SignUp</Button>
+          <Button color="primary" href='/login'>Login</Button>
+          <Button color="primary" href='/signup'>SignUp</Button>
         </Toolbar>
       </AppBar>      
     </div>
