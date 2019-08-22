@@ -1,5 +1,24 @@
 .signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 16px;
+  width: 45%;
+  max-width: 600px;
+  margin: auto;
+  button {
+    width: 190px;
+    height: 45px;
+    margin: 8px 0;
+  }
+  input {
+    padding: 8px;
+  }
   .signup-form {
+    display: flex;
+    flex-direction: column;
+    input {
+    }
     .hidden {
       display: none;
     }

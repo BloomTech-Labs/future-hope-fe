@@ -44,8 +44,8 @@ class App extends React.Component {
           await userRef.set({
             uid,
             email,
-            fullName: displayName,
-            photoURL
+            fullName: displayName || "",
+            photoURL: photoURL || ""
           });
           let userReturn = await userRef.get();
           // get it back, put it in state, and forward to the rest of the login

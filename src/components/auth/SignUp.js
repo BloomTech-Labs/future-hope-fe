@@ -2,23 +2,29 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { signUp } from "../../actions/auth.js";
+
 import Button from "@material-ui/core/Button";
-import { signInWithGoogle, firestore } from "../../config/fbConfig.js";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+import { signInWithGoogle, firestore, auth } from "../../config/fbConfig.js";
 import { makeStyles } from "@material-ui/styles";
 
 import "./SignUp.scss";
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1)
-  },
-  noRender: {
-    display: "none"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   button: {
+//     margin: theme.spacing(1)
+//   },
+//   noRender: {
+//     display: "none"
+//   }
+// }));
 
 class SignUp extends React.Component {
-  classes = useStyles();
+  // classes = useStyles();
 
   state = {
     // wasRedirected is here so that we can conditionally render some of the ui elements
@@ -57,139 +63,202 @@ class SignUp extends React.Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    this.props.signUp(this.state);
-  };
+    // this.props.signUp(this.state);
+    // console.log("signing up your account!");
 
-  googleSignup = async e => {
-    if (this.props.user) {
+    if (this.state.wasRedirected) {
+      // just need to update the users account with all credentials
       let userRef = firestore.collection("users").doc(this.props.user.uid);
       await userRef.set({
         uid: this.props.user.uid,
-        email: this.props.user.email,
-        fullName: this.props.displayName,
-        photoUrl: this.props.photoURL
+        email: this.state.email,
+        fullName: this.state.fullName,
+        photoUrl: this.props.photoURL || "",
+        userType: this.state.userType,
+        city: this.state.city,
+        stateProvince: this.state.stateProvince,
+        country: this.state.country,
+        phoneNumber: this.state.phoneNumber,
+        aboutMe: this.state.aboutMe,
+        // all users MUST be approved before gaining full access
+        usersAwaitingApproval: true
       });
-      //!  this.props.history.push() Awaiting initial component after login success
+      alert("User has been created after being redirected!");
     } else {
-      await signInWithGoogle();
-      // let userRef = firestore.collection('users').doc(this.props.user.uid)
-      // let isUser = await userRef.get()
-      // let userRef = firestore.collection('usersAwaitingApproval').doc(this.props.user.uid)
-      // console.log('isUser inside Signup', isUser)
-      // if (isUser.exists) {
-      //   console.log('user exists', isUser);
-      // }
+      // user is creating a brand new account with email and password
+      await auth.createUserWithEmailAndPassword(
+        this.state.email,
+        this.state.password
+      );
+      const uid = auth.currentUser.uid;
+      const userRef = firestore.collection("users").doc(uid);
+      await userRef.set({
+        // just retrieved the uid
+        uid,
+        email: this.state.email,
+        fullName: this.state.fullName,
+        photoUrl: auth.currentUser.photoURL || "",
+        userType: this.state.userType,
+        city: this.state.city,
+        stateProvince: this.state.stateProvince,
+        country: this.state.country,
+        phoneNumber: this.state.phoneNumber,
+        aboutMe: this.state.aboutMe,
+        // all users MUST be approved before gaining full access
+        usersAwaitingApproval: true
+      });
+      alert("created your new account with a username and password!");
     }
   };
 
+  googleSignup = async e => {
+    // people should only be clicking "sign up with google" if they werent redirected
+    // get their google credentials
+    await signInWithGoogle();
+    // get the now created users uid
+    let uid = auth.currentUser.uid;
+    // create the user document and log the user in
+    const userRef = firestore.collection("users").doc(uid);
+    await userRef.set({
+      // just retrieved the uid
+      uid,
+      email: this.state.email,
+      fullName: this.state.fullName,
+      photoUrl: auth.currentUser.photoURL || "",
+      userType: this.state.userType,
+      city: this.state.city,
+      stateProvince: this.state.stateProvince,
+      country: this.state.country,
+      phoneNumber: this.state.phoneNumber,
+      aboutMe: this.state.aboutMe,
+      // all users MUST be approved before gaining full access
+      usersAwaitingApproval: true
+    });
+
+    alert("created your new gmail user!");
+  };
+
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     return (
-      <div className='signup-wrapper'>
-        <form className='signup-form' onSubmit={this.handleSubmit}>
-          <h5>Sign Up as {this.state.userType}</h5>
+      <div className="signup-wrapper">
+        <form className="signup-form" onSubmit={this.handleSubmit}>
+          <h5>Sign Up</h5>
           <TextField
             required
-            id='standard-name'
-            label='Name'
+            id="standard-name"
+            label="Name"
             value={this.state.fullName}
             onChange={this.handleChange}
-            margin='normal'
-            name='fullName'
+            margin="normal"
+            name="fullName"
           />
           <TextField
             required
-            id='standard-name'
-            label='email'
+            id="standard-name"
+            label="email"
             value={this.state.email}
             onChange={this.handleChange}
-            margin='normal'
-            name='email'
+            margin="normal"
+            name="email"
           />
+          {!this.state.wasRedirected && (
+            <TextField
+              required
+              className={`${this.state.wasRedirected ? "hidden" : ""}`}
+              id="standard-password-input"
+              type="password"
+              label="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              margin="normal"
+              name="password"
+            />
+          )}
           <TextField
             required
-            className={`${this.state.wasRedirected ? "hidden" : ""}`}
-            id='standard-password-input'
-            type='password'
-            label='Password'
-            value={this.state.password}
-            onChange={this.handleChange}
-            margin='normal'
-            name='password'
-          />
-          <TextField
-            required
-            id='standard-name'
-            label='City'
+            id="standard-name"
+            label="City"
             value={this.state.city}
             onChange={this.handleChange}
-            margin='normal'
-            name='city'
+            margin="normal"
+            name="city"
           />
           <TextField
             required
-            id='standard-name'
-            label='State or Province'
+            id="standard-name"
+            label="State or Province"
             value={this.state.stateProvince}
             onChange={this.handleChange}
-            margin='normal'
-            name='stateProvince'
+            margin="normal"
+            name="stateProvince"
           />
           <TextField
             required
-            id='standard-name'
-            label='Country'
+            id="standard-name"
+            label="Country"
             value={this.state.country}
             onChange={this.handleChange}
-            margin='normal'
-            name='country'
+            margin="normal"
+            name="country"
           />
           <TextField
             required
-            id='standard-name'
-            label='phoneNumber'
+            id="standard-name"
+            label="phoneNumber"
             value={this.state.phoneNumber}
             onChange={this.handleChange}
-            margin='normal'
-            name='phoneNumber'
+            margin="normal"
+            name="phoneNumber"
           />
           <TextField
             required
-            id='standard-name'
-            label='aboutMe'
+            id="standard-name"
+            label="aboutMe"
             value={this.state.aboutMe}
             onChange={this.handleChange}
-            margin='normal'
-            name='aboutMe'
+            margin="normal"
+            name="aboutMe"
           />
-          <TextField
-            disabled
-            id='standard-name'
-            label='Account Type'
-            value={this.state.userType}
-            margin='normal'
-            name='userType'
-          />
+          <FormControl style={{ minWidth: 160 }}>
+            <InputLabel htmlFor="age-simple">Age</InputLabel>
+            <Select
+              value={this.state.userType}
+              onChange={e => {
+                this.setState({
+                  userType: e.target.value
+                });
+              }}
+            >
+              <MenuItem value="mentor">mentor</MenuItem>
+              <MenuItem value="teacher">teacher</MenuItem>
+            </Select>
+          </FormControl>
           <Button
-            variant='contained'
-            size='large'
-            color='primary'
+            variant="contained"
+            size="large"
+            color="primary"
             onClick={this.handleSubmit}
           >
             Sign Up
           </Button>
         </form>
-        <Button
-          disabled={this.state.wasRedirected}
-          // className={this.state.wasRedirected ? this.classes.noRender : ""}
-          variant='contained'
-          color='secondary'
-          onClick={this.googleSignup}
-        >
-          Sign Up With Google
-        </Button>
+        {!this.state.wasRedirected && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.googleSignup}
+          >
+            Sign Up With Google
+          </Button>
+        )}
+        <p>please note the following:</p>
+        <ul>
+          <li>a "mentor" is volunteer.</li>
+          <li>a "teacher" is a classroom in need of assistance.</li>
+        </ul>
       </div>
     );
   }

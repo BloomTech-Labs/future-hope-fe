@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import {
   signInWithGoogle,
   auth,
-  firestore,
+  // firestore,
   signInWithFacebook
 } from "../../config/fbConfig.js";
 import "./Login.scss";
@@ -59,16 +59,31 @@ class Login extends React.Component {
     });
   };
 
-  handleSubmit = e => {
-    console.log("inside handlesubmit success");
+  handleSubmit = async e => {
     e.preventDefault();
-    this.props.login(this.state.user);
+    // this.props.login(this.state.user);
+    try {
+      // try logging the user in.
+      await auth.signInWithEmailAndPassword(
+        this.state.user.email,
+        this.state.user.password
+      );
+
+      alert("user logged in!");
+    } catch (err) {
+      await auth.createUserWithEmailAndPassword(
+        this.state.user.email,
+        this.state.user.password
+      );
+      alert("created your new user and redirecting you to complete login!");
+    }
+    // console.log(loggedInUser);
   };
 
   toggleEmailLogin = e => {
     e.preventDefault();
     this.setState({
-      loginWithEmail: true
+      loginWithEmail: !this.state.loginWithEmail
     });
   };
 
@@ -96,7 +111,7 @@ class Login extends React.Component {
         >
           signout
         </Button>{" "}
-        //! Button needs to be added to Navbar
+        {/* //! Button needs to be added to Navbar */}
         <Button
           variant="contained"
           color="primary"

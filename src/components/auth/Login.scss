@@ -1,3 +1,16 @@
 .hidden {
   display: none;
 }
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+  button {
+    margin: 16px auto;
+    width: 200px;
+    height: 50px;
+  }
+}
