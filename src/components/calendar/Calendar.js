@@ -3,30 +3,39 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import flatpickr from 'flatpickr';
+import './flatpickr.min.css';
+import './flatpickr.css';
+import swal from 'sweetalert';
 
 import "./main.scss";
 
 export default class Calendar extends React.Component {
-  calendarComponentRef = React.createRef();
+  calendarComponentRef = React.createRef();    
   state = {
-    calendarWeekends: true,
-    // instead of having calendar events in state, simply pass them in on props
-    calendarEvents: [
-      // initial event data
-      { title: "Event Now", start: new Date() },
-      { title: "Meeting with friends", start: new Date("2019-8-8") }
-    ]
+    calendarWeekends: true,    
+    displayPicker: true,
+    events: []
   };
 
-  render() {
-    return (
-      <div className="demo-app" style={{ marginTop: 100 }}>
+componentDidMount = () => {
+  // Set state to the prop events
+  this.setState({
+    ...this.state,
+    events: this.props.events
+  });
+}
+
+render() {       
+        return (      
+      <div className="demo-app" style={{ marginTop: 100 }}>        
         <div className="demo-app-top">
           <button onClick={this.toggleWeekends}>toggle weekends</button>&nbsp;
-          <button onClick={this.gotoPast}>go to a date in the past</button>
+          <button id="futureButton" onClick={this.gotoPast}>Schedule future appointment</button>
           &nbsp; (also, click a date/time to add an event)
         </div>
-        <div className="demo-app-calendar">
+        <div className="demo-app-calendar">          
+          <input type="text" id="datepicker" placeholder="Set meeting time..." />
           <FullCalendar
             defaultView="dayGridMonth"
             header={{
@@ -37,12 +46,12 @@ export default class Calendar extends React.Component {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
-            events={this.state.calendarEvents}
+            events={this.state.events}
             dateClick={this.handleDateClick}
           />
-        </div>
+        </div>        
       </div>
-    );
+    );    
   }
 
   toggleWeekends = () => {
@@ -52,13 +61,67 @@ export default class Calendar extends React.Component {
     });
   };
 
-  gotoPast = () => {
-    let calendarApi = this.calendarComponentRef.current.getApi();
-    calendarApi.gotoDate("2000-01-01"); // call a method on the Calendar object
+  gotoPast = () => { 
+    let calendarApi = this.calendarComponentRef.current.getApi();  
+    // TODO: Open the datepicker to choose a date to navigate to...  
+    const myInput = document.querySelector("#futureButton");
+    const fp = flatpickr(myInput, {position: "below", enableTime: true, noCalendar: false, dateFormat: "H:i", timeZone: "local", onClose: () => {           
+        calendarApi.gotoDate(fp.selectedDates[0]);
+        swal({
+          title: "Schedule Meeting?",
+          text: "Meeting will be added to the calendar!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: false,
+        })
+        .then((scheduleAppointment) => {
+          if (scheduleAppointment) {
+            // Add the date and time selected to the scheduled events                                
+            this.setState({
+              ...this.state,
+                events: [...this.state.events, {title: 'Meeting', start: fp.selectedDates[0]}]
+            });          
+            swal("Meeting has been added to the calendar!", {
+              icon: "success",
+            });
+          } else {
+            swal("Cancelled, your meeting has not been set!");
+          }
+        });  
+    }});
+    fp.open();        
   };
 
+  
+
   handleDateClick = arg => {
-    console.log(arg);
-    // create a new meeting!
+    const myInput = document.querySelector("#datepicker");
+    const fp = flatpickr(myInput, {position: "below", enableTime: true, noCalendar: true, dateFormat: "H:i", timeZone: "local", onClose: () => {       
+      swal({
+        title: "Schedule Meeting?",
+        text: "Meeting will be added to the calendar!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: false,
+      })
+      .then((scheduleAppointment) => {
+        if (scheduleAppointment) {
+          // Add the date and time selected to the scheduled events          
+          let meetingDate = new Date(arg.date.getFullYear(), arg.date.getMonth(), arg.date.getDate(), fp.selectedDates[0].getHours(), fp.selectedDates[0].getMinutes(), 0, 0);          
+          this.setState({
+            ...this.state,
+              events: [...this.state.events, {title: 'Meeting', start: meetingDate}]
+          });          
+          swal("Meeting has been added to the calendar!", {
+            icon: "success",
+          });
+        } else {
+          swal("Cancelled, your meeting has not been set!");
+        }
+      });
+  
+    }});
+    fp.open();        
   };
+  
 }
