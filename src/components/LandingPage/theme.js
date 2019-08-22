@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { green, grey, red } from '@material-ui/core/colors';
+import { green, lightGreen, deepPurple, grey, red, purple, yellow } from '@material-ui/core/colors';
 
 const rawTheme = createMuiTheme({
   palette: {
@@ -7,11 +7,19 @@ const rawTheme = createMuiTheme({
       light: '#69696a',
       main: '#28282a',
       dark: '#1e1e1f',
+      purple: deepPurple[300],
+      yellow: yellow[500],
+      green: lightGreen[200]
     },
     secondary: {
       light: '#fff5f8',
       main:  green[500],
       dark: '#e62958',
+    },
+    impactCards: {
+      first: lightGreen[200],
+      second: yellow[200],
+      third: purple[200]
     },
     warning: {
       main: '#ffc071',
