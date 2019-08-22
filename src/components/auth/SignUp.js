@@ -111,6 +111,18 @@ class SignUp extends React.Component {
       });
       alert("created your new account with a username and password!");
     }
+
+    let uid = auth.currentUser.uid;
+    console.log("hi hey look here", uid);
+    // get all of their info so we can set up a listener and route them
+    const userRef = firestore.collection("users").doc(uid);
+    const userInfo = await userRef.get();
+    // set up the listener on app.js
+    // console.log("setting up user listener!", userInfo);
+    this.props.setupUserListener(userInfo);
+    // console.log("rerouting user", userInfo.data());
+    const routeTo = this.props.routeUser(userInfo.data());
+    this.props.history.push(routeTo);
   };
 
   googleSignup = async e => {
@@ -138,6 +150,14 @@ class SignUp extends React.Component {
     });
 
     alert("created your new gmail user!");
+    console.log("hi hey look here", uid);
+    const userInfo = await userRef.get();
+    // set up the listener on app.js
+    // console.log("setting up user listener!", userInfo);
+    this.props.setupUserListener(userInfo);
+    // console.log("rerouting user", userInfo.data());
+    const routeTo = this.props.routeUser(userInfo.data());
+    this.props.history.push(routeTo);
   };
 
   render() {

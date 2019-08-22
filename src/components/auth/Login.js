@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import {
   signInWithGoogle,
   auth,
-  // firestore,
+  firestore,
   signInWithFacebook
 } from "../../config/fbConfig.js";
 import "./Login.scss";
@@ -68,14 +68,25 @@ class Login extends React.Component {
         this.state.user.email,
         this.state.user.password
       );
-
-      alert("user logged in!");
+      // get the now logged in users UID from the auth object
+      let uid = auth.currentUser.uid;
+      // get all of their info so we can set up a listener and route them
+      const userRef = firestore.collection("users").doc(uid);
+      const userInfo = await userRef.get();
+      // set up the listener on app.js
+      // console.log("setting up user listener!", userInfo);
+      this.props.setupUserListener(userInfo);
+      // console.log("rerouting user", userInfo.data());
+      const routeTo = this.props.routeUser(userInfo.data());
+      this.props.history.push(routeTo);
+      // alert("user logged in!");
     } catch (err) {
-      await auth.createUserWithEmailAndPassword(
-        this.state.user.email,
-        this.state.user.password
-      );
-      alert("created your new user and redirecting you to complete login!");
+      // console.log("hey, heres the error you need to look at!", err);
+      // await auth.createUserWithEmailAndPassword(
+      //   this.state.user.email,
+      //   this.state.user.password
+      // );
+      alert("Please go to signup page!");
     }
     // console.log(loggedInUser);
   };
@@ -90,17 +101,35 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-container">
-        <FacebookButton
+        {/* <FacebookButton
           variant="contained"
           color="secondary"
           onClick={signInWithFacebook}
         >
           Login with Facebook
-        </FacebookButton>
+        </FacebookButton> */}
         <Button
           variant="contained"
           color="secondary"
-          onClick={signInWithGoogle}
+          onClick={async () => {
+            try {
+              await signInWithGoogle();
+
+              // get the now logged in users UID from the auth object
+              let uid = auth.currentUser.uid;
+              // get all of their info so we can set up a listener and route them
+              const userRef = firestore.collection("users").doc(uid);
+              const userInfo = await userRef.get();
+              // set up the listener on app.js
+              // console.log("setting up user listener!", userInfo);
+              this.props.setupUserListener(userInfo);
+              // console.log("rerouting user", userInfo.data());
+              const routeTo = this.props.routeUser(userInfo.data());
+              this.props.history.push(routeTo);
+            } catch (err) {
+              // handel error
+            }
+          }}
         >
           Login with Google
         </Button>

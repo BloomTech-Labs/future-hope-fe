@@ -9,7 +9,7 @@ import { auth, firestore } from "./config/fbConfig.js";
 
 import "firebase/auth";
 import LandingPage from "./components/LandingPage";
-import Page404 from "./components/Page404";
+// import Page404 from "./components/Page404";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 
@@ -17,10 +17,12 @@ import "./App.css";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
+  unsubsribeFromUser = null;
 
   state = {
     rerouteUser: false,
-    user: null
+    user: null,
+    userListenerCreated: false
   };
 
   componentDidMount = () => {
@@ -31,14 +33,7 @@ class App extends React.Component {
         let isUser = await userRef.get();
         // console.log(isUser, "isUser");
         if (isUser.exists) {
-          // console.log("user exists", isUser);
-          // put the user into state!
-          // check isUser.accountType
-          // if isUser.accountType === "mentor"
-          // history.push('mentorDashboard')
-          // if isUser.accountType === "teacher"
-          // history.push("teacherDashboard")
-          //!  this.props.history.push() Awaiting initial component after login success
+          this.setupUserListener(isUser.data());
         } else {
           // create the baseline user entry and place it into the database
           await userRef.set({
@@ -58,8 +53,46 @@ class App extends React.Component {
       }
     });
   };
+
+  setupUserListener = user => {
+    let uid = user.uid;
+    if (this.state.userListenerCreated) {
+      return;
+    }
+    console.log(uid);
+    // takes in the user thats logged in
+    // sets up listenever to their document
+    this.unsubsribeFromUser = firestore
+      .collection("users")
+      .doc(`${user.uid}`)
+      .onSnapshot(snapshot => {
+        let curStateOfUser = {
+          uid: snapshot.id,
+          ...snapshot.data()
+        };
+        console.log("cur state of user", curStateOfUser);
+      });
+    this.setState({
+      userListenerCreated: true
+    });
+  };
+
+  routeUser = user => {
+    if (user.userType === "mentor") {
+      // this.props.history.push("/mentor_dahsboard");
+      return "/mentor_dashboard";
+    } else if (user.userType === "teacher") {
+      // this.props.history.push("/teacher_dahsboard");
+      return "/teacher_dashboard";
+    } else {
+      this.props.history.push("/");
+      return "/";
+    }
+  };
+
   componentWillUnmount = () => {
     this.unsubscribeFromAuth(); //clean up after yourself
+    this.unsubsribeFromUser();
   };
 
   render() {
@@ -70,12 +103,24 @@ class App extends React.Component {
           <Route
             exact
             path="/signup"
-            render={props => <SignUp {...props} user={this.state.user} />}
+            render={props => (
+              <SignUp
+                setupUserListener={this.setupUserListener}
+                routeUser={this.routeUser}
+                {...props}
+                user={this.state.user}
+              />
+            )}
           />
           <Route
             path="/login"
             render={props => (
-              <Login {...props} rerouteUser={this.state.rerouteUser} />
+              <Login
+                setupUserListener={this.setupUserListener}
+                routeUser={this.routeUser}
+                {...props}
+                rerouteUser={this.state.rerouteUser}
+              />
             )}
           />
         </Switch>
