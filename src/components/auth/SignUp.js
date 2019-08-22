@@ -10,22 +10,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 import { signInWithGoogle, firestore, auth } from "../../config/fbConfig.js";
-import { makeStyles } from "@material-ui/styles";
 
 import "./SignUp.scss";
 
-// const useStyles = makeStyles(theme => ({
-//   button: {
-//     margin: theme.spacing(1)
-//   },
-//   noRender: {
-//     display: "none"
-//   }
-// }));
-
 class SignUp extends React.Component {
-  // classes = useStyles();
-
   state = {
     // wasRedirected is here so that we can conditionally render some of the ui elements
     // dependent on wether this user went directly to the signup page, or they were pushed here
@@ -163,87 +151,88 @@ class SignUp extends React.Component {
   render() {
     // console.log(this.props.user);
     return (
-      <div className="signup-wrapper">
-        <form className="signup-form" onSubmit={this.handleSubmit}>
+      <div className='signup-wrapper'>
+        <form className='signup-form' onSubmit={this.handleSubmit}>
           <h5>Sign Up</h5>
           <TextField
             required
-            id="standard-name"
-            label="Name"
+            id='standard-name'
+            label='Name'
             value={this.state.fullName}
             onChange={this.handleChange}
-            margin="normal"
-            name="fullName"
+            margin='normal'
+            name='fullName'
           />
           <TextField
             required
-            id="standard-name"
-            label="email"
+            id='standard-name'
+            label='Email'
             value={this.state.email}
             onChange={this.handleChange}
-            margin="normal"
-            name="email"
+            margin='normal'
+            name='email'
+            type='email'
           />
           {!this.state.wasRedirected && (
             <TextField
               required
               className={`${this.state.wasRedirected ? "hidden" : ""}`}
-              id="standard-password-input"
-              type="password"
-              label="Password"
+              id='standard-password-input'
+              type='password'
+              label='Password'
               value={this.state.password}
               onChange={this.handleChange}
-              margin="normal"
-              name="password"
+              margin='normal'
+              name='password'
             />
           )}
           <TextField
             required
-            id="standard-name"
-            label="City"
+            id='standard-name'
+            label='City'
             value={this.state.city}
             onChange={this.handleChange}
-            margin="normal"
-            name="city"
+            margin='normal'
+            name='city'
           />
           <TextField
             required
-            id="standard-name"
-            label="State or Province"
+            id='standard-name'
+            label='State or Province'
             value={this.state.stateProvince}
             onChange={this.handleChange}
-            margin="normal"
-            name="stateProvince"
+            margin='normal'
+            name='stateProvince'
           />
           <TextField
             required
-            id="standard-name"
-            label="Country"
+            id='standard-name'
+            label='Country'
             value={this.state.country}
             onChange={this.handleChange}
-            margin="normal"
-            name="country"
+            margin='normal'
+            name='country'
           />
           <TextField
             required
-            id="standard-name"
-            label="phoneNumber"
+            id='standard-name'
+            label='Phone Number'
             value={this.state.phoneNumber}
             onChange={this.handleChange}
-            margin="normal"
-            name="phoneNumber"
+            margin='normal'
+            name='phoneNumber'
           />
           <TextField
             required
-            id="standard-name"
-            label="aboutMe"
+            id='standard-name'
+            label='About Me'
             value={this.state.aboutMe}
             onChange={this.handleChange}
-            margin="normal"
-            name="aboutMe"
+            margin='normal'
+            name='aboutMe'
           />
           <FormControl style={{ minWidth: 160 }}>
-            <InputLabel htmlFor="age-simple">Age</InputLabel>
+            <InputLabel htmlFor='age-simple'>Account Type</InputLabel>
             <Select
               value={this.state.userType}
               onChange={e => {
@@ -252,14 +241,14 @@ class SignUp extends React.Component {
                 });
               }}
             >
-              <MenuItem value="mentor">mentor</MenuItem>
-              <MenuItem value="teacher">teacher</MenuItem>
+              <MenuItem value='mentor'>Mentor</MenuItem>
+              <MenuItem value='teacher'>Teacher</MenuItem>
             </Select>
           </FormControl>
           <Button
-            variant="contained"
-            size="large"
-            color="primary"
+            variant='contained'
+            size='large'
+            color='primary'
             onClick={this.handleSubmit}
           >
             Sign Up
@@ -267,8 +256,8 @@ class SignUp extends React.Component {
         </form>
         {!this.state.wasRedirected && (
           <Button
-            variant="contained"
-            color="secondary"
+            variant='contained'
+            color='secondary'
             onClick={this.googleSignup}
           >
             Sign Up With Google
