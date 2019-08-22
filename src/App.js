@@ -9,9 +9,11 @@ import { auth, firestore } from "./config/fbConfig.js";
 
 import "firebase/auth";
 import LandingPage from "./components/LandingPage";
-// import Page404 from "./components/Page404";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
+import Navbar from "./components/navbar/Navbar";
+import MentorList from "./components/mentors/MentorList";
+import FAQ from "./components/FAQ/FAQ";
 
 import "./App.css";
 
@@ -98,11 +100,14 @@ class App extends React.Component {
   render() {
     return (
       <Router>
+        <Navbar />
         <Switch>
-          <Route exact path="/" component={LandingPage} />
+          <Route exact path='/' component={LandingPage} />
+          <Route path='/mentors' component={MentorList} />
+          <Route path='/FAQ' component={FAQ} />
           <Route
             exact
-            path="/signup"
+            path='/signup'
             render={props => (
               <SignUp
                 setupUserListener={this.setupUserListener}
@@ -113,7 +118,7 @@ class App extends React.Component {
             )}
           />
           <Route
-            path="/login"
+            path='/login'
             render={props => (
               <Login
                 setupUserListener={this.setupUserListener}
