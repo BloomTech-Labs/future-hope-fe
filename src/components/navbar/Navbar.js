@@ -5,8 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import swal from 'sweetalert';
-import Calendar from '../calendar/Calendar';
 // import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles(theme => ({
@@ -20,11 +18,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   }
 }));
-const startTime = new Date();
-const events = [{ title: 'Doctors', start: startTime}, 
-{title: 'Shopping', start: startTime},
- {title: 'Sleep', start: startTime}];
-
 
 const Navbar = () => {
   const classes = useStyles();
@@ -46,8 +39,7 @@ const Navbar = () => {
           <Button color="primary">Login</Button>
           <Button color="primary">SignUp</Button>
         </Toolbar>
-      </AppBar>
-      <Calendar events={events} />
+      </AppBar>      
     </div>
   );
 
