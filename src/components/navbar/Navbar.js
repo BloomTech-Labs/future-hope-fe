@@ -11,7 +11,8 @@ import Calendar from '../calendar/Calendar';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: 90
   },
   menuButton: {
     marginRight: theme.spacing(2)
