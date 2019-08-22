@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function FAQ() {
+ const FAQ = () => {
   const classes = useStyles();
 
   return (
@@ -90,3 +90,5 @@ export default function FAQ() {
     </div>
   );
 }
+
+export default FAQ;

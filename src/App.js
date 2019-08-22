@@ -1,26 +1,25 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   withRouter
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Navbar from "./components/navbar/Navbar";
-import Page404 from "./components/Page404";
+// import Page404 from "./components/Page404";
 import FAQ from "./components/FAQ/FAQ";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <>
       <Navbar />
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route component={Page404} />
+        {/* <Route component={Page404} /> */}
         <Route path="/faq" component={FAQ} />
       </Switch>
-    </Router>
+    </>
   );
 }
 

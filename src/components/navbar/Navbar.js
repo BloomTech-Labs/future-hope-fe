@@ -35,13 +35,15 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Future Hope School in the Sky
           </Typography>
+          <a href="/faq" alt="faq"><Button color="primary">FAQ</Button></a>
           <Button color="primary">Mission</Button>
           <Button color="primary">Login</Button>
           <Button color="primary">SignUp</Button>
         </Toolbar>
-      </AppBar>
+      </AppBar>      
     </div>
   );
+
 };
 
 export default Navbar;
