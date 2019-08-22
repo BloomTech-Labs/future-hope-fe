@@ -8,7 +8,7 @@ const initialState = {};
 
 //! Just basic scaffolding, what to do with the payload?
 const meetingsReducer = (state = initialState, action) => {
-  console.log("reducer", action);
+  // console.log("reducer", action);
   switch (action.type) {
     case MEETING_CREATE:
       return {
@@ -19,6 +19,10 @@ const meetingsReducer = (state = initialState, action) => {
         ...state
       };
     case MEETING_CREATE_FAIL:
+      return {
+        ...state
+      };
+    default:
       return {
         ...state
       };

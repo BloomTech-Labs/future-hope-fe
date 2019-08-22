@@ -1,28 +1,27 @@
 import React from "react";
-import { ThemeProvider } from '@material-ui/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from "@material-ui/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import LandingHero from "./LandingHero";
-import theme from './theme';
+import theme from "./theme";
 
-const LandingPage = (props) => {
-  return(
-<React.Fragment>
-    <div>Welcome to Future Hope School!</div>
-    {/* <AppAppBar /> */}
-    <ThemeProvider theme={theme}>
+const LandingPage = props => {
+  return (
+    <React.Fragment>
+      {/* <AppAppBar /> */}
+      <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <LandingHero />
-    </ThemeProvider>
-    
-    {/* <ProductValues />
+      </ThemeProvider>
+
+      {/* <ProductValues />
     <ProductCategories />
     <ProductHowItWorks />
     <ProductCTA />
     <ProductSmokingHero />
     <AppFooter /> */}
-  </React.Fragment>
-  )
+    </React.Fragment>
+  );
 };
 
 export default LandingPage;
