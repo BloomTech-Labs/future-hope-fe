@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth.js";
+import { login, userStore } from "../../actions/auth.js";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -78,6 +78,9 @@ class Login extends React.Component {
       this.props.setupUserListener(userInfo);
       // console.log("rerouting user", userInfo.data());
       const routeTo = this.props.routeUser(userInfo.data());
+      console.log('userInfo', userInfo)
+      console.log('auth.currentUser', auth.currentUser)
+      
       this.props.history.push(routeTo);
       // alert("user logged in!");
     } catch (err) {
@@ -99,9 +102,10 @@ class Login extends React.Component {
       //   this.state.user.email,
       //   this.state.user.password
       // );
-      alert("Please go to signup page!");
     }
     // console.log(loggedInUser);
+    //* This calls the userStore action in order to store current user data in the redux store.
+    this.props.userStore(auth.currentUser);
   };
 
   toggleEmailLogin = e => {
@@ -213,7 +217,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: creds => dispatch(login(creds))
+    login: creds => dispatch(login(creds)),
+    userStore: user => dispatch(userStore(user))
   };
 };
 
