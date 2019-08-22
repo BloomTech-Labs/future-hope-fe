@@ -75,11 +75,17 @@ class SignUp extends React.Component {
       });
       alert("User has been created after being redirected!");
     } else {
+      console.log("triggered");
       // user is creating a brand new account with email and password
-      await auth.createUserWithEmailAndPassword(
-        this.state.email,
-        this.state.password
-      );
+      try {
+        await auth.createUserWithEmailAndPassword(
+          this.state.email,
+          this.state.password
+        );
+      } catch (err) {
+        alert(err.message);
+        //! return something after the error so that it doesn't keep going
+      }
       const uid = auth.currentUser.uid;
       const userRef = firestore.collection("users").doc(uid);
       await userRef.set({
@@ -105,6 +111,7 @@ class SignUp extends React.Component {
     // get all of their info so we can set up a listener and route them
     const userRef = firestore.collection("users").doc(uid);
     const userInfo = await userRef.get();
+    console.log(userInfo);
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo);

@@ -81,6 +81,19 @@ class Login extends React.Component {
       this.props.history.push(routeTo);
       // alert("user logged in!");
     } catch (err) {
+      //this is to find out if the person loggin in has already made an account, or
+      //if they just typed their email / pw wrong
+      const ifUser = await firestore
+        .collection("users")
+        .where("email", "==", this.state.user.email)
+        .get();
+      //ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
+      if (ifUser.docs.length) {
+        alert("Incorrect Email or Password");
+      } else {
+        //email doesn't exist, so sign it up dummy
+        alert("Account does not exist, please signup");
+      }
       // console.log("hey, heres the error you need to look at!", err);
       // await auth.createUserWithEmailAndPassword(
       //   this.state.user.email,
@@ -100,7 +113,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-container">
+      <div className='login-container'>
         {/* <FacebookButton
           variant="contained"
           color="secondary"
@@ -109,8 +122,8 @@ class Login extends React.Component {
           Login with Facebook
         </FacebookButton> */}
         <Button
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           onClick={async () => {
             try {
               await signInWithGoogle();
@@ -134,16 +147,16 @@ class Login extends React.Component {
           Login with Google
         </Button>
         <Button
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           onClick={() => auth.signOut()}
         >
           signout
         </Button>{" "}
         {/* //! Button needs to be added to Navbar */}
         <Button
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           onClick={e => this.toggleEmailLogin(e)}
         >
           Login with Email
@@ -157,29 +170,29 @@ class Login extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <TextField
               required
-              id="standard-required-email-input"
-              label="Email"
-              margin="normal"
-              type="email"
-              name="email"
-              autoComplete="email"
+              id='standard-required-email-input'
+              label='Email'
+              margin='normal'
+              type='email'
+              name='email'
+              autoComplete='email'
               value={this.state.user.email}
               onChange={this.handleChange}
             />
             <TextField
               required
-              id="standard-password-input"
-              label="Password"
-              margin="normal"
-              type="password"
-              name="password"
+              id='standard-password-input'
+              label='Password'
+              margin='normal'
+              type='password'
+              name='password'
               value={this.state.user.password}
               onChange={this.handleChange}
             />
             <Button
-              variant="outlined"
-              size="large"
-              color="primary"
+              variant='outlined'
+              size='large'
+              color='primary'
               onClick={this.handleSubmit}
             >
               Sign Up
