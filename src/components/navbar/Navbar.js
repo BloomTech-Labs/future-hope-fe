@@ -37,12 +37,14 @@ const Navbar = () => {
             Future Hope School in the Sky
           </Typography>
           {/* <NavLink to="/mentors">View Mentors</NavLink> */}
-          <Button color="primary" href="/mentors">
-            View Mentors
-          </Button>
+          <a href='/mentors' alt='laaaaaaaammmmmeeeee'>
+            <Button color="primary">
+              View Mentors
+            </Button>
+          </a>
           <Button color="primary">Mission</Button>
-          <Button color="primary">Login</Button>
-          <Button color="primary">SignUp</Button>
+          <Button color="primary" href='/login'>Login</Button>
+          <Button color="primary" href='/signup'>SignUp</Button>
         </Toolbar>
       </AppBar>
     </div>
