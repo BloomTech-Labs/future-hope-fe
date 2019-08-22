@@ -14,6 +14,7 @@ import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
+import Calendar from "./components/calendar/Calendar";
 
 import "./App.css";
 
@@ -102,6 +103,7 @@ class App extends React.Component {
       <Router>
         <Navbar />
         <Switch>
+          <Route path='/calendar' component={Calendar} />
           <Route exact path='/' component={LandingPage} />
           <Route path='/mentors' component={MentorList} />
           <Route path='/FAQ' component={FAQ} />

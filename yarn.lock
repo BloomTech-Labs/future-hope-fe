@@ -805,11 +805,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.3.2"
 
-<<<<<<< HEAD
-"@babel/runtime@7.5.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5":
-=======
 "@babel/runtime@7.5.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5":
->>>>>>> Staging
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
@@ -1405,8 +1401,6 @@
     react-transition-group "^4.0.0"
     warning "^4.0.1"
 
-<<<<<<< HEAD
-=======
 "@material-ui/icons@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.2.1.tgz#fe2f1c4f60c24256d244a69d86d0c00e8ed4037e"
@@ -1414,7 +1408,6 @@
   dependencies:
     "@babel/runtime" "^7.2.0"
 
->>>>>>> Staging
 "@material-ui/styles@^4.3.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.3.0.tgz#27f11fbf061d8a20ad5703acb0dbb0e69cc00345"
@@ -10969,14 +10962,11 @@ react-transition-group@^4.0.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-<<<<<<< HEAD
 react-with-firebase-auth@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-with-firebase-auth/-/react-with-firebase-auth-1.0.3.tgz#945b8a33721bef8f2bcd14105bd3a547f9afeab6"
   integrity sha512-1xWopcDUCqkBA+DTBIWoaCk07u350e8CGLcKcSRYRdNtp1DCyI0ckEeui6MHAV3IHxSVCLaEuPS8/KfHfjq6Hg==
 
-=======
->>>>>>> Staging
 react@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
