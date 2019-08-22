@@ -1,0 +1,32 @@
+#bgImg{
+  min-height:100%;
+  background:linear-gradient(0deg,#412146b3,#412146b3),url(./images/landing-page-2.jpeg);
+  background-size:cover;
+}
+
+.cardIcon{
+  height: 35px;
+  width: 100%;
+}
+
+.cardIconWrapper{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: #ffffff;
+  border-radius: 10%;
+}
+
+.cardTextWrapper{
+  color: #ffffff !important;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+.cardTextHead{
+  color: #ffffff !important;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  font-weight: bold;
+}

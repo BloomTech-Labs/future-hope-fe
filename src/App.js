@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import LandingPage from './components/LandingPage/LandingPage'
-
-function App() {
-  return (
-    <div className="App">
-      <LandingPage/>
-    </div>
-=======
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,7 +5,7 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/LandingPage/";
 import Navbar from "./components/navbar/Navbar";
 import Page404 from "./components/Page404";
 import "./App.css";
@@ -29,7 +19,6 @@ function App() {
         <Route component={Page404} />
       </Switch>
     </Router>
->>>>>>> Staging
   );
 }
 

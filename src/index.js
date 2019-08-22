@@ -8,6 +8,7 @@ import logger from "redux-logger";
 import rootReducer from "./reducers/rootReducer";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
+import './index.scss';
 
 import App from "./App";
 import "./index.css";
