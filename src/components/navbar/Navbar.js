@@ -39,9 +39,10 @@ const Navbar = () => {
           <Button color="primary">Login</Button>
           <Button color="primary">SignUp</Button>
         </Toolbar>
-      </AppBar>
+      </AppBar>      
     </div>
   );
+
 };
 
 export default Navbar;
