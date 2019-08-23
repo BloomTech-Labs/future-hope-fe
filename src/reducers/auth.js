@@ -81,6 +81,12 @@ export const authReducer = (state = initialState, action) => {
           usersAwaitingApproval: action.userInfo.usersAwaitingApproval
         }
       }
+    case GET_UESR_INFO_FAIL:
+      console.log('getuserinfo failed');
+      return {
+        ...state,
+        
+      }
     default:
       return {
         ...state

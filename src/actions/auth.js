@@ -65,6 +65,8 @@ export const login = creds => {
 
 //store user info into redux
 export const userStore = user => {
+  //if user exists, then continue. If they don't then log in didn't work.
+  if(user){
   return (dispatch, getState, { getFirebase,  getFirestore  }) => {
     
     const firestore = getFirestore();
@@ -78,11 +80,21 @@ export const userStore = user => {
         userInfo = snapshot.data();
         console.log(userInfo, 'userinfo')
         //dispatches the userInfo to redux store
-        dispatch({ type: GET_USER_INFO_SUCCESS,  userInfo });
-      })
+        //! Need to account for a failure too, though
+        if (snapshot){
+           dispatch({ type: GET_USER_INFO_SUCCESS,  userInfo });
+        } else {
+          dispatch({ type: GET_UESR_INFO_FAIL });
+        }
+    })
       
       
   }
+} else {
+  return (dispatch) => {
+    dispatch({ type: GET_UESR_INFO_FAIL });
+  }
+}
 }
 
 
