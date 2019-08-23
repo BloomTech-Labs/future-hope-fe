@@ -3,12 +3,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import MentorPublicPage from "./MentorPublicPage";
+import "./mentors.css";
 
 const MentorList = props => {
   const { mentors } = props;
   return (
     <div>
-      <h2>Our Mentors Span Across the Globe</h2>
+      <h1 className="mentor-page-title">
+        Our <span className="mentor-page-title-span">BECE Mentors</span> are
+        retired professionals living all over the globe.
+      </h1>
       {mentors.map(mentor => (
         <MentorPublicPage mentorData={mentor} key={mentor.id} />
       ))}

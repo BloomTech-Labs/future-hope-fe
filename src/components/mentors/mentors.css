@@ -1,0 +1,23 @@
+.mentor-page-title {
+  text-align: center;
+}
+
+.mentor-page-title-span {
+  color: #3f51b5;
+}
+
+.mentor-cards {
+  display: inline-block;
+}
+
+.mentor-card-mdcontainer {
+  text-align: center;
+}
+
+.mentor-card-title {
+  font-size: 1.5em;
+}
+
+.mentor-card-text {
+  font-size: 1.25em;
+}
