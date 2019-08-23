@@ -127,9 +127,9 @@ class Login extends React.Component {
   render() {
     return (
       <div className='login-container'>
-         <MDBBtn
-          variant="contained"
-          color="secondary"
+        <MDBBtn
+          variant='contained'
+          color='secondary'
           onClick={async () => {
             try {
               await signInWithFacebook();
@@ -146,15 +146,14 @@ class Login extends React.Component {
               const routeTo = this.props.routeUser(userInfo.data());
               this.props.history.push(routeTo);
               this.props.userStore(auth.currentUser);
-
             } catch (err) {
               // handel error
             }
           }}
         >
           Login with Facebook
-          </MDBBtn>
-        <MDBBtn>
+        </MDBBtn>
+        <MDBBtn
           variant='contained'
           color='red'
           onClick={async () => {
@@ -167,18 +166,22 @@ class Login extends React.Component {
               const userRef = firestore.collection("users").doc(uid);
               const userInfo = await userRef.get();
               // set up the listener on app.js
-              // console.log("setting up user listener!", userInfo);
+              console.log("setting up user listener!", userInfo);
               this.props.setupUserListener(userInfo);
-              // console.log("rerouting user", userInfo.data());
-              const routeTo = this.props.routeUser(userInfo.data());
-              this.props.history.push(routeTo);
-              this.props.userStore(auth.currentUser);
-
+              console.log("rerouting user", userInfo.data());
+              if (userInfo.data().userType) {
+                const routeTo = this.props.routeUser(userInfo.data());
+                this.props.userStore(auth.currentUser);
+                this.props.history.push(routeTo);
+              } else {
+                this.props.history.push("/signup");
+              }
             } catch (err) {
               // handel error
             }
           }}
         >
+          {" "}
           Login with Google
         </MDBBtn>
         <MDBBtn
