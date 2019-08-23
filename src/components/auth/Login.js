@@ -2,8 +2,17 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { login, userStore } from "../../actions/auth.js";
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
+// import Button from "@material-ui/core/Button";
+// import { withStyles } from "@material-ui/core/styles";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody
+} from "mdbreact";
 
 import {
   signInWithGoogle,
@@ -13,22 +22,22 @@ import {
 } from "../../config/fbConfig.js";
 import "./Login.scss";
 
-const FacebookButton = withStyles({
-  root: {
-    background: "#3b5998",
-    borderRadius: 3,
-    border: 0,
-    color: "white",
-    height: 48,
-    padding: "0 30px",
-    "&:hover": {
-      backgroundColor: "#8b9dc3"
-    }
-  },
-  label: {
-    textTransform: "capitalize"
-  }
-})(Button);
+// const FacebookButton = withStyles({
+//   root: {
+//     background: "#3b5998",
+//     borderRadius: 3,
+//     border: 0,
+//     color: "white",
+//     height: 48,
+//     padding: "0 30px",
+//     "&:hover": {
+//       backgroundColor: "#8b9dc3"
+//     }
+//   },
+//   label: {
+//     textTransform: "capitalize"
+//   }
+// })(Button);
 
 class Login extends React.Component {
   state = {
@@ -78,9 +87,9 @@ class Login extends React.Component {
       this.props.setupUserListener(userInfo);
       // console.log("rerouting user", userInfo.data());
       const routeTo = this.props.routeUser(userInfo.data());
-      console.log('userInfo', userInfo)
-      console.log('auth.currentUser', auth.currentUser)
-      
+      console.log("userInfo", userInfo);
+      console.log("auth.currentUser", auth.currentUser);
+
       this.props.history.push(routeTo);
       // alert("user logged in!");
     } catch (err) {
@@ -118,6 +127,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className='login-container'>
+        <h3>Please Login</h3>
         {/* <FacebookButton
           variant="contained"
           color="secondary"
@@ -125,9 +135,9 @@ class Login extends React.Component {
         >
           Login with Facebook
         </FacebookButton> */}
-        <Button
+        <MDBBtn
           variant='contained'
-          color='secondary'
+          color='red'
           onClick={async () => {
             try {
               await signInWithGoogle();
@@ -149,59 +159,66 @@ class Login extends React.Component {
           }}
         >
           Login with Google
-        </Button>
-        <Button
+        </MDBBtn>
+        <MDBBtn
           variant='contained'
           color='secondary'
           onClick={() => auth.signOut()}
         >
           signout
-        </Button>{" "}
+        </MDBBtn>{" "}
         {/* //! Button needs to be added to Navbar */}
-        <Button
+        <MDBBtn
           variant='contained'
           color='primary'
           onClick={e => this.toggleEmailLogin(e)}
         >
           Login with Email
-        </Button>
+        </MDBBtn>
         <div
           className={`email-login-container ${
             this.state.loginWithEmail ? "" : "hidden"
           }`}
         >
-          <h3>Please Login</h3>
-          <form onSubmit={this.handleSubmit}>
-            <TextField
-              required
-              id='standard-required-email-input'
-              label='Email'
-              margin='normal'
-              type='email'
-              name='email'
-              autoComplete='email'
-              value={this.state.user.email}
-              onChange={this.handleChange}
-            />
-            <TextField
-              required
-              id='standard-password-input'
-              label='Password'
-              margin='normal'
-              type='password'
-              name='password'
-              value={this.state.user.password}
-              onChange={this.handleChange}
-            />
-            <Button
-              variant='outlined'
-              size='large'
-              color='primary'
-              onClick={this.handleSubmit}
-            >
-              Sign Up
-            </Button>
-          </form>
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol>
+                <MDBCard>
+                  <MDBCardBody>
+                    <form>
+                      <p className='h4 text-center py-4'>Please Login</p>
+                      <div className='grey-text'>
+                        <MDBInput
+                          label='Your email'
+                          icon='envelope'
+                          group
+                          type='email'
+                          validate
+                          error='wrong'
+                          success='right'
+                          value={this.state.user.email}
+                          onChange={this.handleChange}
+                        />
+                        <MDBInput
+                          label='Your password'
+                          icon='lock'
+                          group
+                          type='password'
+                          validate
+                        />
+
+                        <div className='text-center py-4 mt-3'>
+                          <MDBBtn color='cyan' type='submit'>
+                            Login
+                          </MDBBtn>
+                        </div>
+                      </div>
+                    </form>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
         </div>
       </div>
     );
