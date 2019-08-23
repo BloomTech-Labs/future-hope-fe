@@ -23,8 +23,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Navbar = () => {
+const Navbar = props => {
   const classes = useStyles();
+  //! navbar is showing signedinnav after a user clicks sing in with google on login page. when it
+  //! redirects to sign up, the signed in nav links appear.
   if (!auth.currentUser) {
     return (
       <div className={classes.root}>

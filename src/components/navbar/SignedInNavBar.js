@@ -19,8 +19,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignedInNavBar = () => {
+const SignedInNavBar = props => {
   const classes = useStyles();
+
+  function logout() {
+    auth.signOut();
+    // props.history.push("/login");
+  }
 
   return (
     <div className={classes.root}>
@@ -37,7 +42,7 @@ const SignedInNavBar = () => {
           </Typography>
           <Button color='primary'>Profile</Button>
           <Button color='primary'>Appointments</Button>
-          <Button color='primary' onClick={() => auth.signOut()}>
+          <Button color='primary' href='/login' onClick={logout}>
             Logout
           </Button>
         </Toolbar>

@@ -19,6 +19,7 @@ class SignUp extends React.Component {
     // dependent on wether this user went directly to the signup page, or they were pushed here
     // from login
     signingInWithOAuth: false,
+    showForm: false,
     fullName: "",
     email: "",
     // hey dumby. remember that this shouldnt be hard coded to mentor :D
@@ -53,38 +54,18 @@ class SignUp extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    // this.props.signUp(this.state);
-    // console.log("signing up your account!");
-
-    // if (this.state.signingInWithOAuth) {
-    //   // just need to update the users account with all credentials
-    //   let userRef = firestore.collection("users").doc(this.props.user.uid);
-    //   await userRef.set({
-    //     uid: auth.currentUser.uid,
-    //     email: this.state.email,
-    //     fullName: this.state.fullName,
-    //     photoUrl: auth.currentUser.photoURL || "",
-    //     userType: this.state.userType,
-    //     city: this.state.city,
-    //     stateProvince: this.state.stateProvince,
-    //     country: this.state.country,
-    //     phoneNumber: this.state.phoneNumber,
-    //     aboutMe: this.state.aboutMe,
-    //     // all users MUST be approved before gaining full access
-    //     usersAwaitingApproval: true
-    //   });
-    //   alert("User has been created after being redirected!");
-    // } else {
     console.log("triggered");
     // user is creating a brand new account with email and password
-    try {
-      await auth.createUserWithEmailAndPassword(
-        this.state.email,
-        this.state.password
-      );
-    } catch (err) {
-      alert(err.message);
-      //! return something after the error so that it doesn't keep going
+    if (!this.state.signingInWithOAuth) {
+      try {
+        await auth.createUserWithEmailAndPassword(
+          this.state.email,
+          this.state.password
+        );
+      } catch (err) {
+        alert(err.message);
+        //! return something after the error so that it doesn't keep going
+      }
     }
     const uid = auth.currentUser.uid;
     const userRef = firestore.collection("users").doc(uid);
@@ -101,7 +82,7 @@ class SignUp extends React.Component {
       phoneNumber: this.state.phoneNumber,
       aboutMe: this.state.aboutMe,
       // all users MUST be approved before gaining full access
-      usersAwaitingApproval: true
+      awaitingApproval: true
     });
     alert("created your new account with a username and password!");
     // }
@@ -120,46 +101,6 @@ class SignUp extends React.Component {
     this.props.history.push(routeTo);
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };
-
-  // googleSignup = async e => {
-  //   // people should only be clicking "sign up with google" if they werent redirected
-  //   // get their google credentials
-  //   //! currently, if they don't fill in the form fields, it will just create their account with google info
-  //   //! we might need to make them fill some stuff out first, or instantly redirect them to a page
-  //   //! where they need to edit (put in) their info like locationInfo.
-  //   //! This also fills their email with '' right now
-  //   await signInWithGoogle();
-  //   // get the now created users uid
-  //   let uid = auth.currentUser.uid;
-  //   // create the user document and log the user in
-  //   const userRef = firestore.collection("users").doc(uid);
-  //   await userRef.set({
-  //     // just retrieved the uid
-  //     uid,
-  //     email: this.state.email,
-  //     fullName: this.state.fullName,
-  //     photoUrl: auth.currentUser.photoURL || "",
-  //     userType: this.state.userType,
-  //     city: this.state.city,
-  //     stateProvince: this.state.stateProvince,
-  //     country: this.state.country,
-  //     phoneNumber: this.state.phoneNumber,
-  //     aboutMe: this.state.aboutMe,
-  //     // all users MUST be approved before gaining full access
-  //     usersAwaitingApproval: true
-  //   });
-
-  //   alert("created your new gmail user!");
-  //   console.log("hi hey look here", uid);
-  //   const userInfo = await userRef.get();
-  //   // set up the listener on app.js
-  //   // console.log("setting up user listener!", userInfo);
-  //   this.props.setupUserListener(userInfo);
-  //   // console.log("rerouting user", userInfo.data());
-  //   const routeTo = this.props.routeUser(userInfo.data());
-  //   this.props.history.push(routeTo);
-  //   this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after googlesingup
-  // };
 
   render() {
     console.log("auth.currentUser", auth.currentUser);
@@ -183,9 +124,20 @@ class SignUp extends React.Component {
             Sign Up With Google
           </Button>
         )}
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => this.setState({ showForm: !this.state.showForm })}
+        >
+          Sign Up With Email
+        </Button>
         <div
           className={`signup-form-container ${
-            this.state.signingInWithOAuth ? "" : "hidden"
+            this.state.signingInWithOAuth
+              ? ""
+              : this.state.showForm
+              ? ""
+              : "hidden"
           }`}
         >
           <form className='signup-form' onSubmit={this.handleSubmit}>

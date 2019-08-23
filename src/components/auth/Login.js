@@ -166,9 +166,9 @@ class Login extends React.Component {
               const userRef = firestore.collection("users").doc(uid);
               const userInfo = await userRef.get();
               // set up the listener on app.js
-              console.log("setting up user listener!", userInfo);
+              // console.log("setting up user listener!", userInfo);
               this.props.setupUserListener(userInfo);
-              console.log("rerouting user", userInfo.data());
+              // console.log("rerouting user", userInfo.data());
               if (userInfo.data().userType) {
                 const routeTo = this.props.routeUser(userInfo.data());
                 this.props.userStore(auth.currentUser);

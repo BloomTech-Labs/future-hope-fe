@@ -115,7 +115,6 @@ class App extends React.Component {
                 setupUserListener={this.setupUserListener}
                 routeUser={this.routeUser}
                 {...props}
-                user={this.state.user}
               />
             )}
           />
