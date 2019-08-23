@@ -118,13 +118,33 @@ class Login extends React.Component {
   render() {
     return (
       <div className='login-container'>
-        {/* <FacebookButton
+         <FacebookButton
           variant="contained"
           color="secondary"
-          onClick={signInWithFacebook}
+          onClick={async () => {
+            try {
+              await signInWithFacebook();
+
+              // get the now logged in users UID from the auth object
+              let uid = auth.currentUser.uid;
+              // get all of their info so we can set up a listener and route them
+              const userRef = firestore.collection("users").doc(uid);
+              const userInfo = await userRef.get();
+              // set up the listener on app.js
+              // console.log("setting up user listener!", userInfo);
+              this.props.setupUserListener(userInfo);
+              // console.log("rerouting user", userInfo.data());
+              const routeTo = this.props.routeUser(userInfo.data());
+              this.props.history.push(routeTo);
+              this.props.userStore(auth.currentUser);
+
+            } catch (err) {
+              // handel error
+            }
+          }}
         >
           Login with Facebook
-        </FacebookButton> */}
+        </FacebookButton> 
         <Button
           variant='contained'
           color='secondary'
@@ -143,6 +163,8 @@ class Login extends React.Component {
               // console.log("rerouting user", userInfo.data());
               const routeTo = this.props.routeUser(userInfo.data());
               this.props.history.push(routeTo);
+              this.props.userStore(auth.currentUser);
+
             } catch (err) {
               // handel error
             }

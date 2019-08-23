@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
-import { signUp } from "../../actions/auth.js";
+import { signUp, userStore } from "../../actions/auth.js";
 
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -118,11 +118,17 @@ class SignUp extends React.Component {
     // console.log("rerouting user", userInfo.data());
     const routeTo = this.props.routeUser(userInfo.data());
     this.props.history.push(routeTo);
+    this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
+
   };
 
   googleSignup = async e => {
     // people should only be clicking "sign up with google" if they werent redirected
     // get their google credentials
+    //! currently, if they don't fill in the form fields, it will just create their account with google info
+    //! we might need to make them fill some stuff out first, or instantly redirect them to a page
+    //! where they need to edit (put in) their info like locationInfo.
+    //! This also fills their email with '' right now
     await signInWithGoogle();
     // get the now created users uid
     let uid = auth.currentUser.uid;
@@ -153,6 +159,8 @@ class SignUp extends React.Component {
     // console.log("rerouting user", userInfo.data());
     const routeTo = this.props.routeUser(userInfo.data());
     this.props.history.push(routeTo);
+    this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after googlesingup
+
   };
 
   render() {
@@ -289,7 +297,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: user => dispatch(signUp(user))
+    signUp: user => dispatch(signUp(user)),
+    userStore: user => dispatch(userStore(user))
   };
 };
 

@@ -24,6 +24,7 @@ const initialState = {
     userType: '',
     usersAwaitingApproval: null
   },
+  getUserInfoError: null
 };
 
 //! Just basic scaffolding, what to do with the payload?
@@ -79,13 +80,14 @@ export const authReducer = (state = initialState, action) => {
           uid: action.userInfo.uid,
           userType: action.userInfo.userType,
           usersAwaitingApproval: action.userInfo.usersAwaitingApproval
-        }
+        } ,
+        getUserInfoError: null
       }
     case GET_UESR_INFO_FAIL:
       console.log('getuserinfo failed');
       return {
         ...state,
-        
+        getUserInfoError: action.message
       }
     default:
       return {

@@ -80,11 +80,11 @@ export const userStore = user => {
         userInfo = snapshot.data();
         console.log(userInfo, 'userinfo')
         //dispatches the userInfo to redux store
-        //! Need to account for a failure too, though
+        
         if (snapshot){
            dispatch({ type: GET_USER_INFO_SUCCESS,  userInfo });
         } else {
-          dispatch({ type: GET_UESR_INFO_FAIL });
+          dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data' });
         }
     })
       
@@ -92,7 +92,7 @@ export const userStore = user => {
   }
 } else {
   return (dispatch) => {
-    dispatch({ type: GET_UESR_INFO_FAIL });
+    dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data'  });
   }
 }
 }
