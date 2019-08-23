@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import Calendar from '../calendar/Calendar';
 // import MenuIcon from "@material-ui/icons/Menu";
 // import { NavLink } from "react-router-dom";
 
@@ -20,6 +21,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   }
 }));
+var meetingTime = new Date();
+var meetingTime2 = new Date();
+meetingTime2.setDate(meetingTime.getDate() + 1);
+var events = [{title: 'Meeting', start: meetingTime}, {title: 'Meeting', start: meetingTime2}]
 
 const Navbar = () => {
   const classes = useStyles();
@@ -47,7 +52,8 @@ const Navbar = () => {
           <Button color="primary" href='/login'>Login</Button>
           <Button color="primary" href='/signup'>SignUp</Button>
         </Toolbar>
-      </AppBar>      
+      </AppBar>
+      <Calendar events={events} />      
     </div>
   );
 

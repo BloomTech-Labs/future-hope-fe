@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import Button from "@material-ui/core/Button";
 import flatpickr from 'flatpickr';
 import './flatpickr.min.css';
 import './flatpickr.css';
@@ -26,18 +27,13 @@ componentDidMount = () => {
   });
 }
 
-onCalendarClick = (e) => {
-  console.log("WE GOT HERE")
-
-}
-
 render() {       
         return (      
       <div className="demo-app" style={{ marginTop: 100 }}>        
         <div className="demo-app-top">
-          <button onClick={this.toggleWeekends}>toggle weekends</button>&nbsp;
-          <button id="futureButton" onClick={this.gotoPast}>Schedule future appointment</button>
-          &nbsp; (also, click a date/time to add an event)
+          <Button onClick={this.toggleWeekends}>toggle weekends</Button>&nbsp;
+          <Button id="futureButton" onClick={this.gotoPast}>Schedule future appointment</Button>
+          &nbsp;
         </div>
         <div className="demo-app-calendar">          
           <input type="text" id="datepicker" placeholder="Set meeting time..." />
@@ -49,15 +45,21 @@ render() {
               right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            editable={true}
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
             events={this.state.events}
-            dateClick={this.handleDateClick}
-            onClick={this.onCalendarClick}
+            dateClick={this.handleDateClick}  
+            eventClick={this.handleEventClick}     
+            allDayDefault={false}     
           />
         </div>        
       </div>
     );    
+  }
+
+  handleEventClick = (info) => {
+    console.log(info.event.title);
   }
 
   toggleWeekends = () => {
