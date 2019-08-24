@@ -31,3 +31,4 @@ export default connect(mapStateToProps)(MentorList);
 
 //will need to mapStateToProps here to access mentors from firebase once we have some menyors entered.
 //for now we use dummy-data to render info to the page
+//limit to fetching 20 for the public page
