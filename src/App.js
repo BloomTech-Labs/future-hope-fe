@@ -8,7 +8,7 @@ import {
 import { auth, firestore } from "./config/fbConfig.js";
 
 import "firebase/auth";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/landingpage/LandingPage";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
