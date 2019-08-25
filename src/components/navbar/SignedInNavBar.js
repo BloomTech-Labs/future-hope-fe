@@ -5,6 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import { auth } from "../../config/fbConfig";
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,12 +20,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignedInNavBar = () => {
+const SignedInNavBar = props => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" color="inherit">
+      <AppBar elevation={1} position="fixed" color="inherit">
         <Toolbar>
           <IconButton
             edge="start"
@@ -36,7 +38,15 @@ const SignedInNavBar = () => {
           </Typography>
           <Button color="primary">Profile</Button>
           <Button color="primary">Appointments</Button>
-          <Button color="primary">Logout</Button>
+          <Button
+            color="primary"
+            onClick={e => {
+              auth.signOut();
+              // props.history.push("/");
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

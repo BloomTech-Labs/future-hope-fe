@@ -1,17 +1,57 @@
 //map over mentors here
 //remove mentorList from App create a Home component
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import MentorPublicPage from "./MentorPublicPage";
+import { firestore } from "../../config/fbConfig";
 
 const MentorList = props => {
-  const { mentors } = props;
+  // const { mentors } = props;
+
+  const [mentors, setMentors] = useState([]);
+  let unsubscribeFromMentors = null;
+
+  useEffect(() => {
+    // sets up the listener for mentors.
+    // currently limits to only 5 so that were not making huge queries.
+    // wel need to add an infinite scroll so that when
+    // we get to the end, this will load more mentors.
+    unsubscribeFromMentors = firestore
+      .collection("/users")
+      .where("userType", "==", "mentor")
+      .limit(5)
+      .onSnapshot(users => {
+        // console.log(user.docs);
+        const holdUsers = [];
+        users.docs.map(user => {
+          const userDoc = {
+            id: user.id,
+            ...user.data()
+          };
+          holdUsers.push(userDoc);
+          // console.log(userDoc);
+        });
+
+        setMentors(holdUsers);
+      });
+  }, []);
+
+  // essentiall think of this as componentWillUnmount
+  // this function will be called when the component unmounts
+  useEffect(() => {
+    return () => {
+      unsubscribeFromMentors();
+    };
+  }, []);
+
   return (
     <div>
       <h2>Our Mentors Span Across the Globe</h2>
-      {mentors.map(mentor => (
-        <MentorPublicPage mentorData={mentor} key={mentor.id} />
-      ))}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {mentors.map(mentor => (
+          <MentorPublicPage mentorData={mentor} key={mentor.id} />
+        ))}
+      </div>
     </div>
   );
 };
