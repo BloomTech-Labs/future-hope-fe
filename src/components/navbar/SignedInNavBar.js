@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { auth } from "../../config/fbConfig.js";
+import { auth } from "../../config/fbConfig";
+import { Redirect } from "react-router";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -30,7 +33,7 @@ const SignedInNavBar = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='fixed' color='inherit'>
+      <AppBar elevation={1} position="fixed" color="inherit">
         <Toolbar>
           <IconButton
             edge='start'
@@ -41,9 +44,15 @@ const SignedInNavBar = props => {
           <Typography variant='h6' className={classes.title}>
             Future Hope School in the Sky
           </Typography>
-          <Button color='primary'>Profile</Button>
-          <Button color='primary'>Appointments</Button>
-          <Button color='primary' href='/login' onClick={logout}>
+          <Button color="primary">Profile</Button>
+          <Button color="primary">Appointments</Button>
+          <Button
+            color="primary"
+            onClick={e => {
+              auth.signOut();
+              // props.history.push("/");
+            }}
+          >
             Logout
           </Button>
         </Toolbar>
