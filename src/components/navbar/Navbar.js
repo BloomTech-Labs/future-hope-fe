@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   }
 }));
-var meetingTime = new Date();
-var meetingTime2 = new Date();
-meetingTime2.setDate(meetingTime.getDate() + 1);
+var meetingTime = new Date(2019, 7, 26, 12, 45, 0, 0);
+var meetingTime2 = new Date(2019, 7, 27, 12, 45, 0, 0);
+
 var events = [{title: 'Meeting', start: meetingTime}, {title: 'Meeting', start: meetingTime2}]
 
 const Navbar = () => {

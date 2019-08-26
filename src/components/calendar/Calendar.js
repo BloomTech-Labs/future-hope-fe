@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import Button from "@material-ui/core/Button";
+import { MDBBtn } from "mdbreact";
 import flatpickr from 'flatpickr';
 import './flatpickr.min.css';
 import './flatpickr.css';
@@ -16,23 +16,23 @@ export default class Calendar extends React.Component {
   state = {
     calendarWeekends: true,    
     displayPicker: true,
-    events: []
+    events: this.props.events
   };
 
-componentDidMount = () => {
+// componentDidMount = () => {
   // Set state from the prop events
-  this.setState({
-    ...this.state,
-    events: this.props.events
-  });
-}
+  // this.setState({
+  //   ...this.state,
+  //   events: this.props.events
+  // });
+// }
 
 render() {       
         return (      
       <div className="demo-app" style={{ marginTop: 100 }}>        
         <div className="demo-app-top">
-          <Button onClick={this.toggleWeekends}>toggle weekends</Button>&nbsp;
-          <Button id="futureButton" onClick={this.gotoPast}>Schedule future appointment</Button>
+          <MDBBtn onClick={this.toggleWeekends}>toggle weekends</MDBBtn>&nbsp;
+          <MDBBtn id="futureButton" onClick={this.gotoPast}>Schedule future appointment</MDBBtn>
           &nbsp;
         </div>
         <div className="demo-app-calendar">          
@@ -50,7 +50,8 @@ render() {
             weekends={this.state.calendarWeekends}
             events={this.state.events}
             dateClick={this.handleDateClick}  
-            eventClick={this.handleEventClick}     
+            eventClick={this.handleEventClick}  
+            eventDrop={this.handleEventDrop}   
             allDayDefault={false}     
           />
         </div>        
@@ -58,14 +59,116 @@ render() {
     );    
   }
 
-  handleEventClick = (info) => {
-    console.log(info.event.title);
+  handleEventDrop = (info) => {
+    swal({
+      title: "Change Meeting Date?",
+      text: `Meeting will be changed to ${info.event.start}`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: false,
+    })
+    .then((changeDate) => {
+      if (changeDate) {
+        let newEvents = this.state.events.map((e) => {
+        if (e.start.getTime() === info.oldEvent.start.getTime()) {
+              e.start = info.event.start;
+              return e;
+          } else {          
+            return e;
+          }
+         })
+          this.setState({
+            ...this.state,
+             events: newEvents
+            });        
+        info.view.calendar.removeAllEvents();
+        newEvents.forEach(e => {
+          info.view.calendar.addEvent(e);
+        });        
+        swal(`Meeting date has been changed to ${info.event.start}`, {
+          icon: "success",
+        });
+      } else {
+        swal("Cancelled, your meeting has not been changed!");
+      }
+    });  
+  }
+
+  handleEventClick = (info) => {    
+    swal({
+      text: 'Set Meeting Name',
+      content: "input",
+      button: {
+        text: "Submit!",
+        closeModal: true,
+      },
+    })
+    .then(name => {
+      
+     let newEvents = this.state.events.map((e) => {     
+      if (e.start.getTime() === info.event.start.getTime()) {
+            if (name != null) {
+              e.title = name;                                
+            }            
+            return e;
+        } else {          
+          return e;
+        }
+     })
+      this.setState({
+        ...this.state,
+         events: newEvents
+        });        
+    info.view.calendar.removeAllEvents();
+    newEvents.forEach(e => {
+      info.view.calendar.addEvent(e);
+    });
+
+    swal({
+      title: "Would you like to change the date as well?",
+      text: `Current date is ${info.event.start}`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: false,
+    })
+    .then((changeDate) => {
+        if (changeDate) {
+          const myInput = document.querySelector("#futureButton");
+          const fp = flatpickr(myInput, {position: "below", enableTime: true, noCalendar: false, dateFormat: "H:i", timeZone: "local", onClose: () => {  
+            // If the user canceled the picker the dates will be empty and there is nothing to do 
+            if (fp.selectedDates.length === 0) {
+              return;
+            }
+
+            newEvents = this.state.events.map((e) => {     
+              if (e.start.getTime() === info.event.start.getTime()) {
+                    e.start = fp.selectedDates[0];                                
+                    return e;
+                } else {          
+                  return e;
+                }
+             })
+              this.setState({
+                ...this.state,
+                 events: newEvents
+                });        
+            info.view.calendar.removeAllEvents();
+            newEvents.forEach(e => {
+              info.view.calendar.addEvent(e);
+            });            
+          }});
+          fp.open();    
+        }
+    });  
+    });
+
   }
 
   toggleWeekends = () => {
+    console.log(this.state.events);
     this.setState({
       // Update state if the displaying of weekends is toggled on/off
-      calendarWeekends: !this.state.calendarWeekends
+      calendarWeekends: !this.state.calendarWeekends      
     });
   };
 
@@ -111,8 +214,7 @@ render() {
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the 
     // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.
     const myInput = document.querySelector("#datepicker");
-    const fp = flatpickr(myInput, {position: "below", enableTime: true, noCalendar: true, dateFormat: "H:i", timeZone: "local", onClose: () => {       
-      // TODO: Need to setup an onChange event to verify the user selected a time and didn't click away...      
+    const fp = flatpickr(myInput, {position: "below", enableTime: true, noCalendar: true, dateFormat: "H:i", timeZone: "local", onClose: () => {                 
       swal({
         title: "Schedule Meeting?",
         text: "Meeting will be added to the calendar!",
