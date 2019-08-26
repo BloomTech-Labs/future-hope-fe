@@ -8,10 +8,11 @@ import flatpickr from 'flatpickr';
 import './flatpickr.min.css';
 import './flatpickr.css';
 import swal from 'sweetalert';
+import {connect} from 'react-redux'
 
 import "./main.scss";
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
   calendarComponentRef = React.createRef();    
   state = {
     calendarWeekends: true,    
@@ -19,13 +20,6 @@ export default class Calendar extends React.Component {
     events: this.props.events
   };
 
-// componentDidMount = () => {
-  // Set state from the prop events
-  // this.setState({
-  //   ...this.state,
-  //   events: this.props.events
-  // });
-// }
 
 render() {       
         return (      
@@ -208,7 +202,6 @@ render() {
     fp.open();        
   };
 
-  
 
   handleDateClick = arg => {
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the 
@@ -243,3 +236,13 @@ render() {
   };
 
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Calendar);

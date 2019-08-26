@@ -6,9 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 
+import { auth } from "../../config/fbConfig.js";
+import Calendar from "../calendar/Calendar";
+
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: 90
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -18,27 +22,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignedInNavBar = () => {
+var meetingTime = new Date(2019, 7, 26, 12, 45, 0, 0);
+var meetingTime2 = new Date(2019, 7, 27, 12, 45, 0, 0);
+
+var events = [{title: 'Meeting', start: meetingTime}, {title: 'Meeting', start: meetingTime2}]
+
+const SignedInNavBar = props => {
   const classes = useStyles();
+
+  function logout() {
+    auth.signOut();
+    // props.history.push("/login");
+    //! for some reason we couldn't get history props to this component, so we had to do a round about kinda way
+  }
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" color="inherit">
+      <AppBar position='fixed' color='inherit'>
         <Toolbar>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
+            color='inherit'
+            aria-label='menu'
           />
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             Future Hope School in the Sky
           </Typography>
-          <Button color="primary">Profile</Button>
-          <Button color="primary">Appointments</Button>
-          <Button color="primary">Logout</Button>
+          <Button color='primary'>Profile</Button>
+          <Button color='primary'>Appointments</Button>
+          <Button color='primary' href='/login' onClick={logout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
+      <Calendar events={events} /> 
     </div>
   );
 };

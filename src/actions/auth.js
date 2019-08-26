@@ -6,6 +6,9 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
+export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
+export const GET_UESR_INFO_FAIL = "GET_UESR_INFO_FAIL";
+
 // Sign up
 export const signUp = user => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -46,6 +49,7 @@ export const signUp = user => {
 export const login = creds => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+    
     console.log("inside login action", creds);
     firebase
       .auth()
@@ -59,14 +63,38 @@ export const login = creds => {
   };
 };
 
-// user = form data?
-// dispatch({ type: SIGNUP_START });
-// return axios
-//   .post("/api/register", user) //! endpoint unknonwn
-//   .then(res => {
-//     dispatch({ type: SIGNUP_SUCCESS, payload: user.displayName }); //! using displayName?
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     dispatch({ type: SIGNUP_FAIL });
-//   });
+//store user info into redux
+export const userStore = user => {
+  //if user exists, then continue. If they don't then log in didn't work.
+  if(user){
+  return (dispatch, getState, { getFirebase,  getFirestore  }) => {
+    
+    const firestore = getFirestore();
+    let userInfo = null;
+    console.log('inside userStore action');
+    firestore
+      .collection("users")
+      .doc(`${user.uid}`)
+      .onSnapshot(snapshot => {
+        console.log(snapshot, 'snapshot userStore');
+        userInfo = snapshot.data();
+        console.log(userInfo, 'userinfo')
+        //dispatches the userInfo to redux store
+        
+        if (snapshot){
+           dispatch({ type: GET_USER_INFO_SUCCESS,  userInfo });
+        } else {
+          dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data' });
+        }
+    })
+      
+      
+  }
+} else {
+  return (dispatch) => {
+    dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data'  });
+  }
+}
+}
+
+
