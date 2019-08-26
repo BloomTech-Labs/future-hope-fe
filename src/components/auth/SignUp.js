@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
-import { signUp, userStore } from "../../actions/auth.js";
+import { userStore } from "../../actions/auth.js";
 
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -54,7 +54,7 @@ class SignUp extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    console.log("triggered");
+    // console.log("triggered");
     // user is creating a brand new account with email and password
     if (!this.state.signingInWithOAuth) {
       try {
@@ -71,6 +71,7 @@ class SignUp extends React.Component {
     const uid = auth.currentUser.uid;
     const userRef = firestore.collection("users").doc(uid);
     //* Create the user account
+    //things coming from auth.currentUser is info from Oauth 
     await userRef.set({
       uid,
       email: this.state.email,
@@ -224,6 +225,7 @@ class SignUp extends React.Component {
               margin='normal'
               name='stateProvince'
             />
+            {/* //! Country and State probably need to be select menus like userType is  */}
             <TextField
               required
               id='standard-name'
@@ -294,7 +296,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: user => dispatch(signUp(user)),
+    // signUp: user => dispatch(signUp(user)), //! This action is no longer being used. Leaving it here just in case
     userStore: user => dispatch(userStore(user))
   };
 };

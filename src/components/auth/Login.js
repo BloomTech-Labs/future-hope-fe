@@ -1,7 +1,6 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
-import { login, userStore } from "../../actions/auth.js";
+import { userStore } from "../../actions/auth.js";
 // import Button from "@material-ui/core/Button";
 // import { withStyles } from "@material-ui/core/styles";
 import {
@@ -21,23 +20,6 @@ import {
   signInWithFacebook
 } from "../../config/fbConfig.js";
 import "./Login.scss";
-
-// const FacebookButton = withStyles({
-//   root: {
-//     background: "#3b5998",
-//     borderRadius: 3,
-//     border: 0,
-//     color: "white",
-//     height: 48,
-//     padding: "0 30px",
-//     "&:hover": {
-//       backgroundColor: "#8b9dc3"
-//     }
-//   },
-//   label: {
-//     textTransform: "capitalize"
-//   }
-// })(Button);
 
 class Login extends React.Component {
   state = {
@@ -256,7 +238,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: creds => dispatch(login(creds)),
+    // login: creds => dispatch(login(creds)), //! Not being used. Leaving here just in case, again.
     userStore: user => dispatch(userStore(user))
   };
 };
