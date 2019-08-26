@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { signInWithGoogle, firestore, auth } from "../../config/fbConfig.js";
+import { signInWithGoogle, signInWithFacebook, firestore, auth } from "../../config/fbConfig.js";
 
 import "./SignUp.scss";
 
@@ -123,6 +123,24 @@ class SignUp extends React.Component {
             }}
           >
             Sign Up With Google
+          </Button>
+        )}
+        {!this.state.signingInWithOAuth && (
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={async e => {
+              await signInWithFacebook();
+              console.log(auth.currentUser);
+              this.setState({
+                signingInWithOAuth: !this.state.signingInWithOAuth,
+                fullName: auth.currentUser.displayName,
+                email: auth.currentUser.email,
+                phoneNumber: auth.currentUser.phoneNumber || ""
+              });
+            }}
+          >
+            Sign Up With Facebook
           </Button>
         )}
         {!this.state.signingInWithOAuth && (
