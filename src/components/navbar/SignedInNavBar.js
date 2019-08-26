@@ -6,8 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { auth } from "../../config/fbConfig.js";
-import { auth } from "../../config/fbConfig";
 import { Redirect } from "react-router";
+import { connect } from 'react-redux';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +26,8 @@ const useStyles = makeStyles(theme => ({
 
 const SignedInNavBar = props => {
   const classes = useStyles();
-
+  console.log('navbarprops', props);
+  console.log('uid', props.userInfo.uid);
   function logout() {
     auth.signOut();
     // props.history.push("/login");
@@ -44,14 +47,12 @@ const SignedInNavBar = props => {
           <Typography variant='h6' className={classes.title}>
             Future Hope School in the Sky
           </Typography>
-          <Button color="primary">Profile</Button>
+          <Button color="primary" href = {`/profile/${props.userInfo.uid}`}>Profile</Button> 
           <Button color="primary">Appointments</Button>
           <Button
             color="primary"
-            onClick={e => {
-              auth.signOut();
-              // props.history.push("/");
-            }}
+            href = '/login'
+            onClick={ logout }
           >
             Logout
           </Button>
@@ -61,4 +62,12 @@ const SignedInNavBar = props => {
   );
 };
 
-export default SignedInNavBar;
+
+//* This state.firebase.profile gives us all the profile info automatically stored into redux by firebase. Neat.
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.firebase.profile
+  }
+}
+
+export default connect(mapStateToProps)(SignedInNavBar);
