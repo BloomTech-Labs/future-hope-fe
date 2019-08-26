@@ -10,6 +10,13 @@ import './flatpickr.css';
 import swal from 'sweetalert';
 import {connect} from 'react-redux'
 
+import {
+  firestore,
+  auth
+} from "../../config/fbConfig.js";
+import {userStore} from '../../actions/auth.js'
+
+import "../auth/Login.scss";
 import "./main.scss";
 
 class Calendar extends React.Component {
@@ -17,11 +24,43 @@ class Calendar extends React.Component {
   state = {
     calendarWeekends: true,    
     displayPicker: true,
-    events: this.props.events
+    meetingParticipant: "", 
+    events: this.props.events,
+            // Not sure if we need to keep user in local state
+    // user: {
+    // }
   };
 
+componentDidMount = async () => {
+  // console.log('this props user', this.props.auth.user.uid)
+  if (auth.currentUser.uid && !this.props.auth.user.uid){
+    let userInfo = null
+    try{
+      await firestore.collection("users").doc(auth.currentUser.uid).onSnapshot(snapshot => {
+        console.log('userInfo', snapshot.data())
+        userInfo = snapshot.data()
+        this.props.userStore(userInfo)
+        // Not sure if we need to keep user in local state
+        // this.setState({
+        //   user: userInfo
+        // })
+      })
+    } catch(err) {
+      alert(err)
+    }
+        //   // })
+          // .catch(err => console.log(err))
+      }
+      // console.log(auth.currentUser.uid)
+      // get the now logged in users UID from the auth object
+      // let uid = this.props.auth.user;
+      // console.log(uid);
+      // get all of their info so we can set up a listener and route them
 
-render() {       
+}
+
+render() { 
+  // console.log('uid', this.props)        
         return (      
       <div className="demo-app" style={{ marginTop: 100 }}>        
         <div className="demo-app-top">
@@ -243,6 +282,13 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    userStore: user => dispatch(userStore(user))
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Calendar);
