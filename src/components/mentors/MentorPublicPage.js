@@ -13,7 +13,6 @@ import "./mentors.css";
 
 const MentorPublicPage = props => {
   const mentors = props.mentorData;
-  console.log(mentors);
 
   return (
     <div className="mentor-cards">
@@ -21,7 +20,9 @@ const MentorPublicPage = props => {
         <MDBCard style={{ maxWidth: "22rem", margin: "40px" }} border="primary">
           <MDBCardImage
             className="img-fluid"
-            src={mentors.photoUrl}
+            src={
+              mentors.photoUrl || "https://source.unsplash.com/random/800x800"
+            }
             alt="profile picture"
             waves
             style={{ width: "250px", height: "250px", borderRadius: "50%" }}
