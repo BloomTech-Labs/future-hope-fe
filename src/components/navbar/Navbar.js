@@ -5,7 +5,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+
+import { auth } from "../../config/fbConfig.js";
+import SignedInNavBar from "./SignedInNavBar.js";
+
 // import Calendar from "../calendar/Calendar";
+
 // import MenuIcon from "@material-ui/icons/Menu";
 // import { NavLink } from "react-router-dom";
 
@@ -29,8 +34,9 @@ var events = [
   { title: "Meeting", start: meetingTime2 }
 ];
 
-const Navbar = () => {
+const Navbar = props => {
   const classes = useStyles();
+  console.log('reg navbar props', props);
 
   return (
     <div className={classes.root}>
@@ -64,3 +70,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+/*
+ <Button color='primary' onClick={() => auth.signOut()}>
+            Sign Out
+          </Button>
+*/
