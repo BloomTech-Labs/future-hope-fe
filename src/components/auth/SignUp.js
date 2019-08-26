@@ -64,13 +64,14 @@ class SignUp extends React.Component {
         );
       } catch (err) {
         alert(err.message);
+        return;
         //! return something after the error so that it doesn't keep going
       }
     }
     const uid = auth.currentUser.uid;
     const userRef = firestore.collection("users").doc(uid);
+    //* Create the user account
     await userRef.set({
-      // just retrieved the uid
       uid,
       email: this.state.email,
       fullName: this.state.fullName,
@@ -167,7 +168,7 @@ class SignUp extends React.Component {
               <TextField
                 required
                 id='standard-email'
-                label='Email'
+                label='Verify email'
                 margin='normal'
                 name='email'
                 type='email'

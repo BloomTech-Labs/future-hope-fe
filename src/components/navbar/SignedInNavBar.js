@@ -25,6 +25,7 @@ const SignedInNavBar = props => {
   function logout() {
     auth.signOut();
     // props.history.push("/login");
+    //! for some reason we couldn't get history props to this component, so we had to do a round about kinda way
   }
 
   return (

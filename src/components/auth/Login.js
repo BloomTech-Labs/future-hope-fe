@@ -106,13 +106,7 @@ class Login extends React.Component {
         //email doesn't exist, so sign it up dummy
         alert("Account does not exist, please signup");
       }
-      // console.log("hey, heres the error you need to look at!", err);
-      // await auth.createUserWithEmailAndPassword(
-      //   this.state.user.email,
-      //   this.state.user.password
-      // );
     }
-    // console.log(loggedInUser);
     //* This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
@@ -164,11 +158,11 @@ class Login extends React.Component {
               let uid = auth.currentUser.uid;
               // get all of their info so we can set up a listener and route them
               const userRef = firestore.collection("users").doc(uid);
+              console.log(userRef);
               const userInfo = await userRef.get();
               // set up the listener on app.js
-              // console.log("setting up user listener!", userInfo);
               this.props.setupUserListener(userInfo);
-              // console.log("rerouting user", userInfo.data());
+              console.log("rerouting user", userInfo.data());
               if (userInfo.data().userType) {
                 const routeTo = this.props.routeUser(userInfo.data());
                 this.props.userStore(auth.currentUser);
@@ -181,16 +175,8 @@ class Login extends React.Component {
             }
           }}
         >
-          {" "}
           Login with Google
         </MDBBtn>
-        <MDBBtn
-          variant='contained'
-          color='secondary'
-          onClick={() => auth.signOut()}
-        >
-          signout
-        </MDBBtn>{" "}
         {/* //! Button needs to be added to Navbar */}
         <MDBBtn
           variant='contained'
@@ -220,6 +206,7 @@ class Login extends React.Component {
                           validate
                           error='wrong'
                           success='right'
+                          name='email'
                           value={this.state.user.email}
                           onChange={this.handleChange}
                         />
@@ -229,10 +216,17 @@ class Login extends React.Component {
                           group
                           type='password'
                           validate
+                          name='password'
+                          value={this.state.user.password}
+                          onChange={this.handleChange}
                         />
 
                         <div className='text-center py-4 mt-3'>
-                          <MDBBtn color='cyan' type='submit'>
+                          <MDBBtn
+                            color='cyan'
+                            type='submit'
+                            onClick={e => this.handleSubmit(e)}
+                          >
                             Login
                           </MDBBtn>
                         </div>
