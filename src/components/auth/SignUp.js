@@ -125,6 +125,7 @@ class SignUp extends React.Component {
             Sign Up With Google
           </Button>
         )}
+        {!this.state.signingInWithOAuth && (
         <Button
           variant='contained'
           color='primary'
@@ -132,6 +133,7 @@ class SignUp extends React.Component {
         >
           Sign Up With Email
         </Button>
+        )}
         <div
           className={`signup-form-container ${
             this.state.signingInWithOAuth
