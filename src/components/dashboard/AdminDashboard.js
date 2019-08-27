@@ -3,15 +3,14 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { auth } from "firebase-admin";
 import { Redirect } from "react-router-dom";
 
 //  My zoom is sucking
 
 class AdminDashboard extends Component {
   render() {
-    const {} = this.props;
-    if (!auth.uid) return <Redirect to="/" />;
+    const { auth } = this.props;
+    // if (!auth.uid) return <Redirect to="/" />;
 
     return (
       <div className="dashboardContainer">
@@ -36,7 +35,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: "users" }])
-)(AdminDashboard);
+export default 
+  connect(mapStateToProps)
+(AdminDashboard);
+
+// export default AdminDashboard;
