@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import MentorDashList from "./MentorDashList.js";
-import { auth } from "firebase-admin";
 import { Redirect } from "react-router-dom";
 
 
@@ -11,7 +10,7 @@ import { Redirect } from "react-router-dom";
 
 class mentorDashboard extends Component {
   render() {
-    const {} = this.props;
+    const {auth} = this.props;
     if (!auth.uid) return <Redirect to="/" />;
 
     return (

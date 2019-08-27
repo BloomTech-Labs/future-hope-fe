@@ -54,7 +54,15 @@ const mapStateToProps = state => {
   };
 };
 
+<<<<<<< HEAD
 export default compose(
   connect(mapStateToProps),
   firestoreConnect({ collection: "users", limit: 3 })
 )(AdminDashboard);
+=======
+export default 
+  connect(mapStateToProps)
+(AdminDashboard);
+
+// export default AdminDashboard;
+>>>>>>> a957d16b515b3276053588b713d903f1b94dcea9
