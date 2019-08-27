@@ -17,11 +17,7 @@ import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
 import ProfileView from './components/views/ProfileView.js';
-<<<<<<< HEAD
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
-=======
-import AdminDashboard from "./components/dashboard/AdminDashboard.js"
->>>>>>> a957d16b515b3276053588b713d903f1b94dcea9
 
 import "./App.css";
 
@@ -114,10 +110,6 @@ class App extends React.Component {
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
           <Route path="/admin-dashboard" component={AdminDashboard} />
-<<<<<<< HEAD
-=======
-
->>>>>>> a957d16b515b3276053588b713d903f1b94dcea9
           <Route
             exact
             path="/signup"
