@@ -85,6 +85,7 @@ render() {
             dateClick={this.handleDateClick}  
             eventClick={this.handleEventClick}  
             eventDrop={this.handleEventDrop}   
+
             allDayDefault={false}     
           />
         </div>        

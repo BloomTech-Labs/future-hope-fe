@@ -4,10 +4,8 @@ import {
   FETCH_MENTOR_FAILURE
 } from "../actions/mentors";
 
-import mentors from "../components/mentors/mentor-data";
-
 const initialState = {
-  mentors: mentors,
+  mentors: [],
   fetchingMentors: false,
   error: ""
 };

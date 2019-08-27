@@ -5,8 +5,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+
 import { auth } from "../../config/fbConfig.js";
 import SignedInNavBar from "./SignedInNavBar.js";
+
+// import Calendar from "../calendar/Calendar";
+
 // import MenuIcon from "@material-ui/icons/Menu";
 // import { NavLink } from "react-router-dom";
 
@@ -22,44 +26,47 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   }
 }));
+var meetingTime = new Date();
+var meetingTime2 = new Date();
+meetingTime2.setDate(meetingTime.getDate() + 1);
+var events = [
+  { title: "Meeting", start: meetingTime },
+  { title: "Meeting", start: meetingTime2 }
+];
 
 const Navbar = props => {
   const classes = useStyles();
-  //! navbar is showing signedinnav after a user clicks sing in with google on login page. when it
-  //! redirects to sign up, the signed in nav links appear.
-  if (!auth.currentUser) {
-    return (
-      <div className={classes.root}>
-        <AppBar position='fixed' color='inherit'>
-          <Toolbar>
-            <IconButton
-              edge='start'
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='menu'
-            />
-            <Typography variant='h6' className={classes.title}>
-              Future Hope School in the Sky
-            </Typography>
-            {/* <NavLink to="/mentors">View Mentors</NavLink> */}
-            <a href='/mentors' alt='laaaaaaaammmmmeeeee'>
-              <Button color='primary'>View Mentors</Button>
-            </a>
-            <Button color='primary'>Mission</Button>
-            <Button color='primary' href='/login'>
-              Login
-            </Button>
-            <Button color='primary' href='/signup'>
-              SignUp
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  } else {
-    //! if user is logged in, auth.currentUser exists, so show signedInNavBar
-    return <SignedInNavBar />;
-  }
+  console.log('reg navbar props', props);
+
+  return (
+    <div className={classes.root}>
+      <AppBar elevation={1} position="fixed" color="inherit">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          />
+          <Typography variant="h6" className={classes.title}>
+            Future Hope School in the Sky
+          </Typography>
+          {/* <NavLink to="/mentors">View Mentors</NavLink> */}
+          <a href="/mentors" alt="laaaaaaaammmmmeeeee">
+            <Button color="primary">View Mentors</Button>
+          </a>
+          <Button color="primary">Mission</Button>
+          <Button color="primary" href="/login">
+            Login
+          </Button>
+          <Button color="primary" href="/signup">
+            SignUp
+          </Button>
+        </Toolbar>
+      </AppBar>
+      {/* <Calendar events={events} />       */}
+    </div>
+  );
 };
 
 export default Navbar;

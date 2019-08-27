@@ -8,13 +8,15 @@ import {
 import { auth, firestore } from "./config/fbConfig.js";
 
 import "firebase/auth";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/landingpage/LandingPage";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
+import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
+import ProfileView from './components/views/ProfileView.js';
 
 import "./App.css";
 
@@ -101,15 +103,14 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Navbar />
+        {auth.currentUser ? <SignedInNavBar /> : <Navbar />}
         <Switch>
-          <Route path='/calendar' component={Calendar} />
-          <Route exact path='/' component={LandingPage} />
-          <Route path='/mentors' component={MentorList} />
-          <Route path='/FAQ' component={FAQ} />
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/mentors" component={MentorList} />
+          <Route path="/FAQ" component={FAQ} />
           <Route
             exact
-            path='/signup'
+            path="/signup"
             render={props => (
               <SignUp
                 setupUserListener={this.setupUserListener}
@@ -119,7 +120,7 @@ class App extends React.Component {
             )}
           />
           <Route
-            path='/login'
+            path="/login"
             render={props => (
               <Login
                 setupUserListener={this.setupUserListener}
@@ -129,6 +130,7 @@ class App extends React.Component {
               />
             )}
           />
+          <Route path = '/profile/:uid' component = {ProfileView} />
         </Switch>
       </Router>
     );
