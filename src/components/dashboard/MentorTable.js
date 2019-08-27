@@ -1,9 +1,11 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 const MentorTable = () => {
   return (
     <div>
-      <table class="table">
+      <h2 className="table-heading">Pending Mentor Applications</h2>
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -11,6 +13,7 @@ const MentorTable = () => {
             <th scope="col">Date Submitted</th>
             <th scope="col">Account Type</th>
             <th scope="col">Location</th>
+            <th scope="col">View</th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +23,9 @@ const MentorTable = () => {
             <td>Sept 20, 2018</td>
             <td>Mentor</td>
             <td>California</td>
+            <td>
+              <Button>View</Button>
+            </td>
           </tr>
           <tr>
             <th scope="row">2</th>
@@ -27,6 +33,9 @@ const MentorTable = () => {
             <td>Sept 20, 2018</td>
             <td>Mentor</td>
             <td>California</td>
+            <td>
+              <Button>View</Button>
+            </td>
           </tr>
           <tr>
             <th scope="row">3</th>
@@ -34,10 +43,12 @@ const MentorTable = () => {
             <td>Sept 20, 2018</td>
             <td>Mentor</td>
             <td>California</td>
+            <td>
+              <Button>View</Button>
+            </td>
           </tr>
         </tbody>
       </table>
-      ;
     </div>
   );
 };

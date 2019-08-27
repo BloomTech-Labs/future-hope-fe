@@ -12,3 +12,12 @@
 .btn {
   background-color: green;
 }
+
+.table {
+  padding-bottom: 60px;
+}
+
+.table-heading {
+  text-align: center;
+  font-weight: bold;
+}

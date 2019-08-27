@@ -7,11 +7,11 @@ import Button from "@material-ui/core/Button";
 //import { Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
-import TeacherTable from './TeacherTable.js';
+import TeacherTable from "./TeacherTable.js";
 
 class AdminDashboard extends Component {
   render() {
-    const { auth } = this.props;
+    const { auth, userInfo } = this.props;
     //if (!auth.uid) return <Redirect to="/" />;
 
     return (
@@ -43,8 +43,10 @@ class AdminDashboard extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    userInfo: state.firebase.profile
   };
 };
 
