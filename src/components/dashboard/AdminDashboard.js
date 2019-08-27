@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-// import { firestoreConnect } from "react-redux-firebase";
-// import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 //import { Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
@@ -50,9 +50,11 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     auth: state.firebase.auth,
-    userInfo: state.firebase.profile //need access to the users collection to check userType and render props in the tables
+    userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
 
-export default connect(mapStateToProps)(AdminDashboard);
-//firestoreConnect([{ collection: "users" }]) (AdminDashboard);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect({ collection: "users", limit: 3 })
+)(AdminDashboard);
