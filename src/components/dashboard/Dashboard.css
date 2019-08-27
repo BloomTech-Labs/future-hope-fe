@@ -1,0 +1,14 @@
+.dashboard-sidemenu {
+  /* background-color: green; */
+  height: 100%;
+}
+
+.dashboard-sidemenu-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: green;
+}

@@ -1,27 +1,39 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import { auth } from "firebase-admin";
-import { Redirect } from "react-router-dom";
-
-//  My zoom is sucking
+import Button from "@material-ui/core/Button";
+// import { firestoreConnect } from "react-redux-firebase";
+// import { compose } from "redux";
+//import { Redirect } from "react-router-dom";
+import "./Dashboard.css";
+import MentorTable from "./MentorTable.js";
+import TeacherTable from './TeacherTable.js';
 
 class AdminDashboard extends Component {
   render() {
-    const {} = this.props;
-    if (!auth.uid) return <Redirect to="/" />;
+    const { auth } = this.props;
+    //if (!auth.uid) return <Redirect to="/" />;
 
     return (
       <div className="dashboardContainer">
         <MDBContainer>
           <MDBRow>
-            <MDBCol md="3">
-              <p>Hello World</p>
+            <MDBCol md="3" className="dashboard-sidemenu">
+              <div>
+                <img src="#" alt="profile photo" />
+                <h1>Norman Green</h1>
+                <h3>Administrator</h3>
+              </div>
+              <div className="dashboard-sidemenu-btns">
+                <Button>View Teachers</Button>
+                <Button>View Mentors</Button>
+                <Button>Schedule Meeting</Button>
+                <Button>Messaging</Button>
+              </div>
             </MDBCol>
             <MDBCol md="9">
-              <p>Hello World</p>
+              <MentorTable />
+              <TeacherTable />
             </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -36,7 +48,5 @@ const mapStateToProps = state => {
   };
 };
 
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: "users" }])
-)(AdminDashboard);
+export default connect(mapStateToProps)(AdminDashboard);
+//firestoreConnect([{ collection: "users" }]) (AdminDashboard);
