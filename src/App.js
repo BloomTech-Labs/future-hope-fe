@@ -15,6 +15,8 @@ import Navbar from "./components/navbar/Navbar";
 import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
+import Calendar from "./components/calendar/Calendar";
+import ProfileView from './components/views/ProfileView.js';
 
 import "./App.css";
 
@@ -114,7 +116,6 @@ class App extends React.Component {
                 setupUserListener={this.setupUserListener}
                 routeUser={this.routeUser}
                 {...props}
-                user={this.state.user}
               />
             )}
           />
@@ -129,6 +130,7 @@ class App extends React.Component {
               />
             )}
           />
+          <Route path = '/profile/:uid' component = {ProfileView} />
         </Switch>
       </Router>
     );

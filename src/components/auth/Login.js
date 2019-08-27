@@ -1,9 +1,17 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth.js";
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
+import { userStore } from "../../actions/auth.js";
+// import Button from "@material-ui/core/Button";
+// import { withStyles } from "@material-ui/core/styles";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody
+} from "mdbreact";
 
 import {
   signInWithGoogle,
@@ -12,23 +20,6 @@ import {
   signInWithFacebook
 } from "../../config/fbConfig.js";
 import "./Login.scss";
-
-const FacebookButton = withStyles({
-  root: {
-    background: "#3b5998",
-    borderRadius: 3,
-    border: 0,
-    color: "white",
-    height: 48,
-    padding: "0 30px",
-    "&:hover": {
-      backgroundColor: "#8b9dc3"
-    }
-  },
-  label: {
-    textTransform: "capitalize"
-  }
-})(Button);
 
 class Login extends React.Component {
   state = {
@@ -78,6 +69,9 @@ class Login extends React.Component {
       this.props.setupUserListener(userInfo);
       // console.log("rerouting user", userInfo.data());
       const routeTo = this.props.routeUser(userInfo.data());
+      console.log("userInfo", userInfo);
+      console.log("auth.currentUser", auth.currentUser);
+
       this.props.history.push(routeTo);
       // alert("user logged in!");
     } catch (err) {
@@ -94,14 +88,9 @@ class Login extends React.Component {
         //email doesn't exist, so sign it up dummy
         alert("Account does not exist, please signup");
       }
-      // console.log("hey, heres the error you need to look at!", err);
-      // await auth.createUserWithEmailAndPassword(
-      //   this.state.user.email,
-      //   this.state.user.password
-      // );
-      alert("Please go to signup page!");
     }
-    // console.log(loggedInUser);
+    //* This calls the userStore action in order to store current user data in the redux store.
+    this.props.userStore(auth.currentUser);
   };
 
   toggleEmailLogin = e => {
@@ -114,16 +103,39 @@ class Login extends React.Component {
   render() {
     return (
       <div className='login-container'>
-        {/* <FacebookButton
-          variant="contained"
-          color="secondary"
-          onClick={signInWithFacebook}
-        >
-          Login with Facebook
-        </FacebookButton> */}
-        <Button
+        <MDBBtn
           variant='contained'
           color='secondary'
+          onClick={async () => {
+            try {
+              await signInWithFacebook();
+
+              // get the now logged in users UID from the auth object
+              let uid = auth.currentUser.uid;
+              // get all of their info so we can set up a listener and route them
+              const userRef = firestore.collection("users").doc(uid);
+              console.log(userRef);
+              const userInfo = await userRef.get();
+              // set up the listener on app.js
+              this.props.setupUserListener(userInfo);
+              console.log("rerouting user", userInfo.data());
+              if (userInfo.data().userType) {
+                const routeTo = this.props.routeUser(userInfo.data());
+                this.props.userStore(auth.currentUser);
+                this.props.history.push(routeTo);
+              } else {
+                this.props.history.push("/signup");
+              }
+            } catch (err) {
+              // handel error
+            }
+          }}
+        >
+          Login with Facebook
+        </MDBBtn>
+        <MDBBtn
+          variant='contained'
+          color='red'
           onClick={async () => {
             try {
               await signInWithGoogle();
@@ -132,72 +144,85 @@ class Login extends React.Component {
               let uid = auth.currentUser.uid;
               // get all of their info so we can set up a listener and route them
               const userRef = firestore.collection("users").doc(uid);
+              console.log(userRef);
               const userInfo = await userRef.get();
               // set up the listener on app.js
-              // console.log("setting up user listener!", userInfo);
               this.props.setupUserListener(userInfo);
-              // console.log("rerouting user", userInfo.data());
-              const routeTo = this.props.routeUser(userInfo.data());
-              this.props.history.push(routeTo);
+              console.log("rerouting user", userInfo.data());
+              if (userInfo.data().userType) {
+                const routeTo = this.props.routeUser(userInfo.data());
+                this.props.userStore(auth.currentUser);
+                this.props.history.push(routeTo);
+              } else {
+                this.props.history.push("/signup");
+              }
             } catch (err) {
               // handel error
             }
           }}
         >
           Login with Google
-        </Button>
-        <Button
-          variant='contained'
-          color='secondary'
-          onClick={() => auth.signOut()}
-        >
-          signout
-        </Button>{" "}
+        </MDBBtn>
         {/* //! Button needs to be added to Navbar */}
-        <Button
+        <MDBBtn
           variant='contained'
           color='primary'
           onClick={e => this.toggleEmailLogin(e)}
         >
           Login with Email
-        </Button>
+        </MDBBtn>
         <div
           className={`email-login-container ${
             this.state.loginWithEmail ? "" : "hidden"
           }`}
         >
-          <h3>Please Login</h3>
-          <form onSubmit={this.handleSubmit}>
-            <TextField
-              required
-              id='standard-required-email-input'
-              label='Email'
-              margin='normal'
-              type='email'
-              name='email'
-              autoComplete='email'
-              value={this.state.user.email}
-              onChange={this.handleChange}
-            />
-            <TextField
-              required
-              id='standard-password-input'
-              label='Password'
-              margin='normal'
-              type='password'
-              name='password'
-              value={this.state.user.password}
-              onChange={this.handleChange}
-            />
-            <Button
-              variant='outlined'
-              size='large'
-              color='primary'
-              onClick={this.handleSubmit}
-            >
-              Sign Up
-            </Button>
-          </form>
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol>
+                <MDBCard>
+                  <MDBCardBody>
+                    <form>
+                      <p className='h4 text-center py-4'>Please Login</p>
+                      <div className='grey-text'>
+                        <MDBInput
+                          label='Your email'
+                          icon='envelope'
+                          group
+                          type='email'
+                          validate
+                          error='wrong'
+                          success='right'
+                          name='email'
+                          value={this.state.user.email}
+                          onChange={this.handleChange}
+                        />
+                        <MDBInput
+                          label='Your password'
+                          icon='lock'
+                          group
+                          type='password'
+                          validate
+                          name='password'
+                          value={this.state.user.password}
+                          onChange={this.handleChange}
+                        />
+
+                        <div className='text-center py-4 mt-3'>
+                          <MDBBtn
+                            color='cyan'
+                            type='submit'
+                            onClick={e => this.handleSubmit(e)}
+                          >
+                            Login
+                          </MDBBtn>
+                        </div>
+                      </div>
+                    </form>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
         </div>
       </div>
     );
@@ -213,7 +238,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: creds => dispatch(login(creds))
+    // login: creds => dispatch(login(creds)), //! Not being used. Leaving here just in case, again.
+    userStore: user => dispatch(userStore(user))
   };
 };
 
