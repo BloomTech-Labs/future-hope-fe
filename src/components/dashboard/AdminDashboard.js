@@ -25,7 +25,8 @@ class AdminDashboard extends Component {
           name: doc.data().fullName,
           userType: doc.data().userType,
           city: doc.data().city,
-          stateProvince: doc.data().stateProvince
+          stateProvince: doc.data().stateProvince,
+          uid: doc.data().uid
         });
       });
     });

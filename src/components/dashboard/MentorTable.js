@@ -21,10 +21,9 @@ const MentorTable = props => {
         {users.map(user => {
           if (user.userType === "mentor") {
             return (
-              <tbody>
+              <tbody key={user.uid}>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>{user.name}</td>
+                  <td >{user.name}</td>
                   <td>{user.userType}</td>
                   <td>{user.city}</td>
                   <td>{user.stateProvince}</td>
