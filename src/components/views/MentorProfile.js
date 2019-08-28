@@ -1,24 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import Button from "@material-ui/core/Button";
 
 class MentorProfile extends React.Component {
   render() {
     const { auth, userInfo } = this.props;
+    console.log("userInfo Here", userInfo);
     if (!auth.uid) return <Redirect to="/" />;
+
     return (
       <div className="dashboardContainer">
         <MDBContainer>
           <MDBRow>
             <div className="row justify-content-start">
               <MDBCol size="3" className="dashboard-sidemenu">
-                <div className="dashboard-admin-info">
+                <div className="dashboard-profile-info">
                   <img src="#" alt="profile photo" />
-                  <h1>Norman Green</h1>
-                  <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
                   <Button>View all Teachers</Button>
                   <Button>View all Mentors</Button>
-                  <Button>Schedule a Meeting</Button>
+                  <Button href="/calendar">Schedule a Meeting</Button>
                   <Button>Start a Conversation</Button>
                 </div>
               </MDBCol>
