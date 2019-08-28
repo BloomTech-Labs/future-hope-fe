@@ -1,11 +1,10 @@
 import React from 'react';
-import { MDBProgress, MDBContainer } from 'mdbreact';
+import { MDBContainer } from 'mdbreact';
 
 
 class AwaitingApproval extends React.Component {
-    state = {
-        progress: 25,
-    }
+    //leaving this as a class component in case we do state stuff in the future
+ 
     render() {
         return (
             <MDBContainer fluid className = 'd-flex flex-column align-items-center' >
@@ -17,12 +16,6 @@ class AwaitingApproval extends React.Component {
                     <li className = 'p-1'>Please contanct CONTACTINFOHERE for further information regarding your application.</li>
 
                 </ul>
-                <h4>Below is the progress of your acceptance</h4>
-                <div className = 'w-75'>
-                    <MDBProgress material value = {this.state.progress} height = '20px' width = '100%'>
-                        {`${this.state.progress}%`}
-                    </MDBProgress>
-                </div>
             </MDBContainer>
         );
     }
@@ -31,3 +24,16 @@ class AwaitingApproval extends React.Component {
 
 
 export default AwaitingApproval;
+
+
+/*
+here is that progress bar I was using.
+
+<div className = 'w-75'>
+                    <MDBProgress material value = {this.state.progress} height = '20px' width = '100%'>
+                        {`${this.state.progress}%`}
+                    </MDBProgress>
+                </div>
+
+
+*/
