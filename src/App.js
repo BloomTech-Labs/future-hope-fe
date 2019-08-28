@@ -17,6 +17,7 @@ import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
 import ProfileView from './components/views/ProfileView.js';
+import AdminDashboard from "./components/dashboard/AdminDashboard.js";
 
 import "./App.css";
 
@@ -108,6 +109,7 @@ class App extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
+          <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route
             exact
             path="/signup"
