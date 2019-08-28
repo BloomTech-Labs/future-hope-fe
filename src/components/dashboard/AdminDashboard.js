@@ -21,14 +21,18 @@ class AdminDashboard extends Component {
       querySnapshot.forEach(doc => {
         console.log(doc.data());
         userArray.push({
-          name: doc.data().fullName
+          approval: doc.data().awaitingApproval,
+          name: doc.data().fullName,
+          userType: doc.data().userType,
+          city: doc.data().city,
+          stateProvince: doc.data().stateProvince
         });
       });
     });
     this.setState({
       users: userArray
     });
-    console.log("useArray", userArray);
+    console.log("userArray", userArray);
   };
 
   render() {
@@ -59,8 +63,8 @@ class AdminDashboard extends Component {
               </MDBCol>
             </div>
             <MDBCol size="9">
-              <MentorTable />
-              <TeacherTable />
+              <MentorTable users={this.state.users} />
+              <TeacherTable users={this.state.users} />
             </MDBCol>
           </MDBRow>
         </MDBContainer>

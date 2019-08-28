@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-const TeacherTable = () => {
+const TeacherTable = props => {
+  const { users } = props
   return (
     <div>
       <h2 className="table-heading">Pending Teacher Applications</h2>
@@ -10,9 +11,9 @@ const TeacherTable = () => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Names</th>
-            <th scope="col">Date Submitted</th>
             <th scope="col">Account Type</th>
-            <th scope="col">Location</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
             <th scope="col">View</th>
           </tr>
         </thead>
