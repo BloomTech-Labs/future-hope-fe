@@ -29,6 +29,17 @@ class MentorProfile extends React.Component {
             </div>
             <MDBCol size="9">
               <h1>{userInfo.fullName}</h1>
+              <h4>
+                {userInfo.city}, {userInfo.country}
+              </h4>
+              <p> {userInfo.aboutMe} </p>
+              <Button>Contact {userInfo.fullName} </Button>
+              <div>
+                <h2>Skills</h2>
+                <ul>
+                  <li></li>
+                </ul>
+              </div>
             </MDBCol>
           </MDBRow>
         </MDBContainer>
