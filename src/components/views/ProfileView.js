@@ -10,12 +10,9 @@ import {
   } from "mdbreact";
 
 
-
-const ProfileView = (props) => {
-    
-    
-    
-    return (
+const ProfileView = props => {
+  return (
+ 
        
             <MDBContainer className = 'profile-container d-flex' fluid>
                 <div className = 'w-25 pr-3'>
@@ -44,10 +41,10 @@ const ProfileView = (props) => {
 
 
 //* This state.firebase.profile gives us all the profile info automatically stored into redux by firebase. Neat.
-const mapStateToProps = (state) => {
-    return{
-        userInfo: state.firebase.profile
-    }
-}
+const mapStateToProps = state => {
+  return {
+    userInfo: state.firebase.profile
+  };
+};
 
 export default connect(mapStateToProps)(ProfileView);

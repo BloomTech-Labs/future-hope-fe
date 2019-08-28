@@ -16,8 +16,8 @@ import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
-import ProfileView from "./components/views/ProfileView.js";
-import MentorProfile from "./components/views/MentorProfile";
+import AdminDashboard from "./components/dashboard/AdminDashboard.js";
+import AwaitingApproval from "./components/views/AwaitingApproval.js";
 
 import "./App.css";
 
@@ -65,7 +65,7 @@ class App extends React.Component {
     if (this.state.userListenerCreated) {
       return;
     }
-    console.log(uid);
+    // console.log(uid);
     // takes in the user thats logged in
     // sets up listenever to their document
     this.unsubsribeFromUser = firestore
@@ -76,7 +76,7 @@ class App extends React.Component {
           uid: snapshot.id,
           ...snapshot.data()
         };
-        console.log("cur state of user", curStateOfUser);
+        // console.log("cur state of user", curStateOfUser);
       });
     this.setState({
       userListenerCreated: true
@@ -110,6 +110,7 @@ class App extends React.Component {
           <Route path="/mentor-profile" component={MentorProfile} />
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
+          <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route
             exact
             path="/signup"
@@ -133,6 +134,7 @@ class App extends React.Component {
             )}
           />
           <Route path="/profile/:uid" component={ProfileView} />
+          <Route path="/applicationstatus" component={AwaitingApproval} />
         </Switch>
       </Router>
     );

@@ -63,17 +63,23 @@ class Login extends React.Component {
       let uid = auth.currentUser.uid;
       // get all of their info so we can set up a listener and route them
       const userRef = firestore.collection("users").doc(uid);
+      console.log("userRef", userRef);
       const userInfo = await userRef.get();
       // set up the listener on app.js
       // console.log("setting up user listener!", userInfo);
+      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+      if (this.props.userInfo.awaitingApproval) {
+        this.props.history.push("/applicationstatus");
+      } else {
       this.props.setupUserListener(userInfo);
       // console.log("rerouting user", userInfo.data());
       const routeTo = this.props.routeUser(userInfo.data());
       console.log("userInfo", userInfo);
-      console.log("auth.currentUser", auth.currentUser);
+      // console.log("auth.currentUser", auth.currentUser);
 
       this.props.history.push(routeTo);
       // alert("user logged in!");
+      }
     } catch (err) {
       //this is to find out if the person loggin in has already made an account, or
       //if they just typed their email / pw wrong
@@ -102,14 +108,13 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className='login-container'>
+      <div className="login-container">
         <MDBBtn
-          variant='contained'
-          color='secondary'
+          variant="contained"
+          color="secondary"
           onClick={async () => {
             try {
               await signInWithFacebook();
-
               // get the now logged in users UID from the auth object
               let uid = auth.currentUser.uid;
               // get all of their info so we can set up a listener and route them
@@ -117,14 +122,20 @@ class Login extends React.Component {
               console.log(userRef);
               const userInfo = await userRef.get();
               // set up the listener on app.js
-              this.props.setupUserListener(userInfo);
-              console.log("rerouting user", userInfo.data());
-              if (userInfo.data().userType) {
-                const routeTo = this.props.routeUser(userInfo.data());
-                this.props.userStore(auth.currentUser);
-                this.props.history.push(routeTo);
+              // console.log(this.props.userInfo, 'userInfo');
+              //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+              if (this.props.userInfo.usersAwaitingApproval) {
+                this.props.history.push("/applicationstatus");
               } else {
-                this.props.history.push("/signup");
+                this.props.setupUserListener(userInfo);
+                console.log("rerouting user", userInfo.data());
+                if (userInfo.data().userType) {
+                  const routeTo = this.props.routeUser(userInfo.data());
+                  this.props.userStore(auth.currentUser);
+                  this.props.history.push(routeTo);
+                } else {
+                  this.props.history.push("/signup");
+                }
               }
             } catch (err) {
               // handel error
@@ -134,8 +145,8 @@ class Login extends React.Component {
           Login with Facebook
         </MDBBtn>
         <MDBBtn
-          variant='contained'
-          color='red'
+          variant="contained"
+          color="red"
           onClick={async () => {
             try {
               await signInWithGoogle();
@@ -146,6 +157,12 @@ class Login extends React.Component {
               const userRef = firestore.collection("users").doc(uid);
               console.log(userRef);
               const userInfo = await userRef.get();
+              console.log(this.props.userInfo, 'userInfo from google');
+              //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+              //! This one is named awaitingApproval, not usersAwaitingApproval for some reason.
+              if (this.props.userInfo.awaitingApproval) {
+                this.props.history.push("/applicationstatus");
+              } else {
               // set up the listener on app.js
               this.props.setupUserListener(userInfo);
               console.log("rerouting user", userInfo.data());
@@ -156,17 +173,19 @@ class Login extends React.Component {
               } else {
                 this.props.history.push("/signup");
               }
+            }
             } catch (err) {
               // handel error
             }
+          
           }}
         >
           Login with Google
         </MDBBtn>
         {/* //! Button needs to be added to Navbar */}
         <MDBBtn
-          variant='contained'
-          color='primary'
+          variant="contained"
+          color="primary"
           onClick={e => this.toggleEmailLogin(e)}
         >
           Login with Email
@@ -182,35 +201,35 @@ class Login extends React.Component {
                 <MDBCard>
                   <MDBCardBody>
                     <form>
-                      <p className='h4 text-center py-4'>Please Login</p>
-                      <div className='grey-text'>
+                      <p className="h4 text-center py-4">Please Login</p>
+                      <div className="grey-text">
                         <MDBInput
-                          label='Your email'
-                          icon='envelope'
+                          label="Your email"
+                          icon="envelope"
                           group
-                          type='email'
+                          type="email"
                           validate
-                          error='wrong'
-                          success='right'
-                          name='email'
+                          error="wrong"
+                          success="right"
+                          name="email"
                           value={this.state.user.email}
                           onChange={this.handleChange}
                         />
                         <MDBInput
-                          label='Your password'
-                          icon='lock'
+                          label="Your password"
+                          icon="lock"
                           group
-                          type='password'
+                          type="password"
                           validate
-                          name='password'
+                          name="password"
                           value={this.state.user.password}
                           onChange={this.handleChange}
                         />
 
-                        <div className='text-center py-4 mt-3'>
+                        <div className="text-center py-4 mt-3">
                           <MDBBtn
-                            color='cyan'
-                            type='submit'
+                            color="cyan"
+                            type="submit"
                             onClick={e => this.handleSubmit(e)}
                           >
                             Login
@@ -232,7 +251,8 @@ class Login extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    userInfo: state.firebase.profile
   };
 };
 
