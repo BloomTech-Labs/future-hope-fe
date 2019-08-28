@@ -63,6 +63,7 @@ class Login extends React.Component {
       let uid = auth.currentUser.uid;
       // get all of their info so we can set up a listener and route them
       const userRef = firestore.collection("users").doc(uid);
+      console.log("userRef", userRef);
       const userInfo = await userRef.get();
       // set up the listener on app.js
       // console.log("setting up user listener!", userInfo);
@@ -70,7 +71,7 @@ class Login extends React.Component {
       // console.log("rerouting user", userInfo.data());
       const routeTo = this.props.routeUser(userInfo.data());
       console.log("userInfo", userInfo);
-      console.log("auth.currentUser", auth.currentUser);
+      // console.log("auth.currentUser", auth.currentUser);
 
       this.props.history.push(routeTo);
       // alert("user logged in!");

@@ -52,7 +52,7 @@ export const GET_UESR_INFO_FAIL = "GET_UESR_INFO_FAIL";
 // export const login = creds => {
 //   return (dispatch, getState, { getFirebase }) => {
 //     const firebase = getFirebase();
-    
+
 //     console.log("inside login action");
 //     firebase
 //       .auth()
@@ -69,36 +69,37 @@ export const GET_UESR_INFO_FAIL = "GET_UESR_INFO_FAIL";
 //store user info into redux
 export const userStore = user => {
   //if user exists, then continue. If they don't then log in didn't work.
-  if(user){
-  return (dispatch, getState, { getFirebase,  getFirestore  }) => {
-    
-    const firestore = getFirestore();
-    let userInfo = null;
-    console.log('inside userStore action');
-    //search firestore for the doc with current uid
-    firestore
-      .collection("users")
-      .doc(`${user.uid}`)
-      .onSnapshot(snapshot => {
-        console.log(snapshot, 'snapshot userStore');
-        userInfo = snapshot.data();
-        console.log(userInfo, 'userinfo')
-        //dispatches the userInfo to redux store
-        //if snapshot was successfull, send success and userInfo to redux
-        if (snapshot){
-           dispatch({ type: GET_USER_INFO_SUCCESS,  userInfo });
-        } else {
-          dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data' });
-        }
-    })
-      
-      
+  if (user) {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+      const firestore = getFirestore();
+      let userInfo = null;
+      // console.log('inside userStore action');
+      //search firestore for the doc with current uid
+      firestore
+        .collection("users")
+        .doc(`${user.uid}`)
+        .onSnapshot(snapshot => {
+          // console.log(snapshot, 'snapshot userStore');
+          userInfo = snapshot.data();
+          console.log(userInfo, "userinfo");
+          //dispatches the userInfo to redux store
+          //if snapshot was successfull, send success and userInfo to redux
+          if (snapshot) {
+            dispatch({ type: GET_USER_INFO_SUCCESS, userInfo });
+          } else {
+            dispatch({
+              type: GET_UESR_INFO_FAIL,
+              message: "Unable to Get User Data"
+            });
+          }
+        });
+    };
+  } else {
+    return dispatch => {
+      dispatch({
+        type: GET_UESR_INFO_FAIL,
+        message: "Unable to Get User Data"
+      });
+    };
   }
-} else {
-  return (dispatch) => {
-    dispatch({ type: GET_UESR_INFO_FAIL, message: 'Unable to Get User Data'  });
-  }
-}
-}
-
-
+};

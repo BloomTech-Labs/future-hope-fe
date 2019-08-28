@@ -65,7 +65,7 @@ class App extends React.Component {
     if (this.state.userListenerCreated) {
       return;
     }
-    console.log(uid);
+    // console.log(uid);
     // takes in the user thats logged in
     // sets up listenever to their document
     this.unsubsribeFromUser = firestore
@@ -76,7 +76,7 @@ class App extends React.Component {
           uid: snapshot.id,
           ...snapshot.data()
         };
-        console.log("cur state of user", curStateOfUser);
+        // console.log("cur state of user", curStateOfUser);
       });
     this.setState({
       userListenerCreated: true
