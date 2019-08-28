@@ -5,7 +5,7 @@ const MentorTable = props => {
   const { users } = props;
   console.log("usersss", users);
 
-  users.map(user => {
+  return users.map(user => {
     if (user.userType === "mentor") {
       return (
         <div>
@@ -32,26 +32,6 @@ const MentorTable = props => {
                   <Button>View</Button>
                 </td>
               </tr>
-              {/* <tr>
-            <th scope="row">2</th>
-            <td>Mark</td>
-            <td>Sept 20, 2018</td>
-            <td>Mentor</td>
-            <td>California</td>
-            <td>
-              <Button>View</Button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Mark</td>
-            <td>Sept 20, 2018</td>
-            <td>Mentor</td>
-            <td>California</td>
-            <td>
-              <Button>View</Button>
-            </td>
-          </tr> */}
             </tbody>
           </table>
         </div>
