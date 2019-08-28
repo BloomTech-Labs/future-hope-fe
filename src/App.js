@@ -18,6 +18,7 @@ import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
 import ProfileView from './components/views/ProfileView.js';
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
+import AwaitingApproval from './components/views/AwaitingApproval.js';
 
 import "./App.css";
 
@@ -133,6 +134,7 @@ class App extends React.Component {
             )}
           />
           <Route path = '/profile/:uid' component = {ProfileView} />
+          <Route path = '/applicationstatus' component = {AwaitingApproval} />
         </Switch>
       </Router>
     );
