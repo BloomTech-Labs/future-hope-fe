@@ -66,6 +66,8 @@ class Calendar extends React.Component {
     console.log('meeting object', meeting);
     //* add meeting to firestore
     const meetingRef = firestore.collection('meetings').doc();
+    //* gets new meeting ID and inserts it into the record as uid
+    meeting.uid = meetingRef.id;
     await meetingRef.set(meeting);
     //* update old meetings array with new meeting
     meetings.push(meeting);
@@ -134,6 +136,7 @@ class Calendar extends React.Component {
       if (changeDate) {
         let newEvents = this.state.events.map(e => {
           if (e.start.getTime() === info.oldEvent.start.getTime()) {
+            console.log(e);
             e.start = info.event.start;
             return e;
           } else {
