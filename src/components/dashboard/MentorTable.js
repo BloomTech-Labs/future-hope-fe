@@ -19,7 +19,7 @@ const MentorTable = props => {
           </tr>
         </thead>
         {users.map(user => {
-          if (user.userType === "mentor") {
+          if (user.userType === "mentor" && user.approval) {
             return (
               <tbody key={user.uid}>
                 <tr>

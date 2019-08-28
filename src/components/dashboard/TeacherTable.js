@@ -19,7 +19,7 @@ const TeacherTable = props => {
           </tr>
         </thead>
         {users.map(user => {
-          if (user.userType === "teacher") {
+          if (user.userType === "teacher" && user.approval) {
             return (
               <tbody key={user.uid}>
                 <tr>
