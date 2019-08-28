@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   MDBContainer,
   MDBBtn,
@@ -7,18 +7,46 @@ import {
   MDBModalHeader,
   MDBModalFooter,
   MDBInput
-} from "mdbreact";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+} from 'mdbreact';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const MeetingModal = props => {
-  const [startDate, changeStartDate] = useState(new Date());
-  const [endDate, changeEndDate] = useState(new Date());
-  const [title, changeTitle] = useState("");
-  const [participants, changeParticipants] = useState("");
+  const [startDate, changeStartDate] = useState(Date.now());
+  const [endDate, changeEndDate] = useState(Date.now());
+  const [title, changeTitle] = useState('');
+  const [participants, changeParticipants] = useState('');
 
-  function handleDateChange(date) {
-    changeStartDate(date);
+  function handleStartDateChange(date) {
+    // console.log('date', date);
+    // console.log('get Hours', date._d.getHours());
+    // console.log('get milliseconds', date._d.getMilliseconds());
+
+    changeStartDate(date._d);
   }
+
+  // function handleEndDateChange(date) {
+  //   changeEndDate(date._d);
+  // }
+
+  const submitMeeting = e => {
+    e.preventDefault();
+    //* Formatting data to work with Calendar
+    const newMeeting = {
+      title: title,
+      start: startDate
+      //! Still need to add participants and end time.
+      // end: endDate
+    };
+    //* Adding Event to Calendar
+    props.addMeeting(newMeeting);
+    //* Turning off the Modal
+    props.toggle();
+  };
+
+  //! Using useEffect to update the date picker with the day selected from Calendar component
+  useEffect(() => {
+    changeStartDate(props.clickedDate);
+  }, [props.clickedDate]);
 
   return (
     <MDBContainer>
@@ -35,20 +63,22 @@ const MeetingModal = props => {
             value={title}
             onChange={e => changeTitle(e.target.value)}
           />
+          {/* //! Now that the date is updating should we change this to just a time picker? */}
           <DateTimePicker
             value={startDate}
             disablePast
-            onChange={handleDateChange}
+            onChange={handleStartDateChange}
             label='Start time'
             showTodayButton
           />
+          {/* //! Removing end datetime picker for now. Needs to auto-populate based on start time. Might not need picker at all, just a length drop down, then parse the end date.
           <DateTimePicker
             value={endDate}
             disablePast
-            onChange={e => changeEndDate(e.target.value)}
-            label='Start time'
+            onChange={handleEndDateChange}
+            label='End time'
             showTodayButton
-          />
+          /> */}
           <MDBInput
             label='Select Participants'
             type='text'
@@ -60,7 +90,9 @@ const MeetingModal = props => {
           <MDBBtn color='secondary' onClick={e => props.toggle()}>
             Close
           </MDBBtn>
-          <MDBBtn color='primary'>Save changes</MDBBtn>
+          <MDBBtn color='primary' onClick={e => submitMeeting(e)}>
+            Save changes
+          </MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </MDBContainer>

@@ -1,50 +1,43 @@
-import React from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-  MDBBtn,
-  MDBCard,
-  MDBCardBody
-} from "mdbreact";
-import flatpickr from "flatpickr";
-import "./flatpickr.min.css";
-import "./flatpickr.css";
-import swal from "@sweetalert/with-react";
-import { connect } from "react-redux";
-import MomentUtils from "@date-io/moment";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import React from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+import { MDBBtn } from 'mdbreact';
+import flatpickr from 'flatpickr';
+import './flatpickr.min.css';
+import './flatpickr.css';
+import swal from '@sweetalert/with-react';
+import { connect } from 'react-redux';
+import MomentUtils from '@date-io/moment';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
-import { firestore, auth } from "../../config/fbConfig.js";
-import { userStore } from "../../actions/auth.js";
-import MeetingModal from "./MeetingModal";
+import { firestore, auth } from '../../config/fbConfig.js';
+import { userStore } from '../../actions/auth.js';
+import MeetingModal from './MeetingModal';
 
-import "../auth/Login.scss";
-import "./main.scss";
+import '../auth/Login.scss';
+import './main.scss';
 
 class Calendar extends React.Component {
   calendarComponentRef = React.createRef();
   state = {
     calendarWeekends: true,
     displayPicker: true,
-    meetingParticipant: "",
+    meetingParticipant: '',
     events: [],
     changedEvent: {},
-    showModal: false
+    showModal: false,
+    clickedDate: ''
   };
 
   componentDidMount = async () => {
     const uid = this.props.user.uid;
     let events = [];
-    const meetingsRef = await firestore.collection("meetings");
+    const meetingsRef = await firestore.collection('meetings');
     // finds all meeting docs with matching UID and pushes each to the events array and then sets array in state
     const userMeetings = await meetingsRef
-      .where("participantUIDs", "array-contains", uid)
+      .where('participantUIDs', 'array-contains', uid)
       .get()
       .then(querySnapshot => {
         console.log(querySnapshot);
@@ -68,6 +61,20 @@ class Calendar extends React.Component {
     });
   };
 
+  addMeeting = async meeting => {
+    let meetings = this.state.events;
+    console.log('meeting object', meeting);
+    //* add meeting to firestore
+    const meetingRef = firestore.collection('meetings').doc();
+    await meetingRef.set(meeting);
+    //* update old meetings array with new meeting
+    meetings.push(meeting);
+    //! Component not re-rendering with new meeting after setState
+    this.setState({
+      events: meetings
+    });
+  };
+
   render() {
     return (
       <div className='demo-app' style={{ marginTop: 100 }}>
@@ -87,9 +94,9 @@ class Calendar extends React.Component {
           <FullCalendar
             defaultView='dayGridMonth'
             header={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
             }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable={true}
@@ -105,6 +112,8 @@ class Calendar extends React.Component {
             <MeetingModal
               toggle={this.toggleModal}
               showModal={this.state.showModal}
+              addMeeting={this.addMeeting}
+              clickedDate={this.state.clickedDate}
             />
           </MuiPickersUtilsProvider>
         </div>
@@ -114,14 +123,14 @@ class Calendar extends React.Component {
 
   handleEventDrop = info => {
     swal({
-      title: "Change Meeting Date?",
+      title: 'Change Meeting Date?',
       text: `Meeting will be changed to ${info.event.start}`,
-      icon: "warning",
+      icon: 'warning',
       buttons: true,
       dangerMode: false
     }).then(changeDate => {
-      console.log("event", info.event);
-      console.log("new date", changeDate);
+      console.log('event', info.event);
+      console.log('new date', changeDate);
       if (changeDate) {
         let newEvents = this.state.events.map(e => {
           if (e.start.getTime() === info.oldEvent.start.getTime()) {
@@ -140,20 +149,20 @@ class Calendar extends React.Component {
           info.view.calendar.addEvent(e);
         });
         swal(`Meeting date has been changed to ${info.event.start}`, {
-          icon: "success"
+          icon: 'success'
         });
       } else {
-        swal("Cancelled, your meeting has not been changed!");
+        swal('Cancelled, your meeting has not been changed!');
       }
     });
   };
 
   handleEventClick = info => {
     swal({
-      text: "Set Meeting Name",
-      content: "input",
+      text: 'Set Meeting Name',
+      content: 'input',
       button: {
-        text: "Submit!",
+        text: 'Submit!',
         closeModal: true
       }
     }).then(name => {
@@ -177,20 +186,20 @@ class Calendar extends React.Component {
       });
 
       swal({
-        title: "Would you like to change the date as well?",
+        title: 'Would you like to change the date as well?',
         text: `Current date is ${info.event.start}`,
-        icon: "warning",
+        icon: 'warning',
         buttons: true,
         dangerMode: false
       }).then(changeDate => {
         if (changeDate) {
-          const myInput = document.querySelector("#futureButton");
+          const myInput = document.querySelector('#futureButton');
           const fp = flatpickr(myInput, {
-            position: "below",
+            position: 'below',
             enableTime: true,
             noCalendar: false,
-            dateFormat: "H:i",
-            timeZone: "local",
+            dateFormat: 'H:i',
+            timeZone: 'local',
             onClose: () => {
               // If the user canceled the picker the dates will be empty and there is nothing to do
               if (fp.selectedDates.length === 0) {
@@ -232,23 +241,23 @@ class Calendar extends React.Component {
   gotoPast = () => {
     let calendarApi = this.calendarComponentRef.current.getApi();
     // Displays a datetime picker to set a future meeting
-    const myInput = document.querySelector("#futureButton");
+    const myInput = document.querySelector('#futureButton');
     // Had to put the confirmation and state update in the onClose callback as execution continues even after the flatpickr is displayed
     const fp = flatpickr(myInput, {
-      position: "below",
+      position: 'below',
       enableTime: true,
       noCalendar: false,
-      dateFormat: "H:i",
-      timeZone: "local",
+      dateFormat: 'H:i',
+      timeZone: 'local',
       onClose: () => {
         // If the user canceled the picker the dates will be empty and there is nothing to do
         if (fp.selectedDates.length === 0) {
           return;
         }
         swal({
-          title: "Schedule Meeting?",
-          text: "Meeting will be added to the calendar!",
-          icon: "warning",
+          title: 'Schedule Meeting?',
+          text: 'Meeting will be added to the calendar!',
+          icon: 'warning',
           buttons: true,
           dangerMode: false
         }).then(scheduleAppointment => {
@@ -259,14 +268,14 @@ class Calendar extends React.Component {
               ...this.state,
               events: [
                 ...this.state.events,
-                { title: "Meeting", start: fp.selectedDates[0] }
+                { title: 'Meeting', start: fp.selectedDates[0] }
               ]
             });
-            swal("Meeting has been added to the calendar!", {
-              icon: "success"
+            swal('Meeting has been added to the calendar!', {
+              icon: 'success'
             });
           } else {
-            swal("Cancelled, your meeting has not been set!");
+            swal('Cancelled, your meeting has not been set!');
           }
         });
       }
@@ -274,10 +283,22 @@ class Calendar extends React.Component {
     fp.open();
   };
 
-  handleDateClick = arg => {
+  handleDateClick = async arg => {
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the
     // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.
-    console.log("handleDateClick triggered");
+    console.log('handleDateClick triggered');
+    let meetingDate = await new Date(
+      arg.date.getFullYear(),
+      arg.date.getMonth(),
+      arg.date.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
+    await this.setState({
+      clickedDate: meetingDate
+    });
     this.toggleModal();
     //   const myInput = document.querySelector("#datepicker");
     //   const fp = flatpickr(myInput, {
