@@ -16,7 +16,8 @@ import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
-import ProfileView from './components/views/ProfileView.js';
+import ProfileView from "./components/views/ProfileView.js";
+import MentorProfile from "./components/views/MentorProfile";
 
 import "./App.css";
 
@@ -106,6 +107,7 @@ class App extends React.Component {
         {auth.currentUser ? <SignedInNavBar /> : <Navbar />}
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route path="/mentor-profile" component={MentorProfile} />
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
           <Route
@@ -130,7 +132,7 @@ class App extends React.Component {
               />
             )}
           />
-          <Route path = '/profile/:uid' component = {ProfileView} />
+          <Route path="/profile/:uid" component={ProfileView} />
         </Switch>
       </Router>
     );
