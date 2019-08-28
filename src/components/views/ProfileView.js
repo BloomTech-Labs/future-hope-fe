@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
@@ -9,8 +10,20 @@ import {
     MDBContainer
   } from "mdbreact";
 
+=======
+import React from "react";
+import { connect } from "react-redux";
+>>>>>>> Staging
 
+const ProfileView = props => {
+  return (
+    <div>
+      <p>Name: {props.userInfo.fullName}</p>
+      <p>
+        Location:{props.userInfo.city}, {props.userInfo.country}
+      </p>
 
+<<<<<<< HEAD
 const ProfileView = (props) => {
     
     
@@ -42,12 +55,19 @@ const ProfileView = (props) => {
     )
 }
 
+=======
+      <p>About me: {props.userInfo.aboutMe}</p>
+      <p>Account Type: {props.userInfo.userType}</p>
+    </div>
+  );
+};
+>>>>>>> Staging
 
 //* This state.firebase.profile gives us all the profile info automatically stored into redux by firebase. Neat.
-const mapStateToProps = (state) => {
-    return{
-        userInfo: state.firebase.profile
-    }
-}
+const mapStateToProps = state => {
+  return {
+    userInfo: state.firebase.profile
+  };
+};
 
 export default connect(mapStateToProps)(ProfileView);
