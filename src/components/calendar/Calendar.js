@@ -3,15 +3,26 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import { MDBBtn } from "mdbreact";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody
+} from "mdbreact";
 import flatpickr from "flatpickr";
 import "./flatpickr.min.css";
 import "./flatpickr.css";
-import swal from "sweetalert";
+import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 import { firestore, auth } from "../../config/fbConfig.js";
 import { userStore } from "../../actions/auth.js";
+import MeetingModal from "./MeetingModal";
 
 import "../auth/Login.scss";
 import "./main.scss";
@@ -22,35 +33,13 @@ class Calendar extends React.Component {
     calendarWeekends: true,
     displayPicker: true,
     meetingParticipant: "",
-    events: []
-    // Not sure if we need to keep user in local state
-    // user: {
-    // }
+    events: [],
+    changedEvent: {},
+    showModal: false
   };
 
   componentDidMount = async () => {
-    // if (auth.currentUser.uid && !this.props.auth.user.uid) {
-    //   let userInfo = null;
-    //   try {
-    //     await firestore
-    //       .collection("users")
-    //       .doc(auth.currentUser.uid)
-    //       .onSnapshot(snapshot => {
-    //         console.log("userInfo", snapshot.data());
-    //         userInfo = snapshot.data();
-    //         this.props.userStore(userInfo);
-    //         // Not sure if we need to keep user in local state
-    //         // this.setState({
-    //         //   user: userInfo
-    //         // })
-    //       });
-    //   } catch (err) {
-    //     alert(err);
-    //   }
-    // }
-    // Search for meetings tied to UID
     const uid = this.props.user.uid;
-    console.log(uid);
     let events = [];
     const meetingsRef = await firestore.collection("meetings");
     // finds all meeting docs with matching UID and pushes each to the events array and then sets array in state
@@ -73,8 +62,13 @@ class Calendar extends React.Component {
     });
   };
 
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  };
+
   render() {
-    // console.log('uid', this.props)
     return (
       <div className='demo-app' style={{ marginTop: 100 }}>
         <div className='demo-app-top'>
@@ -107,6 +101,12 @@ class Calendar extends React.Component {
             eventDrop={this.handleEventDrop}
             allDayDefault={false}
           />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <MeetingModal
+              toggle={this.toggleModal}
+              showModal={this.state.showModal}
+            />
+          </MuiPickersUtilsProvider>
         </div>
       </div>
     );
@@ -120,6 +120,8 @@ class Calendar extends React.Component {
       buttons: true,
       dangerMode: false
     }).then(changeDate => {
+      console.log("event", info.event);
+      console.log("new date", changeDate);
       if (changeDate) {
         let newEvents = this.state.events.map(e => {
           if (e.start.getTime() === info.oldEvent.start.getTime()) {
@@ -275,49 +277,51 @@ class Calendar extends React.Component {
   handleDateClick = arg => {
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the
     // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.
-    const myInput = document.querySelector("#datepicker");
-    const fp = flatpickr(myInput, {
-      position: "below",
-      enableTime: true,
-      noCalendar: true,
-      dateFormat: "H:i",
-      timeZone: "local",
-      onClose: () => {
-        swal({
-          title: "Schedule Meeting?",
-          text: "Meeting will be added to the calendar!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: false
-        }).then(scheduleAppointment => {
-          if (scheduleAppointment) {
-            // If the user confirms the meeting add the start time to the date object and update  state with the new meeting
-            let meetingDate = new Date(
-              arg.date.getFullYear(),
-              arg.date.getMonth(),
-              arg.date.getDate(),
-              fp.selectedDates[0].getHours(),
-              fp.selectedDates[0].getMinutes(),
-              0,
-              0
-            );
-            this.setState({
-              ...this.state,
-              events: [
-                ...this.state.events,
-                { title: "Meeting", start: meetingDate }
-              ]
-            });
-            swal("Meeting has been added to the calendar!", {
-              icon: "success"
-            });
-          } else {
-            swal("Cancelled, your meeting has not been set!");
-          }
-        });
-      }
-    });
-    fp.open();
+    console.log("handleDateClick triggered");
+    this.toggleModal();
+    //   const myInput = document.querySelector("#datepicker");
+    //   const fp = flatpickr(myInput, {
+    //     position: "below",
+    //     enableTime: true,
+    //     noCalendar: true,
+    //     dateFormat: "H:i",
+    //     timeZone: "local",
+    //     onClose: () => {
+    //       swal({
+    //         title: "Schedule Meeting?",
+    //         text: "Meeting will be added to the calendar!",
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: false
+    //       }).then(scheduleAppointment => {
+    //         if (scheduleAppointment) {
+    //           // If the user confirms the meeting add the start time to the date object and update  state with the new meeting
+    //           let meetingDate = new Date(
+    //             arg.date.getFullYear(),
+    //             arg.date.getMonth(),
+    //             arg.date.getDate(),
+    //             fp.selectedDates[0].getHours(),
+    //             fp.selectedDates[0].getMinutes(),
+    //             0,
+    //             0
+    //           );
+    //           this.setState({
+    //             ...this.state,
+    //             events: [
+    //               ...this.state.events,
+    //               { title: "Meeting", start: meetingDate }
+    //             ]
+    //           });
+    //           swal("Meeting has been added to the calendar!", {
+    //             icon: "success"
+    //           });
+    //         } else {
+    //           swal("Cancelled, your meeting has not been set!");
+    //         }
+    //       });
+    //     }
+    //   });
+    //   fp.open();
   };
 }
 
