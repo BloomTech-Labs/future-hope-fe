@@ -14,7 +14,7 @@ const ProfileView = props => {
           alt="profile"
           className="img-fluid rounded float-left z-depth-1-half"
         />
-        <Button href='/approved-mentor'>Mentor List</Button>
+        <Button href="/approved-mentor">Mentor List</Button>
       </div>
       <div className="info-container">
         <h4 className="left-aligned font-weight-bold p-2">

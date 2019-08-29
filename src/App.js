@@ -141,7 +141,7 @@ class App extends React.Component {
               />
             )}
           />
-          <Route path="/profile/:uid" component={ProfileView} />
+          <Route path="/profile/:uid" component={ViewUserProfile} />
           <Route path="/applicationstatus" component={AwaitingApproval} />
         </Switch>
       </Router>

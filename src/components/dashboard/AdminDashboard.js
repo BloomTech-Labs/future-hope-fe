@@ -10,6 +10,7 @@ import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
+import { Redirect } from 'react-router-dom';
 
 class AdminDashboard extends Component {
   state = {
@@ -45,6 +46,7 @@ class AdminDashboard extends Component {
     console.log("userinfo", userInfo);
 
     //if (!auth.uid) return <Redirect to="/" />;
+    if(this.props.userInfo.userType !== 'admin') return <Redirect to = '/' /> //* just redirect to landing page? 
 
     return (
       <div className="dashboardContainer">

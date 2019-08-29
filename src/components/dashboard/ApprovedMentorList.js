@@ -32,20 +32,17 @@ class ApprovedMentorList extends Component {
     this.setState({
       users: userArray
     });
-    //console.log("userArray", userArray);
+    console.log("userArray", userArray);
   };
 
-  pushToProfilePage = (uid) => {
-    this.props.history.push(`/view-profile/${uid}`)
-  }
-
+  pushToProfilePage = uid => {
+    this.props.history.push(`/profile/${uid}`);
+  };
 
   render() {
     const { auth, userInfo } = this.props;
     const { users } = this.state;
     console.log("usersFromList", users);
-
-  
 
     //if (!auth.uid) return <Redirect to="/" />;
     return (
@@ -54,7 +51,7 @@ class ApprovedMentorList extends Component {
         <table className="table">
           <thead>
             <tr>
-            <th scope="col">Profile Photo</th>
+              <th scope="col">Profile Photo</th>
               <th scope="col">Names</th>
               <th scope="col">Account Type</th>
               <th scope="col">City</th>
@@ -67,13 +64,18 @@ class ApprovedMentorList extends Component {
               return (
                 <tbody key={user.uid}>
                   <tr>
-                    <td> <img src={user.profilePhoto} alt="profile photo"></img></td>
+                    <td>
+                      {" "}
+                      <img src={user.profilePhoto} alt="profile photo"></img>
+                    </td>
                     <td>{user.name}</td>
                     <td>{user.userType}</td>
                     <td>{user.city}</td>
                     <td>{user.stateProvince}</td>
                     <td>
-                      <Button onClick={() => this.pushToProfilePage(user.uid)}>View Profile</Button>
+                      <Button onClick={() => this.pushToProfilePage(user.uid)}>
+                        View Profile
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
