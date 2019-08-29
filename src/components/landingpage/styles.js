@@ -2,6 +2,9 @@ import { container, title, cardTitle } from "../shared/styles/sharedStyle";
 import imagesStyle from "../shared/styles/imagesStyles";
 
 const landingPageStyle = {
+  "app-container": {
+    paddingTop: "0px"
+  },
   container: {
     zIndex: "12",
     color: "#FFFFFF",

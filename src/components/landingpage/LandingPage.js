@@ -19,9 +19,9 @@ import FeatureSection from "./components/FeatureSection";
 import CTASection from "./components/CTASection";
 
 const LandingPage = (props) => {
-    const { classes, ...rest } = props;
+    const { classes } = props;
     return (
-      <div>
+      <div className="landing-container">
         <Parallax image={require("./assets/bg4.jpg")}>
           <div className={classes.container}>
             <GridContainer>
