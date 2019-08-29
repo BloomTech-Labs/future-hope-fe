@@ -9,6 +9,10 @@ import rootReducer from "./reducers/rootReducer";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+
 import App from "./App";
 import "./index.css";
 import fbConfig from "./config/fbConfig";
