@@ -6,15 +6,21 @@ import {
   MDBModalBody,
   MDBModalHeader,
   MDBModalFooter,
-  MDBInput
+  MDBInput,
+  MDBFormInline,
+  MDBIcon
 } from 'mdbreact';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { firestore } from 'firebase';
+
+import SearchResults from './SearchResults';
 
 const MeetingModal = props => {
   const [startDate, changeStartDate] = useState(Date.now());
   const [endDate, changeEndDate] = useState(Date.now());
   const [title, changeTitle] = useState('');
-  const [participants, changeParticipants] = useState('');
+  const [participants, changeParticipants] = useState({});
+  const [showSearchResults, changeShowSearchResults] = useState(false);
 
   function handleStartDateChange(date) {
     // console.log('date', date);
@@ -41,6 +47,16 @@ const MeetingModal = props => {
     props.addMeeting(newMeeting);
     //* Turning off the Modal
     props.toggle();
+  };
+
+  const searchParticipants = searchTerm => {
+    console.log(searchTerm);
+    // const usersRef = firestore.CollectionReference('users')
+    // const searchedUsers = usersRef.where('fullName', '>=', searchTerm)
+  };
+
+  const toggleSearchModal = () => {
+    changeShowSearchResults(!showSearchResults);
   };
 
   //! Using useEffect to update the date picker with the day selected from Calendar component
@@ -79,11 +95,32 @@ const MeetingModal = props => {
             label='End time'
             showTodayButton
           /> */}
-          <MDBInput
+          {/* <MDBInput
             label='Select Participants'
             type='text'
             value={participants}
             onChange={e => changeParticipants(e.target.value)}
+          /> */}
+          <MDBFormInline
+            className='md-form'
+            onSubmit={async e => {
+              await searchParticipants(participants);
+              toggleSearchModal();
+            }}
+          >
+            <MDBIcon icon='search' />
+            <input
+              className='form-control form-control-sm ml-3 w-75'
+              type='text'
+              placeholder='Select Participants'
+              aria-label='Select Participants'
+              value={participants}
+              onChange={e => changeParticipants(e.target.value)}
+            />
+          </MDBFormInline>
+          <SearchResults
+            showSearchResults={showSearchResults}
+            participants={participants}
           />
         </MDBModalBody>
         <MDBModalFooter>
