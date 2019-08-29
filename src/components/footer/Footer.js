@@ -31,7 +31,7 @@ const Footer = ({ ...props }) => {
                 className={classes.block}
                 target="_blank"
               >
-                Our Story
+                Contact
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -40,7 +40,7 @@ const Footer = ({ ...props }) => {
                 className={classes.block}
                 target="_blank"
               >
-                About us
+                About
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -49,7 +49,7 @@ const Footer = ({ ...props }) => {
                 className={classes.block}
                 target="_blank"
               >
-                Blog
+                Privacy Policy
               </a>
             </ListItem>
           </List>
