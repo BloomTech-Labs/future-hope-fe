@@ -16,18 +16,12 @@ import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
-<<<<<<< HEAD
-import ProfileView from './components/views/ProfileView.js';
-import AdminDashboard from "./components/dashboard/AdminDashboard";
-import AwaitingApproval from './components/views/AwaitingApproval.js';
-import ApprovedMentorList from './components/dashboard/ApprovedMentorList.js';
-import ApprovedTeacherList from './components/dashboard/ApprovedTeacherList.js'
-=======
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
-import MentorProfile from "./components/views/MentorProfile.js"
-import ProfileView from "./components/views/ProfileView.js"
->>>>>>> Staging
+import MentorProfile from "./components/views/MentorProfile.js";
+import ProfileView from "./components/views/ProfileView.js";
+import ApprovedMentorList from './components/dashboard/ApprovedMentorList.js';
+import ApprovedTeacherList from './components/dashboard/ApprovedTeacherList.js'
 
 import "./App.css";
 
