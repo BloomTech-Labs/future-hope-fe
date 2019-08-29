@@ -1,4 +1,4 @@
-import { container, primaryColor } from "../../shared/sharedStyle";
+import { container, primaryColor } from "../shared/styles/sharedStyle";
 
 const footerStyle = {
   block: {
@@ -52,7 +52,7 @@ const footerStyle = {
   icon: {
     width: "18px",
     height: "18px",
-    position: "relative",
+    // position: "relative",
     top: "3px"
   }
 };

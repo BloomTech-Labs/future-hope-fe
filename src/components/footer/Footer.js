@@ -8,7 +8,7 @@ import { List, ListItem, withStyles } from "@material-ui/core";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
-import footerStyle from "./footerStyle";
+import footerStyle from "./styles";
 
 const Footer = ({ ...props }) => {
   const { classes, whiteFont } = props;
@@ -55,10 +55,10 @@ const Footer = ({ ...props }) => {
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{" "}
+          &copy; {1900 + new Date().getYear()} made with{" "}
           <Favorite className={classes.icon} /> by{" "}
           <a
-            href="#"
+            href="https://lambdaschool.com/"
             className={aClasses}
             target="_blank"
           >

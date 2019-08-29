@@ -15,7 +15,8 @@ import LandingPage from "./components/landingpage/LandingPage";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
-import SignedInNavBar from "./components/navbar/SignedInNavBar";
+import Footer from "./components/footer/Footer";
+// import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
@@ -23,6 +24,7 @@ import AdminDashboard from "./components/dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import MentorProfile from "./components/views/MentorProfile.js"
 import ProfileView from "./components/views/ProfileView.js"
+
 
 import "./App.css";
 
@@ -144,6 +146,7 @@ class App extends React.Component {
             <Route path="/applicationstatus" component={AwaitingApproval} />
           </Switch>
         </div>
+        <Footer />
       </Router>
     );
   }
