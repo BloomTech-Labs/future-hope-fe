@@ -17,8 +17,10 @@ import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
 import ProfileView from './components/views/ProfileView.js';
-import AdminDashboard from "./components/dashboard/AdminDashboard.js";
+import AdminDashboard from "./components/dashboard/AdminDashboard";
 import AwaitingApproval from './components/views/AwaitingApproval.js';
+import ApprovedMentorList from './components/dashboard/ApprovedMentorList.js';
+import ApprovedTeacherList from './components/dashboard/ApprovedTeacherList.js'
 
 import "./App.css";
 
@@ -111,6 +113,8 @@ class App extends React.Component {
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
           <Route path="/admin-dashboard" component={AdminDashboard} />
+          <Route path="/approved-teachers" component={ApprovedTeacherList} />
+          <Route path="/approved-mentors" component={ApprovedMentorList} />
           <Route
             exact
             path="/signup"

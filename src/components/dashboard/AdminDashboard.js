@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
@@ -7,6 +8,7 @@ import { firestore } from "../../config/fbConfig.js";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
+import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
 
 class AdminDashboard extends Component {
@@ -56,10 +58,12 @@ class AdminDashboard extends Component {
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button>View all Teachers</Button>
-                  <Button>View all Mentors</Button>
-                  <Button>Schedule a Meeting</Button>
-                  <Button>Start a Conversation</Button>
+                  <Button href="/approved-teachers">View all Teachers</Button>
+
+                  <Button href="/approved-mentors">View all Mentors</Button>
+
+                  <Button href="#">Schedule a Meeting</Button>
+                  <Button href="#">Start a Conversation</Button>
                 </div>
               </MDBCol>
             </div>
