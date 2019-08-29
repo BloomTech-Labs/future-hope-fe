@@ -36,7 +36,12 @@ class AdminDashboard extends Component {
       users: userArray
     });
     console.log("userArray", userArray);
-    if(this.props.userInfo.userType !== "admin") return <Redirect to = '/' />
+  };
+
+  checkIfAdmin = userInfo => {
+    if (userInfo.userType !== "admin") {
+      return <Redirect to="/" />; //* just redirect to landing page?
+    }
   };
 
   render() {
@@ -46,13 +51,11 @@ class AdminDashboard extends Component {
     console.log("userinfo", userInfo);
 
     //if (!auth.uid) return <Redirect to="/" />;
-    // if(this.props.userInfo.userType !== "admin") {
-    //  return <Redirect to = '/' /> //* just redirect to landing page?
-    // } else {
-      
+    this.checkIfAdmin(userInfo);
+    //} else {
+
     // this.props.userInfo.userType !== 'admin' ? <Redirect to ='/'/> : null
     // console.log(this.props.userInfo.userType, 'usertype');
-
 
     return (
       <div className="dashboardContainer">
@@ -94,7 +97,6 @@ class AdminDashboard extends Component {
       </div>
     );
   }
-  
 }
 
 const mapStateToProps = state => {

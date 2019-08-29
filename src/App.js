@@ -116,7 +116,6 @@ class App extends React.Component {
         {auth.currentUser ? <SignedInNavBar /> : <Navbar />}
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path="/mentor-profile" component={MentorProfile} />
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
           <Route path="/admin-dashboard" component={AdminDashboard} />
