@@ -23,6 +23,8 @@ import MentorProfile from "./components/views/MentorProfile.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 import ViewUserProfile from "./components/views/ViewUserProfile";
+import MentorTable from "./components/dashboard/MentorTable";
+import TeacherTable from "./components/dashboard/TeacherTable";
 
 import "./App.css";
 
@@ -95,6 +97,8 @@ class App extends React.Component {
     } else if (user.userType === "teacher") {
       // this.props.history.push("/teacher_dahsboard");
       return "/teacher_dashboard";
+    } else if (user.userType === "admin") {
+      return "/admin-dashboard";
     } else {
       this.props.history.push("/");
       return "/";
@@ -143,6 +147,8 @@ class App extends React.Component {
           />
           <Route path="/profile/:uid" component={ViewUserProfile} />
           <Route path="/applicationstatus" component={AwaitingApproval} />
+          <Route path="/mentor-table" component={MentorTable} />
+          <Route path="/teacher-table" component={TeacherTable} />
         </Switch>
       </Router>
     );

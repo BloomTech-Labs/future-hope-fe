@@ -10,7 +10,7 @@ import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 class AdminDashboard extends Component {
   state = {
@@ -46,7 +46,7 @@ class AdminDashboard extends Component {
     console.log("userinfo", userInfo);
 
     //if (!auth.uid) return <Redirect to="/" />;
-    if(this.props.userInfo.userType !== 'admin') return <Redirect to = '/' /> //* just redirect to landing page? 
+    // if(this.props.userInfo.userType !== "admin") return <Redirect to = '/' /> //* just redirect to landing page?
 
     return (
       <div className="dashboardContainer">
@@ -60,9 +60,13 @@ class AdminDashboard extends Component {
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button href="/approved-teachers">View approved Teachers</Button>
+                  <Button href="/approved-teachers">
+                    View approved Teachers
+                  </Button>
 
-                  <Button href="/approved-mentors">View approved Mentors</Button>
+                  <Button href="/approved-mentors">
+                    View approved Mentors
+                  </Button>
 
                   <Button href="#">Schedule a Meeting</Button>
                   <Button href="#">Start a Conversation</Button>
@@ -70,8 +74,14 @@ class AdminDashboard extends Component {
               </MDBCol>
             </div>
             <MDBCol size="9">
-              <MentorTable users={this.state.users} />
-              <TeacherTable users={this.state.users} />
+              <MentorTable
+                users={this.state.users}
+                history={this.props.history}
+              />
+              <TeacherTable
+                users={this.state.users}
+                history={this.props.history}
+              />
             </MDBCol>
           </MDBRow>
         </MDBContainer>
