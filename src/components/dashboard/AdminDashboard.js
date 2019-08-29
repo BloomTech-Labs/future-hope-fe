@@ -58,9 +58,9 @@ class AdminDashboard extends Component {
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button href="/approved-teachers">View all Teachers</Button>
+                  <Button href="/approved-teachers">View approved Teachers</Button>
 
-                  <Button href="/approved-mentors">View all Mentors</Button>
+                  <Button href="/approved-mentors">View approved Mentors</Button>
 
                   <Button href="#">Schedule a Meeting</Button>
                   <Button href="#">Start a Conversation</Button>
