@@ -21,7 +21,8 @@ import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import MentorProfile from "./components/views/MentorProfile.js";
 import ProfileView from "./components/views/ProfileView.js";
 import ApprovedMentorList from './components/dashboard/ApprovedMentorList.js';
-import ApprovedTeacherList from './components/dashboard/ApprovedTeacherList.js'
+import ApprovedTeacherList from './components/dashboard/ApprovedTeacherList.js';
+import ViewUserProfile from "./components/views/ViewUserProfile";
 
 import "./App.css";
 
@@ -117,6 +118,7 @@ class App extends React.Component {
           <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route path="/approved-teachers" component={ApprovedTeacherList} />
           <Route path="/approved-mentors" component={ApprovedMentorList} />
+          <Route path="/view-profile" component={ViewUserProfile} />
           <Route
             exact
             path="/signup"

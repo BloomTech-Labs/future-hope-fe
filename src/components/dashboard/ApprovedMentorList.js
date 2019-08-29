@@ -17,7 +17,7 @@ class ApprovedMentorList extends Component {
     const userRef = firestore.collection("users");
     const userList = await userRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data());
+        //console.log(doc.data());
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -32,13 +32,20 @@ class ApprovedMentorList extends Component {
     this.setState({
       users: userArray
     });
-    console.log("userArray", userArray);
+    //console.log("userArray", userArray);
   };
 
+  pushToProfilePage = (uid) => {
+    this.props.history.push(`/view-profile/${uid}`)
+  }
+
+
   render() {
-    const { auth } = this.props;
+    const { auth, userInfo } = this.props;
     const { users } = this.state;
-    console.log("auth", auth);
+    console.log("usersFromList", users);
+
+  
 
     //if (!auth.uid) return <Redirect to="/" />;
     return (
@@ -66,7 +73,7 @@ class ApprovedMentorList extends Component {
                     <td>{user.city}</td>
                     <td>{user.stateProvince}</td>
                     <td>
-                      <Button>View</Button>
+                      <Button onClick={() => this.pushToProfilePage(user.uid)}>View Profile</Button>
                     </td>
                   </tr>
                 </tbody>
@@ -85,7 +92,8 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     auth: state.firebase.auth,
-    users: state.firestore.ordered.users
+    users: state.firestore.ordered.users,
+    userInfo: state.firebase.profile
   };
 };
 
