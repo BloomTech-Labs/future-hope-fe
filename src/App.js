@@ -5,9 +5,12 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import { auth, firestore } from "./config/fbConfig.js";
 
+// auth stuff
+import { auth, firestore } from "./config/fbConfig.js";
 import "firebase/auth";
+
+// core components
 import LandingPage from "./components/landingpage/LandingPage";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
@@ -108,37 +111,39 @@ class App extends React.Component {
       <Router>
         {/* {auth.currentUser ? <SignedInNavBar /> : <Navbar />} */}
         <Navbar {...this.props} auth={auth} />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/mentor-profile" component={MentorProfile} />
-          <Route path="/mentors" component={MentorList} />
-          <Route path="/FAQ" component={FAQ} />
-          <Route path="/admin-dashboard" component={AdminDashboard} />
-          <Route
-            exact
-            path="/signup"
-            render={props => (
-              <SignUp
-                setupUserListener={this.setupUserListener}
-                routeUser={this.routeUser}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/login"
-            render={props => (
-              <Login
-                setupUserListener={this.setupUserListener}
-                routeUser={this.routeUser}
-                {...props}
-                rerouteUser={this.state.rerouteUser}
-              />
-            )}
-          />
-          <Route path="/profile/:uid" component={ProfileView} />
-          <Route path="/applicationstatus" component={AwaitingApproval} />
-        </Switch>
+        <div className="app-container">
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/mentor-profile" component={MentorProfile} />
+            <Route path="/mentors" component={MentorList} />
+            <Route path="/FAQ" component={FAQ} />
+            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route
+              exact
+              path="/signup"
+              render={props => (
+                <SignUp
+                  setupUserListener={this.setupUserListener}
+                  routeUser={this.routeUser}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/login"
+              render={props => (
+                <Login
+                  setupUserListener={this.setupUserListener}
+                  routeUser={this.routeUser}
+                  {...props}
+                  rerouteUser={this.state.rerouteUser}
+                />
+              )}
+            />
+            <Route path="/profile/:uid" component={ProfileView} />
+            <Route path="/applicationstatus" component={AwaitingApproval} />
+          </Switch>
+        </div>
       </Router>
     );
   }
