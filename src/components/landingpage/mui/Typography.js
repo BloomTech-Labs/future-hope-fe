@@ -56,7 +56,6 @@ const variantMapping = {
 
 function Typography(props) {
   const { children, classes, marked = false, variant, ...other } = props;
-  console.log(children)
   return (
     <MuiTypography variantMapping={variantMapping} variant={variant} {...other}>
       {children}
