@@ -54,7 +54,17 @@ class ViewUserProfile extends React.Component {
             alt="profile"
             className="img-fluid rounded float-left z-depth-1-half"
           />
-          <Button href="/approved-mentors">Mentor List</Button>
+          <Button
+            href={
+              this.props.userInfo.userType === "mentor"
+                ? "/approved-teachers"
+                : "/approved-mentors"
+            }
+          >
+            {this.props.userInfo.userType === "mentor"
+              ? "Teacher List"
+              : "Mentor List"}
+          </Button>
         </div>
         <div className="info-container">
           <h4 className="left-aligned font-weight-bold p-2">
