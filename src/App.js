@@ -18,6 +18,8 @@ import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
+import MentorProfile from "./components/views/MentorProfile.js"
+import ProfileView from "./components/views/ProfileView.js"
 
 import "./App.css";
 
