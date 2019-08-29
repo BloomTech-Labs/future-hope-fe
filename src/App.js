@@ -106,7 +106,8 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {auth.currentUser ? <SignedInNavBar /> : <Navbar />}
+        {/* {auth.currentUser ? <SignedInNavBar /> : <Navbar />} */}
+        <Navbar {...this.props} auth={auth} />
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/mentor-profile" component={MentorProfile} />
