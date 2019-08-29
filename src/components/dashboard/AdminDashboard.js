@@ -10,12 +10,10 @@ import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
 import { Redirect } from "react-router-dom";
-
 class AdminDashboard extends Component {
   state = {
     users: []
   };
-
   componentDidMount = async () => {
     let userArray = [];
     const userRef = firestore.collection("users");
@@ -37,26 +35,14 @@ class AdminDashboard extends Component {
     });
     console.log("userArray", userArray);
   };
-
-  checkIfAdmin = userInfo => {
+  render() {
+    const { auth, userInfo } = this.props;
+    console.log("auth", auth);
+    console.log("userinfo", userInfo);
+    //! When logged in as an admin, once you refresh or move away from admin dash you can't get back.
     if (userInfo.userType !== "admin") {
       return <Redirect to="/" />; //* just redirect to landing page?
     }
-  };
-
-  render() {
-    const { auth, userInfo } = this.props;
-
-    console.log("auth", auth);
-    console.log("userinfo", userInfo);
-
-    //if (!auth.uid) return <Redirect to="/" />;
-    this.checkIfAdmin(userInfo);
-    //} else {
-
-    // this.props.userInfo.userType !== 'admin' ? <Redirect to ='/'/> : null
-    // console.log(this.props.userInfo.userType, 'usertype');
-
     return (
       <div className="dashboardContainer">
         <MDBContainer>
@@ -72,11 +58,9 @@ class AdminDashboard extends Component {
                   <Button href="/approved-teachers">
                     View approved Teachers
                   </Button>
-
                   <Button href="/approved-mentors">
                     View approved Mentors
                   </Button>
-
                   <Button href="#">Schedule a Meeting</Button>
                   <Button href="#">Start a Conversation</Button>
                 </div>
@@ -98,7 +82,6 @@ class AdminDashboard extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
   console.log(state);
   return {
@@ -107,5 +90,4 @@ const mapStateToProps = state => {
     userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
-
 export default connect(mapStateToProps)(AdminDashboard);
