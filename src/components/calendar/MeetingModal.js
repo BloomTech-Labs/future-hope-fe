@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -9,18 +9,19 @@ import {
   MDBInput,
   MDBFormInline,
   MDBIcon
-} from 'mdbreact';
-import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { firestore } from 'firebase';
+} from "mdbreact";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { firestore } from "firebase";
 
-import SearchResults from './SearchResults';
+import SearchResults from "./SearchResults";
 
 const MeetingModal = props => {
   const [startDate, changeStartDate] = useState(Date.now());
   const [endDate, changeEndDate] = useState(Date.now());
-  const [title, changeTitle] = useState('');
+  const [title, changeTitle] = useState("");
   const [participants, changeParticipants] = useState({});
   const [showSearchResults, changeShowSearchResults] = useState(false);
+  const [searchTerm, changeSearchTerm] = useState("");
 
   function handleStartDateChange(date) {
     // console.log('date', date);
@@ -104,6 +105,7 @@ const MeetingModal = props => {
           <MDBFormInline
             className='md-form'
             onSubmit={async e => {
+              e.preventDefault();
               await searchParticipants(participants);
               toggleSearchModal();
             }}
@@ -112,15 +114,16 @@ const MeetingModal = props => {
             <input
               className='form-control form-control-sm ml-3 w-75'
               type='text'
-              placeholder='Select Participants'
-              aria-label='Select Participants'
-              value={participants}
-              onChange={e => changeParticipants(e.target.value)}
+              placeholder='Search Participants'
+              aria-label='Search Participants'
+              value={searchTerm}
+              onChange={e => changeSearchTerm(e.target.value)}
             />
           </MDBFormInline>
           <SearchResults
             showSearchResults={showSearchResults}
             participants={participants}
+            toggleSearchModal={toggleSearchModal}
           />
         </MDBModalBody>
         <MDBModalFooter>
