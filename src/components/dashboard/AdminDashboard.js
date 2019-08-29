@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
-//import { Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
@@ -37,6 +36,7 @@ class AdminDashboard extends Component {
       users: userArray
     });
     console.log("userArray", userArray);
+    if(this.props.userInfo.userType !== "admin") return <Redirect to = '/' />
   };
 
   render() {
@@ -46,7 +46,13 @@ class AdminDashboard extends Component {
     console.log("userinfo", userInfo);
 
     //if (!auth.uid) return <Redirect to="/" />;
-    // if(this.props.userInfo.userType !== "admin") return <Redirect to = '/' /> //* just redirect to landing page?
+    // if(this.props.userInfo.userType !== "admin") {
+    //  return <Redirect to = '/' /> //* just redirect to landing page?
+    // } else {
+      
+    // this.props.userInfo.userType !== 'admin' ? <Redirect to ='/'/> : null
+    // console.log(this.props.userInfo.userType, 'usertype');
+
 
     return (
       <div className="dashboardContainer">
@@ -88,6 +94,7 @@ class AdminDashboard extends Component {
       </div>
     );
   }
+  
 }
 
 const mapStateToProps = state => {
