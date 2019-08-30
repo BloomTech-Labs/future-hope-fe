@@ -5,14 +5,18 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import { auth, firestore } from "./config/fbConfig.js";
 
+// auth stuff
+import { auth, firestore } from "./config/fbConfig.js";
 import "firebase/auth";
+
+// core components
 import LandingPage from "./components/landingpage/LandingPage";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
-import SignedInNavBar from "./components/navbar/SignedInNavBar";
+import Footer from "./components/footer/Footer";
+// import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 //import Calendar from "./components/calendar/Calendar";
@@ -25,6 +29,7 @@ import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 import ViewUserProfile from "./components/views/ViewUserProfile";
 import MentorTable from "./components/dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/TeacherTable";
+
 
 import "./App.css";
 
@@ -149,6 +154,7 @@ class App extends React.Component {
           <Route path="/mentor-table" component={MentorTable} />
           <Route path="/teacher-table" component={TeacherTable} />
         </Switch>
+
       </Router>
     );
   }
