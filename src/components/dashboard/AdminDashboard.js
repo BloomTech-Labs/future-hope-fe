@@ -9,22 +9,19 @@ import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
-<<<<<<< HEAD
-import {Redirect} from 'react-router-dom';
-
-=======
 import { Redirect } from "react-router-dom";
->>>>>>> d2eaf8de732ff4dc849dc3fc27adff274bc72eae
 class AdminDashboard extends Component {
   state = {
-    users: []
+    users: [],
+    userType: ''
   };
+
   componentDidMount = async () => {
     let userArray = [];
     const userRef = firestore.collection("users");
     const userList = await userRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data());
+        // console.log(doc.data());
         userArray.push({
           approval: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -38,23 +35,22 @@ class AdminDashboard extends Component {
     this.setState({
       users: userArray
     });
-    console.log("userArray", userArray);
-  };
+    //! This is the fix for the refreshing as an admin and not being able to get back to this component.
+    //! This also fixes accounts that are not admins being able to access the admin-dash
+    //! Only problem is, when you are a non-admin account and attempt access, it flashes the admin dash before redirecting.
+    setTimeout(() => {
+      if (this.props.userInfo.userType !== "admin"){
+      this.props.history.push('/');
+      }
+    }, 0)
+   }
   render() {
-    const { auth, userInfo } = this.props;
-    console.log("auth", auth);
-    console.log("userinfo", userInfo);
-<<<<<<< HEAD
-
-    //! If user is not an admin, they should not be able to get to this component.
-    if(this.props.userInfo.userType !== 'admin') return <Redirect to = '/' /> //* just redirect to landing page? 
-
-=======
-    //! When logged in as an admin, once you refresh or move away from admin dash you can't get back.
-    if (userInfo.userType !== "admin") {
-      return <Redirect to="/" />; //* just redirect to landing page?
-    }
->>>>>>> d2eaf8de732ff4dc849dc3fc27adff274bc72eae
+    // const { auth, userInfo } = this.props;
+    // console.log("auth", auth);
+    // console.log("userinfo", userInfo);
+    
+    
+    
     return (
       <div className="dashboardContainer">
         <MDBContainer>
@@ -95,7 +91,7 @@ class AdminDashboard extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
