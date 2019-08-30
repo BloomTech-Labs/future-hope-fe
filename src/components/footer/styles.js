@@ -26,7 +26,7 @@ const footerStyle = {
     textAlign: "center",
     display: "flex",
     zIndex: "2",
-    position: "absolute",
+    position: "relative",
     bottom: "0",
     width: "100%"
   },

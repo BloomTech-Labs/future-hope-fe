@@ -93,3 +93,7 @@ body {
 .app-container > div:first-child:not(.landing-container){
   padding-top: 80px;
 }
+
+.app-container {
+  min-height: 100vh;
+}
