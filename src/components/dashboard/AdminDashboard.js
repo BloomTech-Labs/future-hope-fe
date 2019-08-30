@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
-//import { Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
+import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
+<<<<<<< HEAD
 import {Redirect} from 'react-router-dom';
 
+=======
+import { Redirect } from "react-router-dom";
+>>>>>>> d2eaf8de732ff4dc849dc3fc27adff274bc72eae
 class AdminDashboard extends Component {
   state = {
     users: []
   };
-
   componentDidMount = async () => {
     let userArray = [];
     const userRef = firestore.collection("users");
@@ -36,16 +40,21 @@ class AdminDashboard extends Component {
     });
     console.log("userArray", userArray);
   };
-
   render() {
     const { auth, userInfo } = this.props;
-
     console.log("auth", auth);
     console.log("userinfo", userInfo);
+<<<<<<< HEAD
 
     //! If user is not an admin, they should not be able to get to this component.
     if(this.props.userInfo.userType !== 'admin') return <Redirect to = '/' /> //* just redirect to landing page? 
 
+=======
+    //! When logged in as an admin, once you refresh or move away from admin dash you can't get back.
+    if (userInfo.userType !== "admin") {
+      return <Redirect to="/" />; //* just redirect to landing page?
+    }
+>>>>>>> d2eaf8de732ff4dc849dc3fc27adff274bc72eae
     return (
       <div className="dashboardContainer">
         <MDBContainer>
@@ -58,16 +67,26 @@ class AdminDashboard extends Component {
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button>View all Teachers</Button>
-                  <Button>View all Mentors</Button>
-                  <Button>Schedule a Meeting</Button>
-                  <Button>Start a Conversation</Button>
+                  <Button href="/approved-teachers">
+                    View approved Teachers
+                  </Button>
+                  <Button href="/approved-mentors">
+                    View approved Mentors
+                  </Button>
+                  <Button href="#">Schedule a Meeting</Button>
+                  <Button href="#">Start a Conversation</Button>
                 </div>
               </MDBCol>
             </div>
             <MDBCol size="9">
-              <MentorTable users={this.state.users} />
-              <TeacherTable users={this.state.users} />
+              <MentorTable
+                users={this.state.users}
+                history={this.props.history}
+              />
+              <TeacherTable
+                users={this.state.users}
+                history={this.props.history}
+              />
             </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -75,7 +94,6 @@ class AdminDashboard extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
   console.log(state);
   return {
@@ -84,5 +102,4 @@ const mapStateToProps = state => {
     userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
-
 export default connect(mapStateToProps)(AdminDashboard);

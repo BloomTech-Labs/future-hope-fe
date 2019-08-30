@@ -15,10 +15,16 @@ import Navbar from "./components/navbar/Navbar";
 import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
-import Calendar from "./components/calendar/Calendar";
-import ProfileView from './components/views/ProfileView.js';
+//import Calendar from "./components/calendar/Calendar";
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
-import AwaitingApproval from './components/views/AwaitingApproval.js';
+import AwaitingApproval from "./components/views/AwaitingApproval.js";
+import MentorProfile from "./components/views/MentorProfile.js";
+//import ProfileView from "./components/views/ProfileView.js";
+import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
+import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
+import ViewUserProfile from "./components/views/ViewUserProfile";
+import MentorTable from "./components/dashboard/MentorTable";
+import TeacherTable from "./components/dashboard/TeacherTable";
 
 import "./App.css";
 
@@ -91,6 +97,8 @@ class App extends React.Component {
     } else if (user.userType === "teacher") {
       // this.props.history.push("/teacher_dahsboard");
       return "/teacher_dashboard";
+    } else if (user.userType === "admin") {
+      return "/admin-dashboard";
     } else {
       this.props.history.push("/");
       return "/";
@@ -111,6 +119,9 @@ class App extends React.Component {
           <Route path="/mentors" component={MentorList} />
           <Route path="/FAQ" component={FAQ} />
           <Route path="/admin-dashboard" component={AdminDashboard} />
+          <Route path="/approved-teachers" component={ApprovedTeacherList} />
+          <Route path="/approved-mentors" component={ApprovedMentorList} />
+          <Route path="/view-profile" component={ViewUserProfile} />
           <Route
             exact
             path="/signup"
@@ -133,8 +144,10 @@ class App extends React.Component {
               />
             )}
           />
-          <Route path = '/profile/:uid' component = {ProfileView} />
-          <Route path = '/applicationstatus' component = {AwaitingApproval} />
+          <Route path="/profile/:uid" component={ViewUserProfile} />
+          <Route path="/applicationstatus" component={AwaitingApproval} />
+          <Route path="/mentor-table" component={MentorTable} />
+          <Route path="/teacher-table" component={TeacherTable} />
         </Switch>
       </Router>
     );
