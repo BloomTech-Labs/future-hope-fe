@@ -26,7 +26,9 @@ const footerStyle = {
     textAlign: "center",
     display: "flex",
     zIndex: "2",
-    position: "relative"
+    position: "absolute",
+    bottom: "0",
+    width: "100%"
   },
   a: {
     color: dangerColor,
