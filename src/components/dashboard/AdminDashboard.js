@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
-//import { Redirect } from "react-router-dom";
 import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
+import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
-
+import { Redirect } from "react-router-dom";
 class AdminDashboard extends Component {
   state = {
-    users: []
+    users: [],
+    userType: ''
   };
 
   componentDidMount = async () => {
@@ -19,7 +21,7 @@ class AdminDashboard extends Component {
     const userRef = firestore.collection("users");
     const userList = await userRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data());
+        // console.log(doc.data());
         userArray.push({
           approval: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -33,17 +35,22 @@ class AdminDashboard extends Component {
     this.setState({
       users: userArray
     });
-    console.log("userArray", userArray);
-  };
-
+    //! This is the fix for the refreshing as an admin and not being able to get back to this component.
+    //! This also fixes accounts that are not admins being able to access the admin-dash
+    //! Only problem is, when you are a non-admin account and attempt access, it flashes the admin dash before redirecting.
+    setTimeout(() => {
+      if (this.props.userInfo.userType !== "admin"){
+      this.props.history.push('/');
+      }
+    }, 0)
+   }
   render() {
-    const { auth, userInfo } = this.props;
-
-    console.log("auth", auth);
-    console.log("userinfo", userInfo);
-
-    //if (!auth.uid) return <Redirect to="/" />;
-
+    // const { auth, userInfo } = this.props;
+    // console.log("auth", auth);
+    // console.log("userinfo", userInfo);
+    
+    
+    
     return (
       <div className="dashboardContainer">
         <MDBContainer>
@@ -56,16 +63,26 @@ class AdminDashboard extends Component {
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button>View all Teachers</Button>
-                  <Button>View all Mentors</Button>
-                  <Button>Schedule a Meeting</Button>
-                  <Button>Start a Conversation</Button>
+                  <Button href="/approved-teachers">
+                    View approved Teachers
+                  </Button>
+                  <Button href="/approved-mentors">
+                    View approved Mentors
+                  </Button>
+                  <Button href="#">Schedule a Meeting</Button>
+                  <Button href="#">Start a Conversation</Button>
                 </div>
               </MDBCol>
             </div>
             <MDBCol size="9">
-              <MentorTable users={this.state.users} />
-              <TeacherTable users={this.state.users} />
+              <MentorTable
+                users={this.state.users}
+                history={this.props.history}
+              />
+              <TeacherTable
+                users={this.state.users}
+                history={this.props.history}
+              />
             </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -73,14 +90,12 @@ class AdminDashboard extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
     userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
-
 export default connect(mapStateToProps)(AdminDashboard);
