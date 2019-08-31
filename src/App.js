@@ -16,7 +16,6 @@ import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
-import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 //import Calendar from "./components/calendar/Calendar";
@@ -118,7 +117,8 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {auth.currentUser ? <SignedInNavBar /> : <Navbar />}
+        <Navbar {...this.props} auth={auth} />
+          <div className="app-container">
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/mentors" component={MentorList} />
@@ -154,7 +154,8 @@ class App extends React.Component {
           <Route path="/mentor-table" component={MentorTable} />
           <Route path="/teacher-table" component={TeacherTable} />
         </Switch>
-
+        </div>
+        <Footer />
       </Router>
     );
   }
