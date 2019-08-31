@@ -16,7 +16,7 @@ import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
-// import SignedInNavBar from "./components/navbar/SignedInNavBar";
+import SignedInNavBar from "./components/navbar/SignedInNavBar";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 //import Calendar from "./components/calendar/Calendar";

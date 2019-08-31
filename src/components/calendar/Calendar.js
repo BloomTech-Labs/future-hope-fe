@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
-import { firestore, auth } from '../../config/fbConfig.js';
+import { firestore } from '../../config/fbConfig.js';
 import { userStore } from '../../actions/auth.js';
 import MeetingModal from './MeetingModal';
 
@@ -36,17 +36,17 @@ class Calendar extends React.Component {
     let events = [];
     const meetingsRef = await firestore.collection('meetings');
     // finds all meeting docs with matching UID and pushes each to the events array and then sets array in state
-    const userMeetings = await meetingsRef
+    await meetingsRef
       .where('participantUIDs', 'array-contains', uid)
       .get()
       .then(querySnapshot => {
         console.log(querySnapshot);
         querySnapshot.forEach(doc => {
           console.log(doc.data());
-          const meetingTime = doc.data().meetingTime.seconds * 1000;
+          const start = doc.data().start.seconds * 1000;
           events.push({
             title: doc.data().title,
-            start: new Date(meetingTime)
+            start: new Date(start)
           });
         });
       });
@@ -66,13 +66,24 @@ class Calendar extends React.Component {
     console.log('meeting object', meeting);
     //* add meeting to firestore
     const meetingRef = firestore.collection('meetings').doc();
-    await meetingRef.set(meeting);
-    //* update old meetings array with new meeting
-    meetings.push(meeting);
-    //! Component not re-rendering with new meeting after setState
-    this.setState({
-      events: meetings
-    });
+    //* gets new meeting ID and inserts it into the record as uid
+    meeting.uid = meetingRef.id;
+    try {
+      await meetingRef.set(meeting);
+      //* update old meetings array with new meeting
+      meetings.push(meeting);
+      //! Component not re-rendering with new meeting after setState
+      this.setState({
+        events: meetings
+      });
+      swal(`Your meeting has been created`, {
+        icon: 'success'
+      });
+    } catch (err) {
+      swal('There was a server error, your meeting could not be created', {
+        icon: 'warning'
+      });
+    }
   };
 
   render() {
@@ -134,6 +145,7 @@ class Calendar extends React.Component {
       if (changeDate) {
         let newEvents = this.state.events.map(e => {
           if (e.start.getTime() === info.oldEvent.start.getTime()) {
+            console.log(e);
             e.start = info.event.start;
             return e;
           } else {
