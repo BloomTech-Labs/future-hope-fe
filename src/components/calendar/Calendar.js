@@ -32,6 +32,8 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = async () => {
+    const calendarApi = this.calendarComponentRef.current.getApi();
+    console.log(calendarApi.getEventSources());
     const uid = this.props.user.uid;
     let events = [];
     const meetingsRef = await firestore.collection("meetings");
@@ -40,9 +42,9 @@ class Calendar extends React.Component {
       .where("participantUIDs", "array-contains", uid)
       .get()
       .then(querySnapshot => {
-        console.log(querySnapshot);
+        // console.log(querySnapshot);
         querySnapshot.forEach(doc => {
-          console.log(doc.data());
+          // console.log(doc.data());
           const start = doc.data().start.seconds * 1000;
           events.push({
             title: doc.data().title,
@@ -62,6 +64,7 @@ class Calendar extends React.Component {
   };
 
   addMeeting = async meeting => {
+    const calendarApi = this.calendarComponentRef.current.getApi();
     let meetings = this.state.events;
     console.log("meeting object", meeting);
     //* add meeting to firestore
@@ -71,13 +74,15 @@ class Calendar extends React.Component {
     await meetingRef.set(meeting);
     //* update old meetings array with new meeting
     meetings.push(meeting);
-    //! Component not re-rendering with new meeting after setState
     this.setState({
       events: meetings
     });
+    //* adds new event to the calendar directly via API call
+    calendarApi.addEvent(meeting);
   };
 
   render() {
+    console.log(this.calendarComponentRef.current);
     return (
       <div className='demo-app' style={{ marginTop: 100 }}>
         <div className='demo-app-top'>
@@ -147,10 +152,12 @@ class Calendar extends React.Component {
           ...this.state,
           events: newEvents
         });
+        //! *** Look for a better way *** Removes all events from calendar and re-adds them in order to render the updated event
         info.view.calendar.removeAllEvents();
         newEvents.forEach(e => {
           info.view.calendar.addEvent(e);
         });
+        this.calendarComponentRef.current.render();
         swal(`Meeting date has been changed to ${info.event.start}`, {
           icon: "success"
         });

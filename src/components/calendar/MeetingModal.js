@@ -43,7 +43,10 @@ const MeetingModal = props => {
 
   const submitMeeting = e => {
     e.preventDefault();
-    let newParticipants = participants.map(participant => participant.uid);
+    let newParticipants = [];
+    if (participants.length) {
+      newParticipants = participants.map(participant => participant.uid);
+    }
     newParticipants.push(auth.currentUser.uid);
     let newMeeting = {
       ...meeting,
