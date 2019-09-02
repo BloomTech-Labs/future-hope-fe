@@ -65,7 +65,7 @@ const SignedInNavBar = props => {
           </Button>
         </Toolbar>
       </AppBar>
-      <Calendar />
+      {/* <Calendar /> */}
     </div>
   );
 };
