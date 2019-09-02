@@ -110,6 +110,7 @@ const MeetingModal = props => {
           {/* //! Now that the date is updating should we change this to just a time picker? */}
           <DateTimePicker
             value={meeting.start}
+            size='lg'
             disablePast
             onChange={date => {
               setMeeting({
