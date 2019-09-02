@@ -121,12 +121,6 @@ class App extends React.Component {
         <div className='app-container'>
           <Switch>
             <Route exact path='/' component={LandingPage} />
-            <Route
-              path='/calendar'
-              render={props => (
-                <Calendar {...props} currentUser={auth.currentUser} />
-              )}
-            />
             <Route path='/mentors' component={MentorList} />
             <Route path='/FAQ' component={FAQ} />
             <Route path='/admin-dashboard' component={AdminDashboard} />
@@ -159,7 +153,7 @@ class App extends React.Component {
             <Route path='/applicationstatus' component={AwaitingApproval} />
             <Route path='/mentor-table' component={MentorTable} />
             <Route path='/teacher-table' component={TeacherTable} />
-            {/* //! Added to test Calendar */}
+            {/* //! Joel Added to test Calendar */}
             <Route path='/mentor_dashboard' component={mentorDashboard} />
           </Switch>
         </div>

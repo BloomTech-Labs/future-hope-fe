@@ -22,7 +22,6 @@ class mentorDashboard extends Component {
 
     return (
       <div className='dashboardContainer'>
-        <p>Hello World</p>
         <Calendar />
         {/* //! Commenting out for calendar render to test. Potentially for releast 1 meeting Tuesday */}
         {/* <MentorDashList /> */}
