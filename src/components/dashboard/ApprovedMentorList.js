@@ -60,7 +60,7 @@ class ApprovedMentorList extends Component {
             </tr>
           </thead>
           {users.map(user => {
-            if (user.userType === "mentor" && !user.approval) {
+            if (user.userType === "mentor" && !user.approved) {
               return (
                 <tbody key={user.uid}>
                   <tr>
