@@ -36,7 +36,7 @@ const mapStateToProps = state => {
   };
 };
 
-//! Commenting out code, thid doesn't work with our firebase implementation
+//! Commenting out code, this doesn't work with our firebase implementation
 // export default compose(
 //   connect(mapStateToProps),
 //   firestoreConnect([{ collection: "users" }])

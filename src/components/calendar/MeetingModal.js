@@ -11,11 +11,13 @@ import {
   MDBIcon
 } from "mdbreact";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { connect } from "react-redux";
 
 import { firestore, auth } from "../../config/fbConfig.js";
 import SearchResults from "./SearchResults";
 
 const MeetingModal = props => {
+  // console.log(auth.currentUser);
   const [meeting, setMeeting] = useState({
     title: "",
     start: Date.now()
@@ -43,20 +45,30 @@ const MeetingModal = props => {
 
   const submitMeeting = e => {
     e.preventDefault();
-    let newParticipants = [];
+    let newParticipants = {
+      participantUIDs: [],
+      participantNames: []
+    };
     if (participants.length) {
-      newParticipants = participants.map(participant => participant.uid);
+      participants.map(participant => {
+        newParticipants.participantUIDs.push(participant.uid);
+        newParticipants.participantNames.push(participant.fullName);
+      });
     }
-    newParticipants.push(auth.currentUser.uid);
+    newParticipants.participantUIDs.push(props.user.uid);
+    newParticipants.participantNames.push(props.user.fullName);
+    console.log(newParticipants);
     let newMeeting = {
       ...meeting,
-      participantUIDs: newParticipants
+      ...newParticipants
     };
-    console.log(newMeeting);
-    //* Adding Event to Calendar
-    props.addMeeting(newMeeting);
-    //* Turning off the Modal
-    props.toggle();
+    console.log("newMeeting", newMeeting);
+    console.log("meeting", meeting);
+
+    // //* Adding Event to Calendar
+    // props.addMeeting(newMeeting);
+    // //* Turning off the Modal
+    // props.toggle();
   };
 
   const searchParticipants = async searchTerm => {
@@ -79,13 +91,10 @@ const MeetingModal = props => {
     setShowSearchResults(!showSearchResults);
   };
 
-  //! Using useEffect to update the date picker with the day selected from Calendar component
+  //! Using useEffect to update the Modal with the item clicked on (date or event)
   useEffect(() => {
-    setMeeting({
-      ...meeting,
-      start: props.clickedDate
-    });
-  }, [props.clickedDate]);
+    setMeeting(props.clickedMeeting);
+  }, [props.clickedMeeting]);
 
   return (
     <MDBContainer>
@@ -174,4 +183,11 @@ const MeetingModal = props => {
   );
 };
 
-export default MeetingModal;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    user: state.firebase.profile
+  };
+};
+
+export default connect(mapStateToProps)(MeetingModal);

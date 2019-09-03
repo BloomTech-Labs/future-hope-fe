@@ -28,7 +28,11 @@ class Calendar extends React.Component {
     events: [],
     changedEvent: {},
     showModal: false,
-    clickedDate: ""
+    clickedMeeting: {
+      title: "",
+      start: "",
+      participantUIDs: ""
+    }
   };
 
   componentDidMount = async () => {
@@ -44,11 +48,12 @@ class Calendar extends React.Component {
       .then(querySnapshot => {
         // console.log(querySnapshot);
         querySnapshot.forEach(doc => {
-          // console.log(doc.data());
+          console.log(doc.data());
           const start = doc.data().start.seconds * 1000;
           events.push({
             title: doc.data().title,
-            start: new Date(start)
+            start: new Date(start),
+            id: doc.data().uid
           });
         });
       });
@@ -91,8 +96,8 @@ class Calendar extends React.Component {
   };
 
   render() {
-    console.log("user", this.props.user);
-    console.log("auth", auth.currentUser);
+    // console.log("user", this.props.user);
+    // console.log("auth", auth.currentUser);
     return (
       <div className='demo-app' style={{ marginTop: 100 }}>
         <div className='demo-app-top'>
@@ -131,7 +136,7 @@ class Calendar extends React.Component {
               toggle={this.toggleModal}
               showModal={this.state.showModal}
               addMeeting={this.addMeeting}
-              clickedDate={this.state.clickedDate}
+              clickedMeeting={this.state.clickedMeeting}
             />
           </MuiPickersUtilsProvider>
         </div>
@@ -178,77 +183,88 @@ class Calendar extends React.Component {
     });
   };
 
-  handleEventClick = info => {
-    swal({
-      text: "Set Meeting Name",
-      content: "input",
-      button: {
-        text: "Submit!",
-        closeModal: true
+  handleEventClick = async info => {
+    console.log("info", info);
+    this.setState({
+      ...this.state,
+      clickedMeeting: {
+        title: info.event.title,
+        start: info.event.start,
+        id: info.event.id
       }
-    }).then(name => {
-      let newEvents = this.state.events.map(e => {
-        if (e.start.getTime() === info.event.start.getTime()) {
-          if (name != null) {
-            e.title = name;
-          }
-          return e;
-        } else {
-          return e;
-        }
-      });
-      this.setState({
-        ...this.state,
-        events: newEvents
-      });
-      info.view.calendar.removeAllEvents();
-      newEvents.forEach(e => {
-        info.view.calendar.addEvent(e);
-      });
-
-      swal({
-        title: "Would you like to change the date as well?",
-        text: `Current date is ${info.event.start}`,
-        icon: "warning",
-        buttons: true,
-        dangerMode: false
-      }).then(changeDate => {
-        if (changeDate) {
-          const myInput = document.querySelector("#futureButton");
-          const fp = flatpickr(myInput, {
-            position: "below",
-            enableTime: true,
-            noCalendar: false,
-            dateFormat: "H:i",
-            timeZone: "local",
-            onClose: () => {
-              // If the user canceled the picker the dates will be empty and there is nothing to do
-              if (fp.selectedDates.length === 0) {
-                return;
-              }
-
-              newEvents = this.state.events.map(e => {
-                if (e.start.getTime() === info.event.start.getTime()) {
-                  e.start = fp.selectedDates[0];
-                  return e;
-                } else {
-                  return e;
-                }
-              });
-              this.setState({
-                ...this.state,
-                events: newEvents
-              });
-              info.view.calendar.removeAllEvents();
-              newEvents.forEach(e => {
-                info.view.calendar.addEvent(e);
-              });
-            }
-          });
-          fp.open();
-        }
-      });
     });
+    this.toggleModal();
+
+    // let meeting = swal({
+    //   text: "Set Meeting Name",
+    //   content: "input",
+    //   button: {
+    //     text: "Submit!",
+    //     closeModal: true
+    //   }
+    // }).then(name => {
+    //   let newEvents = this.state.events.map(e => {
+    //     if (e.start.getTime() === info.event.start.getTime()) {
+    //       if (name != null) {
+    //         e.title = name;
+    //       }
+    //       return e;
+    //     } else {
+    //       return e;
+    //     }
+    //   });
+    //   this.setState({
+    //     ...this.state,
+    //     events: newEvents
+    //   });
+    //   info.view.calendar.removeAllEvents();
+    //   newEvents.forEach(e => {
+    //     info.view.calendar.addEvent(e);
+    //   });
+
+    //   swal({
+    //     title: "Would you like to change the date as well?",
+    //     text: `Current date is ${info.event.start}`,
+    //     icon: "warning",
+    //     buttons: true,
+    //     dangerMode: false
+    //   }).then(changeDate => {
+    //     if (changeDate) {
+    //       const myInput = document.querySelector("#futureButton");
+    //       const fp = flatpickr(myInput, {
+    //         position: "below",
+    //         enableTime: true,
+    //         noCalendar: false,
+    //         dateFormat: "H:i",
+    //         timeZone: "local",
+    //         onClose: () => {
+    //           // If the user canceled the picker the dates will be empty and there is nothing to do
+    //           if (fp.selectedDates.length === 0) {
+    //             return;
+    //           }
+
+    //           newEvents = this.state.events.map(e => {
+    //             if (e.start.getTime() === info.event.start.getTime()) {
+    //               e.start = fp.selectedDates[0];
+    //               return e;
+    //             } else {
+    //               return e;
+    //             }
+    //           });
+    //           this.setState({
+    //             ...this.state,
+    //             events: newEvents
+    //           });
+    //           info.view.calendar.removeAllEvents();
+    //           newEvents.forEach(e => {
+    //             info.view.calendar.addEvent(e);
+    //           });
+    //         }
+    //       });
+    //       fp.open();
+    //     }
+    //   });
+    // });
   };
 
   toggleWeekends = () => {
@@ -264,6 +280,7 @@ class Calendar extends React.Component {
     // Displays a datetime picker to set a future meeting
     const myInput = document.querySelector("#futureButton");
     // Had to put the confirmation and state update in the onClose callback as execution continues even after the flatpickr is displayed
+    console.log(myInput);
     const fp = flatpickr(myInput, {
       position: "below",
       enableTime: true,
@@ -305,65 +322,24 @@ class Calendar extends React.Component {
   };
 
   handleDateClick = async arg => {
+    console.log("arg.date", arg.date);
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the
     // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.
-    console.log("handleDateClick triggered");
     let meetingDate = await new Date(
       arg.date.getFullYear(),
       arg.date.getMonth(),
       arg.date.getDate(),
-      0,
+      12,
       0,
       0,
       0
     );
     await this.setState({
-      clickedDate: meetingDate
+      clickedMeeting: {
+        start: meetingDate
+      }
     });
     this.toggleModal();
-    //   const myInput = document.querySelector("#datepicker");
-    //   const fp = flatpickr(myInput, {
-    //     position: "below",
-    //     enableTime: true,
-    //     noCalendar: true,
-    //     dateFormat: "H:i",
-    //     timeZone: "local",
-    //     onClose: () => {
-    //       swal({
-    //         title: "Schedule Meeting?",
-    //         text: "Meeting will be added to the calendar!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: false
-    //       }).then(scheduleAppointment => {
-    //         if (scheduleAppointment) {
-    //           // If the user confirms the meeting add the start time to the date object and update  state with the new meeting
-    //           let meetingDate = new Date(
-    //             arg.date.getFullYear(),
-    //             arg.date.getMonth(),
-    //             arg.date.getDate(),
-    //             fp.selectedDates[0].getHours(),
-    //             fp.selectedDates[0].getMinutes(),
-    //             0,
-    //             0
-    //           );
-    //           this.setState({
-    //             ...this.state,
-    //             events: [
-    //               ...this.state.events,
-    //               { title: "Meeting", start: meetingDate }
-    //             ]
-    //           });
-    //           swal("Meeting has been added to the calendar!", {
-    //             icon: "success"
-    //           });
-    //         } else {
-    //           swal("Cancelled, your meeting has not been set!");
-    //         }
-    //       });
-    //     }
-    //   });
-    //   fp.open();
   };
 }
 
