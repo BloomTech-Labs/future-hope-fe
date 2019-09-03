@@ -31,7 +31,8 @@ class Calendar extends React.Component {
     clickedMeeting: {
       title: "",
       start: "",
-      participantUIDs: ""
+      participantUIDs: "",
+      participantNames: ""
     }
   };
 
@@ -48,12 +49,12 @@ class Calendar extends React.Component {
       .then(querySnapshot => {
         // console.log(querySnapshot);
         querySnapshot.forEach(doc => {
-          console.log(doc.data());
+          // console.log(doc.data());
           const start = doc.data().start.seconds * 1000;
           events.push({
             title: doc.data().title,
             start: new Date(start),
-            id: doc.data().uid
+            id: doc.data().id
           });
         });
       });
@@ -73,10 +74,10 @@ class Calendar extends React.Component {
     let meetings = this.state.events;
     console.log("meeting object", meeting);
     //* add meeting to firestore
-    const meetingRef = firestore.collection("meetings").doc();
-    //* gets new meeting ID and inserts it into the record as uid
-    meeting.uid = meetingRef.id;
     try {
+      const meetingRef = firestore.collection("meetings").doc();
+      //* gets new meeting ID and inserts it into the record as uid
+      meeting.id = meetingRef.id;
       await meetingRef.set(meeting);
       //* update old meetings array with new meeting
       meetings.push(meeting);
@@ -86,13 +87,47 @@ class Calendar extends React.Component {
       swal(`Your meeting has been created`, {
         icon: "success"
       });
+      calendarApi.addEvent(meeting);
     } catch (err) {
       swal("There was a server error, your meeting could not be created", {
         icon: "warning"
       });
     }
     //* adds new event to the calendar directly via API call
-    calendarApi.addEvent(meeting);
+  };
+
+  editMeeting = async meeting => {
+    console.log("meeting arg into editMeeting", meeting);
+    const calendarApi = this.calendarComponentRef.current.getApi();
+    const oldEvent = calendarApi.getEventById(meeting.id);
+    // console.log("oldEvent.id", oldEvent.id);
+    // console.log(calendarApi);
+    try {
+      //* updating meeting in firebase
+      const meetingRef = firestore.collection("meetings").doc(oldEvent.id);
+      await meetingRef.update(meeting);
+      //* edit event in events array
+      let events = this.state.events.map(event => {
+        if (event.id === meeting.id) {
+          event = meeting;
+        }
+        return event;
+      });
+      console.log("events", events);
+      // //* set state with new events array
+      this.setState({
+        ...this.state,
+        events: events,
+        clickedMeeting: {
+          title: "",
+          start: "",
+          participantUIDs: "",
+          participantNames: ""
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
@@ -137,6 +172,7 @@ class Calendar extends React.Component {
               showModal={this.state.showModal}
               addMeeting={this.addMeeting}
               clickedMeeting={this.state.clickedMeeting}
+              editMeeting={this.editMeeting}
             />
           </MuiPickersUtilsProvider>
         </div>
@@ -185,13 +221,17 @@ class Calendar extends React.Component {
 
   handleEventClick = async info => {
     console.log("info", info);
-    this.setState({
-      ...this.state,
-      clickedMeeting: {
-        title: info.event.title,
-        start: info.event.start,
-        id: info.event.id
-      }
+    const meetingRef = firestore.collection("meetings").doc(info.event.id);
+    const meeting = meetingRef.get().then(doc => {
+      // console.log(doc.data())
+      const start = new Date(doc.data().start.seconds * 1000);
+      this.setState({
+        ...this.state,
+        clickedMeeting: {
+          ...doc.data(),
+          start: start
+        }
+      });
     });
     this.toggleModal();
 

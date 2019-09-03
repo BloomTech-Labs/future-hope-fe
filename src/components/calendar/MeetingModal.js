@@ -17,22 +17,17 @@ import { firestore, auth } from "../../config/fbConfig.js";
 import SearchResults from "./SearchResults";
 
 const MeetingModal = props => {
-  // console.log(auth.currentUser);
   const [meeting, setMeeting] = useState({
     title: "",
     start: Date.now()
     // endDate: ""
   });
-  const [participants, setParticipants] = useState({});
+  const [participants, setParticipants] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   function handleStartDateChange(date) {
-    // console.log('date', date);
-    // console.log('get Hours', date._d.getHours());
-    // console.log('get milliseconds', date._d.getMilliseconds());
-
     setMeeting({
       ...meeting,
       start: date
@@ -45,9 +40,10 @@ const MeetingModal = props => {
 
   const submitMeeting = e => {
     e.preventDefault();
+    console.log("meeting", meeting);
     let newParticipants = {
-      participantUIDs: [],
-      participantNames: []
+      participantUIDs: meeting.participantUIDs || [],
+      participantNames: meeting.participantNames || []
     };
     if (participants.length) {
       participants.map(participant => {
@@ -55,20 +51,25 @@ const MeetingModal = props => {
         newParticipants.participantNames.push(participant.fullName);
       });
     }
-    newParticipants.participantUIDs.push(props.user.uid);
-    newParticipants.participantNames.push(props.user.fullName);
-    console.log(newParticipants);
+    if (!meeting.id) {
+      newParticipants.participantUIDs.push(props.user.uid);
+      newParticipants.participantNames.push(props.user.fullName);
+    }
+    console.log("newParticipants", newParticipants);
     let newMeeting = {
       ...meeting,
       ...newParticipants
     };
     console.log("newMeeting", newMeeting);
-    console.log("meeting", meeting);
-
-    // //* Adding Event to Calendar
-    // props.addMeeting(newMeeting);
-    // //* Turning off the Modal
-    // props.toggle();
+    //* check if a previous meeting was clicked on to see if routing to new meeting or old
+    if (meeting.id) {
+      props.editMeeting(newMeeting);
+    } else {
+      //* Adding Event to Calendar
+      props.addMeeting(newMeeting);
+    }
+    //* Turning off the Modal
+    props.toggle();
   };
 
   const searchParticipants = async searchTerm => {
@@ -99,7 +100,14 @@ const MeetingModal = props => {
   return (
     <MDBContainer>
       <MDBModal isOpen={props.showModal} toggle={props.toggle} centered>
-        <MDBModalHeader toggle={props.toggle}>Create Meeting</MDBModalHeader>
+        <MDBModalHeader
+          toggle={e => {
+            setMeeting({ title: "", start: Date.now() });
+            props.toggle();
+          }}
+        >
+          Create Meeting
+        </MDBModalHeader>
         <MDBModalBody>
           <MDBInput
             label='Add title'
@@ -162,6 +170,10 @@ const MeetingModal = props => {
               onChange={e => setSearchTerm(e.target.value)}
             />
           </MDBFormInline>
+          {/* <p>{participants = ''
+            meeting.participantNames.map(participantName => {
+            participants += participantName
+          })}</p> */}
           <SearchResults
             showSearchResults={showSearchResults}
             setParticipants={setParticipants}
@@ -171,7 +183,13 @@ const MeetingModal = props => {
           />
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn color='secondary' onClick={e => props.toggle()}>
+          <MDBBtn
+            color='secondary'
+            onClick={e => {
+              setMeeting({ title: "", start: Date.now() });
+              props.toggle();
+            }}
+          >
             Close
           </MDBBtn>
           <MDBBtn color='primary' onClick={e => submitMeeting(e)}>
