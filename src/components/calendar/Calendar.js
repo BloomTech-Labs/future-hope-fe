@@ -99,9 +99,6 @@ class Calendar extends React.Component {
   editMeeting = async meeting => {
     console.log("meeting arg into editMeeting", meeting);
     const calendarApi = this.calendarComponentRef.current.getApi();
-    const oldEvent = calendarApi.getEventById(meeting.id);
-    // console.log("oldEvent.id", oldEvent.id);
-    // console.log(calendarApi);
     try {
       //* updating meeting in firebase
       const meetingRef = firestore.collection("meetings").doc(meeting.id);
@@ -164,7 +161,9 @@ class Calendar extends React.Component {
             });
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          swal("Cancelled, your meeting has not been deleted!");
+        });
     } catch (err) {
       swal(`Server error: Your meeting could not be deleted`, {
         icon: "error"
@@ -200,7 +199,7 @@ class Calendar extends React.Component {
               right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            editable={true}
+            editable
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
             events={this.state.events}
@@ -224,43 +223,47 @@ class Calendar extends React.Component {
     );
   }
 
-  handleEventDrop = info => {
-    swal({
-      title: "Change Meeting Date?",
-      text: `Meeting will be changed to ${info.event.start}`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: false
-    }).then(changeDate => {
-      console.log("event", info.event);
-      console.log("new date", changeDate);
-      if (changeDate) {
-        let newEvents = this.state.events.map(e => {
-          if (e.start.getTime() === info.oldEvent.start.getTime()) {
-            console.log(e);
-            e.start = info.event.start;
-            return e;
-          } else {
-            return e;
-          }
-        });
-        this.setState({
-          ...this.state,
-          events: newEvents
-        });
-        //! *** Look for a better way *** Removes all events from calendar and re-adds them in order to render the updated event
-        info.view.calendar.removeAllEvents();
-        newEvents.forEach(e => {
-          info.view.calendar.addEvent(e);
-        });
-        this.calendarComponentRef.current.render();
-        swal(`Meeting date has been changed to ${info.event.start}`, {
-          icon: "success"
-        });
-      } else {
-        swal("Cancelled, your meeting has not been changed!");
-      }
-    });
+  handleEventDrop = async info => {
+    try {
+      swal({
+        title: "Change Meeting Date?",
+        text: `Meeting will be changed to ${info.event.start}`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: false
+      }).then(async changeDate => {
+        console.log("event", info.event);
+        console.log("new date", changeDate);
+        if (changeDate) {
+          //* updating meeting in firebase
+          const meetingRef = firestore
+            .collection("meetings")
+            .doc(info.event.id);
+
+          // await meetingRef.update(info);
+          let newEvents = this.state.events.map(e => {
+            if (e.start.getTime() === info.oldEvent.start.getTime()) {
+              console.log(e);
+              e.start = info.event.start;
+              return e;
+            } else {
+              return e;
+            }
+          });
+          this.setState({
+            ...this.state,
+            events: newEvents
+          });
+          swal(`Meeting date has been changed to ${info.event.start}`, {
+            icon: "success"
+          });
+        } else {
+          swal("Cancelled, your meeting has not been changed!");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   handleEventClick = async info => {
@@ -278,77 +281,6 @@ class Calendar extends React.Component {
       });
     });
     this.toggleModal();
-
-    // let meeting = swal({
-    //   text: "Set Meeting Name",
-    //   content: "input",
-    //   button: {
-    //     text: "Submit!",
-    //     closeModal: true
-    //   }
-    // }).then(name => {
-    //   let newEvents = this.state.events.map(e => {
-    //     if (e.start.getTime() === info.event.start.getTime()) {
-    //       if (name != null) {
-    //         e.title = name;
-    //       }
-    //       return e;
-    //     } else {
-    //       return e;
-    //     }
-    //   });
-    //   this.setState({
-    //     ...this.state,
-    //     events: newEvents
-    //   });
-    //   info.view.calendar.removeAllEvents();
-    //   newEvents.forEach(e => {
-    //     info.view.calendar.addEvent(e);
-    //   });
-
-    //   swal({
-    //     title: "Would you like to change the date as well?",
-    //     text: `Current date is ${info.event.start}`,
-    //     icon: "warning",
-    //     buttons: true,
-    //     dangerMode: false
-    //   }).then(changeDate => {
-    //     if (changeDate) {
-    //       const myInput = document.querySelector("#futureButton");
-    //       const fp = flatpickr(myInput, {
-    //         position: "below",
-    //         enableTime: true,
-    //         noCalendar: false,
-    //         dateFormat: "H:i",
-    //         timeZone: "local",
-    //         onClose: () => {
-    //           // If the user canceled the picker the dates will be empty and there is nothing to do
-    //           if (fp.selectedDates.length === 0) {
-    //             return;
-    //           }
-
-    //           newEvents = this.state.events.map(e => {
-    //             if (e.start.getTime() === info.event.start.getTime()) {
-    //               e.start = fp.selectedDates[0];
-    //               return e;
-    //             } else {
-    //               return e;
-    //             }
-    //           });
-    //           this.setState({
-    //             ...this.state,
-    //             events: newEvents
-    //           });
-    //           info.view.calendar.removeAllEvents();
-    //           newEvents.forEach(e => {
-    //             info.view.calendar.addEvent(e);
-    //           });
-    //         }
-    //       });
-    //       fp.open();
-    //     }
-    //   });
-    // });
   };
 
   toggleWeekends = () => {

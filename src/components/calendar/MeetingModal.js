@@ -162,7 +162,6 @@ const MeetingModal = props => {
               toggleSearchModal();
             }}
           >
-            <MDBIcon icon='search' />
             <input
               className='form-control form-control-sm ml-3 w-75'
               type='text'
@@ -171,6 +170,17 @@ const MeetingModal = props => {
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
+            <MDBBtn
+              color='primary'
+              size='sm'
+              onClick={async e => {
+                e.preventDefault();
+                await searchParticipants(searchTerm);
+                toggleSearchModal();
+              }}
+            >
+              <MDBIcon icon='search' />
+            </MDBBtn>
           </MDBFormInline>
           {/* <p>{participants = ''
             meeting.participantNames.map(participantName => {
