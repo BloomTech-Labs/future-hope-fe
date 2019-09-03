@@ -1,78 +1,162 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useLayoutEffect } from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { withRouter, Link } from 'react-router-dom';
+
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
+import Drawer from "@material-ui/core/Drawer";
 
-import { auth } from "../../config/fbConfig.js";
-import SignedInNavBar from "./SignedInNavBar.js";
+// @material-ui/icons
+import Menu from "@material-ui/icons/Menu";
 
-// import Calendar from "../calendar/Calendar";
+// core components
+import navConfig from "./navConfig";
+import NavbarLinks from "./NavbarLinks";
+import NavbarUser from "./NavbarUser";
+import { navbarStyle } from "./navbarStyle";
 
-// import MenuIcon from "@material-ui/icons/Menu";
-// import { NavLink } from "react-router-dom";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: 90
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
+const Navbar = (props) => {
+  
+/*  Initial Navbar Config
+    Get path from router => get config based on pathname.
+    There is probably a cleaner way to implement this with
+    the update function below so there is only 1 function.
+    Anyone feel free to help :-D */
+  const initConfig = () => {
+    return !navConfig[route] ? navConfig['default'] : navConfig[route]
   }
-}));
-var meetingTime = new Date();
-var meetingTime2 = new Date();
-meetingTime2.setDate(meetingTime.getDate() + 1);
-var events = [
-  { title: "Meeting", start: meetingTime },
-  { title: "Meeting", start: meetingTime2 }
-];
+  const [route, setRoute] = useState(props.history.location.pathname);
+  const [config, setConfig] = useState(()=>initConfig())
+  
+  //Router pathname listener
+  //Detect change in route and run configUpdate function.
+  //Gets default config if no match found.
+  useLayoutEffect(() => {
+    const configUpdate = () => {
+      const path = props.history.location.pathname
+      !navConfig[path] ? setConfig(navConfig['default']) : setConfig(navConfig[path])
+    }
+    if(props.history.location.pathname !== route){
+      const newRoute = props.history.location.pathname
+      setRoute(newRoute)
+      configUpdate()
+    }
+  },[props.history.location, route])
 
-const Navbar = props => {
-  const classes = useStyles();
-  console.log('reg navbar props', props);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  //Handler for header color change.
+  // Settings in config file
+  const headerColorChange = () => {
+    const { classes } = props;
+    const windowsScrollTop = window.pageYOffset;
+    if (windowsScrollTop > config.changeColorOnScroll.height) {
+      document.body
+        .getElementsByTagName("header")[0]
+        .classList.remove(classes[config.color]);
+      document.body
+        .getElementsByTagName("header")[0]
+        .classList.add(classes[config.changeColorOnScroll.color]);
+    } else {
+      document.body
+        .getElementsByTagName("header")[0]
+        .classList.add(classes[config.color]);
+      document.body
+        .getElementsByTagName("header")[0]
+        .classList.remove(classes[config.changeColorOnScroll.color]);
+    }
+  };
+  useLayoutEffect(() => {
+    if (config.changeColorOnScroll) {
+      window.addEventListener("scroll", headerColorChange);
+    } 
+    return () => {
+      window.removeEventListener("scroll", headerColorChange);
+    }
+  }, [config.changeColorOnScroll]);
+
+    const { classes } = props;
+    const appBarClasses = classNames({
+      [classes.appBar]: true,
+      [classes[config.color]]: config.color,
+      [classes.fixed]: 'fixed'
+    });
+
+  // Navbar Sections (brand/right/left/user)
+  const brandComponent = <Link to="/"><Button className={classes.title}>{config.brand}</Button></Link> ;
+  const rightLinks = <NavbarLinks config={config} />
+  const leftLinks = null
+  const userAuth = props.auth.currentUser
   return (
-    <div className={classes.root}>
-      <AppBar elevation={1} position="fixed" color="inherit">
-        <Toolbar>
+    <AppBar className={appBarClasses}>
+      <Toolbar className={classes.container}>
+        {leftLinks !== undefined ? brandComponent : null}
+        <div className={classes.flex}>
+          {leftLinks !== undefined ? (
+            <Hidden smDown implementation="css">
+              {leftLinks}
+            </Hidden>
+          ) : (
+            brandComponent
+          )}
+        </div>
+        <div>
+        </div>
+        <Hidden smDown implementation="css">
+          {rightLinks}
+        </Hidden>
+        <Hidden smDown implementation="css">
+          {userAuth &&(
+            <NavbarUser user={userAuth} />
+          )
+          }
+        </Hidden>
+        <Hidden mdUp>
           <IconButton
-            edge="start"
-            className={classes.menuButton}
             color="inherit"
-            aria-label="menu"
-          />
-          <Typography variant="h6" className={classes.title}>
-            Future Hope School in the Sky
-          </Typography>
-          {/* <NavLink to="/mentors">View Mentors</NavLink> */}
-          <a href="/mentors" alt="laaaaaaaammmmmeeeee">
-            <Button color="primary">View Mentors</Button>
-          </a>
-          <Button color="primary">Mission</Button>
-          <Button color="primary" href="/login">
-            Login
-          </Button>
-          <Button color="primary" href="/signup">
-            SignUp
-          </Button>
-        </Toolbar>
-      </AppBar>
-      {/* <Calendar events={events} />       */}
-    </div>
+            aria-label="open drawer"
+            onClick={handleDrawerToggle}
+          >
+            <Menu />
+          </IconButton>
+        </Hidden>
+      </Toolbar>
+      <Hidden mdUp implementation="js">
+        <Drawer
+          variant="temporary"
+          anchor={"right"}
+          open={mobileOpen}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          onClose={handleDrawerToggle}
+        >
+          <div className={classes.appResponsive}>
+            {leftLinks}
+            {rightLinks}
+          </div>
+        </Drawer>
+      </Hidden>
+    </AppBar>
   );
 };
 
-export default Navbar;
+Navbar.defaultProp = {
+  color: "white"
+};
 
-/*
- <Button color='primary' onClick={() => auth.signOut()}>
-            Sign Out
-          </Button>
-*/
+Navbar.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withRouter(withStyles(navbarStyle)(Navbar));

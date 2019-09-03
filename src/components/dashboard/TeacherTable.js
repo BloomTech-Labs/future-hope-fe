@@ -2,8 +2,12 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 const TeacherTable = props => {
-  const { users } = props;
+  const { users, history } = props;
   console.log("usersss", users);
+
+  const pushToProfilePage = uid => {
+    history.push(`/profile/${uid}`);
+  };
 
   return (
     <div>
@@ -23,12 +27,14 @@ const TeacherTable = props => {
             return (
               <tbody key={user.uid}>
                 <tr>
-                  <td >{user.name}</td>
+                  <td>{user.name}</td>
                   <td>{user.userType}</td>
                   <td>{user.city}</td>
                   <td>{user.stateProvince}</td>
                   <td>
-                    <Button>View</Button>
+                    <Button onClick={() => pushToProfilePage(user.uid)}>
+                      View
+                    </Button>
                   </td>
                 </tr>
               </tbody>
