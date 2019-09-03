@@ -35,6 +35,10 @@ class ApprovedTeacherList extends Component {
     console.log("userArray", userArray);
   };
 
+  pushToProfilePage = uid => {
+    this.props.history.push(`/profile/${uid}`);
+  };
+
   render() {
     const { auth } = this.props;
     const { users } = this.state;
@@ -66,7 +70,7 @@ class ApprovedTeacherList extends Component {
                     <td>{user.city}</td>
                     <td>{user.stateProvince}</td>
                     <td>
-                      <Button>View</Button>
+                      <Button onClick={() => this.pushToProfilePage(user.uid)>View</Button>
                     </td>
                   </tr>
                 </tbody>
