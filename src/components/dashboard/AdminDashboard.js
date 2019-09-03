@@ -9,7 +9,9 @@ import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
 // import { QuerySnapshot } from "@google-cloud/firestore";
-import { Redirect } from "react-router-dom";
+
+import './Dashboard.css';
+
 class AdminDashboard extends Component {
   state = {
     users: [],
@@ -54,7 +56,7 @@ class AdminDashboard extends Component {
     return (
       <div className="dashboardContainer">
         <MDBContainer>
-          <MDBRow>
+          <MDBRow id="dashboard-MDBRow">
             <div className="row justify-content-start">
               <MDBCol size="3" className="dashboard-sidemenu">
                 <div className="dashboard-admin-info">
