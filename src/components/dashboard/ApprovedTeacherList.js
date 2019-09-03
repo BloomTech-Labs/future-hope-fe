@@ -56,7 +56,7 @@ class ApprovedTeacherList extends Component {
             </tr>
           </thead>
           {users.map(user => {
-            if (user.userType === "teacher" && !user.approval) {
+            if (user.userType === "teacher" && !user.approved) {
               return (
                 <tbody key={user.uid}>
                   <tr>
