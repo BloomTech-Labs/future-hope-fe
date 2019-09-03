@@ -43,7 +43,10 @@ const MeetingModal = props => {
 
   const submitMeeting = e => {
     e.preventDefault();
-    let newParticipants = participants.map(participant => participant.uid);
+    let newParticipants = [];
+    if (participants.length) {
+      newParticipants = participants.map(participant => participant.uid);
+    }
     newParticipants.push(auth.currentUser.uid);
     let newMeeting = {
       ...meeting,
@@ -107,6 +110,7 @@ const MeetingModal = props => {
           {/* //! Now that the date is updating should we change this to just a time picker? */}
           <DateTimePicker
             value={meeting.start}
+            size='lg'
             disablePast
             onChange={date => {
               setMeeting({

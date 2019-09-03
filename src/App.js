@@ -18,7 +18,7 @@ import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
-//import Calendar from "./components/calendar/Calendar";
+import Calendar from "./components/calendar/Calendar";
 import AdminDashboard from "./components/dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import MentorProfile from "./components/views/MentorProfile.js";
@@ -28,7 +28,7 @@ import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 import ViewUserProfile from "./components/views/ViewUserProfile";
 import MentorTable from "./components/dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/TeacherTable";
-
+import mentorDashboard from "./components/dashboard/mentorDashboard.js";
 
 import "./App.css";
 
@@ -118,42 +118,44 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar {...this.props} auth={auth} />
-          <div className="app-container">
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/mentors" component={MentorList} />
-          <Route path="/FAQ" component={FAQ} />
-          <Route path="/admin-dashboard" component={AdminDashboard} />
-          <Route path="/approved-teachers" component={ApprovedTeacherList} />
-          <Route path="/approved-mentors" component={ApprovedMentorList} />
-          <Route path="/view-profile" component={ViewUserProfile} />
-          <Route
-            exact
-            path="/signup"
-            render={props => (
-              <SignUp
-                setupUserListener={this.setupUserListener}
-                routeUser={this.routeUser}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/login"
-            render={props => (
-              <Login
-                setupUserListener={this.setupUserListener}
-                routeUser={this.routeUser}
-                {...props}
-                rerouteUser={this.state.rerouteUser}
-              />
-            )}
-          />
-          <Route path="/profile/:uid" component={ViewUserProfile} />
-          <Route path="/applicationstatus" component={AwaitingApproval} />
-          <Route path="/mentor-table" component={MentorTable} />
-          <Route path="/teacher-table" component={TeacherTable} />
-        </Switch>
+        <div className='app-container'>
+          <Switch>
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/mentors' component={MentorList} />
+            <Route path='/FAQ' component={FAQ} />
+            <Route path='/admin-dashboard' component={AdminDashboard} />
+            <Route path='/approved-teachers' component={ApprovedTeacherList} />
+            <Route path='/approved-mentors' component={ApprovedMentorList} />
+            <Route path='/view-profile' component={ViewUserProfile} />
+            <Route
+              exact
+              path='/signup'
+              render={props => (
+                <SignUp
+                  setupUserListener={this.setupUserListener}
+                  routeUser={this.routeUser}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path='/login'
+              render={props => (
+                <Login
+                  setupUserListener={this.setupUserListener}
+                  routeUser={this.routeUser}
+                  {...props}
+                  rerouteUser={this.state.rerouteUser}
+                />
+              )}
+            />
+            <Route path='/profile/:uid' component={ViewUserProfile} />
+            <Route path='/applicationstatus' component={AwaitingApproval} />
+            <Route path='/mentor-table' component={MentorTable} />
+            <Route path='/teacher-table' component={TeacherTable} />
+            {/* //! Joel Added to test Calendar */}
+            <Route path='/mentor_dashboard' component={mentorDashboard} />
+          </Switch>
         </div>
         <Footer />
       </Router>
