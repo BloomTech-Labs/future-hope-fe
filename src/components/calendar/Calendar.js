@@ -104,7 +104,7 @@ class Calendar extends React.Component {
     // console.log(calendarApi);
     try {
       //* updating meeting in firebase
-      const meetingRef = firestore.collection("meetings").doc(oldEvent.id);
+      const meetingRef = firestore.collection("meetings").doc(meeting.id);
       await meetingRef.update(meeting);
       //* edit event in events array
       let events = this.state.events.map(event => {
@@ -128,6 +128,49 @@ class Calendar extends React.Component {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  deleteMeeting = async meeting => {
+    console.log(meeting);
+    try {
+      await swal({
+        title: "Delete Meeting?",
+        text: `Are you sure you want to delete this meeting?`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: false
+      })
+        .then(okToDelete => {
+          if (okToDelete) {
+            const meetingRef = firestore
+              .collection("meetings")
+              .doc(meeting.id)
+              .delete();
+            let events = this.state.events.filter(
+              event => event.id !== meeting.id
+            );
+            this.setState({
+              ...this.state,
+              events: events,
+              clickedMeeting: {
+                title: "",
+                start: "",
+                participantUIDs: "",
+                participantNames: ""
+              }
+            });
+            swal(`Your meeting has been deleted`, {
+              icon: "success"
+            });
+          }
+        })
+        .catch(err => console.log(err));
+    } catch (err) {
+      swal(`Server error: Your meeting could not be deleted`, {
+        icon: "error"
+      });
+    }
+    this.toggleModal();
   };
 
   render() {
@@ -173,6 +216,7 @@ class Calendar extends React.Component {
               addMeeting={this.addMeeting}
               clickedMeeting={this.state.clickedMeeting}
               editMeeting={this.editMeeting}
+              deleteMeeting={this.deleteMeeting}
             />
           </MuiPickersUtilsProvider>
         </div>

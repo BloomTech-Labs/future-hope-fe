@@ -68,6 +68,8 @@ const MeetingModal = props => {
       //* Adding Event to Calendar
       props.addMeeting(newMeeting);
     }
+    //* reset meeting state
+    setMeeting({ title: "", start: Date.now() });
     //* Turning off the Modal
     props.toggle();
   };
@@ -192,6 +194,16 @@ const MeetingModal = props => {
           >
             Close
           </MDBBtn>
+          {meeting.id && (
+            <MDBBtn
+              color='red'
+              onClick={e => {
+                props.deleteMeeting(meeting);
+              }}
+            >
+              Delete
+            </MDBBtn>
+          )}
           <MDBBtn color='primary' onClick={e => submitMeeting(e)}>
             Save changes
           </MDBBtn>
