@@ -178,11 +178,7 @@ class Calendar extends React.Component {
     return (
       <div className='demo-app' style={{ marginTop: 100 }}>
         <div className='demo-app-top'>
-          <MDBBtn onClick={this.toggleWeekends}>toggle weekends</MDBBtn>&nbsp;
-          <MDBBtn id='futureButton' onClick={this.gotoPast}>
-            Schedule future appointment
-          </MDBBtn>
-          &nbsp;
+          <h1>Schedule Meetings</h1>
         </div>
         <div className='calendar'>
           <input
@@ -281,60 +277,6 @@ class Calendar extends React.Component {
       });
     });
     this.toggleModal();
-  };
-
-  toggleWeekends = () => {
-    console.log(this.state.events);
-    this.setState({
-      // Update state if the displaying of weekends is toggled on/off
-      calendarWeekends: !this.state.calendarWeekends
-    });
-  };
-
-  gotoPast = () => {
-    let calendarApi = this.calendarComponentRef.current.getApi();
-    // Displays a datetime picker to set a future meeting
-    const myInput = document.querySelector("#futureButton");
-    // Had to put the confirmation and state update in the onClose callback as execution continues even after the flatpickr is displayed
-    console.log(myInput);
-    const fp = flatpickr(myInput, {
-      position: "below",
-      enableTime: true,
-      noCalendar: false,
-      dateFormat: "H:i",
-      timeZone: "local",
-      onClose: () => {
-        // If the user canceled the picker the dates will be empty and there is nothing to do
-        if (fp.selectedDates.length === 0) {
-          return;
-        }
-        swal({
-          title: "Schedule Meeting?",
-          text: "Meeting will be added to the calendar!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: false
-        }).then(scheduleAppointment => {
-          if (scheduleAppointment) {
-            // If the user confirmed the scheduled meeting we navigate to the date and update state
-            calendarApi.gotoDate(fp.selectedDates[0]);
-            this.setState({
-              ...this.state,
-              events: [
-                ...this.state.events,
-                { title: "Meeting", start: fp.selectedDates[0] }
-              ]
-            });
-            swal("Meeting has been added to the calendar!", {
-              icon: "success"
-            });
-          } else {
-            swal("Cancelled, your meeting has not been set!");
-          }
-        });
-      }
-    });
-    fp.open();
   };
 
   handleDateClick = async arg => {
