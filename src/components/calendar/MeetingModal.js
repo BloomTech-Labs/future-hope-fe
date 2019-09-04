@@ -26,6 +26,7 @@ const MeetingModal = props => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [displayParticipants, setDisplayParticipants] = useState("");
 
   function handleStartDateChange(date) {
     setMeeting({
@@ -92,6 +93,19 @@ const MeetingModal = props => {
 
   const toggleSearchModal = () => {
     setShowSearchResults(!showSearchResults);
+  };
+
+  const participantsDisplay = invitedUsers => {
+    console.log("invitedUsers", invitedUsers);
+    invitedUsers.map((invitedUser, index) => {
+      if (!displayParticipants) {
+        setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
+      } else {
+        setDisplayParticipants(
+          displayParticipants + `, ${invitedUser.fullName}`
+        );
+      }
+    });
   };
 
   //! Using useEffect to update the Modal with the item clicked on (date or event)
@@ -182,16 +196,14 @@ const MeetingModal = props => {
               <MDBIcon icon='search' />
             </MDBBtn>
           </MDBFormInline>
-          {/* <p>{participants = ''
-            meeting.participantNames.map(participantName => {
-            participants += participantName
-          })}</p> */}
+          {displayParticipants && <p>Participants: {displayParticipants}</p>}
           <SearchResults
             showSearchResults={showSearchResults}
             setParticipants={setParticipants}
             toggleSearchModal={toggleSearchModal}
             searchResults={searchResults}
             setSearchTerm={setSearchTerm}
+            participantsDisplay={participantsDisplay}
           />
         </MDBModalBody>
         <MDBModalFooter>
