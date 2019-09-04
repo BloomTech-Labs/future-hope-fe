@@ -4,9 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { MDBBtn } from "mdbreact";
-import flatpickr from "flatpickr";
-import "./flatpickr.min.css";
-import "./flatpickr.css";
+// import "./flatpickr.min.css";
+// import "./flatpickr.css";
 import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
 import MomentUtils from "@date-io/moment";
@@ -37,8 +36,6 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = async () => {
-    const calendarApi = this.calendarComponentRef.current.getApi();
-    console.log("user inside CDM", auth.currentUser);
     const uid = auth.currentUser.uid || this.props.user.uid;
     let events = [];
     const meetingsRef = await firestore.collection("meetings");
@@ -98,7 +95,6 @@ class Calendar extends React.Component {
 
   editMeeting = async meeting => {
     console.log("meeting arg into editMeeting", meeting);
-    const calendarApi = this.calendarComponentRef.current.getApi();
     try {
       //* updating meeting in firebase
       const meetingRef = firestore.collection("meetings").doc(meeting.id);
@@ -176,8 +172,8 @@ class Calendar extends React.Component {
     // console.log("user", this.props.user);
     // console.log("auth", auth.currentUser);
     return (
-      <div className='demo-app' style={{ marginTop: 100 }}>
-        <div className='demo-app-top'>
+      <div className='calendar-app'>
+        <div className='calendar-app-top'>
           <h1>Schedule Meetings</h1>
         </div>
         <div className='calendar'>
@@ -194,6 +190,12 @@ class Calendar extends React.Component {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             }}
+            buttonText={{
+              today: "Today",
+              month: "Month",
+              week: "Week",
+              day: "Day"
+            }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable
             ref={this.calendarComponentRef}
@@ -203,6 +205,7 @@ class Calendar extends React.Component {
             eventClick={this.handleEventClick}
             eventDrop={this.handleEventDrop}
             allDayDefault={false}
+            handleWindowResize
           />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <MeetingModal
@@ -227,36 +230,42 @@ class Calendar extends React.Component {
         icon: "warning",
         buttons: true,
         dangerMode: false
-      }).then(async changeDate => {
-        console.log("event", info.event);
-        console.log("new date", changeDate);
-        if (changeDate) {
-          //* updating meeting in firebase
-          const meetingRef = firestore
-            .collection("meetings")
-            .doc(info.event.id);
-
-          // await meetingRef.update(info);
-          let newEvents = this.state.events.map(e => {
-            if (e.start.getTime() === info.oldEvent.start.getTime()) {
-              console.log(e);
-              e.start = info.event.start;
-              return e;
-            } else {
-              return e;
-            }
-          });
-          this.setState({
-            ...this.state,
-            events: newEvents
-          });
-          swal(`Meeting date has been changed to ${info.event.start}`, {
-            icon: "success"
-          });
-        } else {
-          swal("Cancelled, your meeting has not been changed!");
-        }
-      });
+      })
+        .then(async changeDate => {
+          console.log("event", info.event);
+          console.log("new date", changeDate);
+          if (changeDate) {
+            //* updating meeting in firebase
+            const meetingRef = firestore
+              .collection("meetings")
+              .doc(info.event.id);
+            const newStart = {
+              start: info.event.start
+            };
+            await meetingRef.update(newStart);
+            let newEvents = this.state.events.map(e => {
+              if (e.start.getTime() === info.oldEvent.start.getTime()) {
+                console.log(e);
+                e.start = info.event.start;
+                return e;
+              } else {
+                return e;
+              }
+            });
+            this.setState({
+              ...this.state,
+              events: newEvents
+            });
+            swal(`Meeting date has been changed to ${info.event.start}`, {
+              icon: "success"
+            });
+          } else {
+            //* if cancel is clicked, revert change in calendar API to previous date
+            info.revert();
+            swal("Cancelled, your meeting has not been changed!");
+          }
+        })
+        .catch(err => console.log(err));
     } catch (err) {
       console.log(err);
     }
@@ -266,7 +275,6 @@ class Calendar extends React.Component {
     console.log("info", info);
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
     const meeting = meetingRef.get().then(doc => {
-      // console.log(doc.data())
       const start = new Date(doc.data().start.seconds * 1000);
       this.setState({
         ...this.state,

@@ -163,7 +163,7 @@ const MeetingModal = props => {
             }}
           >
             <input
-              className='form-control form-control-sm ml-3 w-75'
+              className='form-control form-control-sm w-75'
               type='text'
               placeholder='Search Participants'
               aria-label='Search Participants'
