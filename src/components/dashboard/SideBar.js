@@ -19,7 +19,9 @@ class SideBar extends React.Component {
             <div className="row justify-content-start">
               <MDBCol size="3" className="dashboard-sidemenu">
                 <div className="sidebar-info">
-                  <img src="#" alt="profile photo" />
+                  {/*
+                    remove name & userType maybe
+                */}
                   <h1>{this.props.userInfo.fullName}</h1>
                   <h3>{this.props.userInfo.userType}</h3>
                 </div>
