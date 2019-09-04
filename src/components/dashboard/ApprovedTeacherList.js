@@ -39,7 +39,6 @@ class ApprovedTeacherList extends Component {
     this.props.history.push(`/profile/${uid}`);
   };
 
-
   render() {
     const { auth } = this.props;
     const { users } = this.state;
@@ -52,7 +51,7 @@ class ApprovedTeacherList extends Component {
         <table className="table">
           <thead>
             <tr>
-            <th scope="col">Profile Photo</th>
+              <th scope="col">Profile Photo</th>
               <th scope="col">Names</th>
               <th scope="col">Account Type</th>
               <th scope="col">City</th>
@@ -65,13 +64,25 @@ class ApprovedTeacherList extends Component {
               return (
                 <tbody key={user.uid}>
                   <tr>
-                    <td> <img className='dashboard-photo' src={user.profilePhoto || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img></td>
+                    <td>
+                      {" "}
+                      <img
+                        className="dashboard-photo"
+                        src={
+                          user.profilePhoto ||
+                          "https://source.unsplash.com/random/200x200"
+                        }
+                        alt="profile photo"
+                      ></img>
+                    </td>
                     <td>{user.name}</td>
                     <td>{user.userType}</td>
                     <td>{user.city}</td>
                     <td>{user.stateProvince}</td>
                     <td>
-                      <Button onClick={() => this.pushToProfilePage(user.uid)}>View</Button>
+                      <Button onClick={() => this.pushToProfilePage(user.uid)}>
+                        View
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
