@@ -8,12 +8,15 @@ import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "./ApprovedMentorList.js";
+import SideBar from "./SideBar";
 // import { QuerySnapshot } from "@google-cloud/firestore";
-import { Redirect } from "react-router-dom";
+
+import "./Dashboard.css";
+
 class AdminDashboard extends Component {
   state = {
     users: [],
-    userType: ''
+    userType: ""
   };
 
   componentDidMount = async () => {
@@ -39,37 +42,41 @@ class AdminDashboard extends Component {
     //! This also fixes accounts that are not admins being able to access the admin-dash
     //! Only problem is, when you are a non-admin account and attempt access, it flashes the admin dash before redirecting.
     setTimeout(() => {
-      if (this.props.userInfo.userType !== "admin"){
-      this.props.history.push('/');
+      if (this.props.userInfo.userType !== "admin") {
+        this.props.history.push("/");
       }
-    }, 0)
-   }
+    }, 0);
+  };
   render() {
     // const { auth, userInfo } = this.props;
     // console.log("auth", auth);
     // console.log("userinfo", userInfo);
-    
-    
-    
+
     return (
       <div className="dashboardContainer">
         <MDBContainer>
-          <MDBRow>
+          <MDBRow id="dashboard-MDBRow">
             <div className="row justify-content-start">
               <MDBCol size="3" className="dashboard-sidemenu">
-                <div className="dashboard-admin-info">
+                <div className="sidebar-info">
                   <img src="#" alt="profile photo" />
-                  <h1>Norman Green</h1>
+                  <h1>Norman Hill</h1>
                   <h3>Administrator</h3>
                 </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button href="/approved-teachers">
-                    View approved Teachers
-                  </Button>
-                  <Button href="/approved-mentors">
-                    View approved Mentors
-                  </Button>
                   <Button href="#">Schedule a Meeting</Button>
+                  <Button
+                    onClick={() =>
+                      this.props.history.push("/approved-teachers")
+                    }
+                  >
+                    View Approved Teachers
+                  </Button>
+                  <Button
+                    onClick={() => this.props.history.push("/approved-mentors")}
+                  >
+                    View Approved Mentors
+                  </Button>
                   <Button href="#">Start a Conversation</Button>
                 </div>
               </MDBCol>

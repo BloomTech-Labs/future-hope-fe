@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { firestoreConnect } from "react-redux-firebase";
-// import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import SideBar from "./SideBar";
@@ -10,14 +8,11 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 import "./Dashboard.css";
 
-////  Add collections to the const {} object and mSTP when you know what they are....
-
-class mentorDashboard extends Component {
+class TeacherDashboard extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) {
       return (
-        //! Joel removed the redirect due to a race condition problem on refreshes. We will need another way to redirect, or at least delay the check first
         <Loader type="TailSpin" color="#e4be4d" height={100} width={100} />
       );
     }
@@ -45,10 +40,4 @@ const mapStateToProps = state => {
   };
 };
 
-//! Commenting out code, thid doesn't work with our firebase implementation
-// export default compose(
-//   connect(mapStateToProps),
-//   firestoreConnect([{ collection: "users" }])
-// )(mentorDashboard);
-
-export default connect(mapStateToProps)(mentorDashboard);
+export default connect(mapStateToProps)(TeacherDashboard);
