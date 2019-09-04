@@ -13,21 +13,17 @@ class SideBar extends React.Component {
 
   render() {
     return (
-      <div className="dashboardContainer">
+      <div id="dashboardContainer">
         <MDBContainer>
           <MDBRow id="dashboard-MDBRow">
-            <div className="row justify-content-start">
+            <div id="dashboard-row" className=" row justify-content-start">
               <MDBCol size="3" className="dashboard-sidemenu">
-                <div className="sidebar-info">
-                  {/*
-                    remove name & userType maybe
-                */}
-                  <h1>{this.props.userInfo.fullName}</h1>
-                  <h3>{this.props.userInfo.userType}</h3>
-                </div>
                 <div className="dashboard-sidemenu-btns">
-                  <Button href="#">Schedule a Meeting</Button>
+                  <Button id="dashboard-btns" href="#">
+                    Schedule a Meeting
+                  </Button>
                   <Button
+                    id="dashboard-btns"
                     onClick={() =>
                       this.props.userInfo.userType === "mentor"
                         ? this.props.history.push("/approved-teachers")
@@ -39,7 +35,7 @@ class SideBar extends React.Component {
                       ? "Teachers"
                       : "Mentors"}
                   </Button>
-                  <Button href="#">Start a Conversation</Button>
+                  <Button id="dashboard-btns">Start a Conversation</Button>
                 </div>
               </MDBCol>
             </div>

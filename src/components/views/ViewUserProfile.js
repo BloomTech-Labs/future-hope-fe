@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import { firestore } from "../../config/fbConfig.js";
-// import Calendar from '../calendar/Calendar.js';
-
 import { MDBContainer } from "mdbreact";
+import SideBar from "../dashboard/SideBar";
+import "../dashboard/Dashboard.css";
+import "./views.css";
 
 class ViewUserProfile extends React.Component {
   state = {
@@ -48,44 +49,28 @@ class ViewUserProfile extends React.Component {
       return <Redirect to="/" />;
     return (
       <MDBContainer className="profile-container d-flex" fluid>
-        <div className="w-25 pr-3">
+        <SideBar />
+        <div>
           <img
+            className="profile-photo"
             src={this.state.profile_photoUrl}
             alt="profile"
             className="img-fluid rounded float-left z-depth-1-half"
           />
-          <Button
-            href={
-              this.props.userInfo.userType === "mentor"
-                ? "/approved-teachers"
-                : "/approved-mentors"
-            }
-          >
-            {this.props.userInfo.userType === "mentor"
-              ? "Teacher List"
-              : "Mentor List"}
-          </Button>
         </div>
         <div className="info-container">
-          <h4 className="left-aligned font-weight-bold p-2">
-            {this.state.profile_fullName}
-          </h4>
-          <p className="left-aligned font-weight-light p-2">
+          <h4>{this.state.profile_fullName}</h4>
+          <p>
             Location: {this.state.profile_city},{" "}
             {this.state.profile_stateProvince}, {this.state.profile_country}
           </p>
 
-          <p className="left-aligned p-2">
-            About me: {this.state.profile_aboutMe}
-          </p>
-          <p className="left-aligned p-2">
-            Account Type: {this.state.profile_userType}
-          </p>
+          <p>About me: {this.state.profile_aboutMe}</p>
+          <p>Account Type: {this.state.profile_userType}</p>
           <Button size="small" color="primary" variant="contained">
             Contact {this.state.profile_fullName}
           </Button>
         </div>
-        {/* <Calendar /> */}
       </MDBContainer>
     );
   }
@@ -99,3 +84,18 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(ViewUserProfile);
+
+/*
+    <Button
+            href={
+              this.props.userInfo.userType === "mentor"
+                ? "/approved-teachers"
+                : "/approved-mentors"
+            }
+          >
+            {this.props.userInfo.userType === "mentor"
+              ? "Teacher List"
+              : "Mentor List"}
+          </Button>
+
+*/
