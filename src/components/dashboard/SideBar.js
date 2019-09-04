@@ -11,10 +11,6 @@ class SideBar extends React.Component {
     active: false
   };
 
-  // const pushToProfilePage = uid => {
-  //   history.push(`/profile/${uid}`);
-  // };
-
   render() {
     return (
       <div className="dashboardContainer">
