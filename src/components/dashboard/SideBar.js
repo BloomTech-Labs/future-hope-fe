@@ -2,6 +2,7 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import "./Dashboard.css";
 
@@ -57,7 +58,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(SideBar);
+export default withRouter(connect(mapStateToProps)(SideBar));
 
 // <Button href="/approved-mentors">
 // View approved Mentors
