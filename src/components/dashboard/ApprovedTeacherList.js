@@ -65,7 +65,7 @@ class ApprovedTeacherList extends Component {
               return (
                 <tbody key={user.uid}>
                   <tr>
-                    <td> <img src={user.profilePhoto || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img></td>
+                    <td> <img className='dashboard-photo' src={user.profilePhoto || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img></td>
                     <td>{user.name}</td>
                     <td>{user.userType}</td>
                     <td>{user.city}</td>

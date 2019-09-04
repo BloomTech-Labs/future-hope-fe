@@ -66,7 +66,7 @@ class ApprovedMentorList extends Component {
                   <tr>
                     <td>
                       {" "}
-                      <img src={user.profilePhoto  || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img>
+                      <img className='dashboard-photo' src={user.profilePhoto  || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img>
                     </td>
                     <td>{user.name}</td>
                     <td>{user.userType}</td>
