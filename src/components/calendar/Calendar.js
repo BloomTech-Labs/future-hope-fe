@@ -4,8 +4,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { MDBBtn } from "mdbreact";
-// import "./flatpickr.min.css";
-// import "./flatpickr.css";
 import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
 import MomentUtils from "@date-io/moment";
@@ -272,7 +270,6 @@ class Calendar extends React.Component {
   };
 
   handleEventClick = async info => {
-    console.log("info", info);
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
     const meeting = meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);

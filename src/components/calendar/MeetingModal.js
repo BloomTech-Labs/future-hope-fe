@@ -89,6 +89,7 @@ const MeetingModal = props => {
         });
       });
     setSearchResults(searchArray);
+    setSearchTerm("");
   };
 
   const toggleSearchModal = () => {
@@ -97,7 +98,7 @@ const MeetingModal = props => {
 
   const participantsDisplay = invitedUsers => {
     console.log("invitedUsers", invitedUsers);
-    invitedUsers.map((invitedUser, index) => {
+    invitedUsers.map(invitedUser => {
       if (!displayParticipants) {
         setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
       } else {
@@ -111,6 +112,24 @@ const MeetingModal = props => {
   //! Using useEffect to update the Modal with the item clicked on (date or event)
   useEffect(() => {
     setMeeting(props.clickedMeeting);
+    // debugger;
+    if (props.clickedMeeting.id) {
+      let participantNames = "";
+      props.clickedMeeting.participantNames.map(participantName => {
+        // console.log("participant in useEffect", participantName);
+        if (participantName !== props.user.fullName) {
+          if (!participantNames) {
+            // console.log("should only run first time", displayParticipants);
+            participantNames += participantName;
+            // console.log("displayParticipants", displayParticipants);
+          } else {
+            // console.log("should run only after first time");
+            participantNames += `, ${participantName}`;
+          }
+        }
+      });
+      setDisplayParticipants(participantNames);
+    }
   }, [props.clickedMeeting]);
 
   return (
@@ -122,7 +141,7 @@ const MeetingModal = props => {
             props.toggle();
           }}
         >
-          Create Meeting
+          {meeting.id ? `Edit Meeting` : `Create Meeting`}
         </MDBModalHeader>
         <MDBModalBody>
           <MDBInput
