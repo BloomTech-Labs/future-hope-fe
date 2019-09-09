@@ -17,7 +17,8 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
+import Calendar from "../../calendar/Calendar.js";
+import { mainListItems, secondaryListItems } from "../listItemss";
 
 const drawerWidth = 240;
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight: 24
   },
   toolbarIcon: {
     display: "flex",
@@ -109,7 +110,6 @@ export default function DashboardTeacher() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -168,22 +168,10 @@ export default function DashboardTeacher() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
+            {/* Calendar */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>Words here</h1>
-              </Paper>
-            </Grid>
-            {/* Recent Deposits
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <h1>Words here</h1>
-              </Paper>
-            </Grid> */}
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <h1>Words Here</h1>
+                <Calendar />
               </Paper>
             </Grid>
           </Grid>

@@ -17,7 +17,8 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
+import Calendar from "../../calendar/Calendar.js";
+import { mainListItems, secondaryListItems } from "../listItems";
 
 const drawerWidth = 240;
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight: 24
   },
   toolbarIcon: {
     display: "flex",
@@ -167,16 +168,10 @@ export default function DashboardTeacher() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Mentor Table */}
+            {/* Calendar */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>Words here</h1>
-              </Paper>
-            </Grid>
-            {/* Teacher Table */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <h1>Words Here</h1>
+                <Calendar />
               </Paper>
             </Grid>
           </Grid>
