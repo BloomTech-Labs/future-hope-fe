@@ -29,6 +29,7 @@ import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import Dashboard from "./components/dashboard/admin-dashboard/Dashboard.js";
+import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 
 import "./App.css";
 
@@ -157,7 +158,7 @@ class App extends React.Component {
             <Route path="/teacher-table" component={TeacherTable} />
             {/* //! Joel Added to test Calendar */}
             <Route path="/mentor_dashboard" component={mentorDashboard} />
-            <Route path="/teacher_dashboard" component={TeacherDashboard} />
+            <Route path="/teacher_dashboard" component={DashboardTeacher} />
           </Switch>
         </div>
         <Footer />
