@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import SideBar from "./SideBar";
-import Calendar from "../calendar/Calendar.js";
+import SideBar from "../SideBar";
+import Calendar from "../../calendar/Calendar.js";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 import "./Dashboard.css";

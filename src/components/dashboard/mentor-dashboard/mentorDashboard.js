@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 // import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import SideBar from "./SideBar";
-import Calendar from "../calendar/Calendar.js";
+import SideBar from "../SideBar";
+import Calendar from "../../calendar/Calendar.js";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
-import "./Dashboard.css";
+import "../Dashboard.css";
 
 ////  Add collections to the const {} object and mSTP when you know what they are....
 
