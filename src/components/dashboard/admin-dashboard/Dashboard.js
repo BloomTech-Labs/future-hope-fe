@@ -123,7 +123,9 @@ function Copyright() {
 class Dashboard extends React.Component {
   state = {
     users: [],
-    userType: ""
+    userType: "",
+    setOpen: true,
+    open: true
   };
 
   componentDidMount = async () => {
@@ -157,13 +159,11 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const [open, setOpen] = React.useState(true);
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
+
+    const handleDrawerOpen = this.state.setOpen;
+
+    const handleDrawerClose = !this.state.setOpen;
+
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
@@ -171,7 +171,10 @@ class Dashboard extends React.Component {
         <CssBaseline />
         <AppBar
           position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
+          className={clsx(
+            classes.appBar,
+            this.state.open && classes.appBarShift
+          )}
         >
           <Toolbar className={classes.toolbar}>
             <IconButton
@@ -181,7 +184,7 @@ class Dashboard extends React.Component {
               onClick={handleDrawerOpen}
               className={clsx(
                 classes.menuButton,
-                open && classes.menuButtonHidden
+                this.state.open && classes.menuButtonHidden
               )}
             >
               <MenuIcon />
@@ -205,9 +208,12 @@ class Dashboard extends React.Component {
         <Drawer
           variant="permanent"
           classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+            paper: clsx(
+              classes.drawerPaper,
+              !this.state.open && classes.drawerPaperClose
+            )
           }}
-          open={open}
+          open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>

@@ -28,6 +28,7 @@ import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
+import Dashboard from "./components/dashboard/admin-dashboard/Dashboard.js";
 
 import "./App.css";
 
@@ -122,10 +123,12 @@ class App extends React.Component {
             <Route exact path="/" component={LandingPage} />
             <Route path="/mentors" component={MentorList} />
             <Route path="/FAQ" component={FAQ} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
+            {/* //! testing new dashboard */}
+            <Route path="/admin-dashboard" component={Dashboard} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
             <Route path="/view-profile" component={ViewUserProfile} />
+            <Route path="/test-dashboard" component={Dashboard} />
             <Route
               exact
               path="/signup"
