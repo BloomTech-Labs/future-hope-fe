@@ -6,7 +6,7 @@ import SideBar from "../SideBar";
 import Calendar from "../../calendar/Calendar.js";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
-import "./Dashboard.css";
+import "../Dashboard.css";
 
 class TeacherDashboard extends Component {
   render() {

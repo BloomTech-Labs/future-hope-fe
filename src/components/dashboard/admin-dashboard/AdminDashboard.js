@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../../config/fbConfig.js";
-import "./Dashboard.css";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import ApprovedMentorList from "../ApprovedMentorList.js";
 import SideBar from "../SideBar";
 // import { QuerySnapshot } from "@google-cloud/firestore";
 
-import "./Dashboard.css";
+import "../Dashboard.css";
 
 class AdminDashboard extends Component {
   state = {
