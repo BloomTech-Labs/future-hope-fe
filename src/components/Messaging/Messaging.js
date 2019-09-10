@@ -30,20 +30,6 @@ function Messaging(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
 
-  //Create the message, add it to firestore
-  const createMessage = message => {
-    return firestore
-      .collection("conversations")
-      .add({
-        content: message.content,
-        sentBy: message.sentBy,
-        timestamp: message.timestamp
-      })
-      .catch(() => {
-        console.log("Error occured in creating message.");
-      });
-  };
-
   return (
     <div className="messaging-wrapper">
       {/* <h1>Messages!</h1> */}
@@ -85,7 +71,7 @@ function Messaging(props) {
           );
         })}
       </div>
-      <Conversation conversation={selectedConversation} />
+      <Conversation selectedConversation={selectedConversation} userInfo={props.userInfo}/>
     </div>
   );
 }

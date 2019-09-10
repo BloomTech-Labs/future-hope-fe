@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
+import moment from '@date-io/moment';
 
 
 const Conversation = props => {
@@ -12,11 +13,12 @@ const Conversation = props => {
   //access the subcollection of messages when selecting a conversation
   useEffect(() => {
     console.log('useEffect triggered inside Conversations')
-    if(props.conversation.uid){
+    if(props.selectedConversation.uid){
+      setConversation(props.selectedConversation)
       let messages = [];
       const messagesRef = firestore
         .collection('conversations')
-        .doc(props.conversation.uid)
+        .doc(props.selectedConversation.uid)
         .collection('messages')
         .orderBy('timestamp', 'desc')
         .limit(20);
@@ -26,40 +28,51 @@ const Conversation = props => {
           const message = doc.data()
           //first, pull uid of sender
           //query props.conversation.participantUIDs for index of uid
-          let index = props.conversation.participantUIDs.indexOf(message.sentBy)
+          let index = props.selectedConversation.participantUIDs.indexOf(message.sentBy)
           // use index number to query participantNames and participantAvatars
-          let avatar = props.conversation.participantAvatars[index]
-          let name = props.conversation.participantNames[index]
+          let avatar = props.selectedConversation.participantAvatars[index]
+          let name = props.selectedConversation.participantNames[index]
           // add sentBy name and avatar to message
           message.name = name
           message.avatar = avatar
           message.timestamp.milliseconds = message.timestamp.seconds * 1000 
           messages.push(message)
         })
+        setMessages(messages)
       })
-      setMessages(messages)
     }
-  },[props.conversation])
+  },[props.selectedConversation])
 
     //Create the message, add it to firestore
-    const createMessage = message => {
-      return firestore
-        .collection("conversations")
-        .add({
-          content: message.content,
-          sentBy: message.sentBy,
-          timestamp: message.timestamp
-        })
-        .catch(() => {
-          console.log("Error occured in creating message.");
-        });
+    const createMessage = async messageText => {
+      console.log()
+      const newMessage = {
+        content: messageText,
+        sentBy: props.userInfo.uid,
+        timestamp: new Date()
+      }
+      try{
+        const messageRef = await firestore
+          .collection("conversations")
+          .doc(conversation.uid)
+          .collection('messages')
+          .doc()
+  
+        newMessage.uid = messageRef.id
+        messageRef.set(newMessage)
+      } catch(err) {
+          console.log("Error occured in creating message:", err);
+      }
     };
   return (
     <div className='conversations-wrapper'>
-      {console.log('conversation rendered')}
-      {/* //! pass relevant props, button needs onsubmit*/}
-    
-      <Message messages={messages} />
+      {
+        messages.map(message => {          
+          return(
+            <Message message={message} />
+          )
+        })
+      }
     
       <div className="input-wrapper">
         <input 
@@ -68,7 +81,7 @@ const Conversation = props => {
           value={text}
           onChange={e => setText(e.target.value)}>
         </input>
-        <button onSubmit={createMessage}>Send Message</button>
+        <button onClick={e => createMessage(text)}>Send Message</button>
       </div>
     </div>
   );
