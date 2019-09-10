@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router";
 import { firestore } from "../../../config/fbConfig.js";
+import { connect } from "react-redux";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 //styles
@@ -105,8 +107,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dashboard = props => {
+  console.log(props);
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState("");
+
+  useEffect(() => {
+    dashboardAdmin();
+  }, []);
 
   const dashboardAdmin = async () => {
     let userArray = [];
@@ -125,6 +132,7 @@ const Dashboard = props => {
       });
     });
     setUsers(userArray);
+    console.log(users);
   };
 
   const classes = useStyles();
@@ -196,13 +204,13 @@ const Dashboard = props => {
             {/* Mentor Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1> Pending Mentor Table</h1>
+                <MentorTable users={users} history={props.history} />
               </Paper>
             </Grid>
             {/* Teacher Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>Pending Teacher Table</h1>
+                <TeacherTable users={users} history={props.history} />
               </Paper>
             </Grid>
           </Grid>
@@ -220,4 +228,4 @@ const mapStateToProps = state => {
     userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
-export default connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));
