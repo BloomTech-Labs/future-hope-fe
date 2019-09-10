@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { firestore } from "../../../config/fbConfig.js";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 //styles
@@ -103,10 +104,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = () => {
+const Dashboard = props => {
+  const [users, setUsers] = useState([]);
+  const [userType, setUserType] = useState("");
+
+  const dashboardAdmin = async () => {
+    let userArray = [];
+    const userRef = firestore.collection("users");
+    await userRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // console.log(doc.data());
+        userArray.push({
+          approval: doc.data().awaitingApproval,
+          name: doc.data().fullName,
+          userType: doc.data().userType,
+          city: doc.data().city,
+          stateProvince: doc.data().stateProvince,
+          uid: doc.data().uid
+        });
+      });
+    });
+    setUsers(userArray);
+  };
+
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const [users, userType] = React.useState([]);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -190,4 +212,12 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = state => {
+  // console.log(state);
+  return {
+    auth: state.firebase.auth,
+    users: state.firestore.ordered.users,
+    userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
+  };
+};
+export default connect(mapStateToProps)(Dashboard);
