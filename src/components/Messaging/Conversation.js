@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
 
 
-const Conversations = props => {
+const Conversation = props => {
   const [text, setText] = useState('');
   const [conversation, setConversation] = useState({});
   const [messages, setMessages] = useState([]);
@@ -25,14 +25,11 @@ const Conversations = props => {
         snapshot.forEach(doc => {
           const message = doc.data()
           //first, pull uid of sender
-          console.log(message.sentBy)
           //query props.conversation.participantUIDs for index of uid
           let index = props.conversation.participantUIDs.indexOf(message.sentBy)
           // use index number to query participantNames and participantAvatars
           let avatar = props.conversation.participantAvatars[index]
-          console.log('avatar', avatar)
           let name = props.conversation.participantNames[index]
-          console.log('name', name)
           // add sentBy name and avatar to message
           message.name = name
           message.avatar = avatar
@@ -59,21 +56,24 @@ const Conversations = props => {
     };
   return (
     <div className='conversations-wrapper'>
+      {console.log('conversation rendered')}
       {/* //! pass relevant props, button needs onsubmit*/}
-      <Message
-        messages={messages}
-      />
-      <input 
-        placeholder="Enter a Message"
-        type="text"
-        value={text}
-        onChange={e => setText(e.target.value)}>
-      </input>
-      <button onSubmit={createMessage}>Send Message</button>
+    
+      <Message messages={messages} />
+    
+      <div className="input-wrapper">
+        <input 
+          placeholder="Enter a Message"
+          type="text"
+          value={text}
+          onChange={e => setText(e.target.value)}>
+        </input>
+        <button onSubmit={createMessage}>Send Message</button>
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = state => {};
 
-export default connect(mapStateToProps)(Conversations);
+
+export default Conversation;

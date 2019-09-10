@@ -1,0 +1,35 @@
+.messaging-wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    
+    // h1 {
+    //     text-align: center;
+    //     width
+    // }
+    .list-conversations-wrapper {
+        width: 35%;
+        height: 75vh;
+        margin: 20px;
+        .conversation-list-item {
+            background-color: white;
+            img{
+                width: 100px;
+                border-radius: 100%
+            }
+        }
+    }
+    .conversations-wrapper{
+        width: 60%;
+        margin: 20px;
+        height: 75vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        .message-wrapper {
+            height: 80%;
+        }
+        .input-wrapper {
+           
+        }
+    }
+}
