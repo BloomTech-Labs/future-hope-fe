@@ -109,7 +109,6 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = props => {
   console.log(props);
   const [users, setUsers] = useState([]);
-  const [userType, setUserType] = useState("");
 
   useEffect(() => {
     dashboardAdmin();
