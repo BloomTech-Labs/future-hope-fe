@@ -1,5 +1,12 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
+import "../Dashboard.css";
 
 const TeacherTable = props => {
   const { users, history } = props;
@@ -11,39 +18,39 @@ const TeacherTable = props => {
 
   return (
     <div>
-      <h2 className="table-heading">Pending Teacher Applications</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Names</th>
-            <th scope="col">Account Type</th>
-            <th scope="col">City</th>
-            <th scope="col">State/Province</th>
-            <th scope="col">View</th>
-          </tr>
-        </thead>
-        {users.map(user => {
-          if (user.userType === "teacher" && user.approval) {
-            return (
-              <tbody key={user.uid}>
-                <tr>
-                  <td>{user.name}</td>
-                  <td>{user.userType}</td>
-                  <td>{user.city}</td>
-                  <td>{user.stateProvince}</td>
-                  <td>
+      <h6 className="dashboard-table-title">Pending Teacher Applications</h6>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Account Type</TableCell>
+            <TableCell>City</TableCell>
+            <TableCell>State/Province</TableCell>
+            <TableCell>View</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map(user => {
+            if (user.userType === "teacher" && user.approval) {
+              return (
+                <TableRow key={user.uid}>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.userType}</TableCell>
+                  <TableCell>{user.city}</TableCell>
+                  <TableCell>{user.stateProvince}</TableCell>
+                  <TableCell>
                     <Button onClick={() => pushToProfilePage(user.uid)}>
                       View
                     </Button>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </table>
+                  </TableCell>
+                </TableRow>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </TableBody>
+      </Table>
     </div>
   );
 };
