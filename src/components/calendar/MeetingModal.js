@@ -138,6 +138,7 @@ const MeetingModal = props => {
         <MDBModalHeader
           toggle={e => {
             setMeeting({ title: "", start: Date.now() });
+            setDisplayParticipants('')
             props.toggle();
           }}
         >
@@ -230,6 +231,7 @@ const MeetingModal = props => {
             color='secondary'
             onClick={e => {
               setMeeting({ title: "", start: Date.now() });
+              setDisplayParticipants('')
               props.toggle();
             }}
           >

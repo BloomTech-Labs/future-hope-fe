@@ -13,6 +13,8 @@ import { signInWithGoogle, signInWithFacebook, firestore, auth } from "../../con
 
 import "./SignUp.scss";
 
+//! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
+
 class SignUp extends React.Component {
   state = {
     // signingInWithOAuth is here so that we can conditionally render some of the ui elements

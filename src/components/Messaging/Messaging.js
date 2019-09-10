@@ -6,29 +6,27 @@ import ListConversations from "./ListConversations.js";
 import Conversation from "./Conversation";
 import SideBar from "../dashboard/SideBar.js";
 
+import './Messaging.scss'
+
 function Messaging(props) {
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect");
-    console.log(props);
     if (!props.userInfo.uid) {
       return;
     } else {
-      console.log("uid", props.userInfo.uid);
       firestore
         .collection("conversations")
         .where("participantUIDs", "array-contains", props.userInfo.uid)
         .onSnapshot(querySnapshot => {
-          console.log(querySnapshot);
           let conversations = [];
           querySnapshot.forEach(conversation => {
             conversations.push(conversation.data());
           });
-          console.log(conversations);
           setConversations(conversations);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
 
   //Create the message, add it to firestore
@@ -53,7 +51,6 @@ function Messaging(props) {
         conversations={conversations}
         userInfo={props.userInfo}
       />
-      {/* <Conversation /> */}
     </div>
   );
 }

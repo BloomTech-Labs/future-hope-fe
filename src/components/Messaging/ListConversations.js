@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 
+import Conversation from "./Conversation.js";
+
+// import blank_user from '../../assets/img/blank_user.png'
+
 const ListConversations = props => {
   const [conversation, setConversation] = useState({});
 
   return (
     <div className='listConversations-wrapper'>
+  {/* Map over conversation props, pull out the info we want.
+      Map again to get the avatar, name, and uid that is not the current users
+      display the other person's info
+  */}
       {props.conversations.map(conversation => {
+        
         let avatar = "";
         let name = "";
         let uid = "";
         conversation.participantAvatars.map(participantAvatar => {
           if (participantAvatar !== props.userInfo.photoUrl) {
-            return (avatar = participantAvatar);
+            return avatar = participantAvatar;
           }
         });
         conversation.participantNames.map(participantName => {
@@ -19,19 +28,18 @@ const ListConversations = props => {
             return (name = participantName);
           }
         });
-        conversation.participantUIDs.map(participantUID => {
-          if (participantUID !== props.userInfo.uid) {
-            return (uid = participantUID);
-          }
-        });
+        uid = conversation.uid
+        // conversation.participantUIDs.map(participantUID => {
+        //   if (participantUID !== props.userInfo.uid) {
+        //     return (uid = participantUID);
+        //   }
+        // });
         return (
           <div
             className='conversation-item'
             onClick={e => {
               setConversation({
-                avatar: avatar,
-                name: name,
-                uid: uid
+                ...conversation
               });
             }}
           >
@@ -41,8 +49,9 @@ const ListConversations = props => {
             />
             <h3>{name}</h3>
           </div>
-        );
-      })}
+          );
+          })}
+            <Conversation conversation={conversation} />
     </div>
   );
 };
