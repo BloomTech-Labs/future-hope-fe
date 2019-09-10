@@ -1,4 +1,7 @@
 import React from "react";
+import MentorTable from "./MentorTable.js";
+import TeacherTable from "./TeacherTable.js";
+//styles
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -100,9 +103,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DashboardTeacher() {
+const Dashboard = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [users, userType] = React.useState([]);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -137,7 +141,7 @@ export default function DashboardTeacher() {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Welcome to your Dashboard
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -170,13 +174,13 @@ export default function DashboardTeacher() {
             {/* Mentor Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>Words here</h1>
+                <h1> Pending Mentor Table</h1>
               </Paper>
             </Grid>
             {/* Teacher Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>Words Here</h1>
+                <h1>Pending Teacher Table</h1>
               </Paper>
             </Grid>
           </Grid>
@@ -184,4 +188,6 @@ export default function DashboardTeacher() {
       </main>
     </div>
   );
-}
+};
+
+export default Dashboard;
