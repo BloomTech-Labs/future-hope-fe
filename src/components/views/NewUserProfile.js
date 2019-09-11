@@ -16,7 +16,7 @@ import Favorite from "@material-ui/icons/Favorite";
 // import Button from "components/CustomButtons/Button.js";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { QuerySnapshot } from "@google-cloud/firestore";
+import { querySnapshot } from "@google-cloud/firestore";
 // import Parallax from "components/Parallax/Parallax.js";
 
 const useStyles = makeStyles(theme => ({
@@ -103,10 +103,12 @@ const NewUserProfile = props => {
     let userArray = [];
     //profile needs to render info based on the uid in the url
     //make a call to the firestore searching by the uid
-    const userRef = firestore.collection("users").doc(this.state.profile_id);
+    // .doc(this.state.profile_id)
+    const userRef = firestore.collection("users");
     //using that info, make a get call and store that in userInfo
-    await userRef.get().then(QuerySnapshot => {
-      QuerySnapshot.forEach(doc => {
+    await userRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.data())
         userArray.push({
           profile_photoUrl: doc.data().photoUrl,
           profile_fullName: doc.data().fullName,
@@ -128,6 +130,7 @@ const NewUserProfile = props => {
 
     //set state with the db info
     setUsers(userArray);
+    console.log(users)
   };
 
   const classes = useStyles();
@@ -144,22 +147,22 @@ const NewUserProfile = props => {
                 <div className={classes.profile}>
                   <div>
                     <img
-                      src={this.state.profile_photoUrl}
+                      // src={profile_photoUrl}
                       alt="..."
                       className={classes.imgRounded}
                     />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>
-                      {this.state.profile_fullName}
+                      {/* {userArray.profile_fullName} */}
                     </h3>
-                    <h6>{this.state.profile_userType}</h6>
+                    {/* <h6>{userArray.profile_userType}</h6> */}
                   </div>
                 </div>
               </Grid>
             </Container>
             <div className={classes.description}>
-              <p>{this.state.profile_aboutMe} </p>
+              {/* <p>{userArray.profile_aboutMe} </p> */}
             </div>
           </div>
         </div>
