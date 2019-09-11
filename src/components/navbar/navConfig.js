@@ -1,6 +1,20 @@
 /*Config file to render Navbar based on route.
 */
 
+//Basic readme
+//route -> (1) settings (2) links
+//default route listed last if route not specified.
+//
+//To add a link, create an object for a new route or
+//select an existing one. Default is probaly what
+//you are looking for 99% of the time. 
+//
+//Add the new link to the links array.
+//Enter href and text.
+//auth is a boolean field -- true = display when user
+//logged in -- false = hide when logged in. 
+
+
 const navConfig = {
   '/': { //root route
     color: 'transparent',
@@ -10,68 +24,89 @@ const navConfig = {
       height: 200,
       color: "white"
     },
-    links: {
-      1: {
+    links: [
+      {
         href: '/mentors',
-        text: 'View Mentors'
-        },
-      2: {
+        text: 'View Mentors', 
+        auth: true
+      },
+      {
         href: '/mission',
-        text: 'Mission'
+        text: 'Mission',
+        auth: true
       },
-      3: {
+      {
         href: '/login',
-        text: 'Login'
+        text: 'Login', 
+        auth: false
       },
-      4: {
+      {
         href: '/signup',
-        text: 'Sign Up'
-      },
-    },
-
+        text: 'Sign Up',
+        auth: false
+      }
+    ],
   },
   '/mentors': {
     brand: "Future Hope School in the Sky",
-    links: {
-      1: {
+    links: [
+      {
         href: '/about',
-        text: 'About Us'
+        text: 'About Us', 
+        auth: true
       },
-    2: {
-      href: '/faq',
-      text: 'How It Works'
-    },
-    3: {
-      href: '/login',
-      text: 'Login'
-    },
-    4: {
-      href: '/signup',
-      text: 'Sign Up'
-    },
-    }, 
+      {
+        href: '/faq',
+        text: 'How It Works',
+        auth: true
+      },
+      {
+        href: '/login',
+        text: 'Login',
+        auth: false
+      },
+      {
+        href: '/signup',
+        text: 'Sign Up',
+        auth: false
+      },
+    ], 
     color: 'white'
   },
   'default': {
     brand: "Future Hope School in the Sky",
-    links: {
-      1: {
+    links: [
+      {
         href: '/mentors',
-        text: 'View Mentors'
+        text: 'View Mentors', 
+        auth: true
       },
-    2: {
-      href: '/faq',
-      text: 'How It Works'
-    },
-    3: {
-      href: '/login',
-      text: 'Login'
-    },
-    4: {
-      href: '/signup',
-      text: 'Sign Up'
-    },
-    }, 
+      {
+        href: '#',
+        text: 'Any Link You Want', 
+        auth: true
+      },
+      {
+        href: '/about',
+        text: 'About Us', 
+        auth: false
+      },
+      {
+        href: '/faq',
+        text: 'How It Works',
+        auth: false
+      },
+      {
+        href: '/login',
+        text: 'Login',
+        auth: false
+      },
+      {
+        href: '/signup',
+        text: 'Sign Up',
+        auth: false
+      },
+    ], 
     color: 'white'
   }
 };

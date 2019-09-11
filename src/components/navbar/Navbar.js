@@ -1,7 +1,8 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withRouter, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -31,9 +32,12 @@ const Navbar = (props) => {
   const initConfig = () => {
     return !navConfig[route] ? navConfig['default'] : navConfig[route]
   }
+  
+  const auth = useSelector(state => state.firebase.auth);
   const [route, setRoute] = useState(props.history.location.pathname);
   const [config, setConfig] = useState(()=>initConfig())
-  
+
+
   //Router pathname listener
   //Detect change in route and run configUpdate function.
   //Gets default config if no match found.
@@ -96,7 +100,6 @@ const Navbar = (props) => {
   const brandComponent = <Link to="/"><Button className={classes.title}>{config.brand}</Button></Link> ;
   const rightLinks = <NavbarLinks config={config} />
   const leftLinks = null
-  const userAuth = props.auth.currentUser
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
@@ -113,12 +116,11 @@ const Navbar = (props) => {
         <div>
         </div>
         <Hidden smDown implementation="css">
-          {rightLinks}
+          {config ? rightLinks : ''}
         </Hidden>
         <Hidden smDown implementation="css">
-          {userAuth &&(
-            <NavbarUser user={userAuth} />
-          )
+          { auth.isLoaded && auth.isEmpty ? 
+          ( '' ): (<NavbarUser user={auth} />)
           }
         </Hidden>
         <Hidden mdUp>

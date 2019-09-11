@@ -11,6 +11,7 @@ import {
   MDBIcon
 } from "mdbreact";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { connect } from "react-redux";
 
 import { firestore, auth } from "../../config/fbConfig.js";
 import SearchResults from "./SearchResults";
@@ -21,16 +22,13 @@ const MeetingModal = props => {
     start: Date.now()
     // endDate: ""
   });
-  const [participants, setParticipants] = useState({});
+  const [participants, setParticipants] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [displayParticipants, setDisplayParticipants] = useState("");
 
   function handleStartDateChange(date) {
-    // console.log('date', date);
-    // console.log('get Hours', date._d.getHours());
-    // console.log('get milliseconds', date._d.getMilliseconds());
-
     setMeeting({
       ...meeting,
       start: date
@@ -43,18 +41,36 @@ const MeetingModal = props => {
 
   const submitMeeting = e => {
     e.preventDefault();
-    let newParticipants = [];
+    console.log("meeting", meeting);
+    let newParticipants = {
+      participantUIDs: meeting.participantUIDs || [],
+      participantNames: meeting.participantNames || []
+    };
     if (participants.length) {
-      newParticipants = participants.map(participant => participant.uid);
+      participants.map(participant => {
+        newParticipants.participantUIDs.push(participant.uid);
+        newParticipants.participantNames.push(participant.fullName);
+      });
     }
-    newParticipants.push(auth.currentUser.uid);
+    if (!meeting.id) {
+      newParticipants.participantUIDs.push(props.user.uid);
+      newParticipants.participantNames.push(props.user.fullName);
+    }
+    console.log("newParticipants", newParticipants);
     let newMeeting = {
       ...meeting,
-      participantUIDs: newParticipants
+      ...newParticipants
     };
-    console.log(newMeeting);
-    //* Adding Event to Calendar
-    props.addMeeting(newMeeting);
+    console.log("newMeeting", newMeeting);
+    //* check if a previous meeting was clicked on to see if routing to new meeting or old
+    if (meeting.id) {
+      props.editMeeting(newMeeting);
+    } else {
+      //* Adding Event to Calendar
+      props.addMeeting(newMeeting);
+    }
+    //* reset meeting state
+    setMeeting({ title: "", start: Date.now() });
     //* Turning off the Modal
     props.toggle();
   };
@@ -73,24 +89,60 @@ const MeetingModal = props => {
         });
       });
     setSearchResults(searchArray);
+    setSearchTerm("");
   };
 
   const toggleSearchModal = () => {
     setShowSearchResults(!showSearchResults);
   };
 
-  //! Using useEffect to update the date picker with the day selected from Calendar component
-  useEffect(() => {
-    setMeeting({
-      ...meeting,
-      start: props.clickedDate
+  const participantsDisplay = invitedUsers => {
+    console.log("invitedUsers", invitedUsers);
+    invitedUsers.map(invitedUser => {
+      if (!displayParticipants) {
+        setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
+      } else {
+        setDisplayParticipants(
+          displayParticipants + `, ${invitedUser.fullName}`
+        );
+      }
     });
-  }, [props.clickedDate]);
+  };
+
+  //! Using useEffect to update the Modal with the item clicked on (date or event)
+  useEffect(() => {
+    setMeeting(props.clickedMeeting);
+    // debugger;
+    if (props.clickedMeeting.id) {
+      let participantNames = "";
+      props.clickedMeeting.participantNames.map(participantName => {
+        // console.log("participant in useEffect", participantName);
+        if (participantName !== props.user.fullName) {
+          if (!participantNames) {
+            // console.log("should only run first time", displayParticipants);
+            participantNames += participantName;
+            // console.log("displayParticipants", displayParticipants);
+          } else {
+            // console.log("should run only after first time");
+            participantNames += `, ${participantName}`;
+          }
+        }
+      });
+      setDisplayParticipants(participantNames);
+    }
+  }, [props.clickedMeeting]);
 
   return (
     <MDBContainer>
       <MDBModal isOpen={props.showModal} toggle={props.toggle} centered>
-        <MDBModalHeader toggle={props.toggle}>Create Meeting</MDBModalHeader>
+        <MDBModalHeader
+          toggle={e => {
+            setMeeting({ title: "", start: Date.now() });
+            props.toggle();
+          }}
+        >
+          {meeting.id ? `Edit Meeting` : `Create Meeting`}
+        </MDBModalHeader>
         <MDBModalBody>
           <MDBInput
             label='Add title'
@@ -143,28 +195,56 @@ const MeetingModal = props => {
               toggleSearchModal();
             }}
           >
-            <MDBIcon icon='search' />
             <input
-              className='form-control form-control-sm ml-3 w-75'
+              className='form-control form-control-sm w-75'
               type='text'
               placeholder='Search Participants'
               aria-label='Search Participants'
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
+            <MDBBtn
+              color='primary'
+              size='sm'
+              onClick={async e => {
+                e.preventDefault();
+                await searchParticipants(searchTerm);
+                toggleSearchModal();
+              }}
+            >
+              <MDBIcon icon='search' />
+            </MDBBtn>
           </MDBFormInline>
+          {displayParticipants && <p>Participants: {displayParticipants}</p>}
           <SearchResults
             showSearchResults={showSearchResults}
             setParticipants={setParticipants}
             toggleSearchModal={toggleSearchModal}
             searchResults={searchResults}
             setSearchTerm={setSearchTerm}
+            participantsDisplay={participantsDisplay}
           />
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn color='secondary' onClick={e => props.toggle()}>
+          <MDBBtn
+            color='secondary'
+            onClick={e => {
+              setMeeting({ title: "", start: Date.now() });
+              props.toggle();
+            }}
+          >
             Close
           </MDBBtn>
+          {meeting.id && (
+            <MDBBtn
+              color='red'
+              onClick={e => {
+                props.deleteMeeting(meeting);
+              }}
+            >
+              Delete
+            </MDBBtn>
+          )}
           <MDBBtn color='primary' onClick={e => submitMeeting(e)}>
             Save changes
           </MDBBtn>
@@ -174,4 +254,11 @@ const MeetingModal = props => {
   );
 };
 
-export default MeetingModal;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    user: state.firebase.profile
+  };
+};
+
+export default connect(mapStateToProps)(MeetingModal);

@@ -49,11 +49,12 @@ export default function SearchResults(props) {
     setSearchResults(props.searchResults);
   });
 
-  const saveParticipants = () => {
+  const saveParticipants = async () => {
     let invitedUsers = [];
     checked.forEach(index => invitedUsers.push(searchResults[index]));
-    console.log(invitedUsers);
-    props.setParticipants(invitedUsers);
+    setChecked([]);
+    await props.setParticipants(invitedUsers);
+    props.participantsDisplay(invitedUsers);
   };
 
   return (
