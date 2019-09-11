@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
-import moment from '@date-io/moment';
-
-import blank_user from '../../assets/img/blank_user.png'
 
 
 const Conversation = props => {

@@ -81,14 +81,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Messaging);
-
-/*
- <div className='messaging-wrapper'>
-      <h1>Messages!</h1>
-      {/* <SideBar /> 
-      <ListConversations
-        conversations={conversations}
-        userInfo={props.userInfo}
-      />
-    </div>
-*/

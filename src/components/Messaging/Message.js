@@ -14,7 +14,7 @@ const Message = props => {
     return (
       <div className='message-wrapper'>
         {/* //! replace with props, add img for profile pic */}
-        <Avatar alt="user avatar" src={`${props.message.avatar}`} className={classes.avatar}/>
+        {/*<Avatar alt="user avatar" src={`${props.message.avatar}`} className={classes.avatar} /> */}
         <p>{props.message.content}</p>
        
       </div>
@@ -24,12 +24,3 @@ const Message = props => {
 
 export default Message;
 
-
-// {
-//   props.messages.map(message => {
-//     console.log('message', message)
-//     return(
-//       <p>{message.content}</p>
-//     )
-//   })
-// }
