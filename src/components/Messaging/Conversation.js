@@ -4,6 +4,8 @@ import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
 import moment from '@date-io/moment';
 
+import blank_user from '../../assets/img/blank_user.png'
+
 
 const Conversation = props => {
   const [text, setText] = useState('');
@@ -15,41 +17,39 @@ const Conversation = props => {
     console.log('useEffect triggered inside Conversations')
     if(props.selectedConversation.uid){
       setConversation(props.selectedConversation)
-      let messages = [];
-      const messagesRef = firestore
-        .collection('conversations')
-        .doc(props.selectedConversation.uid)
-        .collection('messages')
-        .orderBy('timestamp', 'desc')
-        .limit(20);
-  
-      messagesRef.onSnapshot(snapshot => {
-        snapshot.forEach(doc => {
+      firestore.collection('conversations')
+      .doc(props.selectedConversation.uid)
+      .collection('messages')
+      .orderBy('timestamp', 'desc')
+      .limit(15)
+      .onSnapshot(querySnapshot => {
+        let fetchedMessages = [];
+        querySnapshot.forEach(doc => {
           const message = doc.data()
-          //first, pull uid of sender
-          //query props.conversation.participantUIDs for index of uid
-          let index = props.selectedConversation.participantUIDs.indexOf(message.sentBy)
-          // use index number to query participantNames and participantAvatars
-          let avatar = props.selectedConversation.participantAvatars[index]
-          let name = props.selectedConversation.participantNames[index]
-          // add sentBy name and avatar to message
-          message.name = name
-          message.avatar = avatar
-          message.timestamp.milliseconds = message.timestamp.seconds * 1000 
-          messages.push(message)
+            //first, pull uid of sender;
+            //query props.conversation.participantUIDs for index of uid
+            let index = props.selectedConversation.participantUIDs.indexOf(message.sentBy)
+            // use index number to query participantNames and participantAvatars
+            let avatar = props.selectedConversation.participantAvatars[index]
+            let name = props.selectedConversation.participantNames[index]
+            // add sentBy name and avatar to message
+            message.name = name
+            message.avatar = avatar
+            message.timestamp.milliseconds = message.timestamp.seconds * 1000 
+            fetchedMessages.unshift(message)
         })
-        setMessages(messages)
+        setMessages(fetchedMessages)
       })
     }
   },[props.selectedConversation])
 
     //Create the message, add it to firestore
     const createMessage = async messageText => {
-      console.log()
+     
       const newMessage = {
         content: messageText,
         sentBy: props.userInfo.uid,
-        timestamp: new Date()
+        timestamp: new Date(),
       }
       try{
         const messageRef = await firestore
@@ -62,7 +62,8 @@ const Conversation = props => {
         messageRef.set(newMessage)
       } catch(err) {
           console.log("Error occured in creating message:", err);
-      }
+      }      
+      setText('');
     };
   return (
     <div className='conversations-wrapper'>

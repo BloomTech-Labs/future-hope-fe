@@ -1,7 +1,6 @@
 import React from "react";
 
 const Message = props => {
-  console.log('Message Component render', props.message)
  
     return (
       <div className='message-wrapper'>
