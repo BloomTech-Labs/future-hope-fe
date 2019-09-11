@@ -11,12 +11,8 @@ import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
 // core components
-// import Header from "components/Header/Header.js";
-// import Footer from "components/Footer/Footer.js";
-// import Button from "components/CustomButtons/Button.js";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { querySnapshot } from "@google-cloud/firestore";
 // import Parallax from "components/Parallax/Parallax.js";
 
 const useStyles = makeStyles(theme => ({
@@ -93,7 +89,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewUserProfile = props => {
-  console.log(props);
+  console.log("props",props);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -147,7 +143,7 @@ const NewUserProfile = props => {
                 <div className={classes.profile}>
                   <div>
                     <img
-                      // src={profile_photoUrl}
+                      // src={profile_phtoUrl}
                       alt="..."
                       className={classes.imgRounded}
                     />
