@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestore } from "../../config/fbConfig.js";
 
-import ListConversations from "./ListConversations.js";
 import Conversation from "./Conversation";
-import SideBar from "../dashboard/SideBar.js";
 
 import "./Messaging.scss";
 

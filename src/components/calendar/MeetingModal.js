@@ -14,7 +14,7 @@ import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { connect } from "react-redux";
 
 import { firestore, auth } from "../../config/fbConfig.js";
-import SearchResults from "./SearchResults";
+import SearchResults from "../shared/components/SearchResults.js";
 
 const MeetingModal = props => {
   const [meeting, setMeeting] = useState({

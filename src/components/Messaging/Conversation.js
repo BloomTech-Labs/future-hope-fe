@@ -74,16 +74,22 @@ const Conversation = props => {
           )
         })
       }
-    
-      <div className="input-wrapper">
-        <input 
-          placeholder="Enter a Message"
-          type="text"
-          value={text}
-          onChange={e => setText(e.target.value)}>
-        </input>
-        <button onClick={e => createMessage(text)}>Send Message</button>
-      </div>
+      {/* if there is a selected converstaion, diplay the input. otherwise no input fo you*/}
+      {props.selectedConversation.uid && <div className="input-wrapper">
+          <form onSubmit={e => {
+            e.preventDefault() 
+            createMessage(text)
+          }}>
+            <input 
+              placeholder="Enter a Message"
+              type="text"
+              value={text}
+              onChange={e => setText(e.target.value)}>
+            </input>
+            <button onClick={e => createMessage(text)}>Send Message</button>
+          </form>
+        </div>
+      }
     </div>
   );
 };
