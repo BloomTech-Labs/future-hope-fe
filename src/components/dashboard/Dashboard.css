@@ -1,35 +1,4 @@
-.dashboard-sidemenu {
-  /* background-color: green; */
-  
-  height: 100%;
-  text-align: left;
-  width: 100%;
-  justify-content: end;
-  /* color: red; */
-  /* border: 1px solid red; */
-}
-.col-3{
-  max-width: 100%
-}
-
-.dashboard-admin-info {
-  text-align: center;
-}
-.dashboard-sidemenu-btns {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.btn {
-  background-color: green;
-}
-
-.table {
-  padding-bottom: 60px;
-}
-
-.table-heading {
-  text-align: center;
-  font-weight: bold;
+.dashboard-table-title {
+  font-size: 20px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }

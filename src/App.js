@@ -19,16 +19,16 @@ import Footer from "./components/footer/Footer";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import Calendar from "./components/calendar/Calendar";
-import AdminDashboard from "./components/dashboard/AdminDashboard.js";
+import AdminDashboard from "./components/dashboard/admin-dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
-import MentorProfile from "./components/views/MentorProfile.js";
-//import ProfileView from "./components/views/ProfileView.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 import ViewUserProfile from "./components/views/ViewUserProfile";
-import MentorTable from "./components/dashboard/MentorTable";
-import TeacherTable from "./components/dashboard/TeacherTable";
-import mentorDashboard from "./components/dashboard/mentorDashboard.js";
+import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
+import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
+import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
+import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
+import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 
 import "./App.css";
 
@@ -118,18 +118,18 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar {...this.props} auth={auth} />
-        <div className='app-container'>
+        <div className="app-container">
           <Switch>
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/mentors' component={MentorList} />
-            <Route path='/FAQ' component={FAQ} />
-            <Route path='/admin-dashboard' component={AdminDashboard} />
-            <Route path='/approved-teachers' component={ApprovedTeacherList} />
-            <Route path='/approved-mentors' component={ApprovedMentorList} />
-            <Route path='/view-profile' component={ViewUserProfile} />
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/mentors" component={MentorList} />
+            <Route path="/FAQ" component={FAQ} />
+            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route path="/approved-teachers" component={ApprovedTeacherList} />
+            <Route path="/approved-mentors" component={ApprovedMentorList} />
+            <Route path="/view-profile" component={ViewUserProfile} />
             <Route
               exact
-              path='/signup'
+              path="/signup"
               render={props => (
                 <SignUp
                   setupUserListener={this.setupUserListener}
@@ -139,7 +139,7 @@ class App extends React.Component {
               )}
             />
             <Route
-              path='/login'
+              path="/login"
               render={props => (
                 <Login
                   setupUserListener={this.setupUserListener}
@@ -149,12 +149,13 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path='/profile/:uid' component={ViewUserProfile} />
-            <Route path='/applicationstatus' component={AwaitingApproval} />
-            <Route path='/mentor-table' component={MentorTable} />
-            <Route path='/teacher-table' component={TeacherTable} />
+            <Route path="/profile/:uid" component={ViewUserProfile} />
+            <Route path="/applicationstatus" component={AwaitingApproval} />
+            <Route path="/mentor-table" component={MentorTable} />
+            <Route path="/teacher-table" component={TeacherTable} />
             {/* //! Joel Added to test Calendar */}
-            <Route path='/mentor_dashboard' component={mentorDashboard} />
+            <Route path="/mentor_dashboard" component={mentorDashboard} />
+            <Route path="/teacher_dashboard" component={DashboardTeacher} />
           </Switch>
         </div>
         <Footer />
