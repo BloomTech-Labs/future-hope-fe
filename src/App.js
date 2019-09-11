@@ -29,6 +29,7 @@ import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
+import NewUserProfile from "./components/views/NewUserProfile.js";
 
 import "./App.css";
 
@@ -126,7 +127,7 @@ class App extends React.Component {
             <Route path="/admin-dashboard" component={AdminDashboard} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
-            <Route path="/view-profile" component={ViewUserProfile} />
+            <Route path="/view-profile" component={NewUserProfile} />
             <Route
               exact
               path="/signup"
@@ -149,7 +150,7 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/profile/:uid" component={ViewUserProfile} />
+            <Route path="/profile/:uid" component={NewUserProfile} />
             <Route path="/applicationstatus" component={AwaitingApproval} />
             <Route path="/mentor-table" component={MentorTable} />
             <Route path="/teacher-table" component={TeacherTable} />
