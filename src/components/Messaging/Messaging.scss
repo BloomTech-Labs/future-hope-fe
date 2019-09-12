@@ -1,35 +1,71 @@
-.messaging-wrapper{
-    display: flex;
-    flex-wrap: nowrap;
-    
-    // h1 {
-    //     text-align: center;
-    //     width
-    // }
-    .list-conversations-wrapper {
-        width: 35%;
-        height: 75vh;
-        margin: 20px;
-        .conversation-list-item {
-            background-color: white;
-            img{
-                width: 100px;
-                border-radius: 100%
-            }
-        }
+.messaging-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+
+  // h1 {
+  //     text-align: center;
+  //     width
+  // }
+  .list-conversations-wrapper {
+    width: 35%;
+    height: 75vh;
+    margin: 20px;
+    .conversation-list-item {
+      cursor: pointer;
+      background-color: white;
+      img {
+        width: 100px;
+        border-radius: 100%;
+      }
     }
-    .conversations-wrapper{
-        width: 60%;
-        margin: 20px;
-        height: 75vh;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        .message-wrapper {
-            height: 80%;
-        }
-        .input-wrapper {
-           
-        }
+  }
+  .conversations-wrapper {
+    width: 60%;
+    margin: 20px;
+    height: 75vh;
+    background-color: white;
+    overflow: auto;
+    // display: flex;
+    // flex-direction: column;
+    .message-wrapper {
+      //   height: 80%;
+      //   width: 90%;
+      line-height: 100%;
+      display: block;
+      position: relative;
+      padding: 0.25em 0.5em;
+      border: black solid 1.5px;
+      -webkit-border-radius: 11px;
+      -moz-border-radius: 11px;
+      border-radius: 11px;
+      margin-bottom: 2em;
+      clear: both;
+      max-width: 50%;
     }
+    .match {
+      //   background: aqua;
+      //   text-align: right;
+      //   padding: 2% 2%;
+      //   border-radius: 6px;
+      //   border: 1px solid #ccc;
+
+      float: right;
+      margin-left: 10%;
+      background: lightblue;
+    }
+    .no-match {
+      background-color: lightgrey;
+      float: left;
+      margin-right: 10%;
+    }
+    p {
+      font-size: 1.3rem;
+    }
+    .input-wrapper {
+      form {
+        position: absolute;
+        top: 89%;
+      }
+    }
+  }
 }
