@@ -60,13 +60,13 @@ class ApprovedMentorList extends Component {
             </tr>
           </thead>
           {users.map(user => {
-            if (user.userType === "mentor" && !user.approval) {
+            if (user.userType === "mentor" && !user.approved) {
               return (
                 <tbody key={user.uid}>
                   <tr>
                     <td>
                       {" "}
-                      <img src={user.profilePhoto} alt="profile photo"></img>
+                      <img className='dashboard-photo' src={user.profilePhoto  || "https://source.unsplash.com/random/200x200"} alt="profile photo"></img>
                     </td>
                     <td>{user.name}</td>
                     <td>{user.userType}</td>

@@ -17,7 +17,7 @@ const MentorPublicPage = props => {
   return (
     <div className="mentor-cards">
       <MDBContainer className="mentor-card-mdcontainer">
-        <MDBCard style={{ maxWidth: "22rem", margin: "40px" }} border="primary">
+        <MDBCard style={{ maxWidth: "22rem", margin: "40px" }}>
           <MDBCardImage
             className="img-fluid"
             src={
