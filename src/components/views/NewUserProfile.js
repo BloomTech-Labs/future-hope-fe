@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // core components
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-// import Parallax from "components/Parallax/Parallax.js";
 
 const useStyles = makeStyles(theme => ({
   profile: {
@@ -65,6 +64,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "50% !important"
   },
   container: {
+    marginTop: "100px",
     paddingRight: "15px",
     paddingLeft: "15px",
     marginRight: "auto",
@@ -89,55 +89,25 @@ const NewUserProfile = props => {
   console.log("props", props);
   const [user, setUser] = useState({});
 
-  // {
-  //   profile_id: props.match.params.uid,
-  //   profile_photoUrl: "",
-  //   profile_fullName: "",
-  //   profile_city: "",
-  //   profile_stateProvince: "",
-  //   profile_country: "",
-  //   profile_aboutMe: "",
-  //   profile_userType: ""
-  // }
-
-  const profilePage = async () => {
-    let userIDs = {
-      userUIDs: user.useruid || []
-    }
-    //profile needs to render info based on the uid in the url
-    //make a call to the firestore searching by the uid
-    // .doc(this.state.profile_id)
-    const userRef = firestore.collection("users").doc(props.match.params.uid);
-    //using that info, make a get call and store that in userInfo
-    const userInfo = await userRef.get();
-    const profileInfo = userInfo.data();
-    // await userRef.get().then(querySnapshot => {
-    //   querySnapshot.forEach(doc => {
-    //     console.log("docdata", doc.data());
-        
-    //   });
-    // });
-    // console.log(userRef, 'userRef');
-    // console.log(userInfo, 'userInfo');
-    // console.log(userInfo.data(), '.data');
-    //userInfo.data has all the info we want. store that in a variable for ease of use
-    // const profileInfo = userInfo.data(); //stores all the info we want from the db
-    // console.log(profileInfo, 'profileInfo');
-
-    //set state with the db info
-  };
-
   useEffect(() => {
-    profilePage().then(u => setUser(u));
+    // grabs user UID from URL and searches users collection for a matching doc
+    firestore
+    .collection("users")
+    .doc(props.match.params.uid)
+    .get()
+    .then(querySnapshot => {
+      setUser(querySnapshot.data())
+    });
   }, []);
 
   const classes = useStyles();
 
-  if (!props.user.uid && props.user.awitingApproval) {
+  if (!props.userInfo.uid && props.userInfo.awitingApproval) {
     return <Redirect to="/" />;
   } else {
     return (
       <div>
+        {console.log(user)}
         <div className={classNames(classes.main, classes.mainRaised)}>
           <div>
             <div className={classes.container}>
@@ -156,14 +126,14 @@ const NewUserProfile = props => {
                       />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>{user.profile_fullName}</h3>
-                      <h6>{user.profile_userType}</h6>
+                      <h3 className={classes.title}>{user.fullName}</h3>
+                      <h6>{user.userType}</h6>
                     </div>
                   </div>
                 </Grid>
               </Container>
               <div className={classes.description}>
-                <p>{user.profile_aboutMe} </p>
+                <p>{user.aboutMe}</p>
               </div>
             </div>
           </div>
@@ -175,7 +145,7 @@ const NewUserProfile = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.firebase.profile
+    userInfo: state.firebase.profile
   };
 };
 
