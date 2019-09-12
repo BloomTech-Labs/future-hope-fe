@@ -126,13 +126,13 @@ const NewUserProfile = props => {
 
     //set state with the db info
     setUsers(userArray);
-    console.log(users)
+    console.log(userArray)
   };
 
   const classes = useStyles();
 
-  if (!this.props.userInfo.uid && this.props.userInfo.awitingApproval)
-    return <Redirect to="/" />;
+  if (!props.userInfo.uid && props.userInfo.awitingApproval) {
+    return <Redirect to="/" />} else {
   return (
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>
@@ -165,6 +165,7 @@ const NewUserProfile = props => {
       </div>
     </div>
   );
+}
 };
 
 const mapStateToProps = state => {
