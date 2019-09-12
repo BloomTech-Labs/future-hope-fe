@@ -7,9 +7,6 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
-import Favorite from "@material-ui/icons/Favorite";
 // core components
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -89,34 +86,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewUserProfile = props => {
-  console.log("props",props);
-  const [users, setUsers] = useState([]);
+  console.log("props", props);
+  const [user, setUser] = useState({});
 
-  useEffect(() => {
-    profilePage();
-  }, []);
+  // {
+  //   profile_id: props.match.params.uid,
+  //   profile_photoUrl: "",
+  //   profile_fullName: "",
+  //   profile_city: "",
+  //   profile_stateProvince: "",
+  //   profile_country: "",
+  //   profile_aboutMe: "",
+  //   profile_userType: ""
+  // }
+
   const profilePage = async () => {
-    let userArray = [];
+    let userIDs = {
+      userUIDs: user.useruid || []
+    }
     //profile needs to render info based on the uid in the url
     //make a call to the firestore searching by the uid
     // .doc(this.state.profile_id)
-    const userRef = firestore.collection("users");
+    const userRef = firestore.collection("users").doc(props.match.params.uid);
     //using that info, make a get call and store that in userInfo
-    await userRef.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        console.log(doc.data())
-        userArray.push({
-          profile_photoUrl: doc.data().photoUrl,
-          profile_fullName: doc.data().fullName,
-          profile_city: doc.data().city,
-          profile_stateProvince: doc.data().stateProvince,
-          profile_country: doc.data().country,
-          profile_aboutMe: doc.data().aboutMe,
-          profile_userType: doc.data().userType,
-          uid: doc.data().uid
-        });
-      });
-    });
+    const userInfo = await userRef.get();
+    const profileInfo = userInfo.data();
+    // await userRef.get().then(querySnapshot => {
+    //   querySnapshot.forEach(doc => {
+    //     console.log("docdata", doc.data());
+        
+    //   });
+    // });
     // console.log(userRef, 'userRef');
     // console.log(userInfo, 'userInfo');
     // console.log(userInfo.data(), '.data');
@@ -125,52 +125,57 @@ const NewUserProfile = props => {
     // console.log(profileInfo, 'profileInfo');
 
     //set state with the db info
-    setUsers(userArray);
-    console.log(userArray)
   };
+
+  useEffect(() => {
+    profilePage().then(u => setUser(u));
+  }, []);
 
   const classes = useStyles();
 
-  if (!props.userInfo.uid && props.userInfo.awitingApproval) {
-    return <Redirect to="/" />} else {
-  return (
-    <div>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div>
-          <div className={classes.container}>
-            <Container justify="center">
-              <Grid xs={12} sm={12} md={6}>
-                <div className={classes.profile}>
-                  <div>
-                    <img
-                      // src={profile_phtoUrl}
-                      alt="..."
-                      className={classes.imgRounded}
-                    />
+  if (!props.user.uid && props.user.awitingApproval) {
+    return <Redirect to="/" />;
+  } else {
+    return (
+      <div>
+        <div className={classNames(classes.main, classes.mainRaised)}>
+          <div>
+            <div className={classes.container}>
+              <Container justify="center">
+                <Grid xs={12} sm={12} md={6}>
+                  <div className={classes.profile}>
+                    <div>
+                      <img
+                        // src={profile_phtoUrl}
+                        alt="..."
+                        className={classNames(
+                          classes.imgRounded,
+                          classes.imgFluid,
+                          classes.imgRoundedCircle
+                        )}
+                      />
+                    </div>
+                    <div className={classes.name}>
+                      <h3 className={classes.title}>{user.profile_fullName}</h3>
+                      <h6>{user.profile_userType}</h6>
+                    </div>
                   </div>
-                  <div className={classes.name}>
-                    <h3 className={classes.title}>
-                      {/* {userArray.profile_fullName} */}
-                    </h3>
-                    {/* <h6>{userArray.profile_userType}</h6> */}
-                  </div>
-                </div>
-              </Grid>
-            </Container>
-            <div className={classes.description}>
-              {/* <p>{userArray.profile_aboutMe} </p> */}
+                </Grid>
+              </Container>
+              <div className={classes.description}>
+                <p>{user.profile_aboutMe} </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 };
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.firebase.profile
+    user: state.firebase.profile
   };
 };
 
