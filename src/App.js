@@ -31,6 +31,7 @@ import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMe
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 import NewUserProfile from "./components/views/NewUserProfile.js";
+import EditProfileView from "./components/views/EditProfileView.js";
 
 import "./App.css";
 
@@ -158,6 +159,7 @@ class App extends React.Component {
             <Route path="/teacher-table" component={TeacherTable} />
             <Route path="/mentor_dashboard" component={DashboardMentor} />
             <Route path="/teacher_dashboard" component={DashboardTeacher} />
+            <Route path="/update_profile" component={EditProfileView} />
           </Switch>
         </div>
         <Footer />
