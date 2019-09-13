@@ -102,7 +102,7 @@ const NewUserProfile = props => {
 
   const classes = useStyles();
 
-  if (!props.userInfo.uid && props.userInfo.awitingApproval) {
+  if (!props.userInfo.uid && props.userInfo.awaitingApproval) {
     return <Redirect to="/" />;
   } else {
     return (
