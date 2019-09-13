@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { firestore, auth } from "../../config/fbConfig.js";
+import React from "react";
+import { firestore } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
+
+import { Button } from "@material-ui/core";
+import { Input } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import UploadPhoto from "./UploadPhoto";
+
+import "./Profile.scss";
 
 class EditProfileView extends React.Component {
   state = {
@@ -44,65 +51,85 @@ class EditProfileView extends React.Component {
       aboutMe: this.state.aboutMe
     });
   };
+  uploadImage = e => {};
+
   render() {
     return (
-      <div>
+      <div className="view-profile-wrapper">
         <form
+          className="profile-form"
           onSubmit={e => {
             e.preventDefault();
             this.updateInfo();
           }}
         >
-          <input
+          <Input
+            className="profile-input"
             type="text"
             name="fullName"
             value={this.state.fullName}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="stateProvince"
             value={this.state.stateProvince}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="city"
             value={this.state.city}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="aboutMe"
             value={this.state.aboutMe}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="country"
             value={this.state.country}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="phoneNumber"
             value={this.state.phoneNumber}
             onChange={this.handleChanges}
-          ></input>
-          <input
+          ></Input>
+          <Input
+            className="profile-input"
             type="text"
             name="email"
             value={this.state.email}
             onChange={this.handleChanges}
-          ></input>
-          <button
+          ></Input>
+          <Button
+            className="profile-button-save"
+            onSubmit={e => {
+              e.preventDefault();
+              this.uploadImage();
+            }}
+          >
+            Profile Pic
+          </Button>
+          <Button
+            className="profile-button-save"
             onSubmit={e => {
               e.preventDefault();
               this.updateInfo();
             }}
           >
             Save Changes
-          </button>
+          </Button>
         </form>
       </div>
     );
@@ -116,112 +143,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(EditProfileView);
-
-/*
-
-
- // let fillName = await props.userInfo.fullName;
-  // console.log(fillName);
- 
-
-  const [name, setName] = useState("");
-  const [stateProvince, setStateProvince] = useState("");
-  const [city, setCity] = useState("");
-  const [aboutMe, setAboutMe] = useState("");
-  const [country, setCountry] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-
-  const updateInfo = async () => {
-    const uid = props.userInfo.uid;
-    const userRef = firestore.collection("users").doc(uid);
-    await userRef.set({
-      email: email,
-      fullName: name,
-      city: city,
-      stateProvince: stateProvince,
-      country: country,
-      phoneNumber: phoneNumber,
-      aboutMe: aboutMe
-    });
-  };
-
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          updateInfo();
-        }}
-      >
-        <input
-          type="text"
-          target="name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-        >
-          
-        </input>
-        <input
-          type="text"
-          target="stateProvince"
-          value={stateProvince}
-          onChange={e => setStateProvince(e.target.value)}
-        >
-       
-        </input>
-        <input
-          type="text"
-          target="city"
-          value={city}
-          onChange={e => setCity(e.target.value)}
-        >
-          
-        </input>
-        <input
-          type="text"
-          target="aboutMe"
-          value={aboutMe}
-          onChange={e => setAboutMe(e.target.value)}
-        >
-          
-        </input>
-        <input
-          type="text"
-          target="country"
-          value={country}
-          onChange={e => setCountry(e.target.value)}
-        >
-         
-        </input>
-        <input
-          type="text"
-          target="phoneNumber"
-          value={phoneNumber}
-          onChange={e => setPhoneNumber(e.target.value)}
-        >
-         
-        </input>
-        <input
-          type="text"
-          target="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        >
-          
-        </input>
-        <button
-          onSubmit={e => {
-            e.preventDefault();
-            updateInfo();
-          }}
-        >
-          Save Changes
-        </button>
-      </form>
-    </div>
-  );
-
-
-
-*/
