@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import { firestore } from "../../config/fbConfig.js";
 import { MDBContainer } from "mdbreact";
+
+import EditProfileView from "./EditProfileView";
 import SideBar from "../dashboard/SideBar";
 import "../dashboard/Dashboard.css";
 import "./views.css";
@@ -45,7 +47,7 @@ class ViewUserProfile extends React.Component {
     });
   };
   render() {
-    if (!this.props.userInfo.uid && this.props.userInfo.awitingApproval)
+    if (!this.props.userInfo.uid && this.props.userInfo.awaitingApproval)
       return <Redirect to="/" />;
     return (
       <MDBContainer className="profile-container d-flex" fluid>
