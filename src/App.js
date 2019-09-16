@@ -27,6 +27,7 @@ import ViewUserProfile from "./components/views/ViewUserProfile";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
+import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor.js";
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 import NewUserProfile from "./components/views/NewUserProfile.js";
@@ -155,7 +156,7 @@ class App extends React.Component {
             <Route path="/mentor-table" component={MentorTable} />
             <Route path="/teacher-table" component={TeacherTable} />
             {/* //! Joel Added to test Calendar */}
-            <Route path="/mentor_dashboard" component={mentorDashboard} />
+            <Route path="/mentor_dashboard" component={DashboardMentor} />
             <Route path="/teacher_dashboard" component={DashboardTeacher} />
           </Switch>
         </div>
