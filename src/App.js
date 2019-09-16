@@ -24,12 +24,14 @@ import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 import ViewUserProfile from "./components/views/ViewUserProfile";
+import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
-import mentorDashboard from "./components/dashboard/mentor-dashboard/mentorDashboard.js";
+import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor.js";
 import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
-import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor";
+import NewUserProfile from "./components/views/NewUserProfile.js";
+import EditProfileView from "./components/views/EditProfileView.js";
 
 import "./App.css";
 
@@ -127,7 +129,7 @@ class App extends React.Component {
             <Route path="/admin-dashboard" component={AdminDashboard} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
-            <Route path="/view-profile" component={ViewUserProfile} />
+            <Route path="/view-profile" component={NewUserProfile} />
             <Route
               exact
               path="/signup"
@@ -150,13 +152,14 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/profile/:uid" component={ViewUserProfile} />
+            <Route path="/profile/:uid" component={NewUserProfile} />
+            <Route path="/messaging" component={Messaging} />
             <Route path="/applicationstatus" component={AwaitingApproval} />
             <Route path="/mentor-table" component={MentorTable} />
             <Route path="/teacher-table" component={TeacherTable} />
-            {/* //! Joel Added to test Calendar */}
             <Route path="/mentor_dashboard" component={DashboardMentor} />
             <Route path="/teacher_dashboard" component={DashboardTeacher} />
+            <Route path="/update_profile" component={EditProfileView} />
           </Switch>
         </div>
         <Footer />

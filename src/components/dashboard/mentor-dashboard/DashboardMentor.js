@@ -1,4 +1,10 @@
 import React from "react";
+import Calendar from "../../calendar/Calendar.js";
+import { mainListItems, secondaryListItems } from "../listItems";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
+//styles
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,8 +23,6 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import Calendar from "../../calendar/Calendar.js";
-import { mainListItems, secondaryListItems } from "../listItems";
 
 const drawerWidth = 240;
 
@@ -101,7 +105,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DashboardTeacher() {
+const DashboardMentor = props => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -138,7 +142,7 @@ export default function DashboardTeacher() {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Welcome to your Dashboard
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -180,3 +184,11 @@ export default function DashboardTeacher() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(DashboardMentor);
