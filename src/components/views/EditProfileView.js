@@ -165,7 +165,6 @@ const EditProfileView = props => {
           type="text"
           multiline
           name="aboutMe"
-          onFocus={handleFocus}
           value={user.aboutMe}
           onChange={handleChanges}
         />
