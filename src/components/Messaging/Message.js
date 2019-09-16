@@ -16,7 +16,7 @@ const Message = props => {
     <div className="message-container">
       <div
         className={`message-wrapper ${
-          props.message.sentBy === props.userInfo.uid ? "match" : "no-match"
+          props.message.sentBy === props.userInfo.uid ? "right" : "left"
         }`}
       >
         <div className="message-sender">
@@ -50,7 +50,7 @@ export default Message;
 
 //With overflow: auto, a scroll bar is available with messages to check older ones. Do we need a limit if we have that
 //capability? Do we change limit on scroll up?
-
+//! TO put the name and sent by outside of the message div, maybe do div styling around p tag only
 /*
 
   <div className="message-container">
