@@ -1,140 +1,203 @@
-import React from "react";
-import { firestore } from "../../config/fbConfig.js";
+import React, { useState, useEffect } from "react";
+import { firestore, storage } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
+import swal from "@sweetalert/with-react";
 
 import { Button } from "@material-ui/core";
 import { Input } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
-import UploadPhoto from "./UploadPhoto";
+import TextField from "@material-ui/core/TextField";
 
 import "./Profile.scss";
 
-class EditProfileView extends React.Component {
-  state = {
+const EditProfileView = props => {
+  // let imgInput = React.useRef(null);
+  const [user, setUser] = useState({
     fullName: "",
     email: "",
     city: "",
     stateProvince: "",
     country: "",
     phoneNumber: "",
-    aboutMe: ""
-  };
+    aboutMe: "",
+    photoUrl: ""
+  });
+  const [img, setImg] = useState(null);
 
-  componentWillReceiveProps = () => {
-    this.setState({
-      fullName: this.props.userInfo.fullName,
-      email: this.props.userInfo.email,
-      city: this.props.userInfo.city,
-      stateProvince: this.props.userInfo.stateProvince,
-      country: this.props.userInfo.country,
-      phoneNumber: this.props.userInfo.phoneNumber,
-      aboutMe: this.props.userInfo.aboutMe
+  useEffect(() => {
+    setUser({
+      fullName: props.userInfo.fullName,
+      email: props.userInfo.email,
+      city: props.userInfo.city,
+      stateProvince: props.userInfo.stateProvince,
+      country: props.userInfo.country,
+      phoneNumber: props.userInfo.phoneNumber,
+      aboutMe: props.userInfo.aboutMe,
+      photoUrl: props.userInfo.photoUrl
     });
-  };
+  }, [props.userInfo]);
 
-  handleChanges = e => {
+  const handleChanges = e => {
     e.preventDefault();
-    this.setState({
+    setUser({
+      ...user,
       [e.target.name]: e.target.value
     });
   };
-  updateInfo = async () => {
-    const uid = this.props.userInfo.uid;
-    const userRef = firestore.collection("users").doc(uid);
-    await userRef.set({
-      email: this.state.email,
-      fullName: this.state.fullName,
-      city: this.state.city,
-      stateProvince: this.state.stateProvince,
-      country: this.state.country,
-      phoneNumber: this.state.phoneNumber,
-      aboutMe: this.state.aboutMe
-    });
-  };
-  uploadImage = e => {};
 
-  render() {
-    return (
-      <div className="view-profile-wrapper">
-        <form
-          className="profile-form"
-          onSubmit={e => {
+  const updateInfo = async () => {
+    const uid = props.userInfo.uid;
+    const userRef = firestore.collection("users").doc(uid);
+    await userRef
+      .update({
+        email: user.email,
+        fullName: user.fullName,
+        city: user.city,
+        stateProvince: user.stateProvince,
+        country: user.country,
+        phoneNumber: user.phoneNumber,
+        aboutMe: user.aboutMe
+      })
+      .then(() => {
+        swal(`Your information has been updated`, {
+          icon: "success"
+        });
+      })
+      .catch(() => {
+        swal(
+          "There was a server error, your information could not be updated",
+          {
+            icon: "warning"
+          }
+        );
+      });
+  };
+
+  const uploadImage = e => {
+    const { uid } = props.userInfo;
+    if (img) {
+      storage
+        .ref()
+        .child("users")
+        .child(uid)
+        .child(img.name)
+        .put(img)
+        .then(res => res.ref.getDownloadURL())
+        .then(photoUrl => {
+          firestore
+            .collection("users")
+            .doc(uid)
+            .update({ photoUrl: photoUrl });
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  const handleFocus = e => {
+    e.target.select();
+  };
+
+  return (
+    <div className="view-profile-wrapper">
+      <form
+        className="profile-form"
+        onSubmit={e => {
+          e.preventDefault();
+          updateInfo();
+        }}
+      >
+        <TextField
+          className="profile-input"
+          label="Full Name"
+          type="text"
+          name="fullName"
+          onFocus={handleFocus}
+          value={user.fullName}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          label="State or Province"
+          type="text"
+          name="stateProvince"
+          onFocus={handleFocus}
+          value={user.stateProvince}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          label="City"
+          type="text"
+          name="city"
+          onFocus={handleFocus}
+          value={user.city}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          type="text"
+          label="Country"
+          name="country"
+          onFocus={handleFocus}
+          value={user.country}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          label="Phone Number"
+          type="text"
+          name="phoneNumber"
+          onFocus={handleFocus}
+          value={user.phoneNumber}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          label="Email"
+          type="text"
+          name="email"
+          onFocus={handleFocus}
+          value={user.email}
+          onChange={handleChanges}
+        />
+        <TextField
+          className="profile-input"
+          label="About Me"
+          type="text"
+          multiline
+          name="aboutMe"
+          onFocus={handleFocus}
+          value={user.aboutMe}
+          onChange={handleChanges}
+        />
+        <Input
+          type="file"
+          id="img-upload"
+          onChange={e => setImg(e.target.files[0])}
+        />
+        <label htmlFor="img-upload">
+          <Button
+            className="profile-button-save"
+            onClick={e => {
+              e.preventDefault();
+              uploadImage();
+            }}
+          >
+            Upload
+          </Button>
+        </label>
+        <Button
+          className="profile-button-save"
+          onClick={e => {
             e.preventDefault();
-            this.updateInfo();
+            updateInfo();
           }}
         >
-          <Input
-            className="profile-input"
-            type="text"
-            name="fullName"
-            value={this.state.fullName}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="stateProvince"
-            value={this.state.stateProvince}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="city"
-            value={this.state.city}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="aboutMe"
-            value={this.state.aboutMe}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="country"
-            value={this.state.country}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="phoneNumber"
-            value={this.state.phoneNumber}
-            onChange={this.handleChanges}
-          ></Input>
-          <Input
-            className="profile-input"
-            type="text"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChanges}
-          ></Input>
-          <Button
-            className="profile-button-save"
-            onSubmit={e => {
-              e.preventDefault();
-              this.uploadImage();
-            }}
-          >
-            Profile Pic
-          </Button>
-          <Button
-            className="profile-button-save"
-            onSubmit={e => {
-              e.preventDefault();
-              this.updateInfo();
-            }}
-          >
-            Save Changes
-          </Button>
-        </form>
-      </div>
-    );
-  }
-}
+          Save Changes
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {

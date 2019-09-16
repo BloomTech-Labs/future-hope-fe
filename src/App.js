@@ -120,7 +120,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Navbar {...this.props} auth={auth} />
+        <Navbar {...this.props} />
         <div className="app-container">
           <Switch>
             <Route exact path="/" component={LandingPage} />
