@@ -8,6 +8,7 @@ import { firestore } from "../../config/fbConfig.js";
 //styles
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -19,8 +20,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    marginLeft: theme.spacing(4),
-    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
@@ -32,7 +33,6 @@ const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
   const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
-
   const classes = useStyles();
 
   useEffect(() => {
@@ -68,7 +68,9 @@ const ApprovedMentorList = props => {
   return (
     <div>
       <Paper className={classes.paper}>
-        <h2 className="table-heading">Approved Mentors</h2>
+        <Typography align="center" variant="h2" gutterBottom>
+          Approved Mentors
+        </Typography>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
@@ -88,7 +90,7 @@ const ApprovedMentorList = props => {
                     <TableCell>
                       {" "}
                       <img
-                        className="dashboard-photo"
+                        id="approved-list-photo"
                         src={
                           user.profilePhoto ||
                           "https://source.unsplash.com/random/200x200"

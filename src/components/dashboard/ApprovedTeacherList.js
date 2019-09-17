@@ -8,6 +8,7 @@ import { firestore } from "../../config/fbConfig.js";
 //styles
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -19,8 +20,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    marginLeft: theme.spacing(4),
-    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
@@ -32,6 +33,7 @@ const ApprovedTeacherList = props => {
   const [users, setUsers] = useState([]);
   const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
+  const classes = useStyles();
 
   useEffect(() => {
     approvedTeachers();
@@ -64,51 +66,55 @@ const ApprovedTeacherList = props => {
 
   return (
     <div>
-      <h2 className="table-heading">Approved Teachers</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Profile Photo</th>
-            <th scope="col">Names</th>
-            <th scope="col">Account Type</th>
-            <th scope="col">City</th>
-            <th scope="col">State/Province</th>
-            <th scope="col">View Profile</th>
-          </tr>
-        </thead>
-        {users.map(user => {
-          if (user.userType === "teacher" && !user.approved) {
-            return (
-              <tbody key={user.uid}>
-                <tr>
-                  <td>
-                    {" "}
-                    <img
-                      className="dashboard-photo"
-                      src={
-                        user.profilePhoto ||
-                        "https://source.unsplash.com/random/200x200"
-                      }
-                      alt="profile photo"
-                    ></img>
-                  </td>
-                  <td>{user.name}</td>
-                  <td>{user.userType}</td>
-                  <td>{user.city}</td>
-                  <td>{user.stateProvince}</td>
-                  <td>
-                    <Button onClick={() => pushToProfilePage(user.uid)}>
-                      View
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </table>
+      <Paper className={classes.paper}>
+        <Typography align="center" variant="h2" gutterBottom>
+          Approved Teachers
+        </Typography>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableCell scope="col">Profile Photo</TableCell>
+              <TableCell scope="col">Names</TableCell>
+              <TableCell scope="col">Account Type</TableCell>
+              <TableCell scope="col">City</TableCell>
+              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">View Profile</TableCell>
+            </TableRow>
+          </TableHead>
+          {users.map(user => {
+            if (user.userType === "teacher" && !user.approved) {
+              return (
+                <TableBody key={user.uid}>
+                  <TableRow>
+                    <TableCell>
+                      {" "}
+                      <img
+                        id="approved-list-photo"
+                        src={
+                          user.profilePhoto ||
+                          "https://source.unsplash.com/random/100x100"
+                        }
+                        alt="profile photo"
+                      ></img>
+                    </TableCell>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.userType}</TableCell>
+                    <TableCell>{user.city}</TableCell>
+                    <TableCell>{user.stateProvince}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => pushToProfilePage(user.uid)}>
+                        View Profile
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </Table>
+      </Paper>
     </div>
   );
 };
