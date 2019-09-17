@@ -35,45 +35,68 @@
       display: block;
       position: relative;
       padding: 0.25em 0.5em;
-      border: black solid 1.5px;
-      -webkit-border-radius: 11px;
-      -moz-border-radius: 11px;
-      border-radius: 15px;
+      // border: black solid 1.5px;
+      // -webkit-border-radius: 11px;
+      // -moz-border-radius: 11px;
+      // border-radius: 15px;
       margin-bottom: 2em;
       clear: both;
       max-width: 50%;
     }
     .right {
-      //   background: aqua;
-      //   text-align: right;
-      //   padding: 2% 2%;
-      //   border-radius: 6px;
-      //   border: 1px solid #ccc;
-
       float: right;
       // margin-left: 10%;
-      background: lightblue;
-      border-bottom-left-radius: 0px;
+      // background: lightblue;
+      // border-bottom-left-radius: 0px;
+      .message-content {
+        font-size: 1.3rem;
+        background: lightblue;
+        border: black solid 1.5px;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-right-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
     }
     .left {
-      background-color: lightgrey;
+      // background-color: lightgrey;
       float: left;
-      border-bottom-right-radius: 0px;
+      // border-bottom-right-radius: 0px;
       // margin-right: 10%;
+      .message-content {
+        border: black solid 1.5px;
+        background-color: lightgrey;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-left-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
     }
     .avatar-right {
       float: right;
       // margin-left: 10%;
-      margin-top: 8%;
+      margin-top: 5%;
     }
     .avatar-left {
       float: left;
       // margin-right: 10%;
-      margin-top: 8%;
+      margin-top: 5%;
     }
-    p {
-      font-size: 1.3rem;
-    }
+    // p {
+    //   font-size: 1.3rem;
+    // }
     .sent-date {
       font-size: 0.8rem;
     }
