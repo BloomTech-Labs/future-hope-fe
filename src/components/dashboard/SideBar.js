@@ -20,7 +20,8 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    height: "100vh"
   },
   toolbar: {
     paddingRight: 24 // keep right padding when drawer closed
@@ -45,6 +46,7 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
+    height: "100vh",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
@@ -91,7 +93,7 @@ const SideBar = props => {
           </IconButton>
         </div>
         <Divider />
-        <MainListItems />
+        <MainListItems userInfo={props.userInfo}/>
         <Divider />
         <SecondaryListItems userInfo={props.userInfo} />
       </Drawer>
@@ -106,37 +108,3 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(connect(mapStateToProps)(SideBar));
-
-// <Button href="/approved-mentors">
-// View approved Mentors
-// </Button>
-
-{
-  /* <MDBContainer>
-          <MDBRow id="dashboard-MDBRow">
-            <div id="dashboard-row" className=" row justify-content-start">
-              <MDBCol size="3" className="dashboard-sidemenu">
-                <div className="dashboard-sidemenu-btns">
-                  <Button id="dashboard-btns" href="#">
-                    Schedule a Meeting
-                  </Button>
-                  <Button
-                    id="dashboard-btns"
-                    onClick={() =>
-                      this.props.userInfo.userType === "mentor"
-                        ? this.props.history.push("/approved-teachers")
-                        : this.props.history.push("/approved-mentors")
-                    }
-                  >
-                    View{" "}
-                    {this.props.userInfo.userType === "mentor"
-                      ? "Teachers"
-                      : "Mentors"}
-                  </Button>
-                  <Button id="dashboard-btns">Start a Conversation</Button>
-                </div>
-              </MDBCol>
-            </div>
-          </MDBRow>
-        </MDBContainer> */
-}

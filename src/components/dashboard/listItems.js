@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -9,22 +11,44 @@ import PeopleIcon from "@material-ui/icons/People";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 
-export const MainListItems = () => {
+export const MainListItems = props => {
   return (
     <List>
-      <ListItem button>
+      <ListItem
+        button
+        component={NavLink}
+        to={
+          props.userInfo.userType === "mentor"
+            ? "/mentor_dashboard"
+            : "/teacher_dashboard"
+        }
+      >
         <ListItemIcon>
           <CalendarTodayIcon />
         </ListItemIcon>
         <ListItemText primary="Schedule" />
       </ListItem>
-      <ListItem button>
+
+      <ListItem
+        button
+        component={NavLink}
+        to={
+          props.userInfo.userType === "mentor"
+            ? "/approved-teachers"
+            : "/approved-mentors"
+        }
+      >
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Teacher or Mentors" />
+
+        <ListItemText
+          primary={
+            props.userInfo.userType === "mentor" ? "View Teachers" : "View Mentors"
+          }
+        />
       </ListItem>
-      <ListItem button>
+      <ListItem button component={NavLink} to={"/messaging"}>
         <ListItemIcon>
           <MessageIcon />
         </ListItemIcon>
