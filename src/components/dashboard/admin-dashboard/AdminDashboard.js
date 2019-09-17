@@ -29,7 +29,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import { MainListItems, SecondaryListItems } from "./listItems";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({

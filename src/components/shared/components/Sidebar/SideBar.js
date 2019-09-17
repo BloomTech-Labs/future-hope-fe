@@ -14,7 +14,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
 import { MainListItems, SecondaryListItems } from "./listItems.js";
-import "./Dashboard.css";
 
 const drawerWidth = 240;
 

@@ -37,7 +37,7 @@ export const MainListItems = () => {
       <ListItemIcon>
         <MessageIcon />
       </ListItemIcon>
-      <ListItemText primary="Start a Conversation" />
+      <ListItemText primary="Messaging" />
     </ListItem>
   </List>
 );

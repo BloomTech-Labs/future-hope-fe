@@ -28,7 +28,6 @@ import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor.js";
-import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";

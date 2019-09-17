@@ -54,7 +54,7 @@ export const MainListItems = props => {
         <ListItemIcon>
           <MessageIcon />
         </ListItemIcon>
-        <ListItemText primary="Start a Conversation" />
+        <ListItemText primary="Messaging" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
@@ -70,12 +70,6 @@ export const SecondaryListItems = props => {
   return (
     <List>
       <ListSubheader inset> Profile</ListSubheader>
-      <ListItem button>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="View Profile" />
-      </ListItem>
       <ListItem button component={NavLink} to={"/update_profile"}>
         <ListItemIcon>
           <AssignmentIcon />

@@ -3,31 +3,17 @@ import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
 import { auth } from "../../../config/fbConfig.js";
 import Calendar from "../../calendar/Calendar.js";
-import { mainListItems, secondaryListItems } from "../listItems";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 //styles
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Button from "@material-ui/core/Button";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 
-import Sidebar from "../SideBar.js";
+import SideBar from "../../shared/components/Sidebar/SideBar.js";
 
 const drawerWidth = 240;
 
@@ -121,7 +107,7 @@ const DashboardTeacher = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Sidebar />
+      <SideBar />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
