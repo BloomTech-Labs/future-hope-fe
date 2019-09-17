@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
-import { firestore } from "../../../config/fbConfig.js";
+import { firestore, auth } from "../../../config/fbConfig.js";
 import { connect } from "react-redux";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
@@ -8,6 +9,7 @@ import TeacherTable from "./TeacherTable.js";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -92,7 +94,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4)
   },
   paper: {
@@ -143,6 +145,12 @@ const AdminDashboard = props => {
     setOpen(false);
   };
 
+  const logOut = e => {
+    e.preventDefault();
+    auth.signOut();
+    props.history.push("/login");
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -172,11 +180,20 @@ const AdminDashboard = props => {
           >
             Welcome to your Dashboard
           </Typography>
+          <Typography
+            component={NavLink}
+            onClick={() => props.history.push("/admin-dashboard")}
+          >
+            Home
+          </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            <Badge color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <Button color="secondary" variant="contained" onClick={logOut}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -202,13 +219,13 @@ const AdminDashboard = props => {
           <Grid container spacing={3}>
             {/* Mentor Table */}
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={15}>
                 <MentorTable users={users} history={props.history} />
               </Paper>
             </Grid>
             {/* Teacher Table */}
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={15}>
                 <TeacherTable users={users} history={props.history} />
               </Paper>
             </Grid>

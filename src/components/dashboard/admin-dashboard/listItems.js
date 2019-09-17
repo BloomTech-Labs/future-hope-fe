@@ -30,7 +30,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="View Teachers" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={NavLink} to={"/messaging"}>
       <ListItemIcon>
         <MessageIcon />
       </ListItemIcon>
