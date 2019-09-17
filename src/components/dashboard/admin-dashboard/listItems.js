@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -10,8 +11,10 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonIcon from "@material-ui/icons/Person";
 
-export const mainListItems = (
-  <div>
+export const MainListItems = props => {
+
+ return (
+  <List>
     <ListItem button component={NavLink} to={"/admin-dashboard"}>
       <ListItemIcon>
         <CalendarTodayIcon />
@@ -36,11 +39,14 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Start a Conversation" />
     </ListItem>
-  </div>
+  </List>
 );
+ }
 
-export const secondaryListItems = (
-  <div>
+export const SecondaryListItems = () => {
+  
+  return (
+  <List>
     <ListSubheader inset> Profile</ListSubheader>
     <ListItem button component={NavLink} to={"/profile"}>
       <ListItemIcon>
@@ -60,5 +66,6 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Other Button" />
     </ListItem>
-  </div>
+  </List>
 );
+  }

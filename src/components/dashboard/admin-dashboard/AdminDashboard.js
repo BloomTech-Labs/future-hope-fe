@@ -24,8 +24,9 @@ import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
+import { MainListItems, SecondaryListItems } from "./listItems";
 
 const drawerWidth = 240;
 
@@ -138,11 +139,12 @@ const AdminDashboard = props => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
   const handleDrawerClose = () => {
     setOpen(false);
+    setOpen(!open);
   };
 
   const logOut = e => {
@@ -154,48 +156,6 @@ const AdminDashboard = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            Welcome to your Dashboard
-          </Typography>
-          <Typography
-            component={NavLink}
-            onClick={() => props.history.push("/admin-dashboard")}
-          >
-            Home
-          </Typography>
-          <IconButton color="inherit">
-            <Badge color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <Button color="secondary" variant="contained" onClick={logOut}>
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
       <Drawer
         variant="permanent"
         classes={{
@@ -205,13 +165,13 @@ const AdminDashboard = props => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <MainListItems />
         <Divider />
-        <List>{secondaryListItems}</List>
+        <SecondaryListItems userInfo={props.userInfo} />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
