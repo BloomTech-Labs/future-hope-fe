@@ -11,7 +11,7 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonIcon from "@material-ui/icons/Person";
 
-export const MainListItems = props => {
+export const MainListItems = () => {
 
  return (
   <List>
@@ -43,7 +43,7 @@ export const MainListItems = props => {
 );
  }
 
-export const SecondaryListItems = () => {
+export const SecondaryListItems = (props) => {
   
   return (
   <List>

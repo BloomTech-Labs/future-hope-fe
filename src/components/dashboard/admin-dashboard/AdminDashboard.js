@@ -139,18 +139,10 @@ const AdminDashboard = props => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
+
   const handleDrawerClose = () => {
     setOpen(false);
     setOpen(!open);
-  };
-
-  const logOut = e => {
-    e.preventDefault();
-    auth.signOut();
-    props.history.push("/login");
   };
 
   return (
