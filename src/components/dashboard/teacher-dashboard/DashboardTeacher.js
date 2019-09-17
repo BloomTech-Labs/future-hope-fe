@@ -1,4 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router";
+import { auth } from "../../../config/fbConfig.js";
 import Calendar from "../../calendar/Calendar.js";
 import { mainListItems, secondaryListItems } from "../listItems";
 import { connect } from "react-redux";
@@ -8,6 +11,7 @@ import { Redirect } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -19,7 +23,6 @@ import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -117,8 +120,14 @@ const DashboardTeacher = props => {
 
   // const { auth } = props;
   // if (!auth.uid) {
-  //   return <Loader type="TailSpin" color="#e4be4d" height={100} width={100} />;
+  //   <Redirect to="/login" />;
   // }
+
+  const logOut = e => {
+    e.preventDefault();
+    auth.signOut();
+    props.history.push("/login");
+  };
 
   return (
     <div className={classes.root}>
@@ -149,11 +158,20 @@ const DashboardTeacher = props => {
           >
             Welcome to your Dashboard
           </Typography>
+          <Typography
+            component={NavLink}
+            onClick={() => props.history.push("/teacher_dashboard")}
+          >
+            Home
+          </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <Button color="secondary" variant="contained" onClick={logOut}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -196,4 +214,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(DashboardTeacher);
+export default withRouter(connect(mapStateToProps)(DashboardTeacher));
