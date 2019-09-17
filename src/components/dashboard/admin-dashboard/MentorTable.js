@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,12 +8,18 @@ import Button from "@material-ui/core/Button";
 import "../Dashboard.css";
 
 const MentorTable = props => {
+  //const [approval, setApproval] = useState(false);
   const { users, history } = props;
   console.log("usersss", users);
 
   const pushToProfilePage = uid => {
     history.push(`/profile/${uid}`);
   };
+
+  // const approve = e => {
+  //   e.preventDefault();
+  //   setApproval(!approval);
+  // };
 
   return (
     <div>
@@ -26,6 +32,7 @@ const MentorTable = props => {
             <TableCell>City</TableCell>
             <TableCell>State/Province</TableCell>
             <TableCell>View</TableCell>
+            <TableCell>Approve User</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,6 +47,11 @@ const MentorTable = props => {
                   <TableCell>
                     <Button onClick={() => pushToProfilePage(user.uid)}>
                       View
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button color="primary" onClick={() => !user.approval}>
+                      Approve
                     </Button>
                   </TableCell>
                 </TableRow>
