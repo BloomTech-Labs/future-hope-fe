@@ -25,7 +25,7 @@ const Message = props => {
         <div className="message-content">
           <p>{props.message.content}</p>
         </div>
-        <div>
+        <div className="sent-span">
           <span className="sent-date">
             Sent {moment(props.message.timestamp.toDate()).fromNow()}
           </span>

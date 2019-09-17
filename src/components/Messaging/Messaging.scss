@@ -43,6 +43,10 @@
       clear: both;
       max-width: 50%;
     }
+
+    .message-sender {
+      text-align: center;
+    }
     .right {
       float: right;
       // margin-left: 10%;
@@ -78,6 +82,7 @@
         border-bottom-left-radius: 0px;
         // height: 35px;
         padding: 6%;
+
         p {
           font-size: 1.3rem;
           line-height: normal;
@@ -97,8 +102,11 @@
     // p {
     //   font-size: 1.3rem;
     // }
-    .sent-date {
-      font-size: 0.8rem;
+    .sent-span {
+      text-align: center;
+      .sent-date {
+        font-size: 0.8rem;
+      }
     }
     .input-wrapper {
       form {
