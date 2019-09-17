@@ -66,8 +66,8 @@ const ApprovedTeacherList = props => {
 
   return (
     <div>
-      <Paper className={classes.paper}>
-        <Typography align="center" variant="h2" gutterBottom>
+      <Paper className={classes.paper} elevation={20}>
+        <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Teachers
         </Typography>
         <Table stickyHeader>
