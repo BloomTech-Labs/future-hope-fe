@@ -1,12 +1,13 @@
-import React from 'react';
+// import React from 'react';
 
-const MentorDashList = () => {
-    return (
-        <div className='profile-page-container'>
+// const MentorDashList = () => {
+//     return (
+//         <div className='profile-page-container'>
 
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
-export default MentorDashList;
+// export default MentorDashList;
+// NOT USING THIS
