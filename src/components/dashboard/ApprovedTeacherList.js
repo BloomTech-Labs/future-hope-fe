@@ -4,7 +4,29 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
 //import { Redirect } from "react-router-dom";
+
+//styles
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import "./Dashboard.css";
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  }
+}));
 
 const ApprovedTeacherList = props => {
   const [users, setUsers] = useState([]);

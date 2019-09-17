@@ -4,12 +4,36 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
 //import { Redirect } from "react-router-dom";
+
+//styles
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import "./Dashboard.css";
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  }
+}));
 
 const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
   const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
+
+  const classes = useStyles();
 
   useEffect(() => {
     approvedMentors();
@@ -43,51 +67,53 @@ const ApprovedMentorList = props => {
   //if (!auth.uid) return <Redirect to="/" />;
   return (
     <div>
-      <h2 className="table-heading">Approved Mentors</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Profile Photo</th>
-            <th scope="col">Names</th>
-            <th scope="col">Account Type</th>
-            <th scope="col">City</th>
-            <th scope="col">State/Province</th>
-            <th scope="col">View Profile</th>
-          </tr>
-        </thead>
-        {users.map(user => {
-          if (user.userType === "mentor" && !user.approved) {
-            return (
-              <tbody key={user.uid}>
-                <tr>
-                  <td>
-                    {" "}
-                    <img
-                      className="dashboard-photo"
-                      src={
-                        user.profilePhoto ||
-                        "https://source.unsplash.com/random/200x200"
-                      }
-                      alt="profile photo"
-                    ></img>
-                  </td>
-                  <td>{user.name}</td>
-                  <td>{user.userType}</td>
-                  <td>{user.city}</td>
-                  <td>{user.stateProvince}</td>
-                  <td>
-                    <Button onClick={() => pushToProfilePage(user.uid)}>
-                      View Profile
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </table>
+      <Paper className={classes.paper}>
+        <h2 className="table-heading">Approved Mentors</h2>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableCell scope="col">Profile Photo</TableCell>
+              <TableCell scope="col">Names</TableCell>
+              <TableCell scope="col">Account Type</TableCell>
+              <TableCell scope="col">City</TableCell>
+              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">View Profile</TableCell>
+            </TableRow>
+          </TableHead>
+          {users.map(user => {
+            if (user.userType === "mentor" && !user.approved) {
+              return (
+                <TableBody key={user.uid}>
+                  <TableRow>
+                    <TableCell>
+                      {" "}
+                      <img
+                        className="dashboard-photo"
+                        src={
+                          user.profilePhoto ||
+                          "https://source.unsplash.com/random/200x200"
+                        }
+                        alt="profile photo"
+                      ></img>
+                    </TableCell>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.userType}</TableCell>
+                    <TableCell>{user.city}</TableCell>
+                    <TableCell>{user.stateProvince}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => pushToProfilePage(user.uid)}>
+                        View Profile
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </Table>
+      </Paper>
     </div>
   );
 };
