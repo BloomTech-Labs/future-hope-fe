@@ -25,6 +25,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const drawerWidth = 240;
@@ -111,11 +112,11 @@ const useStyles = makeStyles(theme => ({
 const DashboardMentor = props => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   // const { auth } = props;
@@ -132,7 +133,7 @@ const DashboardMentor = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
+      {/* <AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
@@ -173,7 +174,7 @@ const DashboardMentor = props => {
             Logout
           </Button>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer
         variant="permanent"
         classes={{
@@ -183,7 +184,7 @@ const DashboardMentor = props => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
