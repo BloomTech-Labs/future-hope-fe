@@ -5,6 +5,7 @@ import swal from "@sweetalert/with-react";
 
 import { Button } from "@material-ui/core";
 import { Input } from "@material-ui/core";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextField from "@material-ui/core/TextField";
 
 import "./Profile.scss";
@@ -22,6 +23,7 @@ const EditProfileView = props => {
     photoUrl: ""
   });
   const [img, setImg] = useState(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     setUser({
@@ -92,8 +94,28 @@ const EditProfileView = props => {
     }
   };
 
+  const previewImage = () => {
+    return URL.createObjectURL(img);
+  };
+
+  const closeImage = e => {
+    e.preventDefault();
+    setShowPreview(!showPreview);
+  };
+
   const handleFocus = e => {
     e.target.select();
+  };
+
+  const inputOnChange = e => {
+    setImg(e.target.files[0]);
+  };
+
+  const photoCameraClick = e => {
+    e.preventDefault();
+    if (img) {
+      setShowPreview(!showPreview);
+    }
   };
 
   return (
@@ -168,22 +190,25 @@ const EditProfileView = props => {
           value={user.aboutMe}
           onChange={handleChanges}
         />
-        <Input
-          type="file"
-          id="img-upload"
-          onChange={e => setImg(e.target.files[0])}
-        />
-        <label htmlFor="img-upload">
-          <Button
-            className="profile-button-save"
-            onClick={e => {
-              e.preventDefault();
-              uploadImage();
-            }}
-          >
-            Upload
-          </Button>
-        </label>
+        <div className="upload-photo-wrapper">
+          <Input type="file" id="img-upload" onChange={inputOnChange} />
+          <label htmlFor="img-upload">
+            <Button
+              className="profile-button-upload"
+              onClick={e => {
+                e.preventDefault();
+                uploadImage();
+              }}
+            >
+              Upload
+            </Button>
+          </label>
+          <PhotoCamera
+            className="preview-icon"
+            onClick={photoCameraClick}
+            color={showPreview ? "secondary" : "primary"}
+          />
+        </div>
         <Button
           className="profile-button-save"
           onClick={e => {
@@ -194,6 +219,11 @@ const EditProfileView = props => {
           Save Changes
         </Button>
       </form>
+      <div className="profile-pic-wrapper">
+        {showPreview ? (
+          <img src={previewImage(img)} alt="" onClick={closeImage} />
+        ) : null}
+      </div>
     </div>
   );
 };
