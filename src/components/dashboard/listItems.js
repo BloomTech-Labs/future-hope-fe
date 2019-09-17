@@ -44,7 +44,9 @@ export const MainListItems = props => {
 
         <ListItemText
           primary={
-            props.userInfo.userType === "mentor" ? "View Teachers" : "View Mentors"
+            props.userInfo.userType === "mentor"
+              ? "View Teachers"
+              : "View Mentors"
           }
         />
       </ListItem>
@@ -74,7 +76,7 @@ export const SecondaryListItems = props => {
         </ListItemIcon>
         <ListItemText primary="View Profile" />
       </ListItem>
-      <ListItem button>
+      <ListItem button component={NavLink} to={"/update_profile"}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>

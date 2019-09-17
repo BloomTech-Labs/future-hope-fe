@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router";
 import { firestore, storage } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
 import swal from "@sweetalert/with-react";
@@ -204,4 +205,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(EditProfileView);
+export default withRouter(connect(mapStateToProps)(EditProfileView));

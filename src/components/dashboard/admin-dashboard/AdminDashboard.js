@@ -26,7 +26,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+
 import { MainListItems, SecondaryListItems } from "./listItems";
+
 
 const drawerWidth = 240;
 
