@@ -8,18 +8,12 @@ import Button from "@material-ui/core/Button";
 import "../Dashboard.css";
 
 const MentorTable = props => {
-  //const [approval, setApproval] = useState(false);
   const { users, history } = props;
   console.log("usersss", users);
 
   const pushToProfilePage = uid => {
     history.push(`/profile/${uid}`);
   };
-
-  // const approve = e => {
-  //   e.preventDefault();
-  //   setApproval(!approval);
-  // };
 
   return (
     <div>
@@ -50,7 +44,13 @@ const MentorTable = props => {
                     </Button>
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" onClick={() => !user.approval}>
+                    <Button
+                      color="primary"
+                      onClick={e => {
+                        e.preventDefault();
+                        props.approveUser(user.uid);
+                      }}
+                    >
                       Approve
                     </Button>
                   </TableCell>

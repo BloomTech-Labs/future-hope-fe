@@ -24,16 +24,6 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto",
     flexDirection: "column"
   }
-  // layout: {
-  //   width: "auto",
-  //   marginLeft: theme.spacing(2),
-  //   marginRight: theme.spacing(2),
-  //   [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-  //     width: 600,
-  //     marginLeft: "auto",
-  //     marginRight: "auto"
-  //   }
-  // }
 }));
 
 const EditProfileView = props => {
@@ -126,7 +116,7 @@ const EditProfileView = props => {
   const classes = useStyles();
 
   return (
-    <main>
+    <div>
       <Paper className={classes.paper} elevation={20}>
         <Grid container spacing={3}>
           <form
@@ -241,7 +231,7 @@ const EditProfileView = props => {
           </form>
         </Grid>
       </Paper>
-    </main>
+    </div>
   );
 };
 

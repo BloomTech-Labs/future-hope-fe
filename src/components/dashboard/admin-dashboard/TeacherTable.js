@@ -55,7 +55,13 @@ const TeacherTable = props => {
                     </Button>
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" onClick={() => approvedUser}>
+                    <Button
+                      color="primary"
+                      onClick={e => {
+                        e.preventDefault();
+                        props.approveUser(user.uid);
+                      }}
+                    >
                       Approve
                     </Button>
                   </TableCell>

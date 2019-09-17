@@ -5,6 +5,7 @@ import { firestore, auth } from "../../../config/fbConfig.js";
 import { connect } from "react-redux";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
+import swal from "@sweetalert/with-react";
 //styles
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -142,8 +143,24 @@ const AdminDashboard = props => {
   const [open, setOpen] = useState(true);
 
   const handleDrawerClose = () => {
-    setOpen(false);
     setOpen(!open);
+  };
+
+  const approveUser = userUID => {
+    firestore
+      .collection("users")
+      .doc(userUID)
+      .update({ awaitingApproval: false })
+      .then(() => {
+        swal(`Selected user account has been approved`, {
+          icon: "success"
+        });
+      })
+      .catch(() => {
+        swal("There was a server error, selected user could not be approved", {
+          icon: "warning"
+        });
+      });
   };
 
   return (
@@ -173,13 +190,21 @@ const AdminDashboard = props => {
             {/* Mentor Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper} elevation={15}>
-                <MentorTable users={users} history={props.history} />
+                <MentorTable
+                  users={users}
+                  history={props.history}
+                  approveUser={approveUser}
+                />
               </Paper>
             </Grid>
             {/* Teacher Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper} elevation={15}>
-                <TeacherTable users={users} history={props.history} />
+                <TeacherTable
+                  users={users}
+                  history={props.history}
+                  approveUser={approveUser}
+                />
               </Paper>
             </Grid>
           </Grid>
