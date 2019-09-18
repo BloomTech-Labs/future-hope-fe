@@ -14,6 +14,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import SideBar from "../shared/components/Sidebar/SideBar.js";
+
 import "./Dashboard.css";
 
 const useStyles = makeStyles(theme => ({
@@ -67,19 +69,20 @@ const ApprovedMentorList = props => {
   //if (!auth.uid) return <Redirect to="/" />;
   return (
     <div>
+      <SideBar />
       <Paper className={classes.paper} elevation={20}>
-        <Typography align="center" component="h2" variant="h2" gutterBottom>
+        <Typography align='center' component='h2' variant='h2' gutterBottom>
           Approved Mentors
         </Typography>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell scope="col">Profile Photo</TableCell>
-              <TableCell scope="col">Names</TableCell>
-              <TableCell scope="col">Account Type</TableCell>
-              <TableCell scope="col">City</TableCell>
-              <TableCell scope="col">State/Province</TableCell>
-              <TableCell scope="col">View Profile</TableCell>
+              <TableCell scope='col'>Profile Photo</TableCell>
+              <TableCell scope='col'>Names</TableCell>
+              <TableCell scope='col'>Account Type</TableCell>
+              <TableCell scope='col'>City</TableCell>
+              <TableCell scope='col'>State/Province</TableCell>
+              <TableCell scope='col'>View Profile</TableCell>
             </TableRow>
           </TableHead>
           {users.map(user => {
@@ -90,12 +93,12 @@ const ApprovedMentorList = props => {
                     <TableCell>
                       {" "}
                       <img
-                        id="approved-list-photo"
+                        id='approved-list-photo'
                         src={
                           user.profilePhoto ||
                           "https://source.unsplash.com/random/200x200"
                         }
-                        alt="profile photo"
+                        alt='profile photo'
                       ></img>
                     </TableCell>
                     <TableCell>{user.name}</TableCell>

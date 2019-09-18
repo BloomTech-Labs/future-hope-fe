@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import clsx from "clsx";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -45,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
-    height: "100vh",
+    height: "80vh",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
@@ -78,9 +76,9 @@ const SideBar = props => {
   };
 
   return (
-    <div id="dashboardContainer">
+    <div id='dashboardContainer'>
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
         }}
@@ -92,7 +90,7 @@ const SideBar = props => {
           </IconButton>
         </div>
         <Divider />
-        <MainListItems userInfo={props.userInfo}/>
+        <MainListItems userInfo={props.userInfo} />
         <Divider />
         <SecondaryListItems userInfo={props.userInfo} />
       </Drawer>

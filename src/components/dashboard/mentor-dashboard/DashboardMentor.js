@@ -62,7 +62,8 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
+    margin: "auto"
   },
   paper: {
     padding: theme.spacing(2),
@@ -90,7 +91,7 @@ const DashboardMentor = props => {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
             {/* Calendar */}
             <Grid item xs={12}>

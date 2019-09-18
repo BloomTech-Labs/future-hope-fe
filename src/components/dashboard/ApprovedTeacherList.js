@@ -14,15 +14,21 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
+// Internal Components
+import SideBar from "../shared/components/Sidebar/SideBar.js";
+
 import "./Dashboard.css";
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    // marginLeft: theme.spacing(2),
+    // marginRight: theme.spacing(2),
+    margin: "auto",
     padding: theme.spacing(2),
+    width: "70%",
     display: "flex",
     overflow: "auto",
     flexDirection: "column"
@@ -65,20 +71,21 @@ const ApprovedTeacherList = props => {
   };
 
   return (
-    <div>
+    <div className='flex'>
+      <SideBar />
       <Paper className={classes.paper} elevation={20}>
-        <Typography align="center" component="h2" variant="h2" gutterBottom>
+        <Typography align='center' component='h2' variant='h2' gutterBottom>
           Approved Teachers
         </Typography>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell scope="col">Profile Photo</TableCell>
-              <TableCell scope="col">Names</TableCell>
-              <TableCell scope="col">Account Type</TableCell>
-              <TableCell scope="col">City</TableCell>
-              <TableCell scope="col">State/Province</TableCell>
-              <TableCell scope="col">View Profile</TableCell>
+              <TableCell scope='col'>Profile Photo</TableCell>
+              <TableCell scope='col'>Names</TableCell>
+              <TableCell scope='col'>Account Type</TableCell>
+              <TableCell scope='col'>City</TableCell>
+              <TableCell scope='col'>State/Province</TableCell>
+              <TableCell scope='col'>View Profile</TableCell>
             </TableRow>
           </TableHead>
           {users.map(user => {
@@ -89,12 +96,12 @@ const ApprovedTeacherList = props => {
                     <TableCell>
                       {" "}
                       <img
-                        id="approved-list-photo"
+                        id='approved-list-photo'
                         src={
                           user.profilePhoto ||
                           "https://source.unsplash.com/random/100x100"
                         }
-                        alt="profile photo"
+                        alt='profile photo'
                       ></img>
                     </TableCell>
                     <TableCell>{user.name}</TableCell>

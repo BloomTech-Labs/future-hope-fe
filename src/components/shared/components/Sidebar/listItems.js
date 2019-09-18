@@ -10,6 +10,7 @@ import MessageIcon from "@material-ui/icons/Message";
 import PeopleIcon from "@material-ui/icons/People";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 
 export const MainListItems = props => {
   return (
@@ -26,7 +27,7 @@ export const MainListItems = props => {
         <ListItemIcon>
           <CalendarTodayIcon />
         </ListItemIcon>
-        <ListItemText primary="Schedule" />
+        <ListItemText primary='Schedule' />
       </ListItem>
 
       <ListItem
@@ -54,13 +55,13 @@ export const MainListItems = props => {
         <ListItemIcon>
           <MessageIcon />
         </ListItemIcon>
-        <ListItemText primary="Messaging" />
+        <ListItemText primary='Messaging' />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
-          <MessageIcon />
+          <LiveHelpIcon />
         </ListItemIcon>
-        <ListItemText primary="FAQs" />
+        <ListItemText primary='FAQs' />
       </ListItem>
     </List>
   );
@@ -74,13 +75,13 @@ export const SecondaryListItems = props => {
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Update Profile" />
+        <ListItemText primary='Update Profile' />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Other Button" />
+        <ListItemText primary='Other Button' />
       </ListItem>
     </List>
   );

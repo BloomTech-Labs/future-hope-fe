@@ -32,7 +32,7 @@ const NavbarUser = props => {
   function logout() {
     console.log("logged out");
     auth.signOut();
-    // props.history.push("/login");
+    props.history.push("/");
     //! for some reason we couldn't get history props to this component, so we had to do a round about kinda way
     // ^^ copied from old SignedInNavBar file
   }
@@ -60,7 +60,7 @@ const NavbarUser = props => {
         alt={user.fullName}
         src={user.photoUrl}
         className={classes.bigAvatar}
-        aria-haspopup="true"
+        aria-haspopup='true'
         onClick={handleClick}
       />
       <div>
@@ -69,19 +69,24 @@ const NavbarUser = props => {
           anchorEl={anchorEl}
           transition
           disablePortal
-          placement="bottom"
+          placement='bottom'
         >
           <ClickAwayListener onClickAway={handleClose}>
-            <Grow in={open} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
+            <Grow in={open} id='menu-list' style={{ transformOrigin: "0 0 0" }}>
               <Paper className={classes.dropdown}>
-                <MenuList role="menu" className={classes.menuList}>
+                <MenuList role='menu' className={classes.menuList}>
                   <MenuItem className={classes.dropdownHeader}>
-                    {user.displayName}
+                    {user.fullName}
                   </MenuItem>
-                  <MenuItem className={dropdownItem}>Profile</MenuItem>
-                  <MenuItem className={dropdownItem}>My account</MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
+                    onClick={e => props.history.push("/update_profile")}
+                  >
+                    Profile
+                  </MenuItem>
+                  {/* <MenuItem className={dropdownItem}>My account</MenuItem> */}
                   <MenuItem className={dropdownItem} onClick={logout}>
-                    <Link to="/login">Logout</Link>
+                    <Link to='/login'>Logout</Link>
                   </MenuItem>
                 </MenuList>
               </Paper>

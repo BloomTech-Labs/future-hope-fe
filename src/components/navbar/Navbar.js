@@ -98,7 +98,7 @@ const Navbar = props => {
 
   // Navbar Sections (brand/right/left/user)
   const brandComponent = (
-    <Link to="/">
+    <Link to='/'>
       <Button className={classes.title}>{config.brand}</Button>
     </Link>
   );
@@ -110,7 +110,7 @@ const Navbar = props => {
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
+            <Hidden smDown implementation='css'>
               {leftLinks}
             </Hidden>
           ) : (
@@ -118,25 +118,29 @@ const Navbar = props => {
           )}
         </div>
         <div></div>
-        <Hidden smDown implementation="css">
+        <Hidden smDown implementation='css'>
           {config ? rightLinks : ""}
         </Hidden>
-        <Hidden smDown implementation="css">
-          {auth.isLoaded && auth.isEmpty ? "" : <NavbarUser user={auth} />}
+        <Hidden smDown implementation='css'>
+          {auth.isLoaded && auth.isEmpty ? (
+            ""
+          ) : (
+            <NavbarUser user={auth} history={props.history} />
+          )}
         </Hidden>
         <Hidden mdUp>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerToggle}
           >
             <Menu />
           </IconButton>
         </Hidden>
       </Toolbar>
-      <Hidden mdUp implementation="js">
+      <Hidden mdUp implementation='js'>
         <Drawer
-          variant="temporary"
+          variant='temporary'
           anchor={"right"}
           open={mobileOpen}
           classes={{
