@@ -1,9 +1,14 @@
 import React from 'react';
 import { MDBContainer } from 'mdbreact';
+import Button from "@material-ui/core/Button";
 
 
 class AwaitingApproval extends React.Component {
     //leaving this as a class component in case we do state stuff in the future
+
+    pushToHomePage = () => {
+        this.props.history.push(`/`);
+      }
  
     render() {
         return (
@@ -16,6 +21,8 @@ class AwaitingApproval extends React.Component {
                     <li className = 'p-1'>Please contanct CONTACTINFOHERE for further information regarding your application.</li>
 
                 </ul>
+            <Button onClick={() => this.pushToHomePage()}></Button>
+
             </MDBContainer>
         );
     }
