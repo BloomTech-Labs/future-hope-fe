@@ -29,8 +29,6 @@ const NavbarUser = props => {
     console.log("logged out");
     auth.signOut();
     props.history.push("/");
-    //! for some reason we couldn't get history props to this component, so we had to do a round about kinda way
-    // ^^ copied from old SignedInNavBar file
   }
 
   function handleClick(event) {

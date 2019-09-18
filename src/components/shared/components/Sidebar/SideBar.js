@@ -13,6 +13,8 @@ import Divider from "@material-ui/core/Divider";
 
 import { MainListItems, SecondaryListItems } from "./listItems.js";
 
+import "./SideBar.scss";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +42,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   drawerPaper: {
-    position: "relative",
+    // marginRight: "240px",
+    position: "fixed",
+    top: "80px",
+    left: 0,
     whiteSpace: "nowrap",
     width: drawerWidth,
     height: "80vh",
