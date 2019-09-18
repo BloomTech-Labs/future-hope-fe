@@ -12,7 +12,6 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
   profile: {
-    border: "1px solid blue",
     textAlign: "center",
     marginRight: "-15px",
     marginLeft: "-15px",
@@ -28,8 +27,7 @@ const useStyles = makeStyles(theme => ({
     margin: "1.071rem auto 0",
     maxWidth: "600px",
     color: "#999",
-    textAlign: "center !important",
-    border: "1px solid red"
+    textAlign: "center !important"
   },
   main: {
     background: "#FFFFFF",
@@ -43,8 +41,7 @@ const useStyles = makeStyles(theme => ({
       "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
   },
   name: {
-    marginTop: "50px",
-    border: "1px solid yellow"
+    marginTop: "50px"
   },
   title: {
     color: "#3C4858",
@@ -74,7 +71,6 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "15px",
     marginRight: "auto",
     marginLeft: "auto",
-    border: "1px solid green",
     width: "100%",
     "@media (min-width: 576px)": {
       maxWidth: "540px"
