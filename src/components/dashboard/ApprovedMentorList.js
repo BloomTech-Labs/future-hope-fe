@@ -14,6 +14,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Avatar from "@material-ui/core/Avatar";
+
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 import "./Dashboard.css";
@@ -50,7 +52,7 @@ const ApprovedMentorList = props => {
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
-          profilePhoto: doc.data().photoUrl,
+          photoUrl: doc.data().photoUrl,
           userType: doc.data().userType,
           city: doc.data().city,
           stateProvince: doc.data().stateProvince,
@@ -68,7 +70,7 @@ const ApprovedMentorList = props => {
 
   //if (!auth.uid) return <Redirect to="/" />;
   return (
-    <div>
+    <div className='flex'>
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
         <Typography align='center' component='h2' variant='h2' gutterBottom>
@@ -92,14 +94,14 @@ const ApprovedMentorList = props => {
                   <TableRow>
                     <TableCell>
                       {" "}
-                      <img
+                      <Avatar
                         id='approved-list-photo'
                         src={
-                          user.profilePhoto ||
-                          "https://source.unsplash.com/random/200x200"
+                          user.photoUrl ||
+                          "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
                         alt='profile photo'
-                      ></img>
+                      />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.userType}</TableCell>

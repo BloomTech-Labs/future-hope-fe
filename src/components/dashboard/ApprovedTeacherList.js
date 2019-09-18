@@ -14,6 +14,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Avatar from "@material-ui/core/Avatar";
 
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js";
@@ -54,7 +55,7 @@ const ApprovedTeacherList = props => {
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
-          profilePhoto: doc.data().photoUrl,
+          photoURL: doc.data().photoUrl,
           userType: doc.data().userType,
           city: doc.data().city,
           stateProvince: doc.data().stateProvince,
@@ -95,14 +96,14 @@ const ApprovedTeacherList = props => {
                   <TableRow>
                     <TableCell>
                       {" "}
-                      <img
+                      <Avatar
                         id='approved-list-photo'
                         src={
-                          user.profilePhoto ||
-                          "https://source.unsplash.com/random/100x100"
+                          user.photoUrl ||
+                          "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
                         alt='profile photo'
-                      ></img>
+                      />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.userType}</TableCell>
