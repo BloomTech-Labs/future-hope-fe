@@ -112,6 +112,17 @@
       form {
         position: absolute;
         top: 89%;
+        display: flex;
+        width: 33%;
+        height: 35px;
+        margin-top: 8px;
+        input {
+          padding-right: 5%;
+          margin-right: 5%;
+        }
+        button {
+          background: lightgreen;
+        }
       }
     }
   }
