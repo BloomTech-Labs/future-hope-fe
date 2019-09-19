@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -22,11 +21,7 @@ function CTASection(props) {
           <h4 className={classes.description}>
             Start helping build a better future now.
           </h4>
-          <Button
-            fullWidth
-            color="primary"
-            onClick={() => props.history.push("/signup")}
-          >
+          <Button fullWidth color="primary" href="/signup">
             Sign up
           </Button>
         </GridItem>
