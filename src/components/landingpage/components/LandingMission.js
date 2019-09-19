@@ -20,7 +20,7 @@ const styles = theme => ({
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100vh"
+    height: "120vh"
   },
   cta: {
     fontSize: ".8rem",
