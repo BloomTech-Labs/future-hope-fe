@@ -4,9 +4,25 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import MentorPublicPage from "./MentorPublicPage";
 import { firestore } from "../../config/fbConfig";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import "./mentors.css";
 
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  }
+}));
+
 const MentorList = props => {
+  const classes = useStyles();
   // const { mentors } = props;
 
   const [mentors, setMentors] = useState([]);
@@ -46,17 +62,19 @@ const MentorList = props => {
   }, []);
 
   return (
-    <div>
-      <h1 className="mentor-page-title">
-        Our <span className="mentor-page-title-span">BECE Mentors</span> are
-        retired professionals living all over the globe.
-      </h1>
-      <div className="mentor-page-cards-wrapper">
-        {mentors.map(mentor => (
-          <MentorPublicPage mentorData={mentor} key={mentor.id} />
-        ))}
+    <Paper className={classes.paper}>
+      <div>
+        <h1 className="mentor-page-title">
+          Our <span className="mentor-page-title-span">BECE Mentors</span> are
+          retired professionals living all over the globe.
+        </h1>
+        <div className="mentor-page-cards-wrapper">
+          {mentors.map(mentor => (
+            <MentorPublicPage mentorData={mentor} key={mentor.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </Paper>
   );
 };
 
