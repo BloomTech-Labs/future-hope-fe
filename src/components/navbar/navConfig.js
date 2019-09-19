@@ -33,7 +33,11 @@ const navConfig = {
       {
         href: "/mission",
         text: "Mission",
+<<<<<<< HEAD
         auth: false
+=======
+        auth: true
+>>>>>>> Staging
       },
       {
         href: "/login",
@@ -51,6 +55,7 @@ const navConfig = {
     brand: "Future Hope School in the Sky",
     links: [
       {
+<<<<<<< HEAD
         href: "/mentors",
         text: "View Mentors",
         auth: true
@@ -74,6 +79,26 @@ const navConfig = {
         href: "/signup",
         text: "Sign Up",
         auth: false
+=======
+        href: "/about",
+        text: "About Us",
+        auth: true
+      },
+      {
+        href: "/faq",
+        text: "How It Works",
+        auth: true
+      },
+      {
+        href: "/login",
+        text: "Login",
+        auth: false
+      },
+      {
+        href: "/signup",
+        text: "Sign Up",
+        auth: false
+>>>>>>> Staging
       }
     ],
     color: "white"
@@ -86,9 +111,20 @@ const navConfig = {
         text: "View Mentors",
         auth: true
       },
+<<<<<<< HEAD
       {
         href: "/mission",
         text: "Mission",
+=======
+      // {
+      //   href: '#',
+      //   text: 'Any Link You Want',
+      //   auth: true
+      // },
+      {
+        href: "/about",
+        text: "About Us",
+>>>>>>> Staging
         auth: false
       },
       {

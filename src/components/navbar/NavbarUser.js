@@ -7,10 +7,6 @@ import classNames from "classnames";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
-import Menu from "@material-ui/core/Menu";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
@@ -25,16 +21,14 @@ import { navbarLinksStyle } from "./navbarStyle";
 
 const NavbarUser = props => {
   const { classes, user } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
   const [open, setOpen] = useState(false);
   const hoverColor = "success";
 
   function logout() {
     console.log("logged out");
     auth.signOut();
-    // props.history.push("/login");
-    //! for some reason we couldn't get history props to this component, so we had to do a round about kinda way
-    // ^^ copied from old SignedInNavBar file
+    props.history.push("/");
   }
 
   function handleClick(event) {
@@ -60,7 +54,7 @@ const NavbarUser = props => {
         alt={user.fullName}
         src={user.photoUrl}
         className={classes.bigAvatar}
-        aria-haspopup="true"
+        aria-haspopup='true'
         onClick={handleClick}
       />
       <div>
@@ -69,19 +63,24 @@ const NavbarUser = props => {
           anchorEl={anchorEl}
           transition
           disablePortal
-          placement="bottom"
+          placement='bottom'
         >
           <ClickAwayListener onClickAway={handleClose}>
-            <Grow in={open} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
+            <Grow in={open} id='menu-list' style={{ transformOrigin: "0 0 0" }}>
               <Paper className={classes.dropdown}>
-                <MenuList role="menu" className={classes.menuList}>
+                <MenuList role='menu' className={classes.menuList}>
                   <MenuItem className={classes.dropdownHeader}>
-                    {user.displayName}
+                    {user.fullName}
                   </MenuItem>
-                  <MenuItem className={dropdownItem}>Profile</MenuItem>
-                  <MenuItem className={dropdownItem}>My account</MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
+                    onClick={e => props.history.push("/update_profile")}
+                  >
+                    Profile
+                  </MenuItem>
+                  {/* <MenuItem className={dropdownItem}>My account</MenuItem> */}
                   <MenuItem className={dropdownItem} onClick={logout}>
-                    <Link to="/login">Logout</Link>
+                    <Link to='/login'>Logout</Link>
                   </MenuItem>
                 </MenuList>
               </Paper>

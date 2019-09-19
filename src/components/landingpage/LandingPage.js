@@ -35,8 +35,19 @@ const LandingPage = props => {
                 those who did not.
               </h4>
               <br />
+<<<<<<< HEAD
               <Button color="warning" size="lg" href="#">
                 Register
+=======
+              <Button
+                color="warning"
+                size="lg"
+                href="/signup"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Signup
+>>>>>>> Staging
               </Button>
             </GridItem>
           </GridContainer>

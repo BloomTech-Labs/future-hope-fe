@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router";
 import { firestore, storage } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
 import swal from "@sweetalert/with-react";
-
+//styles
 import { Button } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextField from "@material-ui/core/TextField";
-
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import "./Profile.scss";
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  }
+}));
 
 const EditProfileView = props => {
   // let imgInput = React.useRef(null);
@@ -234,4 +251,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(EditProfileView);
+export default withRouter(connect(mapStateToProps)(EditProfileView));
