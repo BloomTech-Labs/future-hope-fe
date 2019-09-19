@@ -9,8 +9,9 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import MessageIcon from "@material-ui/icons/Message";
 import PeopleIcon from "@material-ui/icons/People";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import LiveHelpIcon from "@material-ui/icons/LiveHelp";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
 export const MainListItems = props => {
   return (
@@ -21,7 +22,9 @@ export const MainListItems = props => {
         to={
           props.userInfo.userType === "mentor"
             ? "/mentor_dashboard"
-            : "/teacher_dashboard"
+            : props.userInfo.userType === "teacher"
+            ? "/teacher_dashboard"
+            : "/admin-dashboard"
         }
       >
         <ListItemIcon>
@@ -45,23 +48,35 @@ export const MainListItems = props => {
 
         <ListItemText
           primary={
-            props.userInfo.userType === "mentor"
-              ? "View Teachers"
-              : "View Mentors"
+            props.userInfo.userType === "mentor" ? "Teachers" : "Mentors"
           }
         />
       </ListItem>
+      {props.userInfo.userType === "admin" && (
+        <ListItem button component={NavLink} to={"/approved-teachers"}>
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary='Teachers' />
+        </ListItem>
+      )}
       <ListItem button component={NavLink} to={"/messaging"}>
         <ListItemIcon>
           <MessageIcon />
         </ListItemIcon>
-        <ListItemText primary='Messaging' />
+        <ListItemText primary='Messages' />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <LiveHelpIcon />
         </ListItemIcon>
         <ListItemText primary='FAQs' />
+      </ListItem>
+      <ListItem button component={NavLink} to={"/update_profile"}>
+        <ListItemIcon>
+          <AccountBoxIcon />
+        </ListItemIcon>
+        <ListItemText primary='Update Profile' />
       </ListItem>
     </List>
   );
@@ -70,18 +85,12 @@ export const MainListItems = props => {
 export const SecondaryListItems = props => {
   return (
     <List>
-      <ListSubheader inset> Profile</ListSubheader>
-      <ListItem button component={NavLink} to={"/update_profile"}>
+      <ListSubheader inset>Admin</ListSubheader>
+      <ListItem button component={NavLink} to={"/user-approval"}>
         <ListItemIcon>
-          <AssignmentIcon />
+          <VerifiedUserIcon />
         </ListItemIcon>
-        <ListItemText primary='Update Profile' />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary='Other Button' />
+        <ListItemText primary='Approve Users' />
       </ListItem>
     </List>
   );

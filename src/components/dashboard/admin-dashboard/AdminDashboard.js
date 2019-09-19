@@ -1,34 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
-import { firestore, auth } from "../../../config/fbConfig.js";
+import { firestore } from "../../../config/fbConfig.js";
 import { connect } from "react-redux";
-import MentorTable from "./MentorTable.js";
-import TeacherTable from "./TeacherTable.js";
 import swal from "@sweetalert/with-react";
 //styles
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Button from "@material-ui/core/Button";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 
-import { MainListItems, SecondaryListItems } from "./listItems";
+// Internal Components
+import SideBar from "../../shared/components/Sidebar/SideBar.js";
+import Calendar from "../../calendar/Calendar.js";
 
 const drawerWidth = 240;
 
@@ -45,21 +31,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "flex-end",
     padding: "0 8px",
     ...theme.mixins.toolbar
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
   },
   menuButton: {
     marginRight: 36
@@ -112,100 +83,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AdminDashboard = props => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    dashboardAdmin();
-  }, []);
-
-  const dashboardAdmin = async () => {
-    firestore
-      .collection("users")
-      .where("awaitingApproval", "==", true)
-      .onSnapshot(querySnapshot => {
-        let userArray = [];
-        querySnapshot.forEach(doc => {
-          // console.log(doc.data());
-          userArray.push({
-            awaitingApproval: doc.data().awaitingApproval,
-            fullName: doc.data().fullName,
-            userType: doc.data().userType,
-            city: doc.data().city,
-            stateProvince: doc.data().stateProvince,
-            uid: doc.data().uid
-          });
-        });
-        setUsers(userArray);
-      });
-    console.log(users);
-  };
-
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-
-  const handleDrawerClose = () => {
-    setOpen(!open);
-  };
-
-  const approveUser = userUID => {
-    firestore
-      .collection("users")
-      .doc(userUID)
-      .update({ awaitingApproval: false })
-      .then(() => {
-        swal(`Selected user account has been approved`, {
-          icon: "success"
-        });
-      })
-      .catch(() => {
-        swal("There was a server error, selected user could not be approved", {
-          icon: "warning"
-        });
-      });
-  };
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Drawer
-        variant='permanent'
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <MainListItems />
-        <Divider />
-        <SecondaryListItems userInfo={props.userInfo} />
-      </Drawer>
+      <SideBar />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
-            {/* Mentor Table */}
+            {/* Calendar */}
             <Grid item xs={12}>
-              <Paper className={classes.paper} elevation={15}>
-                <MentorTable
-                  users={users}
-                  history={props.history}
-                  approveUser={approveUser}
-                />
-              </Paper>
-            </Grid>
-            {/* Teacher Table */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper} elevation={15}>
-                <TeacherTable
-                  users={users}
-                  history={props.history}
-                  approveUser={approveUser}
-                />
+              <Paper className={classes.paper}>
+                <Calendar />
               </Paper>
             </Grid>
           </Grid>

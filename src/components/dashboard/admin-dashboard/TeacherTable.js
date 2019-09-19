@@ -21,8 +21,6 @@ const TeacherTable = props => {
     setApproval(!users.approval);
   };
 
-  console.log("APPROVAL HERE", approval);
-
   return (
     <div>
       <h6 className='dashboard-table-title'>Pending Teacher Applications</h6>

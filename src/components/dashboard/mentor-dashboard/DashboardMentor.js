@@ -88,7 +88,6 @@ const DashboardMentor = props => {
     <div className={classes.root}>
       <CssBaseline />
       <SideBar />
-
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth='lg' className={classes.container}>

@@ -172,7 +172,7 @@ class Calendar extends React.Component {
     return (
       <div className='calendar-app'>
         <div className='calendar-app-top'>
-          <h1>Click a Date to Schedule a Meetings</h1>
+          <h1>Schedule a Meeting</h1>
         </div>
         <div className='calendar'>
           <input

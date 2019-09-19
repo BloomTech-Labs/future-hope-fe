@@ -97,7 +97,9 @@ const SideBar = props => {
         <Divider />
         <MainListItems userInfo={props.userInfo} />
         <Divider />
-        <SecondaryListItems userInfo={props.userInfo} />
+        {props.userInfo.userType === "admin" && (
+          <SecondaryListItems userInfo={props.userInfo} />
+        )}
       </Drawer>
     </div>
   );
