@@ -62,11 +62,10 @@ const MentorList = props => {
   }, []);
 
   return (
-<<<<<<< HEAD
     <Paper className={classes.paper}>
       <div>
         <h1 className="mentor-page-title">
-          Our <span className="mentor-page-title-span">BECE Mentors</span> are
+          Our <span className="mentor-page-title-span">Mentors</span> are
           retired professionals living all over the globe.
         </h1>
         <div className="mentor-page-cards-wrapper">
@@ -74,17 +73,6 @@ const MentorList = props => {
             <MentorPublicPage mentorData={mentor} key={mentor.id} />
           ))}
         </div>
-=======
-    <div>
-      <h1 className="mentor-page-title">
-        Our <span className="mentor-page-title-span">Mentors</span> are
-        professionals living all over the globe.
-      </h1>
-      <div className="mentor-page-cards-wrapper">
-        {mentors.map(mentor => (
-          <MentorPublicPage mentorData={mentor} key={mentor.id} />
-        ))}
->>>>>>> Staging
       </div>
     </Paper>
   );
