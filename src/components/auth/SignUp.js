@@ -85,7 +85,7 @@ class SignUp extends React.Component {
       uid,
       email: this.state.email,
       fullName: this.state.fullName,
-      photoUrl: auth.currentUser.photoURL || "",
+      photoUrl: auth.currentUser.photoURL || this.state.photoUrl,
       userType: this.state.userType,
       city: this.state.city,
       stateProvince: this.state.stateProvince,
