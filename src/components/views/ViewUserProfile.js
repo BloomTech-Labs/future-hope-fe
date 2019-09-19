@@ -6,7 +6,7 @@ import { firestore } from "../../config/fbConfig.js";
 import { MDBContainer } from "mdbreact";
 
 import EditProfileView from "./EditProfileView";
-import SideBar from "../dashboard/SideBar";
+import SideBar from "../shared/components/Sidebar/SideBar";
 import "../dashboard/Dashboard.css";
 import "./views.css";
 

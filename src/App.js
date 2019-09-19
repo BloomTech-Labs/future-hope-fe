@@ -28,10 +28,10 @@ import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor.js";
-import TeacherDashboard from "./components/dashboard/teacher-dashboard/TeacherDashboard";
 import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";
+import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js";
 
 import "./App.css";
 
@@ -121,18 +121,18 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar {...this.props} />
-        <div className="app-container">
+        <div className='app-container'>
           <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/mentors" component={MentorList} />
-            <Route path="/FAQ" component={FAQ} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
-            <Route path="/approved-teachers" component={ApprovedTeacherList} />
-            <Route path="/approved-mentors" component={ApprovedMentorList} />
-            <Route path="/view-profile" component={NewUserProfile} />
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/mentors' component={MentorList} />
+            <Route path='/FAQ' component={FAQ} />
+            <Route path='/admin-dashboard' component={AdminDashboard} />
+            <Route path='/approved-teachers' component={ApprovedTeacherList} />
+            <Route path='/approved-mentors' component={ApprovedMentorList} />
+            <Route path='/view-profile' component={NewUserProfile} />
             <Route
               exact
-              path="/signup"
+              path='/signup'
               render={props => (
                 <SignUp
                   setupUserListener={this.setupUserListener}
@@ -142,7 +142,7 @@ class App extends React.Component {
               )}
             />
             <Route
-              path="/login"
+              path='/login'
               render={props => (
                 <Login
                   setupUserListener={this.setupUserListener}
@@ -152,14 +152,15 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/profile/:uid" component={NewUserProfile} />
-            <Route path="/messaging" component={Messaging} />
-            <Route path="/applicationstatus" component={AwaitingApproval} />
-            <Route path="/mentor-table" component={MentorTable} />
-            <Route path="/teacher-table" component={TeacherTable} />
-            <Route path="/mentor_dashboard" component={DashboardMentor} />
-            <Route path="/teacher_dashboard" component={DashboardTeacher} />
-            <Route path="/update_profile" component={EditProfileView} />
+            <Route path='/profile/:uid' component={NewUserProfile} />
+            <Route path='/messaging' component={Messaging} />
+            <Route path='/applicationstatus' component={AwaitingApproval} />
+            <Route path='/mentor-table' component={MentorTable} />
+            <Route path='/teacher-table' component={TeacherTable} />
+            <Route path='/mentor_dashboard' component={DashboardMentor} />
+            <Route path='/teacher_dashboard' component={DashboardTeacher} />
+            <Route path='/update_profile' component={EditProfileView} />
+            <Route path='/user-approval' component={UserApproval} />
           </Switch>
         </div>
         <Footer />

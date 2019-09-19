@@ -170,19 +170,19 @@ class Calendar extends React.Component {
     // console.log("user", this.props.user);
     // console.log("auth", auth.currentUser);
     return (
-      <div className="calendar-app">
-        <div className="calendar-app-top">
-          <h1>Schedule Meetings</h1>
+      <div className='calendar-app'>
+        <div className='calendar-app-top'>
+          <h1>Schedule a Meeting</h1>
         </div>
-        <div className="calendar">
+        <div className='calendar'>
           <input
-            type="text"
-            id="datepicker"
-            placeholder="Set meeting time..."
+            type='text'
+            id='datepicker'
+            placeholder='Set meeting time...'
           />
           <FullCalendar
-            themeSystem="standard"
-            defaultView="dayGridMonth"
+            themeSystem='standard'
+            defaultView='dayGridMonth'
             header={{
               left: "prev,next today",
               center: "title",
