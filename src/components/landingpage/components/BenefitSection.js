@@ -24,10 +24,9 @@ function BenefitSection(props) {
           <br />
           <h5 className={classes.description}>
           We Are A Global Community Of Changemakers
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          We aim to Create a level playing field in education in developing
+          countries by providing supplemental, virtual mentors to underserved
+          rural and urban-poor schools.
           </h5>
         </GridItem>
       </GridContainer>

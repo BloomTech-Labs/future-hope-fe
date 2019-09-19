@@ -155,11 +155,10 @@ const ctaStyle = {
   }
 };
 
-
 export {
   landingPageStyle,
   parallaxStyle,
   benefitStyle,
   featureStyle,
   ctaStyle
-}
+};

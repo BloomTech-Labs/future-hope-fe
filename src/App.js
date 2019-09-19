@@ -12,6 +12,7 @@ import "firebase/auth";
 
 // core components
 import LandingPage from "./components/landingpage/LandingPage";
+import LandingMission from "./components/landingpage/components/LandingMission";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
@@ -124,6 +125,7 @@ class App extends React.Component {
         <div className="app-container">
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route path="/mission" component={LandingMission} />
             <Route path="/mentors" component={MentorList} />
             <Route path="/FAQ" component={FAQ} />
             <Route path="/admin-dashboard" component={AdminDashboard} />
