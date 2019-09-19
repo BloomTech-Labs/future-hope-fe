@@ -112,7 +112,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AdminDashboard = props => {
-  console.log(props);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -120,22 +119,24 @@ const AdminDashboard = props => {
   }, []);
 
   const dashboardAdmin = async () => {
-    let userArray = [];
-    const userRef = firestore.collection("users");
-    await userRef.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // console.log(doc.data());
-        userArray.push({
-          approval: doc.data().awaitingApproval,
-          name: doc.data().fullName,
-          userType: doc.data().userType,
-          city: doc.data().city,
-          stateProvince: doc.data().stateProvince,
-          uid: doc.data().uid
+    firestore
+      .collection("users")
+      .where("awaitingApproval", "==", true)
+      .onSnapshot(querySnapshot => {
+        let userArray = [];
+        querySnapshot.forEach(doc => {
+          // console.log(doc.data());
+          userArray.push({
+            awaitingApproval: doc.data().awaitingApproval,
+            fullName: doc.data().fullName,
+            userType: doc.data().userType,
+            city: doc.data().city,
+            stateProvince: doc.data().stateProvince,
+            uid: doc.data().uid
+          });
         });
+        setUsers(userArray);
       });
-    });
-    setUsers(userArray);
     console.log(users);
   };
 
@@ -167,7 +168,7 @@ const AdminDashboard = props => {
     <div className={classes.root}>
       <CssBaseline />
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
         }}
@@ -185,7 +186,7 @@ const AdminDashboard = props => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
             {/* Mentor Table */}
             <Grid item xs={12}>

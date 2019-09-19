@@ -9,15 +9,12 @@ import "../Dashboard.css";
 
 const TeacherTable = props => {
   const { users, history } = props;
-  console.log("usersss", users);
 
   const pushToProfilePage = uid => {
     history.push(`/profile/${uid}`);
   };
 
   const [approval, setApproval] = useState();
-
-  console.log(users.approval); //undefined?
 
   const approvedUser = e => {
     e.preventDefault();
@@ -28,8 +25,8 @@ const TeacherTable = props => {
 
   return (
     <div>
-      <h6 className="dashboard-table-title">Pending Teacher Applications</h6>
-      <Table size="small">
+      <h6 className='dashboard-table-title'>Pending Teacher Applications</h6>
+      <Table size='small'>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -42,10 +39,10 @@ const TeacherTable = props => {
         </TableHead>
         <TableBody>
           {users.map(user => {
-            if (user.userType === "teacher" && user.approval) {
+            if (user.userType === "teacher") {
               return (
                 <TableRow key={user.uid}>
-                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.fullName}</TableCell>
                   <TableCell>{user.userType}</TableCell>
                   <TableCell>{user.city}</TableCell>
                   <TableCell>{user.stateProvince}</TableCell>
@@ -56,7 +53,7 @@ const TeacherTable = props => {
                   </TableCell>
                   <TableCell>
                     <Button
-                      color="primary"
+                      color='primary'
                       onClick={e => {
                         e.preventDefault();
                         props.approveUser(user.uid);
