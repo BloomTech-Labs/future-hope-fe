@@ -33,7 +33,7 @@ const navConfig = {
       {
         href: "/mission",
         text: "Mission",
-        auth: true
+        auth: false
       },
       {
         href: "/login",
@@ -51,14 +51,19 @@ const navConfig = {
     brand: "Future Hope School in the Sky",
     links: [
       {
-        href: "/about",
-        text: "About Us",
+        href: "/mentors",
+        text: "View Mentors",
         auth: true
+      },
+      {
+        href: "/mission",
+        text: "Mission",
+        auth: false
       },
       {
         href: "/faq",
         text: "How It Works",
-        auth: true
+        auth: false
       },
       {
         href: "/login",
@@ -81,14 +86,9 @@ const navConfig = {
         text: "View Mentors",
         auth: true
       },
-      // {
-      //   href: '#',
-      //   text: 'Any Link You Want',
-      //   auth: true
-      // },
       {
-        href: "/about",
-        text: "About Us",
+        href: "/mission",
+        text: "Mission",
         auth: false
       },
       {
