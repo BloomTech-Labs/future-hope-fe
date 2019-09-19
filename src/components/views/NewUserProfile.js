@@ -9,11 +9,13 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
   profile: {
     textAlign: "center",
+    marginRight: "-15px",
+    marginLeft: "-15px",
+    width: "auto",
     "& img": {
       maxWidth: "160px",
       width: "100%",
@@ -33,13 +35,13 @@ const useStyles = makeStyles(theme => ({
     zIndex: "3"
   },
   mainRaised: {
-    margin: "-60px 30px 0px",
+    margin: "-30px 30px 0px",
     borderRadius: "6px",
     boxShadow:
       "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
   },
   name: {
-    marginTop: "-80px"
+    marginTop: "50px"
   },
   title: {
     color: "#3C4858",
@@ -112,12 +114,11 @@ const NewUserProfile = props => {
           <div>
             <div className={classes.container}>
               <Container justify="center">
-                <Grid xs={12} sm={12} md={6}>
-                  <div className={classes.profile}>
+                  <div  className={classes.profile}>
                     <div>
                       <img
-                        // src={profile_phtoUrl}
-                        alt="..."
+                        src={user.photoUrl}
+                        alt="please upload profile photo"
                         className={classNames(
                           classes.imgRounded,
                           classes.imgFluid,
@@ -127,13 +128,12 @@ const NewUserProfile = props => {
                     </div>
                     <div className={classes.name}>
                       <h3 className={classes.title}>{user.fullName}</h3>
-                      <h6>{user.userType}</h6>
+                      <h6>I am a {user.userType}</h6>
                     </div>
                   </div>
-                </Grid>
               </Container>
               <div className={classes.description}>
-                <p>{user.aboutMe}</p>
+                <p>About Me:  {user.aboutMe}</p>
               </div>
             </div>
           </div>
