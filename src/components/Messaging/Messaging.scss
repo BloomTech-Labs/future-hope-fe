@@ -27,6 +27,7 @@
     overflow: auto;
     // display: flex;
     // flex-direction: column;
+
     .message-wrapper {
       //   height: 80%;
       //   width: 90%;
@@ -34,37 +35,94 @@
       display: block;
       position: relative;
       padding: 0.25em 0.5em;
-      border: black solid 1.5px;
-      -webkit-border-radius: 11px;
-      -moz-border-radius: 11px;
-      border-radius: 11px;
+      // border: black solid 1.5px;
+      // -webkit-border-radius: 11px;
+      // -moz-border-radius: 11px;
+      // border-radius: 15px;
       margin-bottom: 2em;
       clear: both;
       max-width: 50%;
     }
-    .match {
-      //   background: aqua;
-      //   text-align: right;
-      //   padding: 2% 2%;
-      //   border-radius: 6px;
-      //   border: 1px solid #ccc;
 
+    .message-sender {
+      text-align: center;
+    }
+    .right {
       float: right;
-      margin-left: 10%;
-      background: lightblue;
+      // margin-left: 10%;
+      // background: lightblue;
+      // border-bottom-left-radius: 0px;
+      .message-content {
+        font-size: 1.3rem;
+        background: lightblue;
+        border: black solid 1.5px;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-right-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
     }
-    .no-match {
-      background-color: lightgrey;
+    .left {
+      // background-color: lightgrey;
       float: left;
-      margin-right: 10%;
+      // border-bottom-right-radius: 0px;
+      // margin-right: 10%;
+      .message-content {
+        border: black solid 1.5px;
+        background-color: lightgrey;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-left-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
     }
-    p {
-      font-size: 1.3rem;
+    .avatar-right {
+      float: right;
+      // margin-left: 10%;
+      margin-top: 5%;
+    }
+    .avatar-left {
+      float: left;
+      // margin-right: 10%;
+      margin-top: 5%;
+    }
+    // p {
+    //   font-size: 1.3rem;
+    // }
+    .sent-span {
+      text-align: center;
+      .sent-date {
+        font-size: 0.8rem;
+      }
     }
     .input-wrapper {
       form {
         position: absolute;
         top: 89%;
+        display: flex;
+        width: 33%;
+        height: 35px;
+        margin-top: 8px;
+        input {
+          padding-right: 5%;
+          margin-right: 5%;
+        }
+        button {
+          background: lightgreen;
+        }
       }
     }
   }

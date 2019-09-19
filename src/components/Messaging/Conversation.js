@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MDBInput } from "mdbreact";
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
@@ -82,11 +83,11 @@ const Conversation = props => {
             }}
           >
             <input
-              placeholder="Enter a Message"
+              placeholder="Enter A Message"
               type="text"
               value={text}
               onChange={e => setText(e.target.value)}
-            ></input>
+            />
             <button
               onClick={e => {
                 e.preventDefault();
