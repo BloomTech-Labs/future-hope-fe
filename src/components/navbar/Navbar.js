@@ -1,8 +1,8 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { withRouter, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { withRouter, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -22,36 +22,36 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarUser from "./NavbarUser";
 import { navbarStyle } from "./navbarStyle";
 
-const Navbar = (props) => {
-  
-/*  Initial Navbar Config
+const Navbar = props => {
+  /*  Initial Navbar Config
     Get path from router => get config based on pathname.
     There is probably a cleaner way to implement this with
     the update function below so there is only 1 function.
     Anyone feel free to help :-D */
   const initConfig = () => {
-    return !navConfig[route] ? navConfig['default'] : navConfig[route]
-  }
-  
-  const auth = useSelector(state => state.firebase.auth);
-  const [route, setRoute] = useState(props.history.location.pathname);
-  const [config, setConfig] = useState(()=>initConfig())
+    return !navConfig[route] ? navConfig["default"] : navConfig[route];
+  };
 
+  const auth = useSelector(state => state.firebase.profile);
+  const [route, setRoute] = useState(props.history.location.pathname);
+  const [config, setConfig] = useState(() => initConfig());
 
   //Router pathname listener
   //Detect change in route and run configUpdate function.
   //Gets default config if no match found.
   useLayoutEffect(() => {
     const configUpdate = () => {
-      const path = props.history.location.pathname
-      !navConfig[path] ? setConfig(navConfig['default']) : setConfig(navConfig[path])
+      const path = props.history.location.pathname;
+      !navConfig[path]
+        ? setConfig(navConfig["default"])
+        : setConfig(navConfig[path]);
+    };
+    if (props.history.location.pathname !== route) {
+      const newRoute = props.history.location.pathname;
+      setRoute(newRoute);
+      configUpdate();
     }
-    if(props.history.location.pathname !== route){
-      const newRoute = props.history.location.pathname
-      setRoute(newRoute)
-      configUpdate()
-    }
-  },[props.history.location, route])
+  }, [props.history.location, route]);
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -83,59 +83,64 @@ const Navbar = (props) => {
   useLayoutEffect(() => {
     if (config.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);
-    } 
+    }
     return () => {
       window.removeEventListener("scroll", headerColorChange);
-    }
+    };
   }, [config.changeColorOnScroll]);
 
-    const { classes } = props;
-    const appBarClasses = classNames({
-      [classes.appBar]: true,
-      [classes[config.color]]: config.color,
-      [classes.fixed]: 'fixed'
-    });
+  const { classes } = props;
+  const appBarClasses = classNames({
+    [classes.appBar]: true,
+    [classes[config.color]]: config.color,
+    [classes.fixed]: "fixed"
+  });
 
   // Navbar Sections (brand/right/left/user)
-  const brandComponent = <Link to="/"><Button className={classes.title}>{config.brand}</Button></Link> ;
-  const rightLinks = <NavbarLinks config={config} />
-  const leftLinks = null
+  const brandComponent = (
+    <Link to='/'>
+      <Button className={classes.title}>{config.brand}</Button>
+    </Link>
+  );
+  const rightLinks = <NavbarLinks config={config} />;
+  const leftLinks = null;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
+            <Hidden smDown implementation='css'>
               {leftLinks}
             </Hidden>
           ) : (
             brandComponent
           )}
         </div>
-        <div>
-        </div>
-        <Hidden smDown implementation="css">
-          {config ? rightLinks : ''}
+        <div></div>
+        <Hidden smDown implementation='css'>
+          {config ? rightLinks : ""}
         </Hidden>
-        <Hidden smDown implementation="css">
-          { auth.isLoaded && auth.isEmpty ? 
-          ( '' ): (<NavbarUser user={auth} />)
-          }
+        <Hidden smDown implementation='css'>
+          {auth.isLoaded && auth.isEmpty ? (
+            ""
+          ) : (
+            <NavbarUser user={auth} history={props.history} />
+          )}
         </Hidden>
         <Hidden mdUp>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerToggle}
           >
             <Menu />
           </IconButton>
         </Hidden>
       </Toolbar>
-      <Hidden mdUp implementation="js">
+      <Hidden mdUp implementation='js'>
         <Drawer
-          variant="temporary"
+          variant='temporary'
           anchor={"right"}
           open={mobileOpen}
           classes={{
