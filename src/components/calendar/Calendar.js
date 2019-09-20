@@ -3,7 +3,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-import { MDBBtn } from "mdbreact";
 import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
 import MomentUtils from "@date-io/moment";
@@ -33,15 +32,15 @@ class Calendar extends React.Component {
     }
   };
 
-  componentDidMount = async () => {
+  //* Creates listener which pulls meetings containing current user's UID and sets to state.
+  //! NOTE: Since the GET is now a listener all setState calls in methods have been deleted
+  componentDidMount = () => {
     const uid = JSON.parse(localStorage.getItem("UID")) || auth.currentUser.uid;
-    let events = [];
-    const meetingsRef = firestore.collection("meetings");
-    // finds all meeting docs with matching UID and pushes each to the events array and then sets array in state
-    await meetingsRef
+    firestore
+      .collection("meetings")
       .where("participantUIDs", "array-contains", uid)
-      .get()
-      .then(querySnapshot => {
+      .onSnapshot(querySnapshot => {
+        let events = [];
         // console.log(querySnapshot);
         querySnapshot.forEach(doc => {
           // console.log(doc.data());
@@ -52,10 +51,10 @@ class Calendar extends React.Component {
             id: doc.data().id
           });
         });
+        this.setState({
+          events: events
+        });
       });
-    this.setState({
-      events: events
-    });
   };
 
   toggleModal = () => {
@@ -64,100 +63,63 @@ class Calendar extends React.Component {
     });
   };
 
+  //* Adds meeting to Firebase and updates calendar
   addMeeting = async meeting => {
-    const calendarApi = this.calendarComponentRef.current.getApi();
-    let meetings = this.state.events;
-    console.log("meeting object", meeting);
-    //* add meeting to firestore
+    // let meetings = this.state.events;
     try {
+      //* add blank meeting to firestore
       const meetingRef = firestore.collection("meetings").doc();
-      //* gets new meeting ID and inserts it into the record as uid
+      //* gets new meeting ID and inserts it into the record as id
       meeting.id = meetingRef.id;
+      //* Updates new firestore doc with meeting to add
       await meetingRef.set(meeting);
-      //* update old meetings array with new meeting
-      meetings.push(meeting);
-      this.setState({
-        events: meetings
-      });
       swal(`Your meeting has been created`, {
         icon: "success"
       });
-      calendarApi.addEvent(meeting);
     } catch (err) {
       swal("There was a server error, your meeting could not be created", {
         icon: "warning"
       });
     }
-    //* adds new event to the calendar directly via API call
   };
 
+  // Edits current meeting
   editMeeting = async meeting => {
     console.log("meeting arg into editMeeting", meeting);
     try {
       //* updating meeting in firebase
       const meetingRef = firestore.collection("meetings").doc(meeting.id);
       await meetingRef.update(meeting);
-      //* edit event in events array
-      let events = this.state.events.map(event => {
-        if (event.id === meeting.id) {
-          event = meeting;
-        }
-        return event;
-      });
-      console.log("events", events);
-      // //* set state with new events array
-      this.setState({
-        ...this.state,
-        events: events,
-        clickedMeeting: {
-          title: "",
-          start: "",
-          participantUIDs: "",
-          participantNames: ""
-        }
-      });
     } catch (err) {
-      console.log(err);
+      swal("There was a server error, your meeting could not be updated", {
+        icon: "warning"
+      });
     }
   };
 
   deleteMeeting = async meeting => {
-    console.log(meeting);
     try {
+      // Alert modal asking if they are sure
       await swal({
         title: "Delete Meeting?",
         text: `Are you sure you want to delete this meeting?`,
         icon: "warning",
         buttons: true,
         dangerMode: false
-      })
-        .then(okToDelete => {
-          if (okToDelete) {
-            const meetingRef = firestore
-              .collection("meetings")
-              .doc(meeting.id)
-              .delete();
-            let events = this.state.events.filter(
-              event => event.id !== meeting.id
-            );
-            this.setState({
-              ...this.state,
-              events: events,
-              clickedMeeting: {
-                title: "",
-                start: "",
-                participantUIDs: "",
-                participantNames: ""
-              }
-            });
-            swal(`Your meeting has been deleted`, {
-              icon: "success"
-            });
-          }
-        })
-        .catch(err => {
+      }).then(okToDelete => {
+        // Checks to see if deletion was confirmed and deletes it
+        if (okToDelete) {
+          const meetingRef = firestore
+            .collection("meetings")
+            .doc(meeting.id)
+            .delete();
+          swal(`Your meeting has been deleted`, {
+            icon: "success"
+          });
+        } else {
           swal("Cancelled, your meeting has not been deleted!");
-        });
+        }
+      });
     } catch (err) {
       swal(`Server error: Your meeting could not be deleted`, {
         icon: "error"
@@ -170,19 +132,19 @@ class Calendar extends React.Component {
     // console.log("user", this.props.user);
     // console.log("auth", auth.currentUser);
     return (
-      <div className='calendar-app'>
-        <div className='calendar-app-top'>
+      <div className="calendar-app">
+        <div className="calendar-app-top">
           <h1>Schedule a Meeting</h1>
         </div>
-        <div className='calendar'>
+        <div className="calendar">
           <input
-            type='text'
-            id='datepicker'
-            placeholder='Set meeting time...'
+            type="text"
+            id="datepicker"
+            placeholder="Set meeting time..."
           />
           <FullCalendar
-            themeSystem='standard'
-            defaultView='dayGridMonth'
+            themeSystem="standard"
+            defaultView="dayGridMonth"
             header={{
               left: "prev,next today",
               center: "title",
@@ -220,58 +182,45 @@ class Calendar extends React.Component {
     );
   }
 
+  //* Handles event drag and drop
   handleEventDrop = async info => {
     try {
+      // Verifies intetion to drop
       swal({
         title: "Change Meeting Date?",
         text: `Meeting will be changed to ${info.event.start}`,
         icon: "warning",
         buttons: true,
         dangerMode: false
-      })
-        .then(async changeDate => {
-          console.log("event", info.event);
-          console.log("new date", changeDate);
-          if (changeDate) {
-            //* updating meeting in firebase
-            const meetingRef = firestore
-              .collection("meetings")
-              .doc(info.event.id);
-            const newStart = {
-              start: info.event.start
-            };
-            await meetingRef.update(newStart);
-            let newEvents = this.state.events.map(e => {
-              if (e.start.getTime() === info.oldEvent.start.getTime()) {
-                console.log(e);
-                e.start = info.event.start;
-                return e;
-              } else {
-                return e;
-              }
-            });
-            this.setState({
-              ...this.state,
-              events: newEvents
-            });
-            swal(`Meeting date has been changed to ${info.event.start}`, {
-              icon: "success"
-            });
-          } else {
-            //* if cancel is clicked, revert change in calendar API to previous date
-            info.revert();
-            swal("Cancelled, your meeting has not been changed!");
-          }
-        })
-        .catch(err => console.log(err));
+      }).then(async changeDate => {
+        // Checks if user verified intention to drop
+        if (changeDate) {
+          //* updating meeting in firebase
+          const meetingRef = firestore
+            .collection("meetings")
+            .doc(info.event.id);
+          const newStart = {
+            start: info.event.start
+          };
+          await meetingRef.update(newStart);
+          swal(`Meeting date has been changed to ${info.event.start}`, {
+            icon: "success"
+          });
+        } else {
+          swal("Cancelled, your meeting has not been changed!");
+        }
+      });
     } catch (err) {
-      console.log(err);
+      swal("There was a server error, your meeting could not be updated", {
+        icon: "warning"
+      });
     }
   };
 
+  //* On Event click => Pulls event from firestore and sets it to state, populating and opening MeetingModal
   handleEventClick = async info => {
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
-    const meeting = meetingRef.get().then(doc => {
+    meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);
       this.setState({
         ...this.state,
@@ -284,10 +233,9 @@ class Calendar extends React.Component {
     this.toggleModal();
   };
 
+  //* Populates MeetingModal with clicked date and opens
+  //? NOTE Defaults to noon. Can this be improved?
   handleDateClick = async arg => {
-    console.log("arg.date", arg.date);
-    // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the
-    // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.
     let meetingDate = await new Date(
       arg.date.getFullYear(),
       arg.date.getMonth(),
@@ -323,13 +271,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Calendar);
-
-/*
-const mapStateToProps = state => {
-  return {
-    auth: state.auth,
-    user: state.firebase.profile
-  };
-};
-
-*/
