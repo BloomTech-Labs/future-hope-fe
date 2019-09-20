@@ -185,7 +185,7 @@ class Calendar extends React.Component {
   //* Handles event drag and drop
   handleEventDrop = async info => {
     try {
-      // Verifies intetion to drop
+      // Verifies intention to drop
       swal({
         title: "Change Meeting Date?",
         text: `Meeting will be changed to ${info.event.start}`,
