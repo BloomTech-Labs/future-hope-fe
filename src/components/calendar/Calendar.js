@@ -34,9 +34,9 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = async () => {
-    const uid = auth.currentUser.uid || this.props.user.uid;
+    const uid = JSON.parse(localStorage.getItem("UID")) || auth.currentUser.uid;
     let events = [];
-    const meetingsRef = await firestore.collection("meetings");
+    const meetingsRef = firestore.collection("meetings");
     // finds all meeting docs with matching UID and pushes each to the events array and then sets array in state
     await meetingsRef
       .where("participantUIDs", "array-contains", uid)
@@ -172,7 +172,7 @@ class Calendar extends React.Component {
     return (
       <div className='calendar-app'>
         <div className='calendar-app-top'>
-          <h1>Schedule Meetings</h1>
+          <h1>Schedule a Meeting</h1>
         </div>
         <div className='calendar'>
           <input
@@ -308,7 +308,7 @@ class Calendar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
+    auth: state.firebase.auth,
     user: state.firebase.profile
   };
 };
@@ -323,3 +323,13 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Calendar);
+
+/*
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    user: state.firebase.profile
+  };
+};
+
+*/

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,7 +9,6 @@ import "../Dashboard.css";
 
 const MentorTable = props => {
   const { users, history } = props;
-  console.log("usersss", users);
 
   const pushToProfilePage = uid => {
     history.push(`/profile/${uid}`);
@@ -17,8 +16,8 @@ const MentorTable = props => {
 
   return (
     <div>
-      <h6 className="dashboard-table-title">Pending Mentor Applications</h6>
-      <Table size="small">
+      <h6 className='dashboard-table-title'>Pending Mentor Applications</h6>
+      <Table size='small'>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -26,20 +25,32 @@ const MentorTable = props => {
             <TableCell>City</TableCell>
             <TableCell>State/Province</TableCell>
             <TableCell>View</TableCell>
+            <TableCell>Approve User</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.map(user => {
-            if (user.userType === "mentor" && user.approval) {
+            if (user.userType === "mentor") {
               return (
                 <TableRow key={user.uid}>
-                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.fullName}</TableCell>
                   <TableCell>{user.userType}</TableCell>
                   <TableCell>{user.city}</TableCell>
                   <TableCell>{user.stateProvince}</TableCell>
                   <TableCell>
                     <Button onClick={() => pushToProfilePage(user.uid)}>
                       View
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      color='primary'
+                      onClick={e => {
+                        e.preventDefault();
+                        props.approveUser(user.uid);
+                      }}
+                    >
+                      Approve
                     </Button>
                   </TableCell>
                 </TableRow>

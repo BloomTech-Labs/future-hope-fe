@@ -9,9 +9,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { signInWithGoogle, signInWithFacebook, firestore, auth } from "../../config/fbConfig.js";
+import {
+  signInWithGoogle,
+  signInWithFacebook,
+  firestore,
+  auth
+} from "../../config/fbConfig.js";
 
 import "./SignUp.scss";
+
+//! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
 class SignUp extends React.Component {
   state = {
@@ -29,7 +36,9 @@ class SignUp extends React.Component {
     country: "",
     phoneNumber: "",
     aboutMe: "",
-    password: ""
+    password: "",
+    photoUrl:
+      "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
   };
 
   componentDidMount = () => {
@@ -71,12 +80,12 @@ class SignUp extends React.Component {
     const uid = auth.currentUser.uid;
     const userRef = firestore.collection("users").doc(uid);
     //* Create the user account
-    //things coming from auth.currentUser is info from Oauth 
+    //things coming from auth.currentUser is info from Oauth
     await userRef.set({
       uid,
       email: this.state.email,
       fullName: this.state.fullName,
-      photoUrl: auth.currentUser.photoURL || "",
+      photoUrl: auth.currentUser.photoURL || this.state.photoUrl,
       userType: this.state.userType,
       city: this.state.city,
       stateProvince: this.state.stateProvince,
@@ -102,7 +111,7 @@ class SignUp extends React.Component {
     const routeTo = this.props.routeUser(userInfo.data());
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
     //! For test reasons, (if you want the redirect to take you to mentor_dashboard or teacher_dashboard, use routeTo)
-    this.props.history.push('/applicationstatus'); 
+    this.props.history.push("/applicationstatus");
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };
 
@@ -147,13 +156,13 @@ class SignUp extends React.Component {
           </Button>
         )}
         {!this.state.signingInWithOAuth && (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => this.setState({ showForm: !this.state.showForm })}
-        >
-          Sign Up With Email
-        </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => this.setState({ showForm: !this.state.showForm })}
+          >
+            Sign Up With Email
+          </Button>
         )}
         <div
           className={`signup-form-container ${
