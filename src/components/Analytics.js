@@ -5,6 +5,8 @@ export const initGA = () => {
   //console.log("GOOGLE ANALYTICS");
   //initialization of GA with ID
   ReactGA.initialize("UA-148510060-1");
+  //staging branch
+  ReactGA.initialize("UA-148510060-2");
 };
 
 //log page view user is on
