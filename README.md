@@ -146,7 +146,7 @@ Documentation -
 
 Eric Fugleberg  |   George Kando    |   Joel Perez  |   Kedasha Kerr    |   Micah Jones |   Steven Barrett  |
 | ------ | ------------------ | --------------- |   -----------------   |   ----------  |   --------------  |
-[<img src="https://github.com/favicon.ico" width="35">](https://github.com/efugleberg)  | [George's github](https://github.com/gkando "George's github") | [Joel's github](https://github.com/Full-lifey "Joel's github") |  [Kedasha's github](https://github.com/Ladykerr "Kedasha's github") |  [Micah's github](https://github.com/micahjones13 "Micah's github") |  [Steven's github](https://github.com/steven-barrett "Steven's github") |
+[<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/efugleberg)  | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/gkando "George's github") | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Full-lifey) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Ladykerr) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/micahjones13) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/steven-barrett) |
 
 
 ## Contributing
