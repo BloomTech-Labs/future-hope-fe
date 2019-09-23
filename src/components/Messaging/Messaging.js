@@ -17,6 +17,9 @@ import blank_user from "../../assets/img/blank_user.png";
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
 
+//analytics
+import { logPageView, event } from "../Analytics";
+
 import "./Messaging.scss";
 
 function Messaging(props) {
@@ -25,6 +28,7 @@ function Messaging(props) {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    logPageView();
     if (!props.userInfo.uid) {
       return;
     } else {
@@ -47,6 +51,7 @@ function Messaging(props) {
   };
 
   const createConversation = selectedUser => {
+    event("New-Conversation", "User started new conversation", "Conversation");
     const { uid, fullName, photoUrl } = selectedUser;
     const conversation = {
       participantUIDs: [uid, props.userInfo.uid],
