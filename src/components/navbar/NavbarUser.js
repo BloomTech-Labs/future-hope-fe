@@ -21,7 +21,7 @@ import { navbarLinksStyle } from "./navbarStyle";
 
 const NavbarUser = props => {
   const { classes, user } = props;
-  const [anchorEl, setAnchorEl] = useState(false);
+  const [anchorEl, setAnchorEl] = useState({});
   const [open, setOpen] = useState(false);
   const hoverColor = "success";
 
@@ -37,7 +37,7 @@ const NavbarUser = props => {
   }
 
   function handleClose() {
-    setAnchorEl(null);
+    setAnchorEl({});
     setOpen(!open);
   }
 
@@ -54,7 +54,7 @@ const NavbarUser = props => {
         alt={user.fullName}
         src={user.photoUrl}
         className={classes.bigAvatar}
-        aria-haspopup='true'
+        aria-haspopup="true"
         onClick={handleClick}
       />
       <div>
@@ -63,12 +63,12 @@ const NavbarUser = props => {
           anchorEl={anchorEl}
           transition
           disablePortal
-          placement='bottom'
+          placement="bottom"
         >
           <ClickAwayListener onClickAway={handleClose}>
-            <Grow in={open} id='menu-list' style={{ transformOrigin: "0 0 0" }}>
+            <Grow in={open} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
               <Paper className={classes.dropdown}>
-                <MenuList role='menu' className={classes.menuList}>
+                <MenuList role="menu" className={classes.menuList}>
                   <MenuItem className={classes.dropdownHeader}>
                     {user.fullName}
                   </MenuItem>
@@ -78,9 +78,9 @@ const NavbarUser = props => {
                   >
                     Profile
                   </MenuItem>
-                  {/* <MenuItem className={dropdownItem}>My account</MenuItem> */}
+                  {/* Select Menu Items when clicking on user Avatar */}
                   <MenuItem className={dropdownItem} onClick={logout}>
-                    <Link to='/login'>Logout</Link>
+                    <Link to="/login">Logout</Link>
                   </MenuItem>
                 </MenuList>
               </Paper>
