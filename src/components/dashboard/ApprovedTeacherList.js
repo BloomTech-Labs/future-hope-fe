@@ -78,7 +78,7 @@ const ApprovedTeacherList = props => {
         <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Teachers
         </Typography>
-        <Table stickyHeader>
+        <Table stickyheader>
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
