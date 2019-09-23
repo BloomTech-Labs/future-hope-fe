@@ -13,6 +13,9 @@ import { firestore, auth } from "../../config/fbConfig.js";
 import { userStore } from "../../actions/auth.js";
 import MeetingModal from "./MeetingModal";
 
+//analytics
+import { event, logPageView } from "../Analytics";
+
 import "../auth/Login.scss";
 import "./main.scss";
 
@@ -34,6 +37,7 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = async () => {
+    logPageView();
     const uid = JSON.parse(localStorage.getItem("UID")) || auth.currentUser.uid;
     let events = [];
     const meetingsRef = firestore.collection("meetings");
@@ -65,6 +69,7 @@ class Calendar extends React.Component {
   };
 
   addMeeting = async meeting => {
+    event("Add-Meeting", "Schedule new meeting", "Calendar");
     const calendarApi = this.calendarComponentRef.current.getApi();
     let meetings = this.state.events;
     console.log("meeting object", meeting);
@@ -92,6 +97,7 @@ class Calendar extends React.Component {
   };
 
   editMeeting = async meeting => {
+    event("Edit-Meeting", "Edit Current meeting", "Calendar");
     console.log("meeting arg into editMeeting", meeting);
     try {
       //* updating meeting in firebase
@@ -122,6 +128,7 @@ class Calendar extends React.Component {
   };
 
   deleteMeeting = async meeting => {
+    event("Delete-Meeting", "Delete current meeting", "Calendar");
     console.log(meeting);
     try {
       await swal({
@@ -170,19 +177,19 @@ class Calendar extends React.Component {
     // console.log("user", this.props.user);
     // console.log("auth", auth.currentUser);
     return (
-      <div className='calendar-app'>
-        <div className='calendar-app-top'>
+      <div className="calendar-app">
+        <div className="calendar-app-top">
           <h1>Schedule a Meeting</h1>
         </div>
-        <div className='calendar'>
+        <div className="calendar">
           <input
-            type='text'
-            id='datepicker'
-            placeholder='Set meeting time...'
+            type="text"
+            id="datepicker"
+            placeholder="Set meeting time..."
           />
           <FullCalendar
-            themeSystem='standard'
-            defaultView='dayGridMonth'
+            themeSystem="standard"
+            defaultView="dayGridMonth"
             header={{
               left: "prev,next today",
               center: "title",
@@ -270,6 +277,7 @@ class Calendar extends React.Component {
   };
 
   handleEventClick = async info => {
+    event("Meeting-Clicked", "Clicked meeting on calendar", "Calendar");
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
     const meeting = meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);
@@ -285,6 +293,7 @@ class Calendar extends React.Component {
   };
 
   handleDateClick = async arg => {
+    event("Meeting-Date", "Set meeting date", "Calendar");
     console.log("arg.date", arg.date);
     // Display only the time component of flatpickr so the user can select the meeting start time.  Like above the work is done in the
     // onClose function of flatickr as execution does not halt after the time picker is opened to allow the user to select a date.

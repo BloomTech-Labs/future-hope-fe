@@ -21,6 +21,9 @@ import {
 } from "../../config/fbConfig.js";
 import "./Login.scss";
 
+//analytics
+import { initGA, logPageView, event } from "../Analytics";
+
 class Login extends React.Component {
   state = {
     user: {
@@ -28,6 +31,11 @@ class Login extends React.Component {
       password: ""
     },
     loginWithEmail: false
+  };
+
+  componentDidMount = () => {
+    initGA();
+    logPageView();
   };
 
   componentDidUpdate = () => {
@@ -52,6 +60,7 @@ class Login extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    event("User-Login", "Form Submitted", "Login form");
     // this.props.login(this.state.user);
     try {
       // try logging the user in.
