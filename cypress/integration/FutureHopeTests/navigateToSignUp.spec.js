@@ -1,6 +1,7 @@
 describe("Go to sign up from Landing page", function() {
   it("Signs up a new account", function() {
-    //goes to staging site
+    //goes to site
+    //!MAKE SURE THIS IS THE SITE YOU ARE USING
     cy.visit("localhost:3000/");
     //finds a button that contains login, clicks it
     cy.get("button")
