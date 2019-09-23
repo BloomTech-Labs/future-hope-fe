@@ -205,7 +205,7 @@ class SignUp extends React.Component {
             {!this.state.signingInWithOAuth && (
               <TextField
                 required
-                id="standard-email"
+                id="verify-email"
                 label="Verify email"
                 margin="normal"
                 name="email"
@@ -226,7 +226,7 @@ class SignUp extends React.Component {
             )}
             <TextField
               required
-              id="standard-name"
+              id="city"
               label="City"
               value={this.state.city}
               onChange={this.handleChange}
@@ -235,7 +235,7 @@ class SignUp extends React.Component {
             />
             <TextField
               required
-              id="standard-name"
+              id="state-province"
               label="State or Province"
               value={this.state.stateProvince}
               onChange={this.handleChange}
@@ -245,7 +245,7 @@ class SignUp extends React.Component {
             {/* //! Country and State probably need to be select menus like userType is  */}
             <TextField
               required
-              id="standard-name"
+              id="country"
               label="Country"
               value={this.state.country}
               onChange={this.handleChange}
@@ -254,7 +254,7 @@ class SignUp extends React.Component {
             />
             <TextField
               required
-              id="standard-name"
+              id="phone"
               label="Phone Number"
               value={this.state.phoneNumber}
               onChange={this.handleChange}
@@ -263,7 +263,7 @@ class SignUp extends React.Component {
             />
             <TextField
               required
-              id="standard-name"
+              id="about-me"
               label="About Me"
               value={this.state.aboutMe}
               onChange={this.handleChange}
@@ -285,6 +285,7 @@ class SignUp extends React.Component {
               </Select>
             </FormControl>
             <Button
+              id="sign-up-btn"
               variant="contained"
               size="large"
               color="primary"
