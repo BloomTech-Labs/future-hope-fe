@@ -33,7 +33,9 @@ const Navbar = props => {
   };
 
   const auth = useSelector(state => state.firebase.profile);
+  //* Holds current route for conditional navbar rendering
   const [route, setRoute] = useState(props.history.location.pathname);
+  //* Holds current navbar config based on route
   const [config, setConfig] = useState(() => initConfig());
 
   //Router pathname listener
@@ -98,7 +100,7 @@ const Navbar = props => {
 
   // Navbar Sections (brand/right/left/user)
   const brandComponent = (
-    <Link to='/'>
+    <Link to="/">
       <Button className={classes.title}>{config.brand}</Button>
     </Link>
   );
@@ -110,37 +112,39 @@ const Navbar = props => {
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (
-            <Hidden smDown implementation='css'>
+            <Hidden smDown implementation="css">
               {leftLinks}
             </Hidden>
           ) : (
             brandComponent
           )}
         </div>
-        <div></div>
-        <Hidden smDown implementation='css'>
+        {/* Loads links to the left of avatar depending on login state, setup in navConfig auth flag */}
+        <Hidden smDown implementation="css">
           {config ? rightLinks : ""}
         </Hidden>
-        <Hidden smDown implementation='css'>
+        {/* Avatar button that loads after signin */}
+        <Hidden smDown implementation="css">
           {auth.isLoaded && auth.isEmpty ? (
             ""
           ) : (
             <NavbarUser user={auth} history={props.history} />
           )}
         </Hidden>
+        {/* Hidden hamburger menu available on mobile widths */}
         <Hidden mdUp>
           <IconButton
-            color='inherit'
-            aria-label='open drawer'
+            color="inherit"
+            aria-label="open drawer"
             onClick={handleDrawerToggle}
           >
             <Menu />
           </IconButton>
         </Hidden>
       </Toolbar>
-      <Hidden mdUp implementation='js'>
+      <Hidden mdUp implementation="js">
         <Drawer
-          variant='temporary'
+          variant="temporary"
           anchor={"right"}
           open={mobileOpen}
           classes={{

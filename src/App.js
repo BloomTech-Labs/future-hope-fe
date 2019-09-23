@@ -6,6 +6,9 @@ import {
   withRouter
 } from "react-router-dom";
 
+//analytics
+import { initGA, logPageView, event } from "./components/Analytics";
+
 // auth stuff
 import { auth, firestore } from "./config/fbConfig.js";
 import "firebase/auth";
@@ -46,6 +49,8 @@ class App extends React.Component {
   };
 
   componentDidMount = () => {
+    initGA()
+    logPageView();
     this.unsubsribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;

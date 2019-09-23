@@ -11,8 +11,8 @@
 //
 //Add the new link to the links array.
 //Enter href and text.
-//auth is a boolean field -- true = display when user
-//logged in -- false = hide when logged in.
+//! auth is a boolean field -- true = display when user
+//! logged in -- false = hide when logged in.
 
 const navConfig = {
   "/": {
@@ -47,44 +47,13 @@ const navConfig = {
       }
     ]
   },
-  "/mentors": {
-    brand: "Future Hope School in the Sky",
-    links: [
-      {
-        href: "/mentors",
-        text: "View Mentors",
-        auth: true
-      },
-      {
-        href: "/mission",
-        text: "Mission",
-        auth: false
-      },
-      {
-        href: "/faq",
-        text: "How It Works",
-        auth: false
-      },
-      {
-        href: "/login",
-        text: "Login",
-        auth: false
-      },
-      {
-        href: "/signup",
-        text: "Sign Up",
-        auth: false
-      }
-    ],
-    color: "white"
-  },
   default: {
     brand: "Future Hope School in the Sky",
     links: [
       {
         href: "/mentors",
         text: "View Mentors",
-        auth: true
+        auth: false
       },
       {
         href: "/mission",

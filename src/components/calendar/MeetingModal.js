@@ -16,6 +16,9 @@ import { connect } from "react-redux";
 import { firestore, auth } from "../../config/fbConfig.js";
 import SearchResults from "../shared/components/SearchResults.js";
 
+//analytics
+import { event } from "../Analytics";
+
 const MeetingModal = props => {
   const [meeting, setMeeting] = useState({
     title: "",
@@ -76,6 +79,7 @@ const MeetingModal = props => {
   };
 
   const searchParticipants = async searchTerm => {
+    event("Search-Users", "Searching for users to add to a meeting", "Calendar Meeting Modal")
     console.log(searchTerm);
     let searchArray = [];
     const usersRef = firestore.collection("users");
@@ -138,7 +142,7 @@ const MeetingModal = props => {
         <MDBModalHeader
           toggle={e => {
             setMeeting({ title: "", start: Date.now() });
-            setDisplayParticipants('')
+            setDisplayParticipants("");
             props.toggle();
           }}
         >
@@ -146,11 +150,11 @@ const MeetingModal = props => {
         </MDBModalHeader>
         <MDBModalBody>
           <MDBInput
-            label='Add title'
+            label="Add title"
             //   icon='envelope'
             //   group
-            size='lg'
-            type='text'
+            size="lg"
+            type="text"
             validate
             value={meeting.title}
             onChange={e =>
@@ -163,7 +167,7 @@ const MeetingModal = props => {
           {/* //! Now that the date is updating should we change this to just a time picker? */}
           <DateTimePicker
             value={meeting.start}
-            size='lg'
+            size="lg"
             disablePast
             onChange={date => {
               setMeeting({
@@ -171,7 +175,7 @@ const MeetingModal = props => {
                 start: date._d
               });
             }}
-            label='Start time'
+            label="Start time"
             showTodayButton
           />
           {/* //! Removing end datetime picker for now. Needs to auto-populate based on start time. Might not need picker at all, just a length drop down, then parse the end date.
@@ -189,7 +193,7 @@ const MeetingModal = props => {
             onChange={e => changeParticipants(e.target.value)}
           /> */}
           <MDBFormInline
-            className='md-form'
+            className="md-form"
             onSubmit={async e => {
               e.preventDefault();
               await searchParticipants(searchTerm);
@@ -197,23 +201,23 @@ const MeetingModal = props => {
             }}
           >
             <input
-              className='form-control form-control-sm w-75'
-              type='text'
-              placeholder='Search Participants'
-              aria-label='Search Participants'
+              className="form-control form-control-sm w-75"
+              type="text"
+              placeholder="Search Participants"
+              aria-label="Search Participants"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
             <MDBBtn
-              color='primary'
-              size='sm'
+              color="primary"
+              size="sm"
               onClick={async e => {
                 e.preventDefault();
                 await searchParticipants(searchTerm);
                 toggleSearchModal();
               }}
             >
-              <MDBIcon icon='search' />
+              <MDBIcon icon="search" />
             </MDBBtn>
           </MDBFormInline>
           {displayParticipants && <p>Participants: {displayParticipants}</p>}
@@ -228,10 +232,10 @@ const MeetingModal = props => {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn
-            color='secondary'
+            color="secondary"
             onClick={e => {
               setMeeting({ title: "", start: Date.now() });
-              setDisplayParticipants('')
+              setDisplayParticipants("");
               props.toggle();
             }}
           >
@@ -239,7 +243,7 @@ const MeetingModal = props => {
           </MDBBtn>
           {meeting.id && (
             <MDBBtn
-              color='red'
+              color="red"
               onClick={e => {
                 props.deleteMeeting(meeting);
               }}
@@ -247,7 +251,7 @@ const MeetingModal = props => {
               Delete
             </MDBBtn>
           )}
-          <MDBBtn color='primary' onClick={e => submitMeeting(e)}>
+          <MDBBtn color="primary" onClick={e => submitMeeting(e)}>
             Save changes
           </MDBBtn>
         </MDBModalFooter>

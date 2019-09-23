@@ -18,6 +18,9 @@ import {
 
 import "./SignUp.scss";
 
+//analytics
+import { logPageView, event } from "../Analytics";
+
 //! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
 class SignUp extends React.Component {
@@ -42,6 +45,7 @@ class SignUp extends React.Component {
   };
 
   componentDidMount = () => {
+    logPageView();
     // if this user is being pushed here, and there is a user on props, then
     // we want to use the info that we already recieved, as well as set
     // signingInWithOAuth to true so that we can conditionally render some UI
@@ -63,6 +67,7 @@ class SignUp extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    event("New-User-signup", "Form Submitted", "Sign up form");
     // console.log("triggered");
     // user is creating a brand new account with email and password
     if (!this.state.signingInWithOAuth) {
@@ -279,7 +284,11 @@ class SignUp extends React.Component {
               variant="contained"
               size="large"
               color="primary"
+<<<<<<< HEAD
               onClick={this.handleSubmit}
+=======
+              type="submit"
+>>>>>>> Staging
             >
               Sign Up
             </Button>
