@@ -75,7 +75,13 @@ const Conversation = props => {
     <div className="conversations-wrapper">
       {messages.map(message => {
         // console.log(message, "IS THERE AN EMPTY?");
-        return <Message message={message} userInfo={props.userInfo} />;
+        return (
+          <Message
+            key={message.uid}
+            message={message}
+            userInfo={props.userInfo}
+          />
+        );
       })}
       {/* if there is a selected converstaion, diplay the input. otherwise no input fo you*/}
       {props.selectedConversation.uid && (

@@ -22,7 +22,7 @@ import {
 import "./Login.scss";
 
 //analytics
-import { initGA, logPageView, event } from "../Analytics";
+import { logPageView, event } from "../Analytics";
 
 class Login extends React.Component {
   state = {
@@ -34,7 +34,6 @@ class Login extends React.Component {
   };
 
   componentDidMount = () => {
-    initGA();
     logPageView();
   };
 
