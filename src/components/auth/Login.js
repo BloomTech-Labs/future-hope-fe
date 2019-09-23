@@ -22,7 +22,7 @@ import {
 import "./Login.scss";
 
 //analytics
-import { initGA, logPageView } from "../Analytics";
+import { initGA, logPageView, event } from "../Analytics";
 
 class Login extends React.Component {
   state = {
@@ -36,7 +36,7 @@ class Login extends React.Component {
   componentDidMount = () => {
     initGA();
     logPageView();
-  }
+  };
 
   componentDidUpdate = () => {
     // HEY FUTURE PERSON WHO DOSNT UNDERSTAND WHAT THE HELL IS GOING ON!@#!@#!
@@ -60,6 +60,7 @@ class Login extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+    event("User-Login", "Form Submitted", "Login form");
     // this.props.login(this.state.user);
     try {
       // try logging the user in.
