@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { userStore } from "../../actions/auth.js";
-// import Button from "@material-ui/core/Button";
-// import { withStyles } from "@material-ui/core/styles";
 import {
   MDBContainer,
   MDBRow,

@@ -107,10 +107,7 @@ class SignUp extends React.Component {
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo);
-    // console.log("rerouting user", userInfo.data());
-    const routeTo = this.props.routeUser(userInfo.data());
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
-    //! For test reasons, (if you want the redirect to take you to mentor_dashboard or teacher_dashboard, use routeTo)
     this.props.history.push("/applicationstatus");
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };
@@ -118,11 +115,11 @@ class SignUp extends React.Component {
   render() {
     console.log("auth.currentUser", auth.currentUser);
     return (
-      <div className='signup-wrapper'>
+      <div className="signup-wrapper">
         {!this.state.signingInWithOAuth && (
           <Button
-            variant='contained'
-            color='secondary'
+            variant="contained"
+            color="secondary"
             onClick={async e => {
               await signInWithGoogle();
               console.log(auth.currentUser);
@@ -139,8 +136,8 @@ class SignUp extends React.Component {
         )}
         {!this.state.signingInWithOAuth && (
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             onClick={async e => {
               await signInWithFacebook();
               console.log(auth.currentUser);
@@ -157,8 +154,8 @@ class SignUp extends React.Component {
         )}
         {!this.state.signingInWithOAuth && (
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             onClick={() => this.setState({ showForm: !this.state.showForm })}
           >
             Sign Up With Email
@@ -173,99 +170,99 @@ class SignUp extends React.Component {
               : "hidden"
           }`}
         >
-          <form className='signup-form' onSubmit={this.handleSubmit}>
+          <form className="signup-form" onSubmit={this.handleSubmit}>
             <h5>Sign Up</h5>
             <TextField
               required
               disabled={this.state.signingInWithOAuth}
-              id='standard-name'
-              label='Name'
+              id="standard-name"
+              label="Name"
               value={this.state.fullName}
               onChange={this.handleChange}
-              margin='normal'
-              name='fullName'
+              margin="normal"
+              name="fullName"
             />
             <TextField
               required
               disabled={this.state.signingInWithOAuth}
-              id='standard-email'
-              label='Email'
+              id="standard-email"
+              label="Email"
               value={this.state.email}
               onChange={this.handleChange}
-              margin='normal'
-              name='email'
-              type='email'
+              margin="normal"
+              name="email"
+              type="email"
             />
             {!this.state.signingInWithOAuth && (
               <TextField
                 required
-                id='standard-email'
-                label='Verify email'
-                margin='normal'
-                name='email'
-                type='email'
+                id="standard-email"
+                label="Verify email"
+                margin="normal"
+                name="email"
+                type="email"
               />
             )}
             {!this.state.signingInWithOAuth && (
               <TextField
                 required
-                id='standard-password-input'
-                type='password'
-                label='Password'
+                id="standard-password-input"
+                type="password"
+                label="Password"
                 value={this.state.password}
                 onChange={this.handleChange}
-                margin='normal'
-                name='password'
+                margin="normal"
+                name="password"
               />
             )}
             <TextField
               required
-              id='standard-name'
-              label='City'
+              id="standard-name"
+              label="City"
               value={this.state.city}
               onChange={this.handleChange}
-              margin='normal'
-              name='city'
+              margin="normal"
+              name="city"
             />
             <TextField
               required
-              id='standard-name'
-              label='State or Province'
+              id="standard-name"
+              label="State or Province"
               value={this.state.stateProvince}
               onChange={this.handleChange}
-              margin='normal'
-              name='stateProvince'
+              margin="normal"
+              name="stateProvince"
             />
             {/* //! Country and State probably need to be select menus like userType is  */}
             <TextField
               required
-              id='standard-name'
-              label='Country'
+              id="standard-name"
+              label="Country"
               value={this.state.country}
               onChange={this.handleChange}
-              margin='normal'
-              name='country'
+              margin="normal"
+              name="country"
             />
             <TextField
               required
-              id='standard-name'
-              label='Phone Number'
+              id="standard-name"
+              label="Phone Number"
               value={this.state.phoneNumber}
               onChange={this.handleChange}
-              margin='normal'
-              name='phoneNumber'
+              margin="normal"
+              name="phoneNumber"
             />
             <TextField
               required
-              id='standard-name'
-              label='About Me'
+              id="standard-name"
+              label="About Me"
               value={this.state.aboutMe}
               onChange={this.handleChange}
-              margin='normal'
-              name='aboutMe'
+              margin="normal"
+              name="aboutMe"
             />
             <FormControl style={{ minWidth: 160 }}>
-              <InputLabel htmlFor='age-simple'>Account Type</InputLabel>
+              <InputLabel htmlFor="age-simple">Account Type</InputLabel>
               <Select
                 value={this.state.userType}
                 onChange={e => {
@@ -274,14 +271,14 @@ class SignUp extends React.Component {
                   });
                 }}
               >
-                <MenuItem value='mentor'>Mentor</MenuItem>
-                <MenuItem value='teacher'>Teacher</MenuItem>
+                <MenuItem value="mentor">Mentor</MenuItem>
+                <MenuItem value="teacher">Teacher</MenuItem>
               </Select>
             </FormControl>
             <Button
-              variant='contained'
-              size='large'
-              color='primary'
+              variant="contained"
+              size="large"
+              color="primary"
               onClick={this.handleSubmit}
             >
               Sign Up
