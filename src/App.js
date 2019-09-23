@@ -118,11 +118,7 @@ class App extends React.Component {
               exact
               path="/signup"
               render={props => (
-                <SignUp
-                  setupUserListener={this.setupUserListener}
-                  routeUser={this.routeUser}
-                  {...props}
-                />
+                <SignUp setupUserListener={this.setupUserListener} {...props} />
               )}
             />
             <Route
@@ -130,7 +126,6 @@ class App extends React.Component {
               render={props => (
                 <Login
                   setupUserListener={this.setupUserListener}
-                  routeUser={this.routeUser}
                   {...props}
                   rerouteUser={this.state.rerouteUser}
                 />
