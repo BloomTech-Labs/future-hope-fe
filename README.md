@@ -145,7 +145,7 @@ Documentation -
 ## Maintainers
 
 Eric Fugleberg  |   Joel Perez  |   Kedasha Kerr    |   Micah Jones |   Steven Barrett  |
-| ------ | ------------------ | --------------- |   -----------------   |   ----------  |   --------------  |
+| ------ | --------------- |   -----------------   |   ----------  |   --------------  |
 [<p align="center"> <img src="https://github.com/favicon.ico" width="35"> </p> ](https://github.com/efugleberg)  | [<p align="center"> <img src="https://github.com/favicon.ico" width="35"> </p>](https://github.com/Full-lifey) |  [<p align="center"> <img src="https://github.com/favicon.ico" width="35"> </p>](https://github.com/Ladykerr) |  [<p align="center"> <img src="https://github.com/favicon.ico" width="35"> </p>](https://github.com/micahjones13) |  [<p align="center"> <img src="https://github.com/favicon.ico" width="35"> </p>](https://github.com/steven-barrett) |
 
 
