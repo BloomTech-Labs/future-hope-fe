@@ -12,6 +12,9 @@ import { firestore, auth } from "../../config/fbConfig.js";
 import { userStore } from "../../actions/auth.js";
 import MeetingModal from "./MeetingModal";
 
+//analytics
+import { event, logPageView } from "../Analytics";
+
 import "../auth/Login.scss";
 import "./main.scss";
 
@@ -32,9 +35,11 @@ class Calendar extends React.Component {
     }
   };
 
+
   //* Creates listener which pulls meetings containing current user's UID and sets to state.
   //! NOTE: Since the GET is now a listener all setState calls in methods have been deleted
   componentDidMount = () => {
+    logPageView();
     const uid = JSON.parse(localStorage.getItem("UID")) || auth.currentUser.uid;
     firestore
       .collection("meetings")
@@ -65,7 +70,10 @@ class Calendar extends React.Component {
 
   //* Adds meeting to Firebase and updates calendar
   addMeeting = async meeting => {
-    // let meetings = this.state.events;
+
+
+    //* add meeting to firestore
+
     try {
       //* add blank meeting to firestore
       const meetingRef = firestore.collection("meetings").doc();
@@ -85,6 +93,7 @@ class Calendar extends React.Component {
 
   // Edits current meeting
   editMeeting = async meeting => {
+    event("Edit-Meeting", "Edit Current meeting", "Calendar");
     console.log("meeting arg into editMeeting", meeting);
     try {
       //* updating meeting in firebase
@@ -98,6 +107,7 @@ class Calendar extends React.Component {
   };
 
   deleteMeeting = async meeting => {
+    event("Delete-Meeting", "Delete current meeting", "Calendar");
     try {
       // Alert modal asking if they are sure
       await swal({
@@ -219,6 +229,7 @@ class Calendar extends React.Component {
 
   //* On Event click => Pulls event from firestore and sets it to state, populating and opening MeetingModal
   handleEventClick = async info => {
+    event("Meeting-Clicked", "Clicked meeting on calendar", "Calendar");
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
     meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);
@@ -236,6 +247,7 @@ class Calendar extends React.Component {
   //* Populates MeetingModal with clicked date and opens
   //? NOTE Defaults to noon. Can this be improved?
   handleDateClick = async arg => {
+    event("Meeting-Date", "Set meeting date", "Calendar");
     let meetingDate = await new Date(
       arg.date.getFullYear(),
       arg.date.getMonth(),
