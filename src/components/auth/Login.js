@@ -29,8 +29,7 @@ class Login extends React.Component {
     user: {
       email: "",
       password: ""
-    },
-    loginWithEmail: false
+    }
   };
 
   componentDidMount = () => {
@@ -57,7 +56,9 @@ class Login extends React.Component {
     });
   };
 
+  //login with Email
   handleSubmit = async e => {
+    event("Email Login", "User logged in with Email", "Login");
     e.preventDefault();
     event("User-Login", "Form Submitted", "Login form");
     // this.props.login(this.state.user);
@@ -111,157 +112,144 @@ class Login extends React.Component {
     this.props.userStore(auth.currentUser);
   };
 
-  toggleEmailLogin = e => {
-    e.preventDefault();
-    this.setState({
-      loginWithEmail: !this.state.loginWithEmail
-    });
+  //oAuth login with Facebook btn
+  loginWithFacebook = async () => {
+    event("Facebook Login", "User logged in with Facebook", "Login");
+    try {
+      await signInWithFacebook();
+      // get the now logged in users UID from the auth object
+      let uid = auth.currentUser.uid;
+
+      // Store the uid into localStorage as a work around for losing the currentUser on refresh
+      localStorage.setItem("UID", JSON.stringify(uid));
+
+      // get all of their info so we can set up a listener and route them
+      const userRef = firestore.collection("users").doc(uid);
+      console.log(userRef);
+      const userInfo = await userRef.get();
+      // set up the listener on app.js
+      // console.log(this.props.userInfo, 'userInfo');
+      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+      if (this.props.userInfo.usersAwaitingApproval) {
+        this.props.history.push("/applicationstatus");
+      } else {
+        this.props.setupUserListener(userInfo);
+        console.log("rerouting user", userInfo.data());
+        if (userInfo.data().userType) {
+          const routeTo = this.props.routeUser(userInfo.data());
+          this.props.userStore(auth.currentUser);
+          this.props.history.push(routeTo);
+        } else {
+          this.props.history.push("/signup");
+        }
+      }
+    } catch (err) {
+      // handel error
+    }
+  };
+
+  //oAuth login with Google btn
+  loginWithGoogle = async () => {
+    event("Google Login", "User logged in with Google", "Login");
+    try {
+      await signInWithGoogle();
+
+      // get the now logged in users UID from the auth object
+      let uid = auth.currentUser.uid;
+
+      // Store the uid into localStorage as a work around for losing the currentUser on refresh
+      localStorage.setItem("UID", JSON.stringify(uid));
+
+      // get all of their info so we can set up a listener and route them
+      const userRef = firestore.collection("users").doc(uid);
+      console.log(userRef);
+      const userInfo = await userRef.get();
+      console.log(this.props.userInfo, "userInfo from google");
+      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+      //! This one is named awaitingApproval, not usersAwaitingApproval for some reason.
+      if (this.props.userInfo.awaitingApproval) {
+        this.props.history.push("/applicationstatus");
+      } else {
+        // set up the listener on app.js
+        this.props.setupUserListener(userInfo);
+        console.log("rerouting user", userInfo.data());
+        if (userInfo.data().userType) {
+          const routeTo = this.props.routeUser(userInfo.data());
+          this.props.userStore(auth.currentUser);
+          this.props.history.push(routeTo);
+        } else {
+          this.props.history.push("/signup");
+        }
+      }
+    } catch (err) {
+      // handel error
+    }
   };
 
   render() {
     return (
       <div className="login-container">
-        <MDBBtn
-          variant="contained"
-          color="secondary"
-          onClick={async () => {
-            try {
-              await signInWithFacebook();
-              // get the now logged in users UID from the auth object
-              let uid = auth.currentUser.uid;
+        <MDBContainer>
+          <MDBRow>
+            <MDBCol>
+              <MDBCard>
+                <MDBCardBody>
+                  <form onSubmit={e => this.handleSubmit(e)}>
+                    <p className="h4 text-center py-4">Please Login</p>
+                    <div className="grey-text">
+                      <MDBInput
+                        label="Your email"
+                        icon="envelope"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        name="email"
+                        value={this.state.user.email}
+                        onChange={this.handleChange}
+                      />
+                      <MDBInput
+                        label="Your password"
+                        icon="lock"
+                        group
+                        type="password"
+                        validate
+                        name="password"
+                        value={this.state.user.password}
+                        onChange={this.handleChange}
+                      />
 
-              // Store the uid into localStorage as a work around for losing the currentUser on refresh
-              localStorage.setItem("UID", JSON.stringify(uid));
-
-              // get all of their info so we can set up a listener and route them
-              const userRef = firestore.collection("users").doc(uid);
-              console.log(userRef);
-              const userInfo = await userRef.get();
-              // set up the listener on app.js
-              // console.log(this.props.userInfo, 'userInfo');
-              //* This reroutes a user who is awaiting approval to the awaitingapproval component.
-              if (this.props.userInfo.usersAwaitingApproval) {
-                this.props.history.push("/applicationstatus");
-              } else {
-                this.props.setupUserListener(userInfo);
-                console.log("rerouting user", userInfo.data());
-                if (userInfo.data().userType) {
-                  const routeTo = this.props.routeUser(userInfo.data());
-                  this.props.userStore(auth.currentUser);
-                  this.props.history.push(routeTo);
-                } else {
-                  this.props.history.push("/signup");
-                }
-              }
-            } catch (err) {
-              // handel error
-            }
-          }}
-        >
-          Login with Facebook
-        </MDBBtn>
-        <MDBBtn
-          variant="contained"
-          color="red"
-          onClick={async () => {
-            try {
-              await signInWithGoogle();
-
-              // get the now logged in users UID from the auth object
-              let uid = auth.currentUser.uid;
-
-              // Store the uid into localStorage as a work around for losing the currentUser on refresh
-              localStorage.setItem("UID", JSON.stringify(uid));
-
-              // get all of their info so we can set up a listener and route them
-              const userRef = firestore.collection("users").doc(uid);
-              console.log(userRef);
-              const userInfo = await userRef.get();
-              console.log(this.props.userInfo, "userInfo from google");
-              //* This reroutes a user who is awaiting approval to the awaitingapproval component.
-              //! This one is named awaitingApproval, not usersAwaitingApproval for some reason.
-              if (this.props.userInfo.awaitingApproval) {
-                this.props.history.push("/applicationstatus");
-              } else {
-                // set up the listener on app.js
-                this.props.setupUserListener(userInfo);
-                console.log("rerouting user", userInfo.data());
-                if (userInfo.data().userType) {
-                  const routeTo = this.props.routeUser(userInfo.data());
-                  this.props.userStore(auth.currentUser);
-                  this.props.history.push(routeTo);
-                } else {
-                  this.props.history.push("/signup");
-                }
-              }
-            } catch (err) {
-              // handel error
-            }
-          }}
-        >
-          Login with Google
-        </MDBBtn>
-        {/* //! Button needs to be added to Navbar */}
-        <MDBBtn
-          variant="contained"
-          color="primary"
-          onClick={e => this.toggleEmailLogin(e)}
-        >
-          Login with Email
-        </MDBBtn>
-        <div
-          className={`email-login-container ${
-            this.state.loginWithEmail ? "" : "hidden"
-          }`}
-        >
-          <MDBContainer>
-            <MDBRow>
-              <MDBCol>
-                <MDBCard>
-                  <MDBCardBody>
-                    <form>
-                      <p className="h4 text-center py-4">Please Login</p>
-                      <div className="grey-text">
-                        <MDBInput
-                          label="Your email"
-                          icon="envelope"
-                          group
-                          type="email"
-                          validate
-                          error="wrong"
-                          success="right"
-                          name="email"
-                          value={this.state.user.email}
-                          onChange={this.handleChange}
-                        />
-                        <MDBInput
-                          label="Your password"
-                          icon="lock"
-                          group
-                          type="password"
-                          validate
-                          name="password"
-                          value={this.state.user.password}
-                          onChange={this.handleChange}
-                        />
-
-                        <div className="text-center py-4 mt-3">
-                          <MDBBtn
-                            color="cyan"
-                            type="submit"
-                            onClick={e => this.handleSubmit(e)}
-                          >
-                            Login
-                          </MDBBtn>
-                        </div>
+                      <div className="text-center mt-3">
+                        <MDBBtn color="orange" type="submit">
+                          Login
+                        </MDBBtn>
                       </div>
-                    </form>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-        </div>
+                    </div>
+                  </form>
+                  <div className="text-center mt-3">
+                    <p className="h6 text-center">or Login with:</p>
+                    <MDBBtn
+                      variant="contained"
+                      color="blue"
+                      onClick={this.loginWithFacebook}
+                    >
+                      Facebook
+                    </MDBBtn>
+                    <br />
+                    <MDBBtn
+                      variant="contained"
+                      color="red"
+                      onClick={this.loginWithGoogle}
+                    >
+                      Google
+                    </MDBBtn>
+                  </div>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </div>
     );
   }
