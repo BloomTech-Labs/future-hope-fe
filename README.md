@@ -146,7 +146,7 @@ Documentation -
 
 Eric Fugleberg  |   George Kando    |   Joel Perez  |   Kedasha Kerr    |   Micah Jones |   Steven Barrett  |
 | ------ | ------------------ | --------------- |   -----------------   |   ----------  |   --------------  |
-[<img align="center" src="https://github.com/favicon.ico" width="35"> ](https://github.com/efugleberg)  | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/gkando "George's github") | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Full-lifey) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Ladykerr) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/micahjones13) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/steven-barrett) |
+[<p align="center> <img src="https://github.com/favicon.ico" width="35"> </p> ](https://github.com/efugleberg)  | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/gkando "George's github") | [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Full-lifey) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/Ladykerr) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/micahjones13) |  [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/steven-barrett) |
 
 
 ## Contributing
