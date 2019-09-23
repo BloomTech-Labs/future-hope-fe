@@ -81,7 +81,11 @@ const MeetingModal = props => {
   //* Searches for users to add to meeting
   //! NOTE: Only exact searches work. Need to implement fuzzy search
   const searchParticipants = async searchTerm => {
-    event("Search-Users", "Searching for users to add to a meeting", "Calendar Meeting Modal")
+    event(
+      "Search-Users",
+      "Searching for users to add to a meeting",
+      "Calendar Meeting Modal"
+    );
     let searchArray = [];
     const usersRef = firestore.collection("users");
     await usersRef
