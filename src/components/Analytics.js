@@ -2,7 +2,7 @@ import ReactGA from "react-ga";
 
 //initialize google analytics
 export const initGA = () => {
-  console.log("GOOGLE ANALYTICS");
+  //console.log("GOOGLE ANALYTICS");
   //initialization of GA with ID
   ReactGA.initialize("UA-148510060-1");
 };
@@ -22,5 +22,3 @@ export const event = (category, action, label) => {
     label: label
   });
 };
-
-//tracking user
