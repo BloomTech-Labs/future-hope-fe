@@ -77,12 +77,10 @@ class Login extends React.Component {
       } else {
         this.props.setupUserListener(userInfo);
         // console.log("rerouting user", userInfo.data());
-        const routeTo = this.props.routeUser(userInfo.data());
+        // const routeTo = this.props.routeUser(userInfo.data());
         // console.log("userInfo", userInfo);
         // console.log("auth.currentUser", auth.currentUser);
-
-        this.props.history.push(routeTo);
-        // alert("user logged in!");
+        this.props.history.push("/dashboard");
       }
     } catch (err) {
       //this is to find out if the person loggin in has already made an account, or

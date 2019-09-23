@@ -51,7 +51,7 @@ const ApprovedTeacherList = props => {
     const userRef = firestore.collection("users");
     await userRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data());
+        // console.log(doc.data());
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -72,21 +72,21 @@ const ApprovedTeacherList = props => {
   };
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
-        <Typography align='center' component='h2' variant='h2' gutterBottom>
+        <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Teachers
         </Typography>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell scope='col'>Profile Photo</TableCell>
-              <TableCell scope='col'>Names</TableCell>
-              <TableCell scope='col'>Account Type</TableCell>
-              <TableCell scope='col'>City</TableCell>
-              <TableCell scope='col'>State/Province</TableCell>
-              <TableCell scope='col'>View Profile</TableCell>
+              <TableCell scope="col">Profile Photo</TableCell>
+              <TableCell scope="col">Names</TableCell>
+              <TableCell scope="col">Account Type</TableCell>
+              <TableCell scope="col">City</TableCell>
+              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">View Profile</TableCell>
             </TableRow>
           </TableHead>
           {users.map(user => {
@@ -97,12 +97,12 @@ const ApprovedTeacherList = props => {
                     <TableCell>
                       {" "}
                       <Avatar
-                        id='approved-list-photo'
+                        id="approved-list-photo"
                         src={
                           user.photoUrl ||
                           "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
-                        alt='profile photo'
+                        alt="profile photo"
                       />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>

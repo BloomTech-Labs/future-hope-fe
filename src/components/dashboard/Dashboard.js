@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { withRouter } from "react-router";
-import { firestore } from "../../../config/fbConfig.js";
 import { connect } from "react-redux";
-import swal from "@sweetalert/with-react";
 //styles
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -13,8 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
 // Internal Components
-import SideBar from "../../shared/components/Sidebar/SideBar.js";
-import Calendar from "../../calendar/Calendar.js";
+import SideBar from "../shared/components/Sidebar/SideBar.js";
+import Calendar from "../calendar/Calendar.js";
 
 const drawerWidth = 240;
 
