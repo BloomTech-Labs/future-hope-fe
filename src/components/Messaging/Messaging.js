@@ -15,7 +15,6 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
 
-import blank_user from "../../assets/img/blank_user.png";
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
 import SideBar from "../shared/components/Sidebar/SideBar.js";
@@ -43,8 +42,9 @@ function Messaging(props) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const classes = useStyles();
+  // const classes = useStyles();
 
+  // Sets up listener for all conversations current user is involved in from firestore and sets state
   useEffect(() => {
     logPageView();
     if (!props.userInfo.uid) {
@@ -64,10 +64,12 @@ function Messaging(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
 
+  // Toggles appearance of Search User Modal for new conversations
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
+  // Creates a Conversation doc in firestore when starting a new conversation
   const createConversation = selectedUser => {
     event("New-Conversation", "User started new conversation", "Conversation");
     const { uid, fullName, photoUrl } = selectedUser;
@@ -86,14 +88,9 @@ function Messaging(props) {
 
   return (
     <div className="messaging-wrapper">
-      {/* <h1>Messages!</h1> */}
       <SideBar />
       {/* <Paper className={classes.paper} elevation={20}> */}
       <div className="list-conversations-wrapper">
-        {/* Map over conversation props, pull out the info we want.
-          Map again to get the avatar, name, and uid that is not the current users
-          display the other person's info
-      */}
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <Typography variant="h6">Conversations</Typography>
@@ -113,6 +110,10 @@ function Messaging(props) {
                 createConversation={createConversation}
                 setSelectedConversation={setSelectedConversation}
               />
+              {/* Map over conversation props, pull out the info we want.
+                  Map again to get the avatar, name, and uid that is not the current users
+                  display the other person's info
+              */}
               {conversations.map(conversation => {
                 let avatar = "";
                 let name = "";
@@ -128,6 +129,7 @@ function Messaging(props) {
                   }
                 });
                 uid = conversation.uid;
+                // Creates list of all conversations on left that current user is involved in
                 return (
                   <div
                     className="conversation-list-item"
@@ -140,7 +142,13 @@ function Messaging(props) {
                   >
                     <ListItem>
                       <ListItemAvatar>
-                        <Avatar src={avatar || blank_user} alt="blahblah" />
+                        <Avatar
+                          src={
+                            avatar ||
+                            "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
+                          }
+                          alt="User"
+                        />
                       </ListItemAvatar>
                       <ListItemText primary={name} />
                     </ListItem>
