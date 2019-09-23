@@ -21,6 +21,9 @@ import {
 } from "../../config/fbConfig.js";
 import "./Login.scss";
 
+//analytics
+import { initGA, logPageView } from "../Analytics";
+
 class Login extends React.Component {
   state = {
     user: {
@@ -29,6 +32,11 @@ class Login extends React.Component {
     },
     loginWithEmail: false
   };
+
+  componentDidMount = () => {
+    initGA();
+    logPageView();
+  }
 
   componentDidUpdate = () => {
     // HEY FUTURE PERSON WHO DOSNT UNDERSTAND WHAT THE HELL IS GOING ON!@#!@#!

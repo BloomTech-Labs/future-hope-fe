@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 
 import {
@@ -11,8 +11,16 @@ import {
 } from "mdbreact";
 import "./mentors.css";
 
+//analytics
+import { initGA, logPageView } from "../Analytics";
+
 const MentorPublicPage = props => {
   const mentors = props.mentorData;
+
+  useEffect(() => {
+    initGA();
+    logPageView();
+  }, []);
 
   return (
     <div className="mentor-cards">

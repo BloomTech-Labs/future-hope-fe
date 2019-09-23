@@ -6,9 +6,6 @@ import {
   withRouter
 } from "react-router-dom";
 
-//google analytics
-import ReactGA from "react-ga";
-
 // auth stuff
 import { auth, firestore } from "./config/fbConfig.js";
 import "firebase/auth";
@@ -39,16 +36,6 @@ import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js
 
 import "./App.css";
 
-//function to initialize google analytics
-const initGA = () => {
-  //initialization of GA with ID
-  ReactGA.initialize("UA-148510060-1");
-  //will set the path name in GA dashboard based on path visited
-  ReactGA.set({ page: window.location.pathname });
-  //will track each page the client visits based on path
-  ReactGA.pageview(window.location.pathname);
-};
-
 class App extends React.Component {
   unsubscribeFromAuth = null;
   unsubsribeFromUser = null;
@@ -60,7 +47,6 @@ class App extends React.Component {
   };
 
   componentDidMount = () => {
-    initGA();
     this.unsubsribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
