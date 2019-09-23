@@ -21,7 +21,7 @@ import { navbarLinksStyle } from "./navbarStyle";
 
 const NavbarUser = props => {
   const { classes, user } = props;
-  const [anchorEl, setAnchorEl] = useState(false);
+  const [anchorEl, setAnchorEl] = useState({});
   const [open, setOpen] = useState(false);
   const hoverColor = "success";
 
@@ -37,7 +37,7 @@ const NavbarUser = props => {
   }
 
   function handleClose() {
-    setAnchorEl(null);
+    setAnchorEl({});
     setOpen(!open);
   }
 

@@ -44,6 +44,7 @@ function NavbarLinks({ ...props }) {
             id={link.href}
             className={classes.listItem}
             to={`${link.href}`}
+            key={link.href}
           >
             <Button color="transparent" className={classes.navLink}>
               {link.text}
