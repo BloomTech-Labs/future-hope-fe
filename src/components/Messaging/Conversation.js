@@ -11,7 +11,6 @@ const Conversation = props => {
 
   //access the subcollection of messages when selecting a conversation
   useEffect(() => {
-    console.log("useEffect triggered inside Conversations");
     if (props.selectedConversation.uid) {
       setConversation(props.selectedConversation);
       firestore
@@ -70,8 +69,14 @@ const Conversation = props => {
   return (
     <div className="conversations-wrapper">
       {messages.map(message => {
-        console.log(message, "IS THERE AN EMPTY?");
-        return <Message message={message} userInfo={props.userInfo} />;
+        // console.log(message, "IS THERE AN EMPTY?");
+        return (
+          <Message
+            key={message.timestamp}
+            message={message}
+            userInfo={props.userInfo}
+          />
+        );
       })}
       {/* if there is a selected converstaion, diplay the input. otherwise no input fo you*/}
       {props.selectedConversation.uid && (

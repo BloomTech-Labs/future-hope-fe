@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestore } from "../../config/fbConfig.js";
 import Button from "@material-ui/core/Button";
-// import { makeStyles } from "@material-ui/core/styles";
-// import List from '@material-ui/core/List';
+
+// Material UI Components
+import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
+import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
@@ -16,16 +18,32 @@ import CreateIcon from "@material-ui/icons/Create";
 import blank_user from "../../assets/img/blank_user.png";
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
+import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 //analytics
 import { logPageView, event } from "../Analytics";
 
 import "./Messaging.scss";
 
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+    width: "70%"
+  }
+}));
+
 function Messaging(props) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     logPageView();
@@ -69,13 +87,15 @@ function Messaging(props) {
   return (
     <div className="messaging-wrapper">
       {/* <h1>Messages!</h1> */}
+      <SideBar />
+      {/* <Paper className={classes.paper} elevation={20}> */}
       <div className="list-conversations-wrapper">
         {/* Map over conversation props, pull out the info we want.
           Map again to get the avatar, name, and uid that is not the current users
           display the other person's info
       */}
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Typography variant="h6">Conversations</Typography>
             <List>
               <Button
@@ -111,6 +131,7 @@ function Messaging(props) {
                 return (
                   <div
                     className="conversation-list-item"
+                    key={name}
                     onClick={e => {
                       setSelectedConversation({
                         ...conversation
@@ -134,6 +155,7 @@ function Messaging(props) {
         selectedConversation={selectedConversation}
         userInfo={props.userInfo}
       />
+      {/* </Paper> */}
     </div>
   );
 }
