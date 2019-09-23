@@ -34,5 +34,6 @@ Assert - make an assertion
 
 Don't know why cy is "not defined" on VS code, works and runs just fine.
 
+To execute tests: yarn run cypress open
 
 */
