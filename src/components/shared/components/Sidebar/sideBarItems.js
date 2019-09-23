@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -16,26 +16,16 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 export const MainListItems = props => {
   return (
     <List>
-      <ListItem
-        button
-        component={NavLink}
-        to={
-          props.userInfo.userType === "mentor"
-            ? "/mentor_dashboard"
-            : props.userInfo.userType === "teacher"
-            ? "/teacher_dashboard"
-            : "/admin-dashboard"
-        }
-      >
+      <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
           <CalendarTodayIcon />
         </ListItemIcon>
-        <ListItemText primary='Schedule' />
+        <ListItemText primary="Schedule" />
       </ListItem>
 
       <ListItem
         button
-        component={NavLink}
+        component={Link}
         to={
           props.userInfo.userType === "mentor"
             ? "/approved-teachers"
@@ -53,30 +43,30 @@ export const MainListItems = props => {
         />
       </ListItem>
       {props.userInfo.userType === "admin" && (
-        <ListItem button component={NavLink} to={"/approved-teachers"}>
+        <ListItem button component={Link} to={"/approved-teachers"}>
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
-          <ListItemText primary='Teachers' />
+          <ListItemText primary="Teachers" />
         </ListItem>
       )}
-      <ListItem button component={NavLink} to={"/messaging"}>
+      <ListItem button component={Link} to={"/messaging"}>
         <ListItemIcon>
           <MessageIcon />
         </ListItemIcon>
-        <ListItemText primary='Messages' />
+        <ListItemText primary="Messages" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <LiveHelpIcon />
         </ListItemIcon>
-        <ListItemText primary='FAQs' />
+        <ListItemText primary="FAQs" />
       </ListItem>
-      <ListItem button component={NavLink} to={"/update_profile"}>
+      <ListItem button component={Link} to={"/update_profile"}>
         <ListItemIcon>
           <AccountBoxIcon />
         </ListItemIcon>
-        <ListItemText primary='Update Profile' />
+        <ListItemText primary="Update Profile" />
       </ListItem>
     </List>
   );
@@ -86,11 +76,11 @@ export const SecondaryListItems = props => {
   return (
     <List>
       <ListSubheader inset>Admin</ListSubheader>
-      <ListItem button component={NavLink} to={"/user-approval"}>
+      <ListItem button component={Link} to={"/user-approval"}>
         <ListItemIcon>
           <VerifiedUserIcon />
         </ListItemIcon>
-        <ListItemText primary='Approve Users' />
+        <ListItemText primary="Approve Users" />
       </ListItem>
     </List>
   );
