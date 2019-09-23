@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 // @material-ui/core components
@@ -18,8 +18,17 @@ import BenefitSection from "./components/BenefitSection";
 import FeatureSection from "./components/FeatureSection";
 import CTASection from "./components/CTASection";
 
+//analytics
+import { initGA, logPageView } from "../Analytics";
+
 const LandingPage = props => {
   const { classes } = props;
+
+  useEffect(() => {
+    initGA();
+    logPageView();
+  }, []);
+
   return (
     <div className="landing-container">
       <Parallax image={require("./assets/bg4.jpg")}>
