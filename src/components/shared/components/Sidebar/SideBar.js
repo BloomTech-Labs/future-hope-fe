@@ -11,7 +11,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
-import { MainListItems, SecondaryListItems } from "./listItems.js";
+import { MainListItems, SecondaryListItems } from "./sideBarItems.js";
 
 import "./SideBar.scss";
 
@@ -81,9 +81,9 @@ const SideBar = props => {
   };
 
   return (
-    <div id='dashboardContainer'>
+    <div id="dashboardContainer">
       <Drawer
-        variant='permanent'
+        variant="permanent"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
         }}

@@ -47,6 +47,11 @@ function Messaging(props) {
   }, [props.userInfo]);
 
   const toggleModal = () => {
+    event(
+      "New-Search",
+      "User searching for user to converse with",
+      "Conversation"
+    );
     setShowModal(!showModal);
   };
 
@@ -110,6 +115,7 @@ function Messaging(props) {
                 uid = conversation.uid;
                 return (
                   <div
+                    key={uid}
                     className="conversation-list-item"
                     onClick={e => {
                       setSelectedConversation({

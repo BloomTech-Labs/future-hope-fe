@@ -19,7 +19,7 @@ import {
 import "./SignUp.scss";
 
 //analytics
-import { initGA, logPageView, event } from "../Analytics";
+import { logPageView, event } from "../Analytics";
 
 //! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
@@ -45,7 +45,6 @@ class SignUp extends React.Component {
   };
 
   componentDidMount = () => {
-    initGA();
     logPageView();
     // if this user is being pushed here, and there is a user on props, then
     // we want to use the info that we already recieved, as well as set
