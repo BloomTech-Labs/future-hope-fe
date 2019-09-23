@@ -35,10 +35,6 @@ class Calendar extends React.Component {
     }
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> Staging
   //* Creates listener which pulls meetings containing current user's UID and sets to state.
   //! NOTE: Since the GET is now a listener all setState calls in methods have been deleted
   componentDidMount = () => {
