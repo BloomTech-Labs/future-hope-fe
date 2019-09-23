@@ -57,19 +57,16 @@ Starting with the src root folder, the flow will be as follows:
 > component.js files
 ```
 
-### Misc
+### FAQ
 ---
-
-**auth**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-login.js    |   logs in     |   head to '/login'    |
-SignUp.js    |   signs up     |   head to '/signup'    |
+FAQ.js    |   onboarding process & general FAQ     |   head to '/faq'    |
 
 
 
-### Navigation
+### Messaging
 ---
 
 **navbar**
@@ -81,7 +78,18 @@ SignedInNavBar.js    |   navbar routing post sign-in    |   n/a    |
 
 
 
-### Pages
+### auth
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+login.js    |   logs in     |   head to '/login'    |
+SignUp.js    |   signs up     |   head to '/signup'    |
+
+
+### calendar
 ---
 
 **landing page**
@@ -91,6 +99,82 @@ Name    |   Purpose |   How To View     |
 landingpage.js    |   marketing splash     |   "/"    |
 placeholder.js    |   placeholder    |   n/a    |
 
+
+### dashboard
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### footer
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### landingpage
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### mentors
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### navbar
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### shared
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+
+### views
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
 
 
 
