@@ -284,11 +284,8 @@ class SignUp extends React.Component {
               variant="contained"
               size="large"
               color="primary"
-<<<<<<< HEAD
               onClick={this.handleSubmit}
-=======
               type="submit"
->>>>>>> Staging
             >
               Sign Up
             </Button>
