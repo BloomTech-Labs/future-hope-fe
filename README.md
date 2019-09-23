@@ -57,8 +57,9 @@ Starting with the src root folder, the flow will be as follows:
 > component.js files
 ```
 
-### FAQ
+### FAQ folder
 ---
+
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
@@ -66,30 +67,50 @@ FAQ.js    |   onboarding process & general FAQ     |   head to '/faq'    |
 
 
 
-### Messaging
+### Messaging folder
 ---
 
-**navbar**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-navbar.js    |   navbar routing     |   n/a    |
-SignedInNavBar.js    |   navbar routing post sign-in    |   n/a    |
+conversation.js    |   navbar routing     |   n/a    |
+Message.js    |   navbar routing post sign-in    |   n/a    |
+Messaging.js    |   navbar routing     |   n/a    |
+Messaging.scss    |   navbar routing     |   n/a    |
+SearchUsersModal.js    |   navbar routing     |   n/a    |
 
 
 
-### auth
+### auth folder
 ---
 
 **landing page**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-login.js    |   logs in     |   head to '/login'    |
+Login.js    |   logs in     |   head to '/login'    |
+Login.scss    |   logs in     |   head to '/login'    |
 SignUp.js    |   signs up     |   head to '/signup'    |
+SignUp.scss    |   signs up     |   head to '/signup'    |
+autoCompleteFields.js    |   signs up     |   head to '/signup'    |
 
 
-### calendar
+### calendar folder
+---
+
+**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Calendar.js    |   marketing splash     |   "/"    |
+MeetingDetails.js    |   placeholder    |   n/a    |
+MeetingModal.js    |   placeholder    |   n/a    |
+flatpickr.css    |   placeholder    |   n/a    |
+flatpickr.min.css    |   placeholder    |   n/a    |
+main.scss    |   placeholder    |   n/a    |
+
+
+### dashboard folder
 ---
 
 **landing page**
@@ -100,7 +121,17 @@ landingpage.js    |   marketing splash     |   "/"    |
 placeholder.js    |   placeholder    |   n/a    |
 
 
-### dashboard
+### footer folder
+---
+
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Footer.js    |   marketing splash     |   "/"    |
+styles.js    |   placeholder    |   n/a    |
+
+
+### landingpage folder
 ---
 
 **landing page**
@@ -108,13 +139,47 @@ placeholder.js    |   placeholder    |   n/a    |
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
 landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
+styles.js    |   placeholder    |   n/a    |
+styles.scss    |   placeholder    |   n/a    |
 
 
-### footer
+### mentors folder
 ---
 
-**landing page**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+MentorList.js    |   marketing splash     |   "/"    |
+MentorPublicPage.js    |   placeholder    |   n/a    |
+mentors.css    |   placeholder    |   n/a    |
+
+
+### navbar folder
+---
+
+
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Navbar.js    |   marketing splash     |   "/"    |
+NavbarLinks.js    |   placeholder    |   n/a    |
+NavbarUser.js    |   marketing splash     |   "/"    |
+SignedInNavBar.js    |   placeholder    |   n/a    |
+navConfic.js    |   marketing splash     |   "/"    |
+navbarStyle.js    |   placeholder    |   n/a    |
+
+
+### shared folder
+---
+
+**components sub-folder**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+landingpage.js    |   marketing splash     |   "/"    |
+placeholder.js    |   placeholder    |   n/a    |
+
+**styles sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
@@ -122,59 +187,21 @@ landingpage.js    |   marketing splash     |   "/"    |
 placeholder.js    |   placeholder    |   n/a    |
 
 
-### landingpage
+### views folder
 ---
 
-**landing page**
+**components sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
-
-
-### mentors
----
-
-**landing page**
-
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
-
-
-### navbar
----
-
-**landing page**
-
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
-
-
-### shared
----
-
-**landing page**
-
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
-
-
-### views
----
-
-**landing page**
-
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
+AwaitingApproval.js    |   marketing splash     |   "/"    |
+EditProfileView.js    |   placeholder    |   n/a    |
+NewUserProfile.js    |   placeholder    |   n/a    |
+Profile.scss    |   placeholder    |   n/a    |
+ProfileView.js    |   placeholder    |   n/a    |
+UploadPhoto.js    |   placeholder    |   n/a    |
+ViewUserProfile.js    |   placeholder    |   n/a    |
+views.css    |   placeholder    |   n/a    |
 
 
 
@@ -211,12 +238,6 @@ There are no endpoints to point to but a list of functions as this is a noSQL da
 Documentation - https://firebase.google.com/docs
 ```
 
-### OpenTok
-```
-We used this to faciliate real-time video conferencing...
-
-Documentation - 
-```
 
 ### WhatsApp
 ```
