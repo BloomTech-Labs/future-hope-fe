@@ -4,6 +4,9 @@ import { MDBInput } from "mdbreact";
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
 
+//analytics
+import { event } from "../Analytics";
+
 const Conversation = props => {
   const [text, setText] = useState("");
   const [conversation, setConversation] = useState({});
@@ -48,6 +51,7 @@ const Conversation = props => {
 
   //Create the message, add it to firestore
   const createMessage = async messageText => {
+    event("Message Btn Click", "user sent new message", "Conversation");
     const newMessage = {
       content: messageText,
       sentBy: props.userInfo.uid,
@@ -70,7 +74,7 @@ const Conversation = props => {
   return (
     <div className="conversations-wrapper">
       {messages.map(message => {
-        console.log(message, "IS THERE AN EMPTY?");
+        // console.log(message, "IS THERE AN EMPTY?");
         return <Message message={message} userInfo={props.userInfo} />;
       })}
       {/* if there is a selected converstaion, diplay the input. otherwise no input fo you*/}
