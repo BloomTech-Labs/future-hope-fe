@@ -77,52 +77,62 @@ FAQ.js    |   onboarding process & general FAQ     |   head to '/faq'    |
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-conversation.js    |   navbar routing     |   n/a    |
-Message.js    |   navbar routing post sign-in    |   n/a    |
-Messaging.js    |   navbar routing     |   n/a    |
-Messaging.scss    |   navbar routing     |   n/a    |
-SearchUsersModal.js    |   navbar routing     |   n/a    |
+conversation.js    |   displays conversation between users     |   in the user dashboard    |
+Message.js    |   displays a specific message within a conversation    |   in the user dashboard    |
+Messaging.js    |   component used to extract all messages from a conversation from Firebase     |   n/a    |
+Messaging.scss    |   message styling     |   n/a    |
+SearchUsersModal.js    |   modal used to search for other users to instigate a message     |   n/a    |
 
 
 
 ### auth folder
 ---
 
-**landing page**
+
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-Login.js    |   logs in     |   head to '/login'    |
-Login.scss    |   logs in     |   head to '/login'    |
-SignUp.js    |   signs up     |   head to '/signup'    |
-SignUp.scss    |   signs up     |   head to '/signup'    |
-autoCompleteFields.js    |   signs up     |   head to '/signup'    |
+Login.js    |   allows user to login     |   head to '/login'    |
+Login.scss    |   login styling     |   n/a    |
+SignUp.js    |   allows user to register     |   head to '/signup'    |
+SignUp.scss    |   signs up styling    |   n/a    |
+autoCompleteFields.js    |   component used to populate input fields in sign up     |   n/a    |
 
 
 ### calendar folder
 ---
 
-**landing page**
+
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-Calendar.js    |   marketing splash     |   "/"    |
-MeetingDetails.js    |   placeholder    |   n/a    |
-MeetingModal.js    |   placeholder    |   n/a    |
-flatpickr.css    |   placeholder    |   n/a    |
-flatpickr.min.css    |   placeholder    |   n/a    |
-main.scss    |   placeholder    |   n/a    |
+Calendar.js    |   calendar component for user dashboards    |   go to a user dashboard "/"    |
+MeetingModal.js    |   modal that pops up when a user attempts to schedule ameeting    |   go to a user dashboard "/"     |
+flatpickr.css    |   calendar scheduling css    |   n/a    |
+flatpickr.min.css    |   calendar scheduling css    |   n/a    |
+main.scss    |   main calendar css    |   n/a    |
 
 
 ### dashboard folder
 ---
 
-**landing page**
+**dashboard/admin-dashboard subfolder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
+MentorTable.js    |   displays a table of mentors that have applied and are awaiting approval. table is displayed in the admin's dashboard     |   "/mentor-table"    |
+TeacherTable.js    |   displays a table of teachers that have applied and are awaiting approval. table is displayed in the admin's dashboard     |  "/teacher-table"    |
+UserApproval.js    |   function allowing admin to approve user applicants in the MentorTable & TeacherTable    |   n/a    |
+
+
+**root directory of components/dashboard sub-folder**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+ApprovedMentorList.js    |   marketing splash     |   "/"    |
+ApprovedTeacherList.js    |   placeholder    |   n/a    |
+Dashboard.css    |   placeholder    |   n/a    |
+Dashboard.js    |   placeholder    |   n/a    |
 
 
 ### footer folder
@@ -176,9 +186,9 @@ navbarStyle.js    |   placeholder    |   n/a    |
 ### shared folder
 ---
 
-**components sub-folder**
+**shared/components sub-folder**
 
-**Sidebar sub-folder**
+**shared/components/Sidebar sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
@@ -186,7 +196,7 @@ SideBar.js    |   marketing splash     |   "/"    |
 SideBar.scss    |   placeholder    |   n/a    |
 listItems.js    |   placeholder    |   n/a    |
 
-**Card sub-folder**
+**shared/components/Card sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
@@ -195,7 +205,7 @@ CardBody.scss    |   placeholder    |   n/a    |
 CardFooter.js    |   placeholder    |   n/a    |
 CardHeader.js    |   placeholder    |   n/a    |
 
-**root directory of components sub-folder**
+**root directory of shared/components/ sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
@@ -207,7 +217,7 @@ InfoArea.js    |   placeholder    |   n/a    |
 SearchResults.js    |   placeholder    |   n/a    |
 
 
-**styles sub-folder**
+**shared/styles sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
