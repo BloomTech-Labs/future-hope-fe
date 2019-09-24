@@ -39,7 +39,11 @@ with one another.
 ## Deploy
 
 ```
-Deployed on Netlify
+Deployed on Netlify.
+
+Staging server:      https://staging.futurehopeschool.com/
+QA server:           https://qa.futurehopeschool.com/
+Production server:   https://futurehopeschool.com/
 ```
 
 
@@ -237,6 +241,15 @@ views.css    |   placeholder    |   n/a    |
 
 
 
+### Root Directory of Components folder
+---
+
+
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Analytics.js    |   implement Google Analytics to guage in-app usage     |   n/a    |
+
 ## Auth
 
 ```
@@ -271,13 +284,29 @@ Documentation - https://firebase.google.com/docs
 ```
 
 
-### WhatsApp
+### Full Calendar
 ```
-Used to facilitate messaging communication...
+Meeting availability and scheduling was accomplished by using Full Calendar.
+After login, a user is directed to his/her dashboard.  There, on the left-hand side, the user 
+has a sidebar menu with a few routing links. To the right of the sidebar, the user's calendar 
+is displayed.  The user can filter by month, week, day.  The user can set up a meeting by clicking 
+on a date, which brings up a meeting modal.  The user can then search for another user, select the 
+user, and select a date/time to schedule a meeting.  The meeting will autopopulate on the calendar
+of all participants selected.
 
-
-Documentation - 
+Documentation - https://fullcalendar.io/docs
 ```
+
+### Firebase Cloud Messaging
+```
+In-app messaging was accomplished by using Firebase Messaging.  Using the Firestore database, real-time
+messaging was implemented.  Once logged in, a user can navigate to the messaging feature from his/her
+dashboard.  The user can search for other users, select a user, and start to message with that user.
+Responses are real-time.  All messaging activity is stored in the Firestore database.
+
+Documentation - https://firebase.google.com/docs/cloud-messaging
+```
+
 
 ## Maintainers
 
