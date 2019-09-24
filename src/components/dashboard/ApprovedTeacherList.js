@@ -38,13 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedTeacherList = props => {
   const [users, setUsers] = useState([]);
-  const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
-
-  useEffect(() => {
-    approvedTeachers();
-  }, []);
 
   const approvedTeachers = async () => {
     let userArray = [];

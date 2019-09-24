@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
-import Paper from "@material-ui/core/Paper";
+// import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
@@ -24,19 +24,19 @@ import { logPageView, event } from "../Analytics";
 
 import "./Messaging.scss";
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-    width: "70%"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   paper: {
+//     marginTop: theme.spacing(3),
+//     marginBottom: theme.spacing(3),
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//     padding: theme.spacing(2),
+//     display: "flex",
+//     overflow: "auto",
+//     flexDirection: "column",
+//     width: "70%"
+//   }
+// }));
 
 function Messaging(props) {
   const [conversations, setConversations] = useState([]);
@@ -139,7 +139,6 @@ function Messaging(props) {
                   <div
                     key={uid}
                     className="conversation-list-item"
-                    key={name}
                     onClick={e => {
                       setSelectedConversation({
                         ...conversation

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
-  const { auth, userInfo } = props;
+  // const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
