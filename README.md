@@ -38,13 +38,13 @@ with one another.
 ```
 ## Deploy
 
-```
+
 Deployed on Netlify.
 
-:      <a href="https://staging.futurehopeschool.com/">Staging server </a>
-QA server:           https://qa.futurehopeschool.com/
-Production server:   https://futurehopeschool.com/
-```
+<a href="https://staging.futurehopeschool.com/">Staging server </a>
+<a href="https://qa.futurehopeschool.com/">QA server </a>
+<a href="https://futurehopeschool.com/">Production server </a>
+
 
 
 
