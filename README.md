@@ -41,7 +41,7 @@ with one another.
 ```
 Deployed on Netlify.
 
-Staging server:      https://staging.futurehopeschool.com/
+:      <a href="https://staging.futurehopeschool.com/">Staging server </a>
 QA server:           https://qa.futurehopeschool.com/
 Production server:   https://futurehopeschool.com/
 ```
