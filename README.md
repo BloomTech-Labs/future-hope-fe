@@ -191,19 +191,38 @@ CardBody.scss    |   placeholder    |   n/a    |
 CardFooter.js    |   placeholder    |   n/a    |
 CardHeader.js    |   placeholder    |   n/a    |
 
+**root directory of components sub-folder**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Button.js    |   marketing splash     |   "/"    |
+CustomInput.scss    |   placeholder    |   n/a    |
+GridContainer.js    |   placeholder    |   n/a    |
+GridItem.js    |   placeholder    |   n/a    |
+InfoArea.js    |   placeholder    |   n/a    |
+SearchResults.js    |   placeholder    |   n/a    |
+
 
 **styles sub-folder**
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
+buttonStyle.js    |   marketing splash     |   "/"    |
+cardBodyStyle.js    |   placeholder    |   n/a    |
+cardFooterStyle.js    |   marketing splash     |   "/"    |
+cardHeaderStyle.js    |   placeholder    |   n/a    |
+cardStyle.js    |   marketing splash     |   "/"    |
+customInputStyle.js    |   placeholder    |   n/a    |
+imagesStyles.js    |   marketing splash     |   "/"    |
+infoStyle.js    |   placeholder    |   n/a    |
+sharedStyle.js    |   marketing splash     |   "/"    |
+tolltipsStyle.js    |   placeholder    |   n/a    |
 
 
 ### views folder
 ---
 
-**components sub-folder**
+
 
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
