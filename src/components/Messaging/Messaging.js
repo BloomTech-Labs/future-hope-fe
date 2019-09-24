@@ -102,14 +102,14 @@ function Messaging(props) {
                 let avatar = "";
                 let name = "";
                 let uid = "";
-                conversation.participantAvatars.map(participantAvatar => {
+                conversation.participantAvatars.forEach(participantAvatar => {
                   if (participantAvatar !== props.userInfo.photoUrl) {
-                    return (avatar = participantAvatar);
+                    avatar = participantAvatar;
                   }
                 });
-                conversation.participantNames.map(participantName => {
+                conversation.participantNames.forEach(participantName => {
                   if (participantName !== props.userInfo.fullName) {
-                    return (name = participantName);
+                    name = participantName;
                   }
                 });
                 uid = conversation.uid;
