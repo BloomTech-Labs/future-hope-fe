@@ -1,40 +1,59 @@
 import React from "react";
-import { MDBContainer } from "mdbreact";
-import { Button } from "@material-ui/core";
+import { withRouter } from "react-router";
+//styles
+import { MDBContainer, MDBBtn } from "mdbreact";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 
-class AwaitingApproval extends React.Component {
-  //leaving this as a class component in case we do state stuff in the future
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(4),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  }
+}));
 
-  pushToHomePage = () => {
-    this.props.history.push(`/`);
+const AwaitingApproval = props => {
+  const classes = useStyles();
+
+  const pushToHomePage = () => {
+    props.history.push(`/`);
   };
 
-  render() {
-    return (
+  return (
+    <Paper className={classes.paper}>
       <MDBContainer fluid className="d-flex flex-column align-items-center">
-        <h2 className="p-2">Your application has been submitted!</h2>
-        <h4>Here's what happens next: </h4>
+        <h1 className="p-2">Your application has been submitted!</h1>
+        <h3>Here's what happens next: </h3>
         <ul className="p-3">
           <li className="p-1">
-            Your application has been sent to an administrator for approval.
+            Your application will be reviewed and approved by the administrator.
           </li>
           <li className="p-1">
-            Once your application is accepted, you can start exploring the app!
-          </li>
-          <li className="p-1">
-            Please contanct CONTACTINFOHERE for further information regarding
-            your application.
+            Once your application is approved, you can start exploring the app
+            to connect with other users!
           </li>
         </ul>
+        <h3>
+          Thank you for your interest in Future Hope School. <br />
+          Medaase Paa! (pronounced ‘me-daa-si paa‘).
+        </h3>
         <div>
-          <Button onClick={() => this.pushToHomePage()}>Return to HomePage</Button>
+          <MDBBtn color="orange" onClick={() => pushToHomePage()}>
+            Return to HomePage
+          </MDBBtn>
         </div>
       </MDBContainer>
-    );
-  }
-}
+    </Paper>
+  );
+};
 
-export default AwaitingApproval;
+export default withRouter(AwaitingApproval);
 
 /*
 here is that progress bar I was using.
