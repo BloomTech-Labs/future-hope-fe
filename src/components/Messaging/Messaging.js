@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestore } from "../../config/fbConfig.js";
 import Button from "@material-ui/core/Button";
-// import { makeStyles } from "@material-ui/core/styles";
-// import List from '@material-ui/core/List';
+
+// Material UI Components
+import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
+import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
@@ -13,20 +15,36 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
 
-import blank_user from "../../assets/img/blank_user.png";
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
+import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 //analytics
 import { logPageView, event } from "../Analytics";
 
 import "./Messaging.scss";
 
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+    width: "70%"
+  }
+}));
+
 function Messaging(props) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
+  // const classes = useStyles();
 
+  // Sets up listener for all conversations current user is involved in from firestore and sets state
   useEffect(() => {
     logPageView();
     if (!props.userInfo.uid) {
@@ -46,6 +64,7 @@ function Messaging(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
 
+  // Toggles appearance of Search User Modal for new conversations
   const toggleModal = () => {
     event(
       "New-Search",
@@ -55,6 +74,7 @@ function Messaging(props) {
     setShowModal(!showModal);
   };
 
+  // Creates a Conversation doc in firestore when starting a new conversation
   const createConversation = selectedUser => {
     event("New-Conversation", "User started new conversation", "Conversation");
     const { uid, fullName, photoUrl } = selectedUser;
@@ -73,14 +93,11 @@ function Messaging(props) {
 
   return (
     <div className="messaging-wrapper">
-      {/* <h1>Messages!</h1> */}
+      <SideBar />
+      {/* <Paper className={classes.paper} elevation={20}> */}
       <div className="list-conversations-wrapper">
-        {/* Map over conversation props, pull out the info we want.
-          Map again to get the avatar, name, and uid that is not the current users
-          display the other person's info
-      */}
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Typography variant="h6">Conversations</Typography>
             <List>
               <Button
@@ -98,6 +115,10 @@ function Messaging(props) {
                 createConversation={createConversation}
                 setSelectedConversation={setSelectedConversation}
               />
+              {/* Map over conversation props, pull out the info we want.
+                  Map again to get the avatar, name, and uid that is not the current users
+                  display the other person's info
+              */}
               {conversations.map(conversation => {
                 let avatar = "";
                 let name = "";
@@ -113,10 +134,12 @@ function Messaging(props) {
                   }
                 });
                 uid = conversation.uid;
+                // Creates list of all conversations on left that current user is involved in
                 return (
                   <div
                     key={uid}
                     className="conversation-list-item"
+                    key={name}
                     onClick={e => {
                       setSelectedConversation({
                         ...conversation
@@ -125,7 +148,13 @@ function Messaging(props) {
                   >
                     <ListItem>
                       <ListItemAvatar>
-                        <Avatar src={avatar || blank_user} alt="blahblah" />
+                        <Avatar
+                          src={
+                            avatar ||
+                            "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
+                          }
+                          alt="User"
+                        />
                       </ListItemAvatar>
                       <ListItemText primary={name} />
                     </ListItem>
@@ -140,6 +169,7 @@ function Messaging(props) {
         selectedConversation={selectedConversation}
         userInfo={props.userInfo}
       />
+      {/* </Paper> */}
     </div>
   );
 }
