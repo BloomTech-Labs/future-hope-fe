@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { userStore } from "../../actions/auth.js";
-// import Button from "@material-ui/core/Button";
-// import { withStyles } from "@material-ui/core/styles";
 import {
   MDBContainer,
   MDBRow,
@@ -196,37 +194,36 @@ class Login extends React.Component {
                 <MDBCardBody>
                   <form onSubmit={e => this.handleSubmit(e)}>
                     <p className="h4 text-center py-4">Please Login</p>
-                    <div className="grey-text">
-                      <MDBInput
-                        id="email"
-                        label="Your email"
-                        icon="envelope"
-                        group
-                        type="email"
-                        validate
-                        error="wrong"
-                        success="right"
-                        name="email"
-                        value={this.state.user.email}
-                        onChange={this.handleChange}
-                      />
-                      <MDBInput
-                        id="password"
-                        label="Your password"
-                        icon="lock"
-                        group
-                        type="password"
-                        validate
-                        name="password"
-                        value={this.state.user.password}
-                        onChange={this.handleChange}
-                      />
 
-                      <div className="text-center mt-3">
-                        <MDBBtn id="login-btn" color="orange" type="submit">
-                          Login
-                        </MDBBtn>
-                      </div>
+                    <MDBInput
+                      id="email"
+                      label="Your email"
+                      icon="envelope"
+                      group
+                      type="email"
+                      validate
+                      error="wrong"
+                      success="right"
+                      name="email"
+                      value={this.state.user.email}
+                      onChange={this.handleChange}
+                    />
+                    <MDBInput
+                      id="password"
+                      label="Your password"
+                      icon="lock"
+                      group
+                      type="password"
+                      validate
+                      name="password"
+                      value={this.state.user.password}
+                      onChange={this.handleChange}
+                    />
+
+                    <div className="text-center mt-3">
+                      <MDBBtn id="login-btn" color="orange" type="submit">
+                        Login
+                      </MDBBtn>
                     </div>
                   </form>
                   <div className="text-center mt-3">

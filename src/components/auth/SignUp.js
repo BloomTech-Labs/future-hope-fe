@@ -1,5 +1,4 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { userStore } from "../../actions/auth.js";
 //styles
@@ -178,7 +177,7 @@ class SignUp extends React.Component {
                         required
                         disabled={this.state.signingInWithOAuth}
                         id="standard-name"
-                        label="Name"
+                        label="Full Name"
                         icon="user"
                         value={this.state.fullName}
                         onChange={this.handleChange}
