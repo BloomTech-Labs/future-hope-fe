@@ -111,21 +111,14 @@ Starting with the src root folder, the flow will be as follows:
 
 **dashboard/admin-dashboard subfolder**
 
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-MentorTable.js    |   displays a table of mentors that have applied and are awaiting approval. table is displayed in the admin's dashboard     |   "/mentor-table"    |
-TeacherTable.js    |   displays a table of teachers that have applied and are awaiting approval. table is displayed in the admin's dashboard     |  "/teacher-table"    |
-UserApproval.js    |   function allowing admin to approve user applicants in the MentorTable & TeacherTable    |   n/a    |
+| Name                   | Purpose                                                  | How To View          |
+| ---------------------- | -------------------------------------------------------- | -------------------- |
+| MentorTable.js         | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
+| TeacherTable.js        | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
+| UserApproval.js        | Parent component rendering MentorTable and TeacherTable  | "/user-approval"     |
 
 
 **root directory of components/dashboard sub-folder**
-
-Name    |   Purpose |   How To View     |
-| ------ | ------------------ | ----------------- |
-ApprovedMentorList.js    |   marketing splash     |   "/"    |
-ApprovedTeacherList.js    |   placeholder    |   n/a    |
-Dashboard.css    |   placeholder    |   n/a    |
-Dashboard.js    |   placeholder    |   n/a    |
 
 | Name                   | Purpose                                                  | How To View          |
 | ---------------------- | -------------------------------------------------------- | -------------------- |
@@ -133,9 +126,7 @@ Dashboard.js    |   placeholder    |   n/a    |
 | Dashboard.css          | Dashboard Styling                                        | "/dashboard"         |
 | ApprovedMentorList.js  | Table displaying approved Mentors                        | "/approved-mentors"  |
 | ApprovedTeacherList.js | Table displaying approved Teachers                       | "/approved-teachers" |
-| MentorTable.js         | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
-| TeacherTable.js        | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
-| UserApproval.js        | Parent component rendering MentorTable and TeacherTable  | "/user-approval"     |
+
 
 ### footer folder
 
