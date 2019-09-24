@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: space-around;
   padding: 16px;
-  width: 45%;
-  max-width: 600px;
+  width: 50%;
+  // max-width: 600px;
   margin: auto;
   button {
     width: 190px;
@@ -17,8 +17,6 @@
   .signup-form {
     display: flex;
     flex-direction: column;
-    input {
-    }
     .hidden {
       display: none;
     }
@@ -27,4 +25,18 @@
 
 .signup-wrapper .signup-form .hidden {
   display: none;
+}
+
+//forces bootstrap styles to be orange on signup form
+.md-form input:focus {
+  box-shadow: 0 1px 0 0 orange !important;
+  border-bottom: 1px solid orange !important;
+}
+
+.md-form input:focus:not([readonly]) + label {
+  color: orange !important;
+}
+
+.md-form .prefix.active {
+  color: orange !important;
 }
