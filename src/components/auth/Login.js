@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { userStore } from "../../actions/auth.js";
-// import Button from "@material-ui/core/Button";
-// import { withStyles } from "@material-ui/core/styles";
 import {
   MDBContainer,
   MDBRow,
@@ -22,7 +20,7 @@ import {
 import "./Login.scss";
 
 //analytics
-import { initGA, logPageView, event } from "../Analytics";
+import { logPageView, event } from "../Analytics";
 
 class Login extends React.Component {
   state = {
@@ -34,7 +32,6 @@ class Login extends React.Component {
   };
 
   componentDidMount = () => {
-    initGA();
     logPageView();
   };
 
@@ -86,12 +83,10 @@ class Login extends React.Component {
       } else {
         this.props.setupUserListener(userInfo);
         // console.log("rerouting user", userInfo.data());
-        const routeTo = this.props.routeUser(userInfo.data());
+        // const routeTo = this.props.routeUser(userInfo.data());
         // console.log("userInfo", userInfo);
         // console.log("auth.currentUser", auth.currentUser);
-
-        this.props.history.push(routeTo);
-        // alert("user logged in!");
+        this.props.history.push("/dashboard");
       }
     } catch (err) {
       //this is to find out if the person loggin in has already made an account, or

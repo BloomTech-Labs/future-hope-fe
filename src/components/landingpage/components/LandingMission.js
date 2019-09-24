@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Paper from "@material-ui/core/Paper";
 
 //analytics
-import { initGA, logPageView } from "../../Analytics";
+import { logPageView } from "../../Analytics";
 
 const styles = theme => ({
   root: {
@@ -57,7 +57,6 @@ function LandingMission(props) {
   const { classes } = props;
 
   useEffect(() => {
-    initGA();
     logPageView();
   }, []);
 

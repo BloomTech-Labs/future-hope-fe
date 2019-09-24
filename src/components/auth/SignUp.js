@@ -19,7 +19,7 @@ import {
 import "./SignUp.scss";
 
 //analytics
-import { initGA, logPageView, event } from "../Analytics";
+import { logPageView, event } from "../Analytics";
 
 //! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
@@ -45,7 +45,6 @@ class SignUp extends React.Component {
   };
 
   componentDidMount = () => {
-    initGA();
     logPageView();
     // if this user is being pushed here, and there is a user on props, then
     // we want to use the info that we already recieved, as well as set
@@ -113,10 +112,7 @@ class SignUp extends React.Component {
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo);
-    // console.log("rerouting user", userInfo.data());
-    const routeTo = this.props.routeUser(userInfo.data());
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
-    //! For test reasons, (if you want the redirect to take you to mentor_dashboard or teacher_dashboard, use routeTo)
     this.props.history.push("/applicationstatus");
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };
@@ -288,6 +284,7 @@ class SignUp extends React.Component {
               variant="contained"
               size="large"
               color="primary"
+              onClick={this.handleSubmit}
               type="submit"
             >
               Sign Up

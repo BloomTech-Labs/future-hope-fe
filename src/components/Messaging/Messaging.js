@@ -66,6 +66,11 @@ function Messaging(props) {
 
   // Toggles appearance of Search User Modal for new conversations
   const toggleModal = () => {
+    event(
+      "New-Search",
+      "User searching for user to converse with",
+      "Conversation"
+    );
     setShowModal(!showModal);
   };
 
@@ -132,6 +137,7 @@ function Messaging(props) {
                 // Creates list of all conversations on left that current user is involved in
                 return (
                   <div
+                    key={uid}
                     className="conversation-list-item"
                     key={name}
                     onClick={e => {

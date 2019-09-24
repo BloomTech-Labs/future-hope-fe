@@ -38,33 +38,33 @@ const MeetingModal = props => {
     });
   }
 
-  // function handleEndDateChange(date) {
-  //   changeEndDate(date._d);
-  // }
-
+  //* Used to submit new and updated meetings
   const submitMeeting = e => {
     e.preventDefault();
-    console.log("meeting", meeting);
+    //* Adds existing Participants to newParticipants obj. If new meeting, set blank arrays
     let newParticipants = {
       participantUIDs: meeting.participantUIDs || [],
       participantNames: meeting.participantNames || []
     };
+    //* Checks if new participants have been added and if they are new, adds them to newParticipants obj
     if (participants.length) {
       participants.map(participant => {
-        newParticipants.participantUIDs.push(participant.uid);
-        newParticipants.participantNames.push(participant.fullName);
+        if (!newParticipants.participantUIDs.includes(participant.uid)) {
+          newParticipants.participantUIDs.push(participant.uid);
+          newParticipants.participantNames.push(participant.fullName);
+        }
       });
     }
+    //* Checks if meeting being submitted is new and if it is, push newParticipants in
     if (!meeting.id) {
       newParticipants.participantUIDs.push(props.user.uid);
       newParticipants.participantNames.push(props.user.fullName);
     }
-    console.log("newParticipants", newParticipants);
+    //* Combine participant user info with meeting info into newMeeting Obj
     let newMeeting = {
       ...meeting,
       ...newParticipants
     };
-    console.log("newMeeting", newMeeting);
     //* check if a previous meeting was clicked on to see if routing to new meeting or old
     if (meeting.id) {
       props.editMeeting(newMeeting);
@@ -78,9 +78,14 @@ const MeetingModal = props => {
     props.toggle();
   };
 
+  //* Searches for users to add to meeting
+  //! NOTE: Only exact searches work. Need to implement fuzzy search
   const searchParticipants = async searchTerm => {
-    event("Search-Users", "Searching for users to add to a meeting", "Calendar Meeting Modal")
-    console.log(searchTerm);
+    event(
+      "Search-Users",
+      "Searching for users to add to a meeting",
+      "Calendar Meeting Modal"
+    );
     let searchArray = [];
     const usersRef = firestore.collection("users");
     await usersRef
@@ -88,10 +93,10 @@ const MeetingModal = props => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data());
           searchArray.push(doc.data());
         });
       });
+    //* Set results in state, clear search term
     setSearchResults(searchArray);
     setSearchTerm("");
   };
@@ -100,8 +105,9 @@ const MeetingModal = props => {
     setShowSearchResults(!showSearchResults);
   };
 
+  //* Used to display all participant names in meeting and about to be invited
   const participantsDisplay = invitedUsers => {
-    console.log("invitedUsers", invitedUsers);
+    // console.log("invitedUsers", invitedUsers);
     invitedUsers.map(invitedUser => {
       if (!displayParticipants) {
         setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
@@ -113,7 +119,7 @@ const MeetingModal = props => {
     });
   };
 
-  //! Using useEffect to update the Modal with the item clicked on (date or event)
+  //* Using useEffect to update the Modal with the item clicked on (date or event)
   useEffect(() => {
     setMeeting(props.clickedMeeting);
     // debugger;
@@ -223,6 +229,7 @@ const MeetingModal = props => {
           {displayParticipants && <p>Participants: {displayParticipants}</p>}
           <SearchResults
             showSearchResults={showSearchResults}
+            participants={participants}
             setParticipants={setParticipants}
             toggleSearchModal={toggleSearchModal}
             searchResults={searchResults}
