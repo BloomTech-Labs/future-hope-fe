@@ -290,16 +290,14 @@ class SignUp extends React.Component {
                         </Select>
                       </FormControl>
                       <div className="text-center mt-3">
-                        {!this.state.signingInWithOAuth && (
-                          <MDBBtn
-                            id="sign-up-btn"
-                            variant="contained"
-                            color="orange"
-                            type="submit"
-                          >
-                            Sign Up
-                          </MDBBtn>
-                        )}
+                        <MDBBtn
+                          id="sign-up-btn"
+                          variant="contained"
+                          color="orange"
+                          type="submit"
+                        >
+                          Sign Up
+                        </MDBBtn>
                       </div>
                     </form>
                     <div className="text-center mt-3">

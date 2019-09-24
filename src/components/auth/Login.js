@@ -132,9 +132,11 @@ class Login extends React.Component {
         this.props.setupUserListener(userInfo);
         console.log("rerouting user", userInfo.data());
         if (userInfo.data().userType) {
-          const routeTo = this.props.routeUser(userInfo.data());
-          this.props.userStore(auth.currentUser);
-          this.props.history.push(routeTo);
+          // const routeTo = this.props.routeUser(userInfo.data());
+          // this.props.userStore(auth.currentUser);
+          // this.props.history.push(routeTo);
+          //! Pretty sure this push is all we need, routeUser stuff is outdated
+          this.props.history.push("/dashboard");
         } else {
           this.props.history.push("/signup");
         }
@@ -170,9 +172,11 @@ class Login extends React.Component {
         this.props.setupUserListener(userInfo);
         console.log("rerouting user", userInfo.data());
         if (userInfo.data().userType) {
-          const routeTo = this.props.routeUser(userInfo.data());
-          this.props.userStore(auth.currentUser);
-          this.props.history.push(routeTo);
+          // const routeTo = this.props.rerouteUser(userInfo.data());
+          // this.props.userStore(auth.currentUser);
+          // this.props.history.push(routeTo);
+          //! I'm pretty sure this is all we need. This routeTO stuff may be outdated.
+          this.props.history.push("/dashboard");
         } else {
           this.props.history.push("/signup");
         }
@@ -183,6 +187,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.props.rerouteUser, "reROUTE UESR?");
     return (
       <div className="login-container">
         <MDBContainer>
