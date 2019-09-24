@@ -57,7 +57,7 @@ const ApprovedTeacherList = props => {
       });
       setUsers(userArray);
     });
-  });
+  }, []);
 
   const pushToProfilePage = uid => {
     props.history.push(`/profile/${uid}`);
