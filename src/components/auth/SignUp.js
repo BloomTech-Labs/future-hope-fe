@@ -200,7 +200,7 @@ class SignUp extends React.Component {
                       {!this.state.signingInWithOAuth && (
                         <MDBInput
                           required
-                          id="standard-email"
+                          id="verify-email"
                           label="Verify Email"
                           icon="envelope"
                           margin="normal"
@@ -224,7 +224,7 @@ class SignUp extends React.Component {
                       )}
                       <MDBInput
                         required
-                        id="standard-name"
+                        id="city"
                         label="City"
                         icon="map-signs"
                         value={this.state.city}
@@ -234,7 +234,7 @@ class SignUp extends React.Component {
                       />
                       <MDBInput
                         required
-                        id="standard-name"
+                        id="state-province"
                         label="State or Province"
                         icon="map-marked-alt"
                         value={this.state.stateProvince}
@@ -245,7 +245,7 @@ class SignUp extends React.Component {
                       {/* //! Country and State probably need to be select menus like userType is  */}
                       <MDBInput
                         required
-                        id="standard-name"
+                        id="contry"
                         label="Country"
                         icon="globe-africa"
                         value={this.state.country}
@@ -255,7 +255,7 @@ class SignUp extends React.Component {
                       />
                       <MDBInput
                         required
-                        id="standard-name"
+                        id="phone"
                         label="Phone Number"
                         icon="phone"
                         value={this.state.phoneNumber}
@@ -265,7 +265,7 @@ class SignUp extends React.Component {
                       />
                       <MDBInput
                         required
-                        id="standard-name"
+                        id="about-me"
                         label="About Me"
                         icon="list-alt"
                         value={this.state.aboutMe}
@@ -296,6 +296,7 @@ class SignUp extends React.Component {
                       <div className="text-center mt-3">
                         {!this.state.signingInWithOAuth && (
                           <MDBBtn
+                            id="sign-up-btn"
                             variant="contained"
                             color="orange"
                             type="submit"

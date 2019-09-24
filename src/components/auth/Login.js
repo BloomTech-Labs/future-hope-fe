@@ -198,6 +198,7 @@ class Login extends React.Component {
                     <p className="h4 text-center py-4">Please Login</p>
                     <div className="grey-text">
                       <MDBInput
+                        id="email"
                         label="Your email"
                         icon="envelope"
                         group
@@ -210,6 +211,7 @@ class Login extends React.Component {
                         onChange={this.handleChange}
                       />
                       <MDBInput
+                        id="password"
                         label="Your password"
                         icon="lock"
                         group
@@ -221,7 +223,7 @@ class Login extends React.Component {
                       />
 
                       <div className="text-center mt-3">
-                        <MDBBtn color="orange" type="submit">
+                        <MDBBtn id="login-btn" color="orange" type="submit">
                           Login
                         </MDBBtn>
                       </div>
