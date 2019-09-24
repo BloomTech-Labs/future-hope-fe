@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
@@ -89,7 +89,7 @@ const Navbar = props => {
     return () => {
       window.removeEventListener("scroll", headerColorChange);
     };
-  }, [config.changeColorOnScroll]);
+  }, [config.changeColorOnScroll, headerColorChange]);
 
   const { classes } = props;
   const appBarClasses = classNames({
