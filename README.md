@@ -41,8 +41,8 @@ with one another.
 
 Deployed on Netlify.
 
-<a href="https://staging.futurehopeschool.com/">Staging server </a>
-<a href="https://qa.futurehopeschool.com/">QA server </a>
+<a href="https://staging.futurehopeschool.com/">Staging server </a> <br>
+<a href="https://qa.futurehopeschool.com/">QA server </a> <br>
 <a href="https://futurehopeschool.com/">Production server </a>
 
 
