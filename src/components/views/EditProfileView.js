@@ -8,8 +8,6 @@ import { Button } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import "./Profile.scss";
