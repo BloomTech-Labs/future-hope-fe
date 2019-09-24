@@ -52,8 +52,7 @@ const useStyles = makeStyles(theme => ({
     display: "inline-block",
     position: "relative",
     marginTop: "30px",
-    minHeight: "32px",
-    textDecoration: "none"
+    minHeight: "32px"
   },
   imgFluid: {
     maxWidth: "100%",
@@ -94,13 +93,13 @@ const NewUserProfile = props => {
   useEffect(() => {
     // grabs user UID from URL and searches users collection for a matching doc
     firestore
-    .collection("users")
-    .doc(props.match.params.uid)
-    .get()
-    .then(querySnapshot => {
-      setUser(querySnapshot.data())
-    });
-  }, []);
+      .collection("users")
+      .doc(props.match.params.uid)
+      .get()
+      .then(querySnapshot => {
+        setUser(querySnapshot.data());
+      });
+  }, [props.match.params.uid]);
 
   const classes = useStyles();
 
@@ -114,26 +113,26 @@ const NewUserProfile = props => {
           <div>
             <div className={classes.container}>
               <Container justify="center">
-                  <div  className={classes.profile}>
-                    <div>
-                      <img
-                        src={user.photoUrl}
-                        alt="please upload profile photo"
-                        className={classNames(
-                          classes.imgRounded,
-                          classes.imgFluid,
-                          classes.imgRoundedCircle
-                        )}
-                      />
-                    </div>
-                    <div className={classes.name}>
-                      <h3 className={classes.title}>{user.fullName}</h3>
-                      <h6>I am a {user.userType}</h6>
-                    </div>
+                <div className={classes.profile}>
+                  <div>
+                    <img
+                      src={user.photoUrl}
+                      alt="please upload"
+                      className={classNames(
+                        classes.imgRounded,
+                        classes.imgFluid,
+                        classes.imgRoundedCircle
+                      )}
+                    />
                   </div>
+                  <div className={classes.name}>
+                    <h3 className={classes.title}>{user.fullName}</h3>
+                    <h6>I am a {user.userType}</h6>
+                  </div>
+                </div>
               </Container>
               <div className={classes.description}>
-                <p>About Me:  {user.aboutMe}</p>
+                <p>About Me: {user.aboutMe}</p>
               </div>
             </div>
           </div>

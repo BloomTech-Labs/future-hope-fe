@@ -89,7 +89,7 @@ const Navbar = props => {
     return () => {
       window.removeEventListener("scroll", headerColorChange);
     };
-  }, [config.changeColorOnScroll, headerColorChange]);
+  }, [config.changeColorOnScroll]);
 
   const { classes } = props;
   const appBarClasses = classNames({

@@ -41,12 +41,10 @@ const ApprovedTeacherList = props => {
   //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
-  const approvedTeachers = async () => {
-    let userArray = [];
-    const userRef = firestore.collection("users");
-    await userRef.get().then(querySnapshot => {
+  useEffect(() => {
+    firestore.collection("users").onSnapshot(querySnapshot => {
+      let userArray = [];
       querySnapshot.forEach(doc => {
-        // console.log(doc.data());
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -57,10 +55,9 @@ const ApprovedTeacherList = props => {
           uid: doc.data().uid
         });
       });
+      setUsers(userArray);
     });
-    setUsers(userArray);
-    console.log("setUsers", users);
-  };
+  });
 
   const pushToProfilePage = uid => {
     props.history.push(`/profile/${uid}`);
@@ -73,7 +70,7 @@ const ApprovedTeacherList = props => {
         <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Teachers
         </Typography>
-        <Table stickyheader>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
@@ -123,7 +120,6 @@ const ApprovedTeacherList = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users
