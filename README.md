@@ -174,10 +174,23 @@ navbarStyle.js    |   placeholder    |   n/a    |
 
 **components sub-folder**
 
+**Sidebar sub-folder**
+
 Name    |   Purpose |   How To View     |
 | ------ | ------------------ | ----------------- |
-landingpage.js    |   marketing splash     |   "/"    |
-placeholder.js    |   placeholder    |   n/a    |
+SideBar.js    |   marketing splash     |   "/"    |
+SideBar.scss    |   placeholder    |   n/a    |
+listItems.js    |   placeholder    |   n/a    |
+
+**Card sub-folder**
+
+Name    |   Purpose |   How To View     |
+| ------ | ------------------ | ----------------- |
+Card.js    |   marketing splash     |   "/"    |
+CardBody.scss    |   placeholder    |   n/a    |
+CardFooter.js    |   placeholder    |   n/a    |
+CardHeader.js    |   placeholder    |   n/a    |
+
 
 **styles sub-folder**
 
@@ -223,7 +236,7 @@ Used react/redux.  Actions are split up into separate files, as are reducers.  R
 
 ```
 1.  JavaScript.  Used promises/callbacks and ES6 syntax.
-2.  React.  Used functional & class components.
+2.  React.  Used functional & class components.  Used React Hooks.
 3.  Redux.  Used redux for state management.
 ```
 ## API
