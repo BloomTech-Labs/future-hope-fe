@@ -14,7 +14,6 @@ const Conversation = props => {
 
   //access the subcollection of messages when selecting a conversation
   useEffect(() => {
-    console.log("useEffect triggered inside Conversations");
     if (props.selectedConversation.uid) {
       setConversation(props.selectedConversation);
       firestore
@@ -114,36 +113,3 @@ const Conversation = props => {
 };
 
 export default Conversation;
-
-/*
-          const messagesDiv = document.getElementById("conversations-wrapper");
-          messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-function saveImageMessage(file) {
-/TODO 9: Posts a new image as a message.
-    /1 - We add a message with a loading icon that will get updated with the shared image.
-    firebase.firestore().collection('messages').add({
-      name: getUserName(),
-      imageUrl: LOADING_IMAGE_URL,
-      profilePicUrl: getProfilePicUrl(),
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function(messageRef) {
-      / 2 - Upload the image to Cloud Storage.
-      var filePath = firebase.auth().currentUser.uid + '/' + messageRef.id + '/' + file.name;
-      return firebase.storage().ref(filePath).put(file).then(function(fileSnapshot) {
-        /3 - Generate a public URL for the file.
-        return fileSnapshot.ref.getDownloadURL().then((url) => {
-          / 4 - Update the chat message placeholder with the image's URL.
-          return messageRef.update({
-            imageUrl: url,
-            storageUri: fileSnapshot.metadata.fullPath
-          });
-        });
-      });
-    }).catch(function(error) {
-      console.error('There was an error uploading a file to Cloud Storage:', error);
-    });
-
-    
-
-*/

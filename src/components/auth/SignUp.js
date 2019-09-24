@@ -125,10 +125,7 @@ class SignUp extends React.Component {
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo);
-    // console.log("rerouting user", userInfo.data());
-    const routeTo = this.props.routeUser(userInfo.data());
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
-    //! For test reasons, (if you want the redirect to take you to mentor_dashboard or teacher_dashboard, use routeTo)
     this.props.history.push("/applicationstatus");
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };

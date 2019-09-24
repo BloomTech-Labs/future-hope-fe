@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   }
 });
 
+// Component for displaying each message sent back and forth
 const Message = props => {
   const classes = useStyles();
   // const {timestamp} = props;
