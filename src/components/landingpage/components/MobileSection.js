@@ -9,12 +9,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "../../shared/components/GridContainer";
 import GridItem from "../../shared/components/GridItem";
 import Card from "../../shared/components/card/Card";
-import CardBody from "../../shared/components/card/CardBody";
 import Button from "../../shared/components/Button";
 
 import { mobileStyle } from "../styles";
 
-import img4 from "../assets/img-mobile.png";
+import img4 from "../assets/img-mobile-two.png";
 
 function MobileSection(props) {
   const { classes } = props;
