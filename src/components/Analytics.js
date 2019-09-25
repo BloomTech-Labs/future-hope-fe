@@ -15,7 +15,7 @@ export const initGA = () => {
         gaOptions: { name: "stagingBranch" }
       }
     ],
-    { debug: true, alwaysSendToDefaultTracker: false }
+    { debug: false, alwaysSendToDefaultTracker: false }
   );
 };
 
