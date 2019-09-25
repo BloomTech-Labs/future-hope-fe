@@ -92,7 +92,7 @@ const benefitStyle = {
 
 const featureStyle = {
   section: {
-    padding: "50px 0",
+    padding: "40px 0",
     textAlign: "center"
   },
   title: {
@@ -178,7 +178,7 @@ const mobileStyle = {
 
 const ctaStyle = {
   section: {
-    paddingBottom: "70px"
+    paddingBottom: "40px"
   },
   title: {
     ...title,
