@@ -41,6 +41,10 @@ const NavbarUser = props => {
     setOpen(!open);
   }
 
+  const pushToProfilePage = uid => {
+    props.history.push(`/profile/${user.uid}`);
+  };
+
   const dropdownItem = classNames({
     [classes.dropdownItem]: true,
     [classes[hoverColor + "Hover"]]: true
@@ -54,7 +58,7 @@ const NavbarUser = props => {
         alt={user.fullName}
         src={user.photoUrl}
         className={classes.bigAvatar}
-        aria-haspopup='true'
+        aria-haspopup="true"
         onClick={handleClick}
       />
       <div>
@@ -63,24 +67,30 @@ const NavbarUser = props => {
           anchorEl={anchorEl}
           transition
           disablePortal
-          placement='bottom'
+          placement="bottom"
         >
           <ClickAwayListener onClickAway={handleClose}>
-            <Grow in={open} id='menu-list' style={{ transformOrigin: "0 0 0" }}>
+            <Grow in={open} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
               <Paper className={classes.dropdown}>
-                <MenuList role='menu' className={classes.menuList}>
+                <MenuList role="menu" className={classes.menuList}>
                   <MenuItem className={classes.dropdownHeader}>
                     {user.fullName}
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}
+                    onClick={e => pushToProfilePage()}
+                  >
+                    View Profile
+                  </MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
                     onClick={e => props.history.push("/update_profile")}
                   >
-                    Profile
+                    Edit Profile
                   </MenuItem>
                   {/* <MenuItem className={dropdownItem}>My account</MenuItem> */}
                   <MenuItem className={dropdownItem} onClick={logout}>
-                    <Link to='/login'>Logout</Link>
+                    <Link to="/login">Logout</Link>
                   </MenuItem>
                 </MenuList>
               </Paper>
