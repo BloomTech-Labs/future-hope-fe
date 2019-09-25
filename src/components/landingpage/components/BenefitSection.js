@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
+import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Fingerprint from "@material-ui/icons/Fingerprint";
+import ForumIcon from "@material-ui/icons/Forum";
 // core components
 import GridContainer from "../../shared/components/GridContainer";
 import GridItem from "../../shared/components/GridItem";
@@ -20,50 +20,49 @@ function BenefitSection(props) {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Our approach to change is simple</h2>
-          <br />
           <h5 className={classes.description}>
-          We Are A Global Community Of Changemakers
-          We aim to Create a level playing field in education in developing
-          countries by providing supplemental, virtual mentors to underserved
-          rural and urban-poor schools.
+            We are a Global Community of Changemakers. <br /> Our goal is to
+            create a level playing field in education for developing countries
+            by providing supplemental, virtual mentors to underserved rural and
+            urban-poor schools. <br /> We need your help.
           </h5>
+          <br />
+          <h2 className={classes.title}>You can make a difference.</h2>
         </GridItem>
       </GridContainer>
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Item 1"
-              description="Copy for info item."
-              icon={Chat}
-              iconColor="info"
+              title="Signup"
+              description="Complete the signup form to join the waiting list"
+              icon={ImportantDevicesIcon}
+              iconColor="warning"
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Item 2"
-              description="Copy for info item-2."
+              title="Get Approved"
+              description="The school administrator will approve your account"
               icon={VerifiedUser}
-              iconColor="success"
+              iconColor="warning"
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Item 3"
-              description="Copy for info item-3."
-              icon={Fingerprint}
-              iconColor="danger"
+              title="Start connecting"
+              description="Connect with other changemakers in the app"
+              icon={ForumIcon}
+              iconColor="warning"
               vertical
             />
-            {/* <i className={classes.foo + " fab fa-foo"} /> */}
           </GridItem>
         </GridContainer>
-        </div>
       </div>
-    );
+    </div>
+  );
 }
 BenefitSection.propTypes = {
   classes: PropTypes.object
