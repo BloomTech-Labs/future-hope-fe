@@ -41,6 +41,10 @@ const NavbarUser = props => {
     setOpen(!open);
   }
 
+  const pushToProfilePage = uid => {
+    props.history.push(`/profile/${user.uid}`);
+  };
+
   const dropdownItem = classNames({
     [classes.dropdownItem]: true,
     [classes[hoverColor + "Hover"]]: true
@@ -74,9 +78,15 @@ const NavbarUser = props => {
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}
+                    onClick={e => pushToProfilePage()}
+                  >
+                    View Profile
+                  </MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
                     onClick={e => props.history.push("/update_profile")}
                   >
-                    Profile
+                    Edit Profile
                   </MenuItem>
                   {/* Select Menu Items when clicking on user Avatar */}
                   <MenuItem className={dropdownItem} onClick={logout}>

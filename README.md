@@ -32,8 +32,10 @@ with one another.
 ## Install
 
 ```
-1.  Fork the repo
-2.  Yarn start
+1.  Fork the repository
+2.  CD into the Future-Hope-Client directory
+3.  *Yarn* to install dependencies
+4.  *Yarn start* to fire up the app on your local server
 ```
 
 ## Deploy
@@ -81,8 +83,6 @@ Starting with the src root folder, the flow will be as follows:
 
 ---
 
-
-
 | Name                  | Purpose            | How To View       |
 | --------------------- | ------------------ | ----------------- |
 | Login.js              | Login Form         | head to '/login'  |
@@ -94,8 +94,6 @@ Starting with the src root folder, the flow will be as follows:
 ### calendar folder
 
 ---
-
-
 
 | Name              | Purpose                                              | How To View  |
 | ----------------- | ---------------------------------------------------- | ------------ |
@@ -111,41 +109,69 @@ Starting with the src root folder, the flow will be as follows:
 
 **dashboard/admin-dashboard subfolder**
 
-| Name                   | Purpose                                                  | How To View          |
-| ---------------------- | -------------------------------------------------------- | -------------------- |
-| MentorTable.js         | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
-| TeacherTable.js        | Component for displaying Mentors Awaiting Admin Approval | "/user-approval"     |
-| UserApproval.js        | Parent component rendering MentorTable and TeacherTable  | "/user-approval"     |
+| Name            | Purpose                                                  | How To View      |
+| --------------- | -------------------------------------------------------- | ---------------- |
+| MentorTable.js  | Component for displaying Mentors Awaiting Admin Approval | "/user-approval" |
+| TeacherTable.js | Component for displaying Mentors Awaiting Admin Approval | "/user-approval" |
+| UserApproval.js | Parent component rendering MentorTable and TeacherTable  | "/user-approval" |
 
+**root directory of components/dashboard subfolder**
 
-**root directory of components/dashboard sub-folder**
-
-| Name                   | Purpose                                                  | How To View          |
-| ---------------------- | -------------------------------------------------------- | -------------------- |
-| Dashboard.js           | Dashboard Component                                      | "/dashboard"         |
-| Dashboard.css          | Dashboard Styling                                        | "/dashboard"         |
-| ApprovedMentorList.js  | Table displaying approved Mentors                        | "/approved-mentors"  |
-| ApprovedTeacherList.js | Table displaying approved Teachers                       | "/approved-teachers" |
-
+| Name                   | Purpose                            | How To View          |
+| ---------------------- | ---------------------------------- | -------------------- |
+| Dashboard.js           | Dashboard Component                | "/dashboard"         |
+| Dashboard.css          | Dashboard Styling                  | "/dashboard"         |
+| ApprovedMentorList.js  | Table displaying approved Mentors  | "/approved-mentors"  |
+| ApprovedTeacherList.js | Table displaying approved Teachers | "/approved-teachers" |
 
 ### footer folder
 
 ---
 
-| Name      | Purpose          | How To View |
-| --------- | ---------------- | ----------- |
-| Footer.js | marketing splash | "/"         |
-| styles.js | placeholder      | n/a         |
+| Name      | Purpose                   | How To View |
+| --------- | ------------------------- | ----------- |
+| Footer.js | global footer with links  | "/"         |
+| styles.js | styling for global footer | n/a         |
 
 ### landingpage folder
 
 ---
 
-**landing page**
+**landingpage/assets subfolder**
+
+| Name                         | Purpose                        | How To View |
+| ---------------------------- | ------------------------------ | ----------- |
+| Ghana_school.jpg             | photo used in the landing page | "/"         |
+| bg4.jpg                      | photo used in the landing page | "/"         |
+| chalkboard-teacher-solid.svg | photo used in the landing page | "/"         |
+| img-holder.png               | photo used in the landing page | "/"         |
+
+**landingpage/components subfolder**
+
+| Name              | Purpose            | How To View |
+| ----------------- | ------------------ | ----------- |
+| BenefitSection.js | placeholder photos | "/"         |
+| CTASection.js     | placeholder photos | "/"         |
+| FeatureSection.js | placeholders       | "/"         |
+| LandingFooter.js  | placeholder photos | "/"         |
+| LandingHero.js    | placeholder photos | "/"         |
+| LandingImpact.js  | placeholders       | "/"         |
+| LandingMission.js | placeholder photos | "/"         |
+| Parallax.js       | placeholders       | "/"         |
+
+**landingpage/mui subfolder**
+
+| Name          | Purpose                                                 | How To View |
+| ------------- | ------------------------------------------------------- | ----------- |
+| Button.js     | placeholder photos                                      | "/"         |
+| Typography.js | placeholder photos                                      | "/"         |
+| theme.js      | Parent component rendering MentorTable and TeacherTable | "/"         |
+
+**root directory of components/landingpage folder**
 
 | Name           | Purpose          | How To View |
 | -------------- | ---------------- | ----------- |
-| landingpage.js | marketing splash | "/"         |
+| LandingPage.js | marketing splash | "/"         |
 | styles.js      | placeholder      | n/a         |
 | styles.scss    | placeholder      | n/a         |
 
@@ -153,11 +179,11 @@ Starting with the src root folder, the flow will be as follows:
 
 ---
 
-| Name                | Purpose          | How To View |
-| ------------------- | ---------------- | ----------- |
-| MentorList.js       | marketing splash | "/"         |
-| MentorPublicPage.js | placeholder      | n/a         |
-| mentors.css         | placeholder      | n/a         |
+| Name                | Purpose                                                                              | How To View |
+| ------------------- | ------------------------------------------------------------------------------------ | ----------- |
+| MentorList.js       | Public display of the list of approved mentors. Available via link from the homepage | "/mentors"  |
+| MentorPublicPage.js | Component used to display MentorList.js                                              | "/mentors"  |
+| mentors.css         | styling for mentors public page                                                      | n/a         |
 
 ### navbar folder
 
@@ -195,7 +221,7 @@ Starting with the src root folder, the flow will be as follows:
 | CardFooter.js | placeholder      | n/a         |
 | CardHeader.js | placeholder      | n/a         |
 
-**root directory of shared/components/ sub-folder**
+**root directory of shared/components subfolder**
 
 | Name             | Purpose          | How To View |
 | ---------------- | ---------------- | ----------- |
@@ -206,7 +232,7 @@ Starting with the src root folder, the flow will be as follows:
 | InfoArea.js      | placeholder      | n/a         |
 | SearchResults.js | placeholder      | n/a         |
 
-**shared/styles sub-folder**
+**shared/styles subfolder**
 
 | Name                | Purpose          | How To View |
 | ------------------- | ---------------- | ----------- |
@@ -225,16 +251,16 @@ Starting with the src root folder, the flow will be as follows:
 
 ---
 
-| Name                | Purpose             | How To View       |
-| ------------------- | ------------------- | ----------------- |
-| AwaitingApproval.js | marketing splash    | "/"               |
-| EditProfileView.js  | Update User Profile | "/update_profile" |
-| NewUserProfile.js   | placeholder         | n/a               |
-| Profile.scss        | placeholder         | n/a               |
-| ProfileView.js      | placeholder         | n/a               |
-| UploadPhoto.js      | placeholder         | n/a               |
-| ViewUserProfile.js  | placeholder         | n/a               |
-| views.css           | placeholder         | n/a               |
+| Name                | Purpose                                                                     | How To View                          |
+| ------------------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| AwaitingApproval.js | informs user his/her application has been accepted and is awaiting approval | after sign-up, "/appplicationstatus" |
+| EditProfileView.js  | Update User Profile                                                         | "/update_profile"                    |
+| NewUserProfile.js   | User profile page                                                           | "/view-profile" or "/profile/:uid"   |
+| Profile.scss        | placeholder                                                                 | n/a                                  |
+| ProfileView.js      | placeholder                                                                 | n/a                                  |
+| UploadPhoto.js      | placeholder                                                                 | n/a                                  |
+| ViewUserProfile.js  | !old user profile page                                                      | n/a                                  |
+| views.css           | placeholder                                                                 | n/a                                  |
 
 ### Root Directory of Components folder
 
