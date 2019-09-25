@@ -24,7 +24,7 @@ function MobileSection(props) {
   );
   return (
     <div className={classes.section}>
-      <h2 className={classes.title}>Download our iOS app.</h2>
+      <h2 className={classes.title}>Coming Soon to the App Store.</h2>
       <div>
         <GridContainer>
           <GridItem>
@@ -33,12 +33,12 @@ function MobileSection(props) {
                 <img src={img4} alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                If you have an iPhone, you can manage your schedule whenever you
-                want.
+                If you have an iPhone, you will soon be able to manage your
+                schedule whenever you want via our iOS app.
                 <br />
-                <Button href="#" color="warning">
+                {/* <Button href="#" color="warning">
                   Download the app!
-                </Button>
+                </Button> */}
               </h4>
             </Card>
           </GridItem>
