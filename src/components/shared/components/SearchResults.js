@@ -13,10 +13,7 @@ import {
   MDBModal,
   MDBModalBody,
   MDBModalHeader,
-  MDBModalFooter,
-  MDBInput,
-  MDBFormInline,
-  MDBIcon
+  MDBModalFooter
 } from "mdbreact";
 
 const useStyles = makeStyles(theme => ({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -6,7 +6,6 @@ import {
   MDBModalBody,
   MDBModalHeader,
   MDBModalFooter,
-  MDBInput,
   MDBFormInline,
   MDBIcon
 } from "mdbreact";
@@ -17,7 +16,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import CreateIcon from "@material-ui/icons/Create";
 
 import { firestore } from "../../config/fbConfig.js";
 import blank_user from "../../assets/img/blank_user.png";
@@ -25,10 +23,8 @@ import blank_user from "../../assets/img/blank_user.png";
 const SearchUsersModal = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedUser, setSelectedUser] = useState({});
 
   const searchParticipants = async searchTerm => {
-    console.log(searchTerm);
     let searchArray = [];
     const usersRef = firestore.collection("users");
     await usersRef

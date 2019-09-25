@@ -24,39 +24,27 @@ const MentorList = props => {
   // const { mentors } = props;
 
   const [mentors, setMentors] = useState([]);
-  let unsubscribeFromMentors = null;
 
   useEffect(() => {
     // sets up the listener for mentors.
     // currently limits to only 6 so that were not making huge queries.
     // wel need to add an infinite scroll so that when
     // we get to the end, this will load more mentors.
-    unsubscribeFromMentors = firestore
+    firestore
       .collection("/users")
       .where("userType", "==", "mentor")
       .limit(6)
       .onSnapshot(users => {
-        // console.log(user.docs);
         const holdUsers = [];
-        users.docs.map(user => {
+        users.forEach(user => {
           const userDoc = {
             id: user.id,
             ...user.data()
           };
           holdUsers.push(userDoc);
-          // console.log(userDoc);
         });
-
         setMentors(holdUsers);
       });
-  }, []);
-
-  // essentiall think of this as componentWillUnmount
-  // this function will be called when the component unmounts
-  useEffect(() => {
-    return () => {
-      unsubscribeFromMentors();
-    };
   }, []);
 
   return (

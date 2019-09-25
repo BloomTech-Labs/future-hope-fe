@@ -210,7 +210,6 @@ class SignUp extends React.Component {
                           id="standard-password-input"
                           icon="lock"
                           type="password"
-                          icon="lock"
                           label="Create Password"
                           value={this.state.password}
                           onChange={this.handleChange}

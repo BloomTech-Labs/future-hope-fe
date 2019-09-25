@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
-  const { auth, userInfo } = props;
+  // const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
@@ -60,7 +60,6 @@ const ApprovedMentorList = props => {
       });
     });
     setUsers(userArray);
-    console.log("setUsers", users);
   };
 
   const pushToProfilePage = uid => {
@@ -75,7 +74,7 @@ const ApprovedMentorList = props => {
         <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Mentors
         </Typography>
-        <Table stickyheader>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
@@ -125,7 +124,6 @@ const ApprovedMentorList = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
