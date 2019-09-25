@@ -72,7 +72,7 @@ const parallaxStyle = {
 
 const benefitStyle = {
   section: {
-    padding: "70px 0",
+    //padding: "70px 0",
     textAlign: "center"
   },
   title: {
@@ -83,6 +83,7 @@ const benefitStyle = {
     textDecoration: "none"
   },
   description: {
+    marginTop: "30px",
     color: "#000000",
     fontWeight: "400",
     fontSize: "1.5rem"

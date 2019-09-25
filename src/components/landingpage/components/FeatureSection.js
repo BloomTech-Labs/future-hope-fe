@@ -13,20 +13,20 @@ import CardBody from "../../shared/components/card/CardBody";
 
 import { featureStyle } from "../styles";
 
-import img1 from "../assets/img-holder.png";
-import img2 from "../assets/img-holder.png";
-import img3 from "../assets/img-holder.png";
+import img1 from "../assets/img-one.png";
+import img2 from "../assets/img-two.png";
+import img3 from "../assets/img-three.png";
 
 function FeatureSection(props) {
   const { classes } = props;
   const imageClasses = classNames(
-    classes.imgRaised,
+    //classes.imgRaised,
     classes.imgRoundedCircle,
     classes.imgFluid
   );
   return (
     <div className={classes.section}>
-      <h2 className={classes.title}>You can be a Changemaker</h2>
+      <h2 className={classes.title}>Help us make an Impact.</h2>
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
@@ -35,14 +35,17 @@ function FeatureSection(props) {
                 <img src={img1} alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Feature 1
+                VOLUNTEER ON YOUR SCHEDULE
                 <br />
-                <small className={classes.smallTitle}>Feature 1 Sub</small>
+                <small className={classes.smallTitle}>
+                  Set your availability
+                </small>
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value
-                  propositions. You can give more details about what they are.
+                  You direct when and where you volunteer while helping to
+                  enhance educational outlook for students to build a better
+                  life.
                 </p>
               </CardBody>
             </Card>
@@ -53,14 +56,16 @@ function FeatureSection(props) {
                 <img src={img2} alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Feature 2
+                USE YOUR SKILLS FOR GOOD
                 <br />
-                <small className={classes.smallTitle}>Feature 2 Sub</small>
+                <small className={classes.smallTitle}>
+                  Connect with students that need your help
+                </small>
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value
-                  propositions. You can give more details about what they are.
+                  Empower students with the knowledge that they need by using
+                  your expertise to change thier lives.
                 </p>
               </CardBody>
             </Card>
@@ -71,14 +76,17 @@ function FeatureSection(props) {
                 <img src={img3} alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Feature 3
+                MAKE A REAL DIFFERENCE
                 <br />
-                <small className={classes.smallTitle}>Feature 3 Sub</small>
+                <small className={classes.smallTitle}>
+                  You can help students thrive
+                </small>
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value
-                  propositions. You can give more details about what they are.
+                  As a changemaker, you will become a major influence in the
+                  lives of students. You have the power to make a lasting
+                  impact.
                 </p>
               </CardBody>
             </Card>
