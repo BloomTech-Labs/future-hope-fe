@@ -17,7 +17,7 @@ function CTASection(props) {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Interested in becoming a Mentor?</h2>
+          <h2 className={classes.title}>Want to be a changemaker?</h2>
           <Button fullWidth color="warning" size="lg" href="/signup">
             GET STARTED
           </Button>

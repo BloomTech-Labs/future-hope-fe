@@ -5,8 +5,6 @@ import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// @material-ui/icons
-
 // core components
 import GridContainer from "../../shared/components/GridContainer";
 import GridItem from "../../shared/components/GridItem";
@@ -28,7 +26,7 @@ function FeatureSection(props) {
   );
   return (
     <div className={classes.section}>
-      <h2 className={classes.title}>How you can be a changemaker</h2>
+      <h2 className={classes.title}>You can be a Changemaker</h2>
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
@@ -43,8 +41,8 @@ function FeatureSection(props) {
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value propositions.
-                  You can give more details about what they are.
+                  You can write here details about one of your value
+                  propositions. You can give more details about what they are.
                 </p>
               </CardBody>
             </Card>
@@ -61,8 +59,8 @@ function FeatureSection(props) {
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value propositions.
-                  You can give more details about what they are.
+                  You can write here details about one of your value
+                  propositions. You can give more details about what they are.
                 </p>
               </CardBody>
             </Card>
@@ -79,8 +77,8 @@ function FeatureSection(props) {
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your value propositions.
-                  You can give more details about what they are.
+                  You can write here details about one of your value
+                  propositions. You can give more details about what they are.
                 </p>
               </CardBody>
             </Card>

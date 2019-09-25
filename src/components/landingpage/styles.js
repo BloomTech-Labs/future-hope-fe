@@ -83,13 +83,15 @@ const benefitStyle = {
     textDecoration: "none"
   },
   description: {
-    color: "#999"
+    color: "#000000",
+    fontWeight: "400",
+    fontSize: "1.5rem"
   }
 };
 
 const featureStyle = {
   section: {
-    padding: "70px 0",
+    padding: "50px 0",
     textAlign: "center"
   },
   title: {
