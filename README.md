@@ -32,8 +32,10 @@ with one another.
 ## Install
 
 ```
-1.  Fork the repo
-2.  Yarn start
+1.  Fork the repository
+2.  CD into the Future-Hope-Client directory
+3.  *Yarn* to install dependencies
+4.  *Yarn start* to fire up the app on your local server
 ```
 
 ## Deploy
@@ -137,33 +139,33 @@ Starting with the src root folder, the flow will be as follows:
 
 **landingpage/assets subfolder**
 
-| Name                         | Purpose                                                  | How To View |
-| ---------------------------- | -------------------------------------------------------- | ----------- |
-| Ghana_school.jpg             | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| bg4.jpg                      | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| chalkboard-teacher-solid.svg | Parent component rendering MentorTable and TeacherTable  | "/"         |
-| img-holder.png               | Parent component rendering MentorTable and TeacherTable  | "/"         |
+| Name                         | Purpose                        | How To View |
+| ---------------------------- | ------------------------------ | ----------- |
+| Ghana_school.jpg             | photo used in the landing page | "/"         |
+| bg4.jpg                      | photo used in the landing page | "/"         |
+| chalkboard-teacher-solid.svg | photo used in the landing page | "/"         |
+| img-holder.png               | photo used in the landing page | "/"         |
 
 **landingpage/components subfolder**
 
-| Name              | Purpose                                                  | How To View |
-| ----------------- | -------------------------------------------------------- | ----------- |
-| BenefitSection.js | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| CTASection.js     | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| FeatureSection.js | Parent component rendering MentorTable and TeacherTable  | "/"         |
-| LandingFooter.js  | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| LandingHero.js    | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| LandingImpact.js  | Parent component rendering MentorTable and TeacherTable  | "/"         |
-| LandingMission.js | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| Parallax.js       | Parent component rendering MentorTable and TeacherTable  | "/"         |
+| Name              | Purpose            | How To View |
+| ----------------- | ------------------ | ----------- |
+| BenefitSection.js | placeholder photos | "/"         |
+| CTASection.js     | placeholder photos | "/"         |
+| FeatureSection.js | placeholders       | "/"         |
+| LandingFooter.js  | placeholder photos | "/"         |
+| LandingHero.js    | placeholder photos | "/"         |
+| LandingImpact.js  | placeholders       | "/"         |
+| LandingMission.js | placeholder photos | "/"         |
+| Parallax.js       | placeholders       | "/"         |
 
 **landingpage/mui subfolder**
 
-| Name          | Purpose                                                  | How To View |
-| ------------- | -------------------------------------------------------- | ----------- |
-| Button.js     | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| Typography.js | Component for displaying Mentors Awaiting Admin Approval | "/"         |
-| theme.js      | Parent component rendering MentorTable and TeacherTable  | "/"         |
+| Name          | Purpose                                                 | How To View |
+| ------------- | ------------------------------------------------------- | ----------- |
+| Button.js     | placeholder photos                                      | "/"         |
+| Typography.js | placeholder photos                                      | "/"         |
+| theme.js      | Parent component rendering MentorTable and TeacherTable | "/"         |
 
 **root directory of components/landingpage folder**
 
@@ -249,16 +251,16 @@ Starting with the src root folder, the flow will be as follows:
 
 ---
 
-| Name                | Purpose             | How To View       |
-| ------------------- | ------------------- | ----------------- |
-| AwaitingApproval.js | informs user his/her application has been accepted and is awaiting approval    | after sign-up, "/appplicationstatus"               |
-| EditProfileView.js  | Update User Profile | "/update_profile" |
-| NewUserProfile.js   | User profile page         | "/view-profile" or "/profile/:uid"               |
-| Profile.scss        | placeholder         | n/a               |
-| ProfileView.js      | placeholder         | n/a               |
-| UploadPhoto.js      | placeholder         | n/a               |
-| ViewUserProfile.js  | !old user profile page        | n/a               |
-| views.css           | placeholder         | n/a               |
+| Name                | Purpose                                                                     | How To View                          |
+| ------------------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| AwaitingApproval.js | informs user his/her application has been accepted and is awaiting approval | after sign-up, "/appplicationstatus" |
+| EditProfileView.js  | Update User Profile                                                         | "/update_profile"                    |
+| NewUserProfile.js   | User profile page                                                           | "/view-profile" or "/profile/:uid"   |
+| Profile.scss        | placeholder                                                                 | n/a                                  |
+| ProfileView.js      | placeholder                                                                 | n/a                                  |
+| UploadPhoto.js      | placeholder                                                                 | n/a                                  |
+| ViewUserProfile.js  | !old user profile page                                                      | n/a                                  |
+| views.css           | placeholder                                                                 | n/a                                  |
 
 ### Root Directory of Components folder
 
