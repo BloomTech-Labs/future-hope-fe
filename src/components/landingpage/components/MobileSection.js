@@ -36,7 +36,9 @@ function MobileSection(props) {
                 If you have an iPhone, you can manage your schedule whenever you
                 want.
                 <br />
-                <Button color="warning">Download the app!</Button>
+                <Button href="#" color="warning">
+                  Download the app!
+                </Button>
               </h4>
             </Card>
           </GridItem>

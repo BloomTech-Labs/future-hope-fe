@@ -79,7 +79,7 @@ function FeatureSection(props) {
                 MAKE A REAL DIFFERENCE
                 <br />
                 <small className={classes.smallTitle}>
-                  You can help students thrive
+                  Help students thrive
                 </small>
               </h4>
               <CardBody>
