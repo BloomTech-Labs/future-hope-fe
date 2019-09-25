@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,8 +16,8 @@ const MentorTable = props => {
 
   return (
     <div>
-      <h6 className='dashboard-table-title'>Pending Mentor Applications</h6>
-      <Table size='small'>
+      <h6 className="dashboard-table-title">Pending Mentor Applications</h6>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -44,7 +44,7 @@ const MentorTable = props => {
                   </TableCell>
                   <TableCell>
                     <Button
-                      color='primary'
+                      color="primary"
                       onClick={e => {
                         e.preventDefault();
                         props.approveUser(user.uid);

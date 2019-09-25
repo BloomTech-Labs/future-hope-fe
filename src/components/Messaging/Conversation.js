@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { MDBInput } from "mdbreact";
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";

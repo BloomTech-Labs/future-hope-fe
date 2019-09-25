@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,17 +14,10 @@ const TeacherTable = props => {
     history.push(`/profile/${uid}`);
   };
 
-  const [approval, setApproval] = useState();
-
-  const approvedUser = e => {
-    e.preventDefault();
-    setApproval(!users.approval);
-  };
-
   return (
     <div>
-      <h6 className='dashboard-table-title'>Pending Teacher Applications</h6>
-      <Table size='small'>
+      <h6 className="dashboard-table-title">Pending Teacher Applications</h6>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -51,7 +44,7 @@ const TeacherTable = props => {
                   </TableCell>
                   <TableCell>
                     <Button
-                      color='primary'
+                      color="primary"
                       onClick={e => {
                         e.preventDefault();
                         props.approveUser(user.uid);

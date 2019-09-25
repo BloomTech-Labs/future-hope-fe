@@ -10,10 +10,10 @@ import {
   MDBFormInline,
   MDBIcon
 } from "mdbreact";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DateTimePicker } from "@material-ui/pickers";
 import { connect } from "react-redux";
 
-import { firestore, auth } from "../../config/fbConfig.js";
+import { firestore } from "../../config/fbConfig.js";
 import SearchResults from "../shared/components/SearchResults.js";
 
 //analytics
@@ -31,13 +31,6 @@ const MeetingModal = props => {
   const [searchResults, setSearchResults] = useState([]);
   const [displayParticipants, setDisplayParticipants] = useState("");
 
-  function handleStartDateChange(date) {
-    setMeeting({
-      ...meeting,
-      start: date
-    });
-  }
-
   //* Used to submit new and updated meetings
   const submitMeeting = e => {
     e.preventDefault();
@@ -48,7 +41,7 @@ const MeetingModal = props => {
     };
     //* Checks if new participants have been added and if they are new, adds them to newParticipants obj
     if (participants.length) {
-      participants.map(participant => {
+      participants.forEach(participant => {
         if (!newParticipants.participantUIDs.includes(participant.uid)) {
           newParticipants.participantUIDs.push(participant.uid);
           newParticipants.participantNames.push(participant.fullName);
@@ -108,7 +101,7 @@ const MeetingModal = props => {
   //* Used to display all participant names in meeting and about to be invited
   const participantsDisplay = invitedUsers => {
     // console.log("invitedUsers", invitedUsers);
-    invitedUsers.map(invitedUser => {
+    invitedUsers.forEach(invitedUser => {
       if (!displayParticipants) {
         setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
       } else {
@@ -125,7 +118,7 @@ const MeetingModal = props => {
     // debugger;
     if (props.clickedMeeting.id) {
       let participantNames = "";
-      props.clickedMeeting.participantNames.map(participantName => {
+      props.clickedMeeting.participantNames.forEach(participantName => {
         // console.log("participant in useEffect", participantName);
         if (participantName !== props.user.fullName) {
           if (!participantNames) {
@@ -140,7 +133,7 @@ const MeetingModal = props => {
       });
       setDisplayParticipants(participantNames);
     }
-  }, [props.clickedMeeting]);
+  }, [props.clickedMeeting, props.user.fullName]);
 
   return (
     <MDBContainer>

@@ -115,7 +115,7 @@ class Calendar extends React.Component {
       }).then(okToDelete => {
         // Checks to see if deletion was confirmed and deletes it
         if (okToDelete) {
-          const meetingRef = firestore
+          firestore
             .collection("meetings")
             .doc(meeting.id)
             .delete();
