@@ -17,15 +17,15 @@ import { landingPageStyle } from "./styles";
 import BenefitSection from "./components/BenefitSection";
 import FeatureSection from "./components/FeatureSection";
 import CTASection from "./components/CTASection";
+import MobileSection from "./components/MobileSection";
 
 //analytics
-import { initGA, logPageView } from "../Analytics";
+import { logPageView } from "../Analytics";
 
 const LandingPage = props => {
   const { classes } = props;
 
   useEffect(() => {
-    initGA();
     logPageView();
   }, []);
 
@@ -57,6 +57,7 @@ const LandingPage = props => {
           <BenefitSection />
           <FeatureSection />
           <CTASection />
+          <MobileSection />
         </div>
       </div>
       {/* <Footer /> */}
