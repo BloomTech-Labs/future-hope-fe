@@ -23,7 +23,7 @@ const NavbarUser = props => {
   const { classes, user } = props;
   const [anchorEl, setAnchorEl] = useState({});
   const [open, setOpen] = useState(false);
-  const hoverColor = "success";
+  const hoverColor = "warning";
 
   function logout() {
     console.log("logged out");
@@ -43,6 +43,10 @@ const NavbarUser = props => {
 
   const pushToProfilePage = uid => {
     props.history.push(`/profile/${user.uid}`);
+  };
+
+  const pushToDashboard = () => {
+    props.history.push("/dashboard");
   };
 
   const dropdownItem = classNames({
@@ -75,6 +79,12 @@ const NavbarUser = props => {
                 <MenuList role="menu" className={classes.menuList}>
                   <MenuItem className={classes.dropdownHeader}>
                     {user.fullName}
+                  </MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
+                    onClick={() => pushToDashboard()}
+                  >
+                    Dashboard
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}
