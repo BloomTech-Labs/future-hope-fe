@@ -18,7 +18,7 @@ export const MainListItems = props => {
     <List>
       <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
-          <CalendarTodayIcon />
+          <CalendarTodayIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Schedule" />
       </ListItem>
@@ -33,7 +33,7 @@ export const MainListItems = props => {
         }
       >
         <ListItemIcon>
-          <PeopleIcon />
+          <PeopleIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
 
         <ListItemText
@@ -45,26 +45,26 @@ export const MainListItems = props => {
       {props.userInfo.userType === "admin" && (
         <ListItem button component={Link} to={"/approved-teachers"}>
           <ListItemIcon>
-            <PeopleIcon />
+            <PeopleIcon style={{ color: "#ff9800" }} />
           </ListItemIcon>
           <ListItemText primary="Teachers" />
         </ListItem>
       )}
       <ListItem button component={Link} to={"/messaging"}>
         <ListItemIcon>
-          <MessageIcon />
+          <MessageIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Messages" />
       </ListItem>
-      <ListItem button>
+      {/* <ListItem button>
         <ListItemIcon>
-          <LiveHelpIcon />
+          <LiveHelpIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="FAQs" />
-      </ListItem>
+      </ListItem> */}
       <ListItem button component={Link} to={"/update_profile"}>
         <ListItemIcon>
-          <AccountBoxIcon />
+          <AccountBoxIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Update Profile" />
       </ListItem>
@@ -78,7 +78,7 @@ export const SecondaryListItems = props => {
       <ListSubheader inset>Admin</ListSubheader>
       <ListItem button component={Link} to={"/user-approval"}>
         <ListItemIcon>
-          <VerifiedUserIcon />
+          <VerifiedUserIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Approve Users" />
       </ListItem>

@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
 import { firestore } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
-import Container from "@material-ui/core/Container";
+import Button from "../shared/components/Button";
+import Paper from "@material-ui/core/Paper";
+import SideBar from "../shared/components/Sidebar/SideBar";
+import "./views.css";
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    paddingBottom: theme.spacing(5)
+  },
   profile: {
     textAlign: "center",
     marginRight: "-15px",
     marginLeft: "-15px",
     width: "auto",
     "& img": {
+      marginTop: "20px",
       maxWidth: "160px",
       width: "100%",
-      margin: "0 auto",
-      transform: "translate3d(0, -50%, 0)"
+      margin: "0 auto"
     }
   },
   description: {
     margin: "1.071rem auto 0",
     maxWidth: "600px",
-    color: "#999",
+    fontFamily: `"Roboto Slab", "Times New Roman", serif`,
+    fontWeight: "400",
+    color: "#3C4858",
     textAlign: "center !important"
   },
   main: {
@@ -51,7 +58,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: `"Roboto Slab", "Times New Roman", serif`,
     display: "inline-block",
     position: "relative",
-    marginTop: "30px",
+    marginTop: "20px",
     minHeight: "32px"
   },
   imgFluid: {
@@ -67,7 +74,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     marginTop: "100px",
     paddingRight: "15px",
-    paddingLeft: "15px",
+    paddingLeft: "45px",
     marginRight: "auto",
     marginLeft: "auto",
     width: "100%",
@@ -81,13 +88,13 @@ const useStyles = makeStyles(theme => ({
       maxWidth: "960px"
     },
     "@media (min-width: 1200px)": {
-      maxWidth: "1140px"
+      maxWidth: "1140"
     }
   }
 }));
 
 const NewUserProfile = props => {
-  console.log("props", props);
+  //console.log("props", props);
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -108,34 +115,50 @@ const NewUserProfile = props => {
   } else {
     return (
       <div>
-        {console.log(user)}
-        <div className={classNames(classes.main, classes.mainRaised)}>
-          <div>
-            <div className={classes.container}>
-              <Container justify="center">
-                <div className={classes.profile}>
-                  <div>
-                    <img
-                      src={user.photoUrl}
-                      alt="please upload"
-                      className={classNames(
-                        classes.imgRounded,
-                        classes.imgFluid,
-                        classes.imgRoundedCircle
-                      )}
-                    />
-                  </div>
-                  <div className={classes.name}>
-                    <h3 className={classes.title}>{user.fullName}</h3>
-                    <h6>I am a {user.userType}</h6>
-                  </div>
-                </div>
-              </Container>
-              <div className={classes.description}>
-                <p>About Me: {user.aboutMe}</p>
+        <SideBar />
+        <div className={classes.container}>
+          <Paper
+            className={classNames(
+              classes.main,
+              classes.mainRaised,
+              classes.paper
+            )}
+          >
+            <div className={classes.profile}>
+              <div>
+                <img
+                  src={
+                    user.photoUrl ||
+                    "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
+                  }
+                  alt="profile"
+                  className={classNames(
+                    classes.imgRounded,
+                    classes.imgFluid,
+                    classes.imgRoundedCircle
+                  )}
+                />
+              </div>
+              <div className={classes.name}>
+                <h3 className={classes.title}>{user.fullName}</h3>
+                <h6>I am a {user.userType}</h6>
               </div>
             </div>
-          </div>
+            <div className={classes.description}>
+              <p>{user.aboutMe}</p>
+              <p>
+                I am located in {user.city}, {""} {user.stateProvince}{" "}
+                {user.country} and I am so excited to meet you!
+              </p>
+              <Button
+                onClick={() => props.history.push("/messaging")}
+                variant="contained"
+                color="warning"
+              >
+                Contact Me
+              </Button>
+            </div>
+          </Paper>
         </div>
       </div>
     );
@@ -148,4 +171,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(NewUserProfile);
+export default withRouter(connect(mapStateToProps)(NewUserProfile));

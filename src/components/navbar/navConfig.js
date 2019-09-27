@@ -60,11 +60,11 @@ const navConfig = {
         text: "Mission",
         auth: false
       },
-      {
-        href: "/faq",
-        text: "How It Works",
-        auth: false
-      },
+      // {
+      //   href: "/faq",
+      //   text: "How It Works",
+      //   auth: false
+      // },
       {
         href: "/login",
         text: "Login",

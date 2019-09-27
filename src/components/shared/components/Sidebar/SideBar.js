@@ -91,7 +91,11 @@ const SideBar = props => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerToggle}>
-            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {open ? (
+              <ChevronLeftIcon style={{ color: "#ff9800" }} />
+            ) : (
+              <ChevronRightIcon style={{ color: "#ff9800" }} />
+            )}
           </IconButton>
         </div>
         <Divider />
