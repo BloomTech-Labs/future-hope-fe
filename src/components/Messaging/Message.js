@@ -3,15 +3,24 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 
+//analytics
+import { logPageView } from "../Analytics";
+
 const useStyles = makeStyles({
   avatar: {
     margin: 10
   }
 });
 
+// Component for displaying each message sent back and forth
 const Message = props => {
   const classes = useStyles();
   // const {timestamp} = props;
+
+  useEffect(() => {
+    logPageView();
+  }, []);
+
   return (
     <div className="message-container">
       <div

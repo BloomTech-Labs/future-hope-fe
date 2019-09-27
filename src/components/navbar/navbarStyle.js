@@ -16,7 +16,6 @@ import {
   warningBoxShadow,
   dangerBoxShadow,
   roseBoxShadow
-  
 } from "../shared/styles/sharedStyle";
 
 import tooltip from "../shared/styles/tooltipsStyle";
@@ -159,9 +158,9 @@ const navbarStyle = {
 };
 
 const navbarLinksStyle = theme => ({
-  '@global': {
+  "@global": {
     "button:focus": {
-      outline: 0,
+      outline: 0
     },
     a: {
       color: "#555",
@@ -169,8 +168,7 @@ const navbarLinksStyle = theme => ({
       backgroundColor: "transparent",
       "&,&:hover,&:focus": {
         color: "inherit",
-        textDecoration: "none",
-        textDecoration: "none",
+        textDecoration: "none"
       }
     }
   },
@@ -384,11 +382,7 @@ const navbarLinksStyle = theme => ({
       backgroundColor: "transparent",
       cursor: "auto"
     }
-  },
+  }
 });
 
-export {
-  navbarStyle,
-  navbarLinksStyle,
-
-}
+export { navbarStyle, navbarLinksStyle };

@@ -14,3 +14,17 @@
     height: 50px;
   }
 }
+
+//forces bootstrap styles to be orange on login form
+.md-form input:focus {
+  box-shadow: 0 1px 0 0 orange !important;
+  border-bottom: 1px solid orange !important;
+}
+
+.md-form input:focus:not([readonly]) + label {
+  color: orange !important;
+}
+
+.md-form .prefix.active {
+  color: orange !important;
+}

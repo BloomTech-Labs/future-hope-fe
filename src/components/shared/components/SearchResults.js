@@ -13,10 +13,7 @@ import {
   MDBModal,
   MDBModalBody,
   MDBModalHeader,
-  MDBModalFooter,
-  MDBInput,
-  MDBFormInline,
-  MDBIcon
+  MDBModalFooter
 } from "mdbreact";
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +29,7 @@ export default function SearchResults(props) {
   const [checked, setChecked] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
+  //* Used to pull out all selected users in search results and setState
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -47,10 +45,11 @@ export default function SearchResults(props) {
 
   useEffect(() => {
     setSearchResults(props.searchResults);
-  });
+  }, [props.searchResults]);
 
+  //* Pulls previously added participants(if any) and adds selected participants to MeetingModal State and adds to display
   const saveParticipants = async () => {
-    let invitedUsers = [];
+    let invitedUsers = props.participants;
     checked.forEach(index => invitedUsers.push(searchResults[index]));
     setChecked([]);
     await props.setParticipants(invitedUsers);
@@ -89,7 +88,7 @@ export default function SearchResults(props) {
                   />
                   <ListItemSecondaryAction>
                     <Checkbox
-                      edge='end'
+                      edge="end"
                       onChange={handleToggle(index)}
                       checked={checked.indexOf(index) !== -1}
                       inputProps={{ "aria-labelledby": labelId }}
@@ -101,11 +100,11 @@ export default function SearchResults(props) {
           </List>
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn color='secondary' onClick={e => props.toggleSearchModal()}>
+          <MDBBtn color="secondary" onClick={e => props.toggleSearchModal()}>
             Close
           </MDBBtn>
           <MDBBtn
-            color='primary'
+            color="primary"
             onClick={e => {
               saveParticipants();
               props.toggleSearchModal();

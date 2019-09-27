@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
-//import { Redirect } from "react-router-dom";
 
 //styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
-  const { auth, userInfo } = props;
+  // const { auth, userInfo } = props;
   //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
@@ -61,7 +60,6 @@ const ApprovedMentorList = props => {
       });
     });
     setUsers(userArray);
-    console.log("setUsers", users);
   };
 
   const pushToProfilePage = uid => {
@@ -70,21 +68,21 @@ const ApprovedMentorList = props => {
 
   //if (!auth.uid) return <Redirect to="/" />;
   return (
-    <div className='flex'>
+    <div className="flex">
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
-        <Typography align='center' component='h2' variant='h2' gutterBottom>
+        <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Mentors
         </Typography>
-        <Table stickyHeader>
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell scope='col'>Profile Photo</TableCell>
-              <TableCell scope='col'>Names</TableCell>
-              <TableCell scope='col'>Account Type</TableCell>
-              <TableCell scope='col'>City</TableCell>
-              <TableCell scope='col'>State/Province</TableCell>
-              <TableCell scope='col'>View Profile</TableCell>
+              <TableCell scope="col">Profile Photo</TableCell>
+              <TableCell scope="col">Names</TableCell>
+              <TableCell scope="col">Account Type</TableCell>
+              <TableCell scope="col">City</TableCell>
+              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">View Profile</TableCell>
             </TableRow>
           </TableHead>
           {users.map(user => {
@@ -95,12 +93,12 @@ const ApprovedMentorList = props => {
                     <TableCell>
                       {" "}
                       <Avatar
-                        id='approved-list-photo'
+                        id="approved-list-photo"
                         src={
                           user.photoUrl ||
                           "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
-                        alt='profile photo'
+                        alt="profile photo"
                       />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
@@ -126,7 +124,6 @@ const ApprovedMentorList = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
