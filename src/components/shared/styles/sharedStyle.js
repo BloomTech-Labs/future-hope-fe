@@ -25,7 +25,7 @@ const navContainer = {
     maxWidth: "960px"
   },
   "@media (min-width: 1200px)": {
-      maxWidth: "99vw",
+    maxWidth: "99vw"
   }
 };
 
