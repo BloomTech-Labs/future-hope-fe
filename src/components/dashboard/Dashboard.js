@@ -1,11 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
-import { auth } from "../../../config/fbConfig.js";
-import Calendar from "../../calendar/Calendar.js";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-
 //styles
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +8,9 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
-import SideBar from "../../shared/components/Sidebar/SideBar.js";
+// Internal Components
+import SideBar from "../shared/components/Sidebar/SideBar.js";
+import Calendar from "../calendar/Calendar.js";
 
 const drawerWidth = 240;
 
@@ -22,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   toolbar: {
-    paddingRight: 24
+    paddingRight: 24 // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: "flex",
@@ -30,21 +27,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "flex-end",
     padding: "0 8px",
     ...theme.mixins.toolbar
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
   },
   menuButton: {
     marginRight: 36
@@ -82,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4)
   },
   paper: {
@@ -96,13 +78,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DashboardTeacher = props => {
+const AdminDashboard = props => {
   const classes = useStyles();
-
-  // const { auth } = props;
-  // if (!auth.uid) {
-  //   <Redirect to="/login" />;
-  // }
 
   return (
     <div className={classes.root}>
@@ -112,7 +89,6 @@ const DashboardTeacher = props => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Calendar */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Calendar />
@@ -126,9 +102,11 @@ const DashboardTeacher = props => {
 };
 
 const mapStateToProps = state => {
+  // console.log(state);
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    users: state.firestore.ordered.users,
+    userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
   };
 };
-
-export default withRouter(connect(mapStateToProps)(DashboardTeacher));
+export default withRouter(connect(mapStateToProps)(AdminDashboard));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 // @material-ui/core components
@@ -17,9 +17,18 @@ import { landingPageStyle } from "./styles";
 import BenefitSection from "./components/BenefitSection";
 import FeatureSection from "./components/FeatureSection";
 import CTASection from "./components/CTASection";
+import MobileSection from "./components/MobileSection";
+
+//analytics
+import { logPageView } from "../Analytics";
 
 const LandingPage = props => {
   const { classes } = props;
+
+  useEffect(() => {
+    logPageView();
+  }, []);
+
   return (
     <div className="landing-container">
       <Parallax image={require("./assets/bg4.jpg")}>
@@ -28,11 +37,9 @@ const LandingPage = props => {
             <GridItem xs={12} sm={8} md={6}>
               <h1 className={classes.title}>You Can Make A Difference</h1>
               <h4>
+                Become a changemaker and start making an impact on the lives of
                 Ghanaian and Nigerian students wishing to qualify for admission
-                into secondary and vocational schools must take the Basic
-                Education Certificate Examination (BECE). Students who work with
-                mentors in preperation for the exam had a higher pass rate than
-                those who did not.
+                into secondary and vocational schools.
               </h4>
               <br />
               <Button color="warning" size="lg" href="/signup">
@@ -48,6 +55,7 @@ const LandingPage = props => {
           <BenefitSection />
           <FeatureSection />
           <CTASection />
+          <MobileSection />
         </div>
       </div>
       {/* <Footer /> */}

@@ -6,6 +6,9 @@ import {
   withRouter
 } from "react-router-dom";
 
+//analytics
+import { initGA, logPageView } from "./components/Analytics";
+
 // auth stuff
 import { auth, firestore } from "./config/fbConfig.js";
 import "firebase/auth";
@@ -19,20 +22,19 @@ import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
-import Calendar from "./components/calendar/Calendar";
-import AdminDashboard from "./components/dashboard/admin-dashboard/AdminDashboard.js";
+// import Calendar from "./components/calendar/Calendar";
+// import AdminDashboard from "./components/dashboard/admin-dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
-import ViewUserProfile from "./components/views/ViewUserProfile";
+// import ViewUserProfile from "./components/views/ViewUserProfile";
 import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
-import DashboardMentor from "./components/dashboard/mentor-dashboard/DashboardMentor.js";
-import DashboardTeacher from "./components/dashboard/teacher-dashboard/DashboardTeacher";
 import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";
 import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js";
+import Dashboard from "./components/dashboard/Dashboard.js";
 
 import "./App.css";
 
@@ -47,6 +49,8 @@ class App extends React.Component {
   };
 
   componentDidMount = () => {
+    initGA();
+    logPageView();
     this.unsubsribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
@@ -76,7 +80,6 @@ class App extends React.Component {
   };
 
   setupUserListener = user => {
-    let uid = user.uid;
     if (this.state.userListenerCreated) {
       return;
     }
@@ -98,21 +101,6 @@ class App extends React.Component {
     });
   };
 
-  routeUser = user => {
-    if (user.userType === "mentor") {
-      // this.props.history.push("/mentor_dahsboard");
-      return "/mentor_dashboard";
-    } else if (user.userType === "teacher") {
-      // this.props.history.push("/teacher_dahsboard");
-      return "/teacher_dashboard";
-    } else if (user.userType === "admin") {
-      return "/admin-dashboard";
-    } else {
-      this.props.history.push("/");
-      return "/";
-    }
-  };
-
   componentWillUnmount = () => {
     this.unsubscribeFromAuth(); //clean up after yourself
     this.unsubsribeFromUser();
@@ -128,7 +116,6 @@ class App extends React.Component {
             <Route path="/mission" component={LandingMission} />
             <Route path="/mentors" component={MentorList} />
             <Route path="/FAQ" component={FAQ} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
             <Route path="/view-profile" component={NewUserProfile} />
@@ -136,11 +123,7 @@ class App extends React.Component {
               exact
               path="/signup"
               render={props => (
-                <SignUp
-                  setupUserListener={this.setupUserListener}
-                  routeUser={this.routeUser}
-                  {...props}
-                />
+                <SignUp setupUserListener={this.setupUserListener} {...props} />
               )}
             />
             <Route
@@ -148,7 +131,6 @@ class App extends React.Component {
               render={props => (
                 <Login
                   setupUserListener={this.setupUserListener}
-                  routeUser={this.routeUser}
                   {...props}
                   rerouteUser={this.state.rerouteUser}
                 />
@@ -159,8 +141,7 @@ class App extends React.Component {
             <Route path="/applicationstatus" component={AwaitingApproval} />
             <Route path="/mentor-table" component={MentorTable} />
             <Route path="/teacher-table" component={TeacherTable} />
-            <Route path="/mentor_dashboard" component={DashboardMentor} />
-            <Route path="/teacher_dashboard" component={DashboardTeacher} />
+            <Route path="/dashboard" component={Dashboard} />
             <Route path="/update_profile" component={EditProfileView} />
             <Route path="/user-approval" component={UserApproval} />
           </Switch>

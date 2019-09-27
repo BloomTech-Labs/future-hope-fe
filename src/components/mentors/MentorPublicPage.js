@@ -1,9 +1,9 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-
+import React, { useEffect } from "react";
+import { withRouter } from "react-router";
 import {
   MDBCard,
   MDBCardBody,
+  MDBBtn,
   MDBCardImage,
   MDBCardTitle,
   MDBCardText,
@@ -11,13 +11,25 @@ import {
 } from "mdbreact";
 import "./mentors.css";
 
+//analytics
+import { logPageView } from "../Analytics";
+
 const MentorPublicPage = props => {
   const mentors = props.mentorData;
+  console.log(mentors);
+
+  useEffect(() => {
+    logPageView();
+  }, []);
+
+  const pushToLogin = () => {
+    props.history.push(`/login`);
+  };
 
   return (
     <div className="mentor-cards">
       <MDBContainer className="mentor-card-mdcontainer">
-        <MDBCard style={{ maxWidth: "22rem", margin: "40px" }}>
+        <MDBCard style={{ maxWidth: "22rem", margin: "10px", padding: "30px" }}>
           <MDBCardImage
             className="img-fluid"
             src={
@@ -25,29 +37,27 @@ const MentorPublicPage = props => {
             }
             alt="profile picture"
             waves
-            style={{ width: "250px", height: "250px", borderRadius: "50%" }}
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "50%"
+            }}
           />
           <MDBCardBody className="mentor-cards-body-section">
             <MDBCardTitle className="mentor-card-title">
-              {mentors.name}
+              {mentors.fullName}
             </MDBCardTitle>
             <MDBCardText className="mentor-card-text">
               Location: {mentors.city}
             </MDBCardText>
-            <MDBCardText className="mentor-card-text">
-              About: {mentors.about}
-            </MDBCardText>
-            <MDBCardText className="mentor-card-text">
-              Skills: {mentors.skills}
-            </MDBCardText>
-            <Button
-              href="/login"
+            <MDBBtn
+              onClick={() => pushToLogin()}
               size="small"
-              color="primary"
+              color="orange"
               variant="contained"
             >
-              Contact {mentors.name}
-            </Button>
+              Contact
+            </MDBBtn>
           </MDBCardBody>
         </MDBCard>
       </MDBContainer>
@@ -55,4 +65,4 @@ const MentorPublicPage = props => {
   );
 };
 
-export default MentorPublicPage;
+export default withRouter(MentorPublicPage);

@@ -8,11 +8,10 @@ import { Button } from "@material-ui/core";
 import { Input } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import "./Profile.scss";
+import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,6 +40,7 @@ const EditProfileView = props => {
   });
   const [img, setImg] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     setUser({
@@ -136,110 +136,115 @@ const EditProfileView = props => {
   };
 
   return (
-    <div className="view-profile-wrapper">
-      <form
-        className="profile-form"
-        onSubmit={e => {
-          e.preventDefault();
-          updateInfo();
-        }}
-      >
-        <TextField
-          className="profile-input"
-          label="Full Name"
-          type="text"
-          name="fullName"
-          onFocus={handleFocus}
-          value={user.fullName}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          label="State or Province"
-          type="text"
-          name="stateProvince"
-          onFocus={handleFocus}
-          value={user.stateProvince}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          label="City"
-          type="text"
-          name="city"
-          onFocus={handleFocus}
-          value={user.city}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          type="text"
-          label="Country"
-          name="country"
-          onFocus={handleFocus}
-          value={user.country}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          label="Phone Number"
-          type="text"
-          name="phoneNumber"
-          onFocus={handleFocus}
-          value={user.phoneNumber}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          label="Email"
-          type="text"
-          name="email"
-          onFocus={handleFocus}
-          value={user.email}
-          onChange={handleChanges}
-        />
-        <TextField
-          className="profile-input"
-          label="About Me"
-          type="text"
-          multiline
-          name="aboutMe"
-          value={user.aboutMe}
-          onChange={handleChanges}
-        />
-        <div className="upload-photo-wrapper">
-          <Input type="file" id="img-upload" onChange={inputOnChange} />
-          <label htmlFor="img-upload">
+    <div className="main-content">
+      <SideBar />
+      <div className="view-profile-wrapper">
+        <Paper className={classes.paper} elevation={20}>
+          <form
+            className="profile-form"
+            onSubmit={e => {
+              e.preventDefault();
+              updateInfo();
+            }}
+          >
+            <TextField
+              className="profile-input"
+              label="Full Name"
+              type="text"
+              name="fullName"
+              onFocus={handleFocus}
+              value={user.fullName}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              label="State or Province"
+              type="text"
+              name="stateProvince"
+              onFocus={handleFocus}
+              value={user.stateProvince}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              label="City"
+              type="text"
+              name="city"
+              onFocus={handleFocus}
+              value={user.city}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              type="text"
+              label="Country"
+              name="country"
+              onFocus={handleFocus}
+              value={user.country}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              label="Phone Number"
+              type="text"
+              name="phoneNumber"
+              onFocus={handleFocus}
+              value={user.phoneNumber}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              label="Email"
+              type="text"
+              name="email"
+              onFocus={handleFocus}
+              value={user.email}
+              onChange={handleChanges}
+            />
+            <TextField
+              className="profile-input"
+              label="About Me"
+              type="text"
+              multiline
+              name="aboutMe"
+              value={user.aboutMe}
+              onChange={handleChanges}
+            />
+            <div className="upload-photo-wrapper">
+              <Input type="file" id="img-upload" onChange={inputOnChange} />
+              <label htmlFor="img-upload">
+                <Button
+                  className="profile-button-upload"
+                  onClick={e => {
+                    e.preventDefault();
+                    uploadImage();
+                  }}
+                >
+                  Upload
+                </Button>
+              </label>
+              <PhotoCamera
+                className="preview-icon"
+                onClick={photoCameraClick}
+                color={showPreview ? "secondary" : "primary"}
+              />
+            </div>
             <Button
-              className="profile-button-upload"
+              className="profile-button-save"
               onClick={e => {
                 e.preventDefault();
-                uploadImage();
+                updateInfo();
               }}
             >
-              Upload
+              Save Changes
             </Button>
-          </label>
-          <PhotoCamera
-            className="preview-icon"
-            onClick={photoCameraClick}
-            color={showPreview ? "secondary" : "primary"}
-          />
-        </div>
-        <Button
-          className="profile-button-save"
-          onClick={e => {
-            e.preventDefault();
-            updateInfo();
-          }}
-        >
-          Save Changes
-        </Button>
-      </form>
-      <div className="profile-pic-wrapper">
-        {showPreview ? (
-          <img src={previewImage(img)} alt="" onClick={closeImage} />
-        ) : null}
+          </form>
+          <div className="profile-pic-wrapper">
+            {showPreview ? (
+              <img src={previewImage(img)} alt="" onClick={closeImage} />
+            ) : null}
+          </div>
+        </Paper>
       </div>
     </div>
   );
