@@ -3,7 +3,8 @@
 }
 
 .mentor-page-title-span {
-  color: #3f51b5;
+  color: orange;
+  font-weight: 400;
 }
 
 .mentor-cards {
@@ -19,7 +20,7 @@
 }
 
 .mentor-card-text {
-  font-size: 1.25em;
+  font-size: 2rem;
 }
 
 .mentor-page-cards-wrapper {

@@ -1,17 +1,35 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { userStore } from "../../actions/auth.js";
-
-import Button from "@material-ui/core/Button";
+//styles
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { signInWithGoogle, signInWithFacebook, firestore, auth } from "../../config/fbConfig.js";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody
+} from "mdbreact";
+
+import {
+  signInWithGoogle,
+  signInWithFacebook,
+  firestore,
+  auth
+} from "../../config/fbConfig.js";
 
 import "./SignUp.scss";
+
+//analytics
+import { logPageView, event } from "../Analytics";
+
+//! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
 class SignUp extends React.Component {
   state = {
@@ -19,20 +37,21 @@ class SignUp extends React.Component {
     // dependent on wether this user went directly to the signup page, or they were pushed here
     // from login
     signingInWithOAuth: false,
-    showForm: false,
     fullName: "",
     email: "",
-    // hey dumby. remember that this shouldnt be hard coded to mentor :D
-    userType: "mentor",
+    userType: "",
     city: "",
     stateProvince: "",
     country: "",
     phoneNumber: "",
     aboutMe: "",
-    password: ""
+    password: "",
+    photoUrl:
+      "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
   };
 
   componentDidMount = () => {
+    logPageView();
     // if this user is being pushed here, and there is a user on props, then
     // we want to use the info that we already recieved, as well as set
     // signingInWithOAuth to true so that we can conditionally render some UI
@@ -52,8 +71,16 @@ class SignUp extends React.Component {
     });
   };
 
+  handleUserTypeChange = e => {
+    this.setState({
+      userType: e.target.value
+    });
+  };
+
+  //signup with email
   handleSubmit = async e => {
     e.preventDefault();
+    event("Email Signup", "User signedup in with Email", "SignUp");
     // console.log("triggered");
     // user is creating a brand new account with email and password
     if (!this.state.signingInWithOAuth) {
@@ -71,12 +98,12 @@ class SignUp extends React.Component {
     const uid = auth.currentUser.uid;
     const userRef = firestore.collection("users").doc(uid);
     //* Create the user account
-    //things coming from auth.currentUser is info from Oauth 
+    //things coming from auth.currentUser is info from Oauth
     await userRef.set({
       uid,
       email: this.state.email,
       fullName: this.state.fullName,
-      photoUrl: auth.currentUser.photoURL || "",
+      photoUrl: auth.currentUser.photoURL || this.state.photoUrl,
       userType: this.state.userType,
       city: this.state.city,
       stateProvince: this.state.stateProvince,
@@ -98,191 +125,207 @@ class SignUp extends React.Component {
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo);
-    // console.log("rerouting user", userInfo.data());
-    const routeTo = this.props.routeUser(userInfo.data());
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
-    //! For test reasons, (if you want the redirect to take you to mentor_dashboard or teacher_dashboard, use routeTo)
-    this.props.history.push('/applicationstatus'); 
+    this.props.history.push("/applicationstatus");
     this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
   };
 
+  //oAuth signup with Google
+  signUpWithGoogle = async e => {
+    event("Google Signup", "User signedup in with Google", "SignUp");
+    e.preventDefault();
+    await signInWithGoogle();
+    // console.log(auth.currentUser);
+    this.setState({
+      signingInWithOAuth: !this.state.signingInWithOAuth,
+      fullName: auth.currentUser.displayName,
+      email: auth.currentUser.email,
+      phoneNumber: auth.currentUser.phoneNumber || ""
+    });
+  };
+
+  //oAuth signup with Facebook
+  signUpWithFacebook = async e => {
+    event("Facebook Signup", "User signedup in with Facebook", "SignUp");
+    e.preventDefault();
+    await signInWithFacebook();
+    // console.log(auth.currentUser);
+    this.setState({
+      signingInWithOAuth: !this.state.signingInWithOAuth,
+      fullName: auth.currentUser.displayName,
+      email: auth.currentUser.email,
+      phoneNumber: auth.currentUser.phoneNumber || ""
+    });
+  };
+
   render() {
-    console.log("auth.currentUser", auth.currentUser);
+    // console.log("auth.currentUser", auth.currentUser);
     return (
-      <div className='signup-wrapper'>
-        {!this.state.signingInWithOAuth && (
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={async e => {
-              await signInWithGoogle();
-              console.log(auth.currentUser);
-              this.setState({
-                signingInWithOAuth: !this.state.signingInWithOAuth,
-                fullName: auth.currentUser.displayName,
-                email: auth.currentUser.email,
-                phoneNumber: auth.currentUser.phoneNumber || ""
-              });
-            }}
-          >
-            Sign Up With Google
-          </Button>
-        )}
-        {!this.state.signingInWithOAuth && (
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={async e => {
-              await signInWithFacebook();
-              console.log(auth.currentUser);
-              this.setState({
-                signingInWithOAuth: !this.state.signingInWithOAuth,
-                fullName: auth.currentUser.displayName,
-                email: auth.currentUser.email,
-                phoneNumber: auth.currentUser.phoneNumber || ""
-              });
-            }}
-          >
-            Sign Up With Facebook
-          </Button>
-        )}
-        {!this.state.signingInWithOAuth && (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => this.setState({ showForm: !this.state.showForm })}
-        >
-          Sign Up With Email
-        </Button>
-        )}
-        <div
-          className={`signup-form-container ${
-            this.state.signingInWithOAuth
-              ? ""
-              : this.state.showForm
-              ? ""
-              : "hidden"
-          }`}
-        >
-          <form className='signup-form' onSubmit={this.handleSubmit}>
-            <h5>Sign Up</h5>
-            <TextField
-              required
-              disabled={this.state.signingInWithOAuth}
-              id='standard-name'
-              label='Name'
-              value={this.state.fullName}
-              onChange={this.handleChange}
-              margin='normal'
-              name='fullName'
-            />
-            <TextField
-              required
-              disabled={this.state.signingInWithOAuth}
-              id='standard-email'
-              label='Email'
-              value={this.state.email}
-              onChange={this.handleChange}
-              margin='normal'
-              name='email'
-              type='email'
-            />
-            {!this.state.signingInWithOAuth && (
-              <TextField
-                required
-                id='standard-email'
-                label='Verify email'
-                margin='normal'
-                name='email'
-                type='email'
-              />
-            )}
-            {!this.state.signingInWithOAuth && (
-              <TextField
-                required
-                id='standard-password-input'
-                type='password'
-                label='Password'
-                value={this.state.password}
-                onChange={this.handleChange}
-                margin='normal'
-                name='password'
-              />
-            )}
-            <TextField
-              required
-              id='standard-name'
-              label='City'
-              value={this.state.city}
-              onChange={this.handleChange}
-              margin='normal'
-              name='city'
-            />
-            <TextField
-              required
-              id='standard-name'
-              label='State or Province'
-              value={this.state.stateProvince}
-              onChange={this.handleChange}
-              margin='normal'
-              name='stateProvince'
-            />
-            {/* //! Country and State probably need to be select menus like userType is  */}
-            <TextField
-              required
-              id='standard-name'
-              label='Country'
-              value={this.state.country}
-              onChange={this.handleChange}
-              margin='normal'
-              name='country'
-            />
-            <TextField
-              required
-              id='standard-name'
-              label='Phone Number'
-              value={this.state.phoneNumber}
-              onChange={this.handleChange}
-              margin='normal'
-              name='phoneNumber'
-            />
-            <TextField
-              required
-              id='standard-name'
-              label='About Me'
-              value={this.state.aboutMe}
-              onChange={this.handleChange}
-              margin='normal'
-              name='aboutMe'
-            />
-            <FormControl style={{ minWidth: 160 }}>
-              <InputLabel htmlFor='age-simple'>Account Type</InputLabel>
-              <Select
-                value={this.state.userType}
-                onChange={e => {
-                  this.setState({
-                    userType: e.target.value
-                  });
-                }}
-              >
-                <MenuItem value='mentor'>Mentor</MenuItem>
-                <MenuItem value='teacher'>Teacher</MenuItem>
-              </Select>
-            </FormControl>
-            <Button
-              variant='contained'
-              size='large'
-              color='primary'
-              onClick={this.handleSubmit}
-            >
-              Sign Up
-            </Button>
-          </form>
-          <p>please note the following:</p>
-          <ul>
-            <li>a "mentor" is volunteer.</li>
-            <li>a "teacher" is a classroom in need of assistance.</li>
-          </ul>
+      <div className="signup-wrapper">
+        <div>
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol>
+                <MDBCard>
+                  <MDBCardBody>
+                    <form className="signup-form" onSubmit={this.handleSubmit}>
+                      <p className="h4 text-center py-4">Sign Up</p>
+                      <MDBInput
+                        required
+                        disabled={this.state.signingInWithOAuth}
+                        id="standard-name"
+                        label="Full Name"
+                        icon="user"
+                        value={this.state.fullName}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="fullName"
+                      />
+                      <MDBInput
+                        required
+                        disabled={this.state.signingInWithOAuth}
+                        id="standard-email"
+                        label="Enter Email"
+                        icon="envelope"
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="email"
+                        type="email"
+                      />
+                      {!this.state.signingInWithOAuth && (
+                        <MDBInput
+                          required
+                          id="verify-email"
+                          label="Verify Email"
+                          icon="envelope"
+                          margin="normal"
+                          name="email"
+                          type="email"
+                        />
+                      )}
+                      {!this.state.signingInWithOAuth && (
+                        <MDBInput
+                          required
+                          id="standard-password-input"
+                          icon="lock"
+                          type="password"
+                          label="Create Password"
+                          value={this.state.password}
+                          onChange={this.handleChange}
+                          margin="normal"
+                          name="password"
+                        />
+                      )}
+                      <MDBInput
+                        required
+                        id="city"
+                        label="City"
+                        icon="map-signs"
+                        value={this.state.city}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="city"
+                      />
+                      <MDBInput
+                        required
+                        id="state-province"
+                        label="State or Province"
+                        icon="map-marked-alt"
+                        value={this.state.stateProvince}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="stateProvince"
+                      />
+                      {/* //! Country and State probably need to be select menus like userType is  */}
+                      <MDBInput
+                        required
+                        id="contry"
+                        label="Country"
+                        icon="globe-africa"
+                        value={this.state.country}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="country"
+                      />
+                      <MDBInput
+                        required
+                        id="phone"
+                        label="Phone Number"
+                        icon="phone"
+                        value={this.state.phoneNumber}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="phoneNumber"
+                      />
+                      <MDBInput
+                        required
+                        id="about-me"
+                        label="About Me"
+                        icon="list-alt"
+                        value={this.state.aboutMe}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        name="aboutMe"
+                      />
+                      <FormControl style={{ minWidth: 80 }}>
+                        <InputLabel htmlFor="age-simple">
+                          Choose an Account Type
+                        </InputLabel>
+                        <Select
+                          value={this.state.userType}
+                          onChange={e => {
+                            this.setState({
+                              userType: e.target.value
+                            });
+                          }}
+                        >
+                          <MenuItem value="mentor">
+                            I am a Mentor in North America
+                          </MenuItem>
+                          <MenuItem value="teacher">
+                            I am a Teacher in Ghana
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                      <div className="text-center mt-3">
+                        <MDBBtn
+                          id="sign-up-btn"
+                          variant="contained"
+                          color="orange"
+                          type="submit"
+                        >
+                          Sign Up
+                        </MDBBtn>
+                      </div>
+                    </form>
+                    <div className="text-center mt-3">
+                      <p className="h6 text-center">or Signup with:</p>
+                      {!this.state.signingInWithOAuth && (
+                        <MDBBtn
+                          variant="contained"
+                          color="blue"
+                          onClick={async e => this.signUpWithFacebook(e)}
+                        >
+                          Facebook
+                        </MDBBtn>
+                      )}
+                      <br />
+                      {!this.state.signingInWithOAuth && (
+                        <MDBBtn
+                          variant="contained"
+                          color="red"
+                          onClick={e => this.signUpWithGoogle(e)}
+                        >
+                          Google
+                        </MDBBtn>
+                      )}
+                    </div>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
         </div>
       </div>
     );

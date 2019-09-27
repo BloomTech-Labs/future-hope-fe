@@ -90,10 +90,14 @@ body {
   text-align: left;
 }
 
-.app-container > div:first-child:not(.landing-container){
+.app-container > div:first-child:not(.landing-container) {
   padding-top: 80px;
 }
 
 .app-container {
   min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
 }

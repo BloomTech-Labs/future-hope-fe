@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 // @material-ui/core components
@@ -17,49 +17,51 @@ import { landingPageStyle } from "./styles";
 import BenefitSection from "./components/BenefitSection";
 import FeatureSection from "./components/FeatureSection";
 import CTASection from "./components/CTASection";
+import MobileSection from "./components/MobileSection";
 
-const LandingPage = (props) => {
-    const { classes } = props;
-    return (
-      <div className="landing-container">
-        <Parallax image={require("./assets/bg4.jpg")}>
-          <div className={classes.container}>
-            <GridContainer>
-              <GridItem xs={12} sm={8} md={6}>
-                <h1 className={classes.title}>You Can Make A Difference</h1>
-                <h4>
-                  Ghanaian and Nigerian students wishing to qualify for admission
-                  into secondary and vocational schools must take the Basic 
-                  Education Certificate Examination (BECE).  Students who work 
-                  with mentors in preperation for the exam had a higher pass rate
-                  than those who did not.
-                </h4>
-                <br />
-                <Button
-                  color="warning"
-                  size="lg"
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Register
-                </Button>
-              </GridItem>
-            </GridContainer>
-          </div>
-        </Parallax>
-        <div className={classNames(classes.main, classes.mainRaised)}>
-          {/* Sections Container */}
-          <div className={classes.container}>
-            <BenefitSection />
-            <FeatureSection />
-            <CTASection />
-          </div>
+//analytics
+import { logPageView } from "../Analytics";
+
+const LandingPage = props => {
+  const { classes } = props;
+
+  useEffect(() => {
+    logPageView();
+  }, []);
+
+  return (
+    <div className="landing-container">
+      <Parallax image={require("./assets/bg4.jpg")}>
+        <div className={classes.container}>
+          <GridContainer>
+            <GridItem xs={12} sm={8} md={6}>
+              <h1 className={classes.title}>You Can Make A Difference</h1>
+              <h4>
+                Become a changemaker and start making an impact on the lives of
+                Ghanaian and Nigerian students wishing to qualify for admission
+                into secondary and vocational schools.
+              </h4>
+              <br />
+              <Button color="warning" size="lg" href="/signup">
+                SIGNUP
+              </Button>
+            </GridItem>
+          </GridContainer>
         </div>
-        {/* <Footer /> */}
+      </Parallax>
+      <div className={classNames(classes.main, classes.mainRaised)}>
+        {/* Sections Container */}
+        <div className={classes.container}>
+          <BenefitSection />
+          <FeatureSection />
+          <CTASection />
+          <MobileSection />
+        </div>
       </div>
-    );
-}
+      {/* <Footer /> */}
+    </div>
+  );
+};
 
 LandingPage.propTypes = {
   classes: PropTypes.object

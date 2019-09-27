@@ -1,0 +1,129 @@
+.messaging-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+
+  // h1 {
+  //     text-align: center;
+  //     width
+  // }
+  .list-conversations-wrapper {
+    width: 35%;
+    height: 75vh;
+    margin: 20px;
+    .conversation-list-item {
+      cursor: pointer;
+      background-color: white;
+      img {
+        width: 100px;
+        border-radius: 100%;
+      }
+    }
+  }
+  .conversations-wrapper {
+    width: 60%;
+    margin: 20px;
+    height: 75vh;
+    background-color: white;
+    overflow: auto;
+    // display: flex;
+    // flex-direction: column;
+
+    .message-wrapper {
+      //   height: 80%;
+      //   width: 90%;
+      line-height: 100%;
+      display: block;
+      position: relative;
+      padding: 0.25em 0.5em;
+      // border: black solid 1.5px;
+      // -webkit-border-radius: 11px;
+      // -moz-border-radius: 11px;
+      // border-radius: 15px;
+      margin-bottom: 2em;
+      clear: both;
+      max-width: 50%;
+    }
+
+    .message-sender {
+      text-align: center;
+    }
+    .right {
+      float: right;
+      // margin-left: 10%;
+      // background: lightblue;
+      // border-bottom-left-radius: 0px;
+      .message-content {
+        font-size: 1.3rem;
+        background: lightblue;
+        border: black solid 1.5px;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-right-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
+    }
+    .left {
+      // background-color: lightgrey;
+      float: left;
+      // border-bottom-right-radius: 0px;
+      // margin-right: 10%;
+      .message-content {
+        border: black solid 1.5px;
+        background-color: lightgrey;
+        -webkit-border-radius: 11px;
+        -moz-border-radius: 11px;
+        border-radius: 15px;
+        border-bottom-left-radius: 0px;
+        // height: 35px;
+        padding: 6%;
+
+        p {
+          font-size: 1.3rem;
+          line-height: normal;
+        }
+      }
+    }
+    .avatar-right {
+      float: right;
+      // margin-left: 10%;
+      margin-top: 5%;
+    }
+    .avatar-left {
+      float: left;
+      // margin-right: 10%;
+      margin-top: 5%;
+    }
+    // p {
+    //   font-size: 1.3rem;
+    // }
+    .sent-span {
+      text-align: center;
+      .sent-date {
+        font-size: 0.8rem;
+      }
+    }
+    .input-wrapper {
+      form {
+        position: absolute;
+        top: 89%;
+        display: flex;
+        width: 33%;
+        height: 35px;
+        margin-top: 8px;
+        input {
+          padding-right: 5%;
+          margin-right: 5%;
+        }
+        button {
+          background: lightgreen;
+        }
+      }
+    }
+  }
+}
