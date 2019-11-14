@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import image from "../../assets/img/old_ghana_picture.png";
 
 const useStyles = makeStyles({
   card: {
@@ -25,7 +26,7 @@ const MaterialCard = props => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/src/assests/img/old_ghana_picture.png"
+          image={image}
           title="Old Picture of Ghana"
         />
         <CardContent>
