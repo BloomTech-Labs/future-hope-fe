@@ -22,7 +22,7 @@ const TrainingWindow = () => {
 
     return(
         <div>
-            {dummyLinks.map((link, index) => (
+            {dummyLinks.map((link, index) => ([
                         <ReactTinyLink
                         cardSize="large"
                         showGraphic={true}
@@ -33,8 +33,9 @@ const TrainingWindow = () => {
                         header={`Module ${index + 1}`}
                         description="Ghanaian Food"
                         defaultMedia={photosGhana}
-                        />
-            ))}
+                        />,
+                        <br/>
+            ]))}
         </div>
        
     )
