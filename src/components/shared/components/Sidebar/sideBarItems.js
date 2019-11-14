@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { firestore } from "../../../../config/fbConfig";
+import swal from 'sweetalert'
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -23,10 +24,29 @@ import "./sidebar.css"
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
+    const [newCat, setNewCat] = useState({})
+
+    useEffect(() => {
+      customLinks()
+    }, [])
+
+    const customLinks = async () => {
+      let linkArray = []
+      const linkRef = firestore.collection('trainingTabNav')
+      await linkRef.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          linkArray.push({
+            name: doc.data().navName
+          })
+        })
+      })
+      setNavItems(linkArray)
+    }
 
   return (
     
-    <List>
+
+    <List id="naviList" className="navList">
       <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
           <CalendarTodayIcon style={{ color: "#ff9800" }} />
@@ -80,24 +100,55 @@ export const MainListItems = props => {
         <ListItemText primary="Update Profile" />
       </ListItem>
       <List>
-        <ListItem button className="trainingBtn">
+        <ListItem button className="trainingBtn" onClick={()=>{
+          document.getElementById("naviList").classList.toggle("navList")
+          document.getElementById("hiddenmenu").classList.toggle("trainingCategoriesHidden")
+
+        }}>
           <ListItemIcon>
             <SchoolIcon style={{ color: "#ff9800"}} />
           </ListItemIcon>
           <ListItemText primary="Training"/>
         </ListItem>
         <ListItemIcon button className="iconBox">
-            <AddIcon style={{ color: "#ff9800"}} />
+            <AddIcon style={{ color: "#ff9800"}} onClick={()=>{swal({
+              title: "Add a new sub-category",
+              content: {
+                element: "input",
+                attributes: {
+                  title: "Add a new sub-category",
+                  placeholder: "New category name"                  
+                }
+              },
+              buttons: {
+                cancel: true,
+                confirm: "Submit"
+              }
+            }).then( val => {
+              if(val){
+                swal({
+                title: "New category added!",
+                icon: "success"
+              })}
+              
+              firestore.collection('trainingTabNav').add({navName: val}).then(window.location.reload())
+
+
+            })}}/>
           </ListItemIcon>
-        <MenuList className="trainingCategories">
-          <MenuItem button  component={Link} to={"/food"} className="test"> 
-            Food
-          </MenuItem>
-          <MenuItem className="test">
-            Culture
-          </MenuItem>
+        <MenuList className="trainingCategories" id="hiddenmenu">
+          
+          {navItems.map(link => {
+            return(
+              <MenuItem button className="subCatAlign" component={Link} to={`/training/${link.name.toLowerCase()}`}>
+                {link.name}
+              </MenuItem>
+            )
+          })}
+
         </MenuList>
       </List>
+        
     </List>
   );
 };
