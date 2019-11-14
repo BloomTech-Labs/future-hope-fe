@@ -4,6 +4,7 @@ import React from "react";
 import MaterialCard from "./materialCard";
 
 const MaterialList = () => {
+  //May need state hook to save data
   return (
     <div className="material-list">
       <MaterialCard />
@@ -12,3 +13,5 @@ const MaterialList = () => {
 };
 
 export default MaterialList;
+
+//MaterialCard can be rendered in other ways depending on data
