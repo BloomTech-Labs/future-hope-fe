@@ -13,6 +13,12 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
+import TrainingTab from './TrainingTab';
+
+import AddIcon from '@material-ui/icons/Add';
+import { Menu, MenuItem, MenuList } from '@material-ui/core';
+ import SchoolIcon from '@material-ui/icons/School';
+
 export const MainListItems = props => {
   return (
     <List>
@@ -68,6 +74,16 @@ export const MainListItems = props => {
         </ListItemIcon>
         <ListItemText primary="Update Profile" />
       </ListItem>
+
+      {/* Training Tab */}
+      <ListItem>
+        <ListItemIcon>
+          <SchoolIcon style={{ color: "#ff9800" }} />
+        </ListItemIcon>
+        <ListItemText primary="Training" />
+        <TrainingTab />
+      </ListItem>
+
     </List>
   );
 };
