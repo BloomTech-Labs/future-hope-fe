@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-const MaterialCard = () => {
+const MaterialCard = props => {
   const classes = useStyles();
 
   return (
@@ -25,16 +25,15 @@ const MaterialCard = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Reptiles in Africa"
+          image="/src/assests/img/old_ghana_picture.png"
+          title="Old Picture of Ghana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.title || "Ghana"}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {props.description || "Learn more about Ghana from this page"}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -43,7 +42,7 @@ const MaterialCard = () => {
           Share
         </Button>
         <Button size="small" color="primary">
-          Learn More
+          <a href="https://www.everyculture.com/Ge-It/Ghana.html">Learn More</a>
         </Button>
       </CardActions>
     </Card>
