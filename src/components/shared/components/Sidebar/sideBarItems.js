@@ -131,8 +131,7 @@ export const MainListItems = props => {
                 icon: "success"
               })}
               
-              firestore.collection('trainingTabNav').add({navName: val}).then(window.location.reload())
-
+              if(val != null){firestore.collection('trainingTabNav').add({navName: val}).then(() =>{if(val != null){window.location.reload()}})}
 
             })}}/>
           </ListItemIcon>
