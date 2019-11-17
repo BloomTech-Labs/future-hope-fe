@@ -35,7 +35,8 @@ import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";
 import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js";
 import Dashboard from "./components/dashboard/Dashboard.js";
-import TrainingWindow from "./components/Training/TrainingWindow";
+
+import MaterialList from "./components/training/materialList.js";
 
 import "./App.css";
 
@@ -145,7 +146,7 @@ class App extends React.Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/update_profile" component={EditProfileView} />
             <Route path="/user-approval" component={UserApproval} />
-            <Route path="/food" component={TrainingWindow} />
+            <Route path="/training" component={MaterialList} />
           </Switch>
         </div>
         <Footer />
