@@ -1,5 +1,3 @@
-import axios from "axios";
-
 // action types
 export const FETCH_TRAINING_CREATE_START = "TRAINING_CREATE_START"
 export const FETCH_TRAINING_CREATE_SUCCESS = "TRAINING_CREATE_SUCCESS";
