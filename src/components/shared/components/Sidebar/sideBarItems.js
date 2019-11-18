@@ -21,6 +21,12 @@ import "./sidebar.css"
 
 
 
+import TrainingTab from './TrainingTab';
+
+import AddIcon from '@material-ui/icons/Add';
+import { Menu, MenuItem, MenuList } from '@material-ui/core';
+ import SchoolIcon from '@material-ui/icons/School';
+
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
@@ -147,7 +153,6 @@ export const MainListItems = props => {
 
         </MenuList>
       </List>
-        
     </List>
   );
 };
