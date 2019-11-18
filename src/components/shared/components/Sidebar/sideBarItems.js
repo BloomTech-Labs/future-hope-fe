@@ -20,6 +20,9 @@ import "./sidebar.css"
 
 
 
+import TrainingTab from './TrainingTab';
+
+
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
@@ -79,25 +82,16 @@ export const MainListItems = props => {
         </ListItemIcon>
         <ListItemText primary="Update Profile" />
       </ListItem>
-      <List>
-        <ListItem button className="trainingBtn">
-          <ListItemIcon>
-            <SchoolIcon style={{ color: "#ff9800"}} />
-          </ListItemIcon>
-          <ListItemText primary="Training"/>
-        </ListItem>
-        <ListItemIcon button className="iconBox">
-            <AddIcon style={{ color: "#ff9800"}} />
-          </ListItemIcon>
-        <MenuList className="trainingCategories">
-          <MenuItem button  component={Link} to={"/food"} className="test"> 
-            Food
-          </MenuItem>
-          <MenuItem className="test">
-            Culture
-          </MenuItem>
-        </MenuList>
-      </List>
+
+      {/* Training Tab */}
+      <ListItem>
+        <ListItemIcon>
+          <SchoolIcon style={{ color: "#ff9800" }} />
+        </ListItemIcon>
+        <ListItemText primary="Training" />
+        <TrainingTab />
+      </ListItem>
+
     </List>
   );
 };

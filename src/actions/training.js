@@ -1,8 +1,8 @@
+import axios from "axios";
 // action types
 export const FETCH_TRAINING_CREATE_START = "TRAINING_CREATE_START"
 export const FETCH_TRAINING_CREATE_SUCCESS = "TRAINING_CREATE_SUCCESS";
 export const FETCH_TRAINING_CREATE_FAILURE = "TRAINING_CREATE_FAILURE";
-
 // action creators
 export const getTraining = training => 
 (category, links) => 
