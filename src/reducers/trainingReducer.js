@@ -28,6 +28,7 @@ export const trainingReducer = (state = initialState, action) => {
                 trainings: action.payload,
                 isFetching: false,
                 error: ''
+
             };
         case FETCH_TRAINING_CREATE_FAILURE:
             return {
