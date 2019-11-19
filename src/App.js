@@ -146,6 +146,7 @@ class App extends React.Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/update_profile" component={EditProfileView} />
             <Route path="/user-approval" component={UserApproval} />
+            <Route path="/training" component={MaterialList} />
           </Switch>
         </div>
         <Footer />
