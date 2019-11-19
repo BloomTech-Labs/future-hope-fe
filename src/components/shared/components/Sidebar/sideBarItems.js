@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { firestore } from "../../../../config/fbConfig";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,15 +13,22 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import SchoolIcon from "@material-ui/icons/School"
+import AddIcon from '@material-ui/icons/Add';
+import { Menu, MenuItem, MenuList } from '@material-ui/core';
+import "./sidebar.css"
+
+
 
 import TrainingTab from './TrainingTab';
 
-import AddIcon from '@material-ui/icons/Add';
-import { Menu, MenuItem, MenuList } from '@material-ui/core';
- import SchoolIcon from '@material-ui/icons/School';
 
 export const MainListItems = props => {
+
+    const [navItems, setNavItems] = useState([])
+
   return (
+    
     <List>
       <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
