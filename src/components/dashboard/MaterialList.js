@@ -7,7 +7,7 @@ import SideBar from "../shared/components/Sidebar/SideBar.js"
 
 import "./Dashboard.css"
 const MaterialList = props => {
-  console.log(props)
+  console.log("Props", props)
   //May need state hook to save data
   const [materials, setMaterials] = useState([])
   useEffect(() => {
@@ -32,7 +32,7 @@ const MaterialList = props => {
     return () => {
       unsubsribe()
     }
-  }, [])
+  }, [props.match.params.topic])
 
   console.log(materials)
   return (
