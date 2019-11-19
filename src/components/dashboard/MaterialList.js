@@ -38,10 +38,7 @@ const MaterialList = props => {
   return (
     <>
       <SideBar />
-      <div
-        className="material-list"
-        style={{ display: "flex", justifyContent: "center", margin: "0 auto" }}
-      >
+      <div className="material-list" >
         {materials.map((material, index) => {
           return <MaterialCard material={material} index={index} />
         })}
