@@ -19,14 +19,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { Menu, MenuItem, MenuList } from '@material-ui/core';
 import "./sidebar.css"
 
-
-
 import TrainingTab from './TrainingTab';
-
-import AddIcon from '@material-ui/icons/Add';
-import { Menu, MenuItem, MenuList } from '@material-ui/core';
- import SchoolIcon from '@material-ui/icons/School';
-
+git 
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
