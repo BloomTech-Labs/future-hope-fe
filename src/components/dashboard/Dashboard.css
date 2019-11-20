@@ -11,3 +11,17 @@
   max-width: 100px;
   max-height: 100px;
 }
+
+/* use this class to style material cards beyond what React-Tiny-Link is capable of
+
+.react_tinylink_card.sc-gzVnrw.gilWtX {
+
+} 
+
+*/
+
+.material-list {
+  width: 75%;
+  margin-left: 250px;
+
+}

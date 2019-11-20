@@ -20,7 +20,8 @@ import { Menu, MenuItem, MenuList } from '@material-ui/core';
 import "./sidebar.css"
 
 import TrainingTab from './TrainingTab';
-git 
+
+
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
@@ -99,54 +100,15 @@ export const MainListItems = props => {
         </ListItemIcon>
         <ListItemText primary="Update Profile" />
       </ListItem>
-      <List>
-        <ListItem button className="trainingBtn" onClick={()=>{
-          document.getElementById("naviList").classList.toggle("navList")
-          document.getElementById("hiddenmenu").classList.toggle("trainingCategoriesHidden")
 
-        }}>
-          <ListItemIcon>
-            <SchoolIcon style={{ color: "#ff9800"}} />
-          </ListItemIcon>
-          <ListItemText primary="Training"/>
-        </ListItem>
-        <ListItemIcon button className="iconBox">
-            <AddIcon style={{ color: "#ff9800"}} onClick={()=>{swal({
-              title: "Add a new sub-category",
-              content: {
-                element: "input",
-                attributes: {
-                  title: "Add a new sub-category",
-                  placeholder: "New category name"                  
-                }
-              },
-              buttons: {
-                cancel: true,
-                confirm: "Submit"
-              }
-            }).then( val => {
-              if(val){
-                swal({
-                title: "New category added!",
-                icon: "success"
-              })}
-              
-              if(val != null && val != ""){firestore.collection('trainingTabNav').add({navName: val}).then(() =>{if(val != null){window.location.reload()}})}
-
-            })}}/>
-          </ListItemIcon>
-        <MenuList className="trainingCategories" id="hiddenmenu">
-          
-          {navItems.map(link => {
-            return(
-              <MenuItem button className="subCatAlign" component={Link} to={`/training/${link.name.toLowerCase()}`}>
-                {link.name}
-              </MenuItem>
-            )
-          })}
-
-        </MenuList>
-      </List>
+      {/* Training Tab */}
+      <ListItem>
+        <ListItemIcon>
+          <SchoolIcon style={{ color: "#ff9800" }} />
+        </ListItemIcon>
+        <ListItemText primary="Training" />
+        <TrainingTab />
+      </ListItem>
     </List>
   );
 };
