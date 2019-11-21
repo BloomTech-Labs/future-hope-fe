@@ -17,6 +17,4 @@ jobs:
         uses: cypress-io/github-action@v1.14.0
         with:
           browser: chrome
-          build: npm run build
-          start: npm run start
           working-directory: cypress
