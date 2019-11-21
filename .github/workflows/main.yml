@@ -15,5 +15,3 @@ jobs:
         uses: KingScooty/actions-yarn-cy@1.0.0
       - name: Cypress run
         uses: cypress-io/github-action@v1.14.0
-        with:
-          browser: chrome
