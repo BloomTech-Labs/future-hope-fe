@@ -1,0 +1,24 @@
+name: End-to-end tests
+
+on:
+  pull_request:
+    branches:
+      - QA
+jobs:
+  cypress-run:
+    name: run cypress
+    runs-on: 
+      - ubuntu-latest
+      - macOS-latest
+      - windows-latest   
+    steps:
+    - name: Cypress.io
+      uses: cypress-io/github-action@v1.14.0
+      with:
+        browser: chrome
+        record: true
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          
+        
+        
