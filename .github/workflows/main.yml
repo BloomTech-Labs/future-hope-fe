@@ -3,14 +3,19 @@ name: Node CI
 on: [push]
 
 jobs:
+
+
+name: with server
+on:
+  pull_request:
+    branches:
+      - QA
+jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
-
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -23,14 +28,14 @@ jobs:
         npm run build --if-present
         npm test
       env:
-        CI: true
-
-name: with server
-on:
-  pull_request:
-    branches:
-      - QA
-jobs:
+        CI: "true"
+        REACT_APP_FIRESTORE_API_KEY: ${{ secrets.REACT_APP_FIRESTORE_API_KEY }}
+        REACT_APP_FIRESTORE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIRESTORE_AUTH_DOMAIN}}
+        REACT_APP_FIRESTORE_DB_URL: ${{ secrets.REACT_APP_FIRESTORE_DB_URL }}
+        REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+        REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
+        REACT_APP_FIRESTORE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIRESTORE_MESSAGING_SENDER_ID }}
+        REACT_APP_FIRESTORE_APP_ID: ${{ secrets.REACT_APP_FIRESTORE_APP_ID }}
   cypress-run:
     name: run cypress
     runs-on: ubuntu-18.04
