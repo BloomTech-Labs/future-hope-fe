@@ -1,0 +1,38 @@
+.trainingCategoriesHidden {
+    display: none;
+}
+
+.trainingCategories{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    margin-top: -50px !important;
+}
+
+.test{
+   margin-left: 24% !important;
+   
+}
+
+
+.iconBox{
+    display: flex;
+    margin-left: 75%;
+    position: relative;
+    bottom: 49px;
+    height: 49px;
+    justify-content: center;
+    align-content: center;
+    padding-top: 10px;
+    max-width: 50%;
+    width: 25% !important; 
+    cursor: pointer;
+
+}
+.iconBox:hover{
+    background-color: rgb(232, 232, 232);
+}
+
+.trainingBtn{
+    max-width: 75%;
+}
