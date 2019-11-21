@@ -76,7 +76,7 @@ export default function TrainingTab() {
       >
         {options.map(
           option =>
-            console.log("OPTION: ", option) || (
+             (
               <MenuItem
                 component={Link}
                 to={`/training/${option.toLowerCase()}`}
