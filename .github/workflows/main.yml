@@ -16,3 +16,11 @@ jobs:
         uses: cypress-io/github-action@v1.14.0
         with:
           start: npm run start
+        env:
+          REACT_APP_FIRESTORE_API_KEY: ${{ secrets.REACT_APP_FIRESTORE_API_KEY }}
+          REACT_APP_FIRESTORE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIRESTORE_AUTH_DOMAIN}}
+          REACT_APP_FIRESTORE_DB_URL: ${{ secrets.REACT_APP_FIRESTORE_DB_URL }}
+          REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+          REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
+          REACT_APP_FIRESTORE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIRESTORE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIRESTORE_APP_ID: ${{ secrets.REACT_APP_FIRESTORE_APP_ID }}
