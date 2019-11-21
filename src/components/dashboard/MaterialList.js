@@ -32,7 +32,7 @@ const MaterialList = props => {
     return () => {
       unsubsribe()
     }
-  }, [])
+  }, [props.match.params.topic])
 
   console.log(materials)
   return (
