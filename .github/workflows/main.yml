@@ -17,4 +17,3 @@ jobs:
         uses: cypress-io/github-action@v1.14.0
         with:
           browser: chrome
-          working-directory: cypress
