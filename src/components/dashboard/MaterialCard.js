@@ -5,19 +5,19 @@ import { ReactTinyLink } from 'react-tiny-link';
 import photosGhana from "../dashboard/randomImages";
 
 const MaterialCard = props => {
-  console.log(props.material)
+  
   return ([
     
       <ReactTinyLink
       cardSize="large"
       showGraphic={true}
-      maxLine={2}
+      maxLine={3}
       minLine={1}
       proxyUrl="https://cors-anywhere.herokuapp.com/"
       url={props.material.source}
-      header={`Module ${props.index + 1}`}
-      description="Ghanaian Food"
-      defaultMedia={photosGhana}
+      header={props.material.title}
+      description={props.material.description}
+      defaultMedia={props.photos}
       />,
       <br/>
     

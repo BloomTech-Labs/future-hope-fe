@@ -47,7 +47,7 @@ export const MainListItems = props => {
   return (
     
 
-    <List id="naviList" className="navList">
+    <List>
       <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
           <CalendarTodayIcon style={{ color: "#ff9800" }} />
