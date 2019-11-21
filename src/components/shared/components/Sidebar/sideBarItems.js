@@ -1,23 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import MessageIcon from "@material-ui/icons/Message";
-import PeopleIcon from "@material-ui/icons/People";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import LiveHelpIcon from "@material-ui/icons/LiveHelp";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListSubheader from "@material-ui/core/ListSubheader"
+import MessageIcon from "@material-ui/icons/Message"
+import PeopleIcon from "@material-ui/icons/People"
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday"
+import AccountBoxIcon from "@material-ui/icons/AccountBox"
+import LiveHelpIcon from "@material-ui/icons/LiveHelp"
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser"
 
-import TrainingTab from './TrainingTab';
+import TrainingTab from "./TrainingTab"
 
-import AddIcon from '@material-ui/icons/Add';
-import { Menu, MenuItem, MenuList } from '@material-ui/core';
- import SchoolIcon from '@material-ui/icons/School';
+import AddIcon from "@material-ui/icons/Add"
+import { Menu, MenuItem, MenuList } from "@material-ui/core"
+import SchoolIcon from "@material-ui/icons/School"
 
 export const MainListItems = props => {
   return (
@@ -76,17 +76,16 @@ export const MainListItems = props => {
       </ListItem>
 
       {/* Training Tab */}
-      <ListItem>
+      <ListItem button>
         <ListItemIcon>
           <SchoolIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Training" />
         <TrainingTab />
       </ListItem>
-
     </List>
-  );
-};
+  )
+}
 
 export const SecondaryListItems = props => {
   return (
@@ -99,5 +98,5 @@ export const SecondaryListItems = props => {
         <ListItemText primary="Approve Users" />
       </ListItem>
     </List>
-  );
-};
+  )
+}
