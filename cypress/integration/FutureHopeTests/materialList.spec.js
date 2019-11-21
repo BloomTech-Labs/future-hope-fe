@@ -1,9 +1,19 @@
-
-describe("tests button", function () {
+describe("Training Portal", function () {
+    beforeEach(() => {
+        cy.visit("http://localhost:3000/training/family")
+    })    
     
-    it('says sign up', function() {
-      cy.visit("http://localhost:3000/training/family")
-      cy.get('[data-cy=test-material-list]')
-        .should('have.class', 'react_tinylink_card')
+    it('tests that training cards are present', function() {
+      
+      cy.get('[data-cy=trainingCard]')
+        .should('have.length', 2)
     })
+
+    it('checks training material component is present', function() {
+      
+        cy.get('[data-cy=materialList]')
+          .its('length')
+          .should('be.gt', 0)
+      })      
+
   })
