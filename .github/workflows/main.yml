@@ -9,12 +9,14 @@ jobs:
     name: run cypress
     runs-on: ubuntu-18.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: GitHub Action for Yarn + Cypress
         uses: KingScooty/actions-yarn-cy@1.0.0
-      - name: Cypress.io
+      - name: Cypress run
         uses: cypress-io/github-action@v1.14.0
         with:
           browser: chrome
-          record: "true"
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          build: npm run build
+          start: npm run start
+          working-directory: cypress
