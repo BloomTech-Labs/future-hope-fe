@@ -29,6 +29,20 @@ export default function TrainingTab() {
     return unsubcribe
   }, [])
 
+  useEffect(() => {
+    let unsubcribe = firestore
+      .collection("trainingTabNav")
+      // .collection("training")
+      .onSnapshot(snapshot => {
+        let trainingTabs = snapshot.docs.map(doc => {
+          return doc.data().navName;
+        });
+        setOptions(trainingTabs);
+      });
+
+    return unsubcribe;
+  }, []);
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -62,7 +76,7 @@ export default function TrainingTab() {
       >
         {options.map(
           option =>
-            console.log("OPTION: ", option) || (
+             (
               <MenuItem
                 component={Link}
                 to={`/training/${option.toLowerCase()}`}
