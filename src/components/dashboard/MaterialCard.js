@@ -7,7 +7,7 @@ import photosGhana from "../dashboard/randomImages";
 const MaterialCard = props => {
   console.log(props.material)
   return (
-      <div>
+      <div data-cy="trainingCard">
       <ReactTinyLink
       cardSize="large"
       showGraphic={true}
@@ -18,7 +18,6 @@ const MaterialCard = props => {
       header={`Module ${props.index + 1}`}
       description="Ghanaian Food"
       defaultMedia={photosGhana}
-      data-cy="test-material-list"
       />
       <br/>
       </div>
