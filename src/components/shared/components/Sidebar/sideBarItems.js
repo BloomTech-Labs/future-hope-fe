@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { firestore } from "../../../../config/fbConfig";
+import swal from 'sweetalert'
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,17 +19,34 @@ import AddIcon from '@material-ui/icons/Add';
 import { Menu, MenuItem, MenuList } from '@material-ui/core';
 import "./sidebar.css"
 
-
-
 import TrainingTab from './TrainingTab';
 
 
 export const MainListItems = props => {
 
     const [navItems, setNavItems] = useState([])
+    const [newCat, setNewCat] = useState({})
+
+    useEffect(() => {
+      customLinks()
+    }, [])
+
+    const customLinks = async () => {
+      let linkArray = []
+      const linkRef = firestore.collection('trainingTabNav')
+      await linkRef.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          linkArray.push({
+            name: doc.data().navName
+          })
+        })
+      })
+      setNavItems(linkArray)
+    }
 
   return (
     
+
     <List>
       <ListItem button component={Link} to={"/dashboard"}>
         <ListItemIcon>
@@ -91,7 +109,6 @@ export const MainListItems = props => {
         <ListItemText primary="Training" />
         <TrainingTab />
       </ListItem>
-
     </List>
   );
 };

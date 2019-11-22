@@ -1,5 +1,5 @@
 .trainingCategoriesHidden {
-    display: none;
+    display: block !important;
 }
 
 .trainingCategories{
@@ -7,11 +7,11 @@
     flex-direction: column;
     justify-content: right;
     margin-top: -50px !important;
+    display: none;
 }
 
-.test{
+.subCatAlign{
    margin-left: 24% !important;
-   
 }
 
 
@@ -35,4 +35,9 @@
 
 .trainingBtn{
     max-width: 75%;
+
+}
+
+.navList{
+    margin-bottom: -40px !important;
 }
