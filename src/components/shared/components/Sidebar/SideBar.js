@@ -110,8 +110,10 @@ const SideBar = props => {
 };
 
 const mapStateToProps = state => {
+  // console.log("sidebar", state.firebase.props);
   return {
-    userInfo: state.firebase.profile
+    userInfo: state.firebase.profile,
+    training: state.firebase.training
   };
 };
 
