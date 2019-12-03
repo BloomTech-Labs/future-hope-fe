@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard() {
+const MediaCard = props => {
   const classes = useStyles();
 
   return (
@@ -32,7 +32,7 @@ export default function MediaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.material || "Lizard"}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000
@@ -50,7 +50,9 @@ export default function MediaCard() {
       </CardActions>
     </Card>
   );
-}
+};
+
+export default MediaCard;
 
 // 12-3-2019
 // Payload into the card is unknown, thus hooks are not set up yet. Hooks are
