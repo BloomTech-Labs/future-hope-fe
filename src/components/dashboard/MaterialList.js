@@ -50,6 +50,32 @@ const MaterialList = props => {
           )
         })}
       </div>
+      <div className="material-list">
+        {materials.map((material, index) => {
+          return (
+            <MaterialCard
+              material={material}
+              index={index}
+              photos={
+                photosGhana[Math.floor(Math.random() * photosGhana.length)]
+              }
+            />
+          )
+        })}
+      </div>
+      <div className="material-list">
+        {materials.map((material, index) => {
+          return (
+            <MaterialCard
+              material={material}
+              index={index}
+              photos={
+                photosGhana[Math.floor(Math.random() * photosGhana.length)]
+              }
+            />
+          )
+        })}
+      </div>
     </>
   )
 }
