@@ -12,7 +12,7 @@ const UpdatedList = props => {
   const [materials, setMaterials] = useState([]);
 
   useEffect(() => {
-    const unsubsribe = firebase
+    const unsubscribe = firebase
       .firestore()
       .collection(`training/${props.match.params.topic}/modules`)
       .onSnapshot(
@@ -30,7 +30,7 @@ const UpdatedList = props => {
       );
 
     return () => {
-      unsubsribe();
+      unsubscribe();
     };
   }, [props.match.params.topic]);
 
