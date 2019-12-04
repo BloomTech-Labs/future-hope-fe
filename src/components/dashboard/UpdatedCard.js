@@ -6,21 +6,59 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 
 import photosGhana from "../dashboard/randomImages";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345
   },
   media: {
     height: 140
+  },
+  paper: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
   }
-});
+}));
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`
+  };
+}
 
 const MediaCard = props => {
   const classes = useStyles();
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // const DeleteClick = e => {
+  //   alert("Are you sure you would like to delete this material?");
+  // };
 
   return (
     <Card className={classes.card}>
@@ -44,9 +82,27 @@ const MediaCard = props => {
         <Button size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="secondary">
+        <Button size="small" color="secondary" onClick={handleOpen}>
           Delete
         </Button>
+        {/* Pop up window on Delete */}
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={open}
+          onClose={handleClose}
+        >
+          <div style={modalStyle} className={classes.paper}>
+            <h2 id="simple-modal-title">Delete this material?</h2>
+            <p id="simple-modal-description">This action cannot be reversed.</p>
+            <Button variant="contained" color="primary">
+              Yes, delete it.
+            </Button>
+            <Button variant="contained" color="secondary" onClick={handleClose}>
+              No
+            </Button>
+          </div>
+        </Modal>
       </CardActions>
     </Card>
   );
