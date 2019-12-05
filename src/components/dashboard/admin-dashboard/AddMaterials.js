@@ -86,7 +86,7 @@ function AddMaterial() {
         </form>
         <MDBBtn color="orange" type="submit">
                         Add Materials
-                      </MDBBtn>
+        </MDBBtn>
         </MDBCardBody>
               </MDBCard>
             </MDBCol>
