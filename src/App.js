@@ -37,7 +37,7 @@ import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js
 import Dashboard from "./components/dashboard/Dashboard.js";
 import UpdatedList from "./components/dashboard/UpdatedList";
 import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js";
-import EditMaterial from "./components/dashboard/admin-dashboard/EditMaterial.js";
+// import EditMaterial from "./components/dashboard/admin-dashboard/EditMaterial.js";
 import "./App.css";
 
 class App extends React.Component {
