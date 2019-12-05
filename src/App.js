@@ -36,6 +36,7 @@ import EditProfileView from "./components/views/EditProfileView.js"
 import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js"
 import Dashboard from "./components/dashboard/Dashboard.js"
 import MaterialList from "./components/dashboard/MaterialList"
+import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js"
 
 import "./App.css"
 
@@ -147,6 +148,7 @@ class App extends React.Component {
             <Route path="/update_profile" component={EditProfileView} />
             <Route path="/user-approval" component={UserApproval} />
             <Route path="/training" component={MaterialList} />
+            <Route path="/add-materials" component={AddMaterial} />
           </Switch>
         </div>
         <Footer />
