@@ -78,3 +78,7 @@ const UpdatedList = props => {
 };
 
 export default UpdatedList;
+
+//12-4-2019
+//Button added to training tab
+//style and functionality not completed

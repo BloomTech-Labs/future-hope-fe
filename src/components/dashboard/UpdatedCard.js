@@ -115,3 +115,6 @@ export default MediaCard;
 // expected to be used in this card. Data might be rendered on parent component and
 // passed down as props. See UpdateList.js component
 // Title, Description, URL, and Picture needed
+
+//12-4-2019
+//Delete functionality is not completed
