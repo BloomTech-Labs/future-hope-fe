@@ -1,58 +1,42 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardActionArea from "@material-ui/core/CardActionArea"
-import CardActions from "@material-ui/core/CardActions"
-import CardContent from "@material-ui/core/CardContent"
-import CardMedia from "@material-ui/core/CardMedia"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
 
-const useStyles = makeStyles({
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    maxWidth: 345,
-    margin: "0 20px"
-  },
-  media: {
-    height: 140
-  },
-  area: {
-    flex: "1 0 auto"
-  }
-})
+//make training material Links pretty with react-tiny-link library
+import { ReactTinyLink } from "react-tiny-link"
+import photosGhana from "../dashboard/randomImages"
 
 const MaterialCard = props => {
-  const { title, description, source } = props.material
-  console.log(props)
-  const classes = useStyles()
-  return (
-    <Card className={classes.card}>
-      <CardActionArea className={classes.area}>
-        <CardMedia
-          className={classes.media}
-          //   image={image}
-          title="Old Picture of Ghana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {title || "Ghana"}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description || "Learn more about Ghana from this page"}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          <a href={source}>Learn More</a>
-        </Button>
-      </CardActions>
-    </Card>
-  )
+  const { source, title, description } = props.material
+
+  const indexOfId = source.indexOf("=") + 1
+
+  const videoId = source.slice(indexOfId)
+
+  const material = () => {
+    return source.includes("youtube") ? (
+      <iframe
+        title={title}
+        width="33%"
+        height="382"
+        className="material"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        frameborder="0"
+        allowfullscreen="1"
+      ></iframe>
+    ) : (
+      <ReactTinyLink
+        style={{ maxWidth: "640px" }}
+        className="material"
+        cardSize="large"
+        width="33%"
+        proxyUrl="https://cors-anywhere.herokuapp.com/"
+        url={source}
+        header={title}
+        description={description}
+        defaultMedia={props.photos}
+      />
+    )
+  }
+  return [material()]
 }
+
 export default MaterialCard

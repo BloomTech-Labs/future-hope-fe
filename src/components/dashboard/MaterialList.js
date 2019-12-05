@@ -5,13 +5,13 @@ import MaterialCard from "./MaterialCard"
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 
+import photosGhana from "../dashboard/randomImages"
+
 import "./Dashboard.css"
 const MaterialList = props => {
-  console.log("Props", props)
   //May need state hook to save data
   const [materials, setMaterials] = useState([])
   useEffect(() => {
-    console.log("MATCH: ", props.match.params.topic)
     const unsubsribe = firebase
       .firestore()
       .collection(`training/${props.match.params.topic}/modules`)
@@ -34,16 +34,20 @@ const MaterialList = props => {
     }
   }, [props.match.params.topic])
 
-  console.log(materials)
   return (
     <>
       <SideBar />
-      <div
-        className="material-list"
-        style={{ display: "flex", justifyContent: "center", margin: "0 auto" }}
-      >
-        {materials.map(material => {
-          return <MaterialCard material={material} />
+      <div className="material-list">
+        {materials.map((material, index) => {
+          return (
+            <MaterialCard
+              material={material}
+              index={index}
+              photos={
+                photosGhana[Math.floor(Math.random() * photosGhana.length)]
+              }
+            />
+          )
         })}
       </div>
     </>

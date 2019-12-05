@@ -2,30 +2,26 @@ describe("Login from landing page", function() {
   it("Logs into future hope", function() {
     //goes to site
     //! MAKE SURE THIS IS THE SITE YOU ARE USING
-    cy.visit("localhost:3000/");
+    cy.visit("localhost:3000/")
     //finds a button that contains login, clicks it
     cy.get("button")
       .contains("Login")
-      .click();
+      .click()
     //verify's the url should include /login
-    cy.url().should("include", "/login");
-    //finds the login with Email button, clicks it
-    cy.get("button")
-      .contains("Login with Email")
-      .click();
+    cy.url().should("include", "/login")
     //Type in info to login for cypresstest
-    cy.get("#email")
+    cy.get("input[name=email]")
       .type("cypresstest@email.com")
-      .should("have.value", "cypresstest@email.com");
-    cy.get("#password")
+      .should("have.value", "cypresstest@email.com")
+    cy.get("input[name=password]")
       .type("test1234")
-      .should("have.value", "test1234");
+      .should("have.value", "test1234")
     //click login
-    cy.get("#login-btn").click();
+    cy.get("#login-btn").click()
     //should take them to dashboard
-    cy.url().should("include", "dashboard");
-  });
-});
+    cy.url().should("include", "dashboard")
+  })
+})
 
 /*
 
