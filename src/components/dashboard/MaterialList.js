@@ -4,8 +4,10 @@ import firebase from "../../config/fbConfig"
 import MaterialCard from "./MaterialCard"
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js"
+import ProgressBar from './ProgressBar'
 
 import photosGhana from "../dashboard/randomImages";
+
 
 import "./Dashboard.css"
 const MaterialList = props => {
@@ -37,7 +39,8 @@ const MaterialList = props => {
 
   return (
     <>
-      <SideBar />
+    <ProgressBar />
+      <SideBar/>
       <div className="material-list" >
         {materials.map((material, index) => {
           return <MaterialCard material={material} index={index} photos={photosGhana[Math.floor(Math.random() * photosGhana.length)]} />
