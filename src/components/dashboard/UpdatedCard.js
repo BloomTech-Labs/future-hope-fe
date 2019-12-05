@@ -61,7 +61,7 @@ const MediaCard = props => {
   const handleDelete = async id => {
     const deletedDoc = await firebase
       .firestore()
-      .collection(`training/${props.topic}/modules`)
+      .collection(`training/${props.topic}/modules  `)
       .doc(id)
       .delete();
 
@@ -71,21 +71,23 @@ const MediaCard = props => {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        {/* <CardMedia
+      <a href={props.material.source} target="_blank">
+        <CardActionArea>
+          {/* <CardMedia
           className={classes.media}
           image="/static/images/cards/contemplative-reptile.jpg"
           title="Contemplative Reptile"
         /> */}
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.material.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.material.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {props.material.title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.material.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </a>
       <CardActions>
         {/* <Link
           to="/edit-materials"
