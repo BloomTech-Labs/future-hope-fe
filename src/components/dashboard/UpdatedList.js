@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter, Link } from "react-router-dom";
 import firebase from "../../config/fbConfig";
 
 import Button from "@material-ui/core/Button";
@@ -23,7 +24,25 @@ const useStyles = makeStyles(theme => ({
 const UpdatedList = props => {
   const [materials, setMaterials] = useState([]);
   const classes = useStyles();
+
   useEffect(() => {
+    async function tryTest() {
+      const test = await firebase
+        .firestore()
+        .collection("training")
+        .doc("food")
+        .collection("modules")
+        .get();
+
+      test.docs.map(doc => {
+        console.log("TEST:", doc.data());
+      });
+    }
+
+    tryTest();
+
+    console.log("PROPS", props);
+
     const unsubscribe = firebase
       .firestore()
       .collection(`training/${props.match.params.topic}/modules`)
@@ -31,6 +50,7 @@ const UpdatedList = props => {
         snapshot => {
           const trainingDocs = snapshot.docs.map(doc => {
             return {
+              id: doc.id,
               ...doc.data()
             };
           });
@@ -46,24 +66,29 @@ const UpdatedList = props => {
     };
   }, [props.match.params.topic]);
 
+  console.log("MATERIALS:", materials);
+
   return (
     <>
       <SideBar />
 
       <div className="material-list">
         <div className="add-button">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={classes.button}
-          >
-            {/* <Icon>add_circle </Icon> */}+ Add Material
-          </Button>
+          <Link to="/add-materials">
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.button}
+            >
+              {/* <Icon>add_circle </Icon> */}+ Add Material
+            </Button>
+          </Link>
         </div>
         {materials.map((material, index) => {
           return (
             <UpdateCard
+              topic={props.match.params.topic}
               material={material}
               index={index}
               photos={
