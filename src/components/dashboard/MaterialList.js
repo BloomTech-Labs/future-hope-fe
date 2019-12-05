@@ -5,7 +5,7 @@ import MaterialCard from "./MaterialCard"
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 
-import photosGhana from "../dashboard/randomImages";
+import photosGhana from "../dashboard/randomImages"
 
 import "./Dashboard.css"
 const MaterialList = props => {
@@ -34,13 +34,20 @@ const MaterialList = props => {
     }
   }, [props.match.params.topic])
 
-
   return (
     <>
       <SideBar />
-      <div className="material-list" >
+      <div className="material-list">
         {materials.map((material, index) => {
-          return <MaterialCard material={material} index={index} photos={photosGhana[Math.floor(Math.random() * photosGhana.length)]} />
+          return (
+            <MaterialCard
+              material={material}
+              index={index}
+              photos={
+                photosGhana[Math.floor(Math.random() * photosGhana.length)]
+              }
+            />
+          )
         })}
       </div>
     </>
