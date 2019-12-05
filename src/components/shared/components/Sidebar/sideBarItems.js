@@ -17,6 +17,7 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import SchoolIcon from "@material-ui/icons/School"
 import AddIcon from '@material-ui/icons/Add';
 import { Menu, MenuItem, MenuList } from '@material-ui/core';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import "./sidebar.css"
 
 import TrainingTab from './TrainingTab';
@@ -123,6 +124,12 @@ export const SecondaryListItems = props => {
         </ListItemIcon>
         <ListItemText primary="Approve Users" />
       </ListItem>
+      <ListItem button component={Link} to={"/add-materials"}>
+      <ListItemIcon>
+        <AddBoxIcon style={{ color: "#ff9800" }} />
+      </ListItemIcon>
+      <ListItemText primary="Add Materials" />
+    </ListItem>
     </List>
   );
 };
