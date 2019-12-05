@@ -21,9 +21,12 @@
 */
 
 .material-list {
-  width: 75%;
-  margin-left: 250px;
-
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 250px;
+  margin: 0 0 15px 0;
 }
 
 /* AddMaterial.js Component Styling */
