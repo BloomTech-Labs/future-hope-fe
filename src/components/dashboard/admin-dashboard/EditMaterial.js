@@ -13,57 +13,164 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem
 } from "mdbreact";
-// import { firestore } from "../../../config/fbConfig";
+import { firestore } from "../../../config/fbConfig";
 
-function EditMaterial() {
-  const [newMaterial, setNew] = useState({
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CloseIcon from "@material-ui/icons/Close";
+import { green } from "@material-ui/core/colors";
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import { makeStyles } from "@material-ui/core/styles";
+
+const variantIcon = {
+  success: CheckCircleIcon
+};
+
+const useStyles1 = makeStyles(theme => ({
+  success: {
+    backgroundColor: green[600]
+  },
+  icon: {
+    fontSize: 20
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing(1)
+  },
+  message: {
+    display: "flex",
+    alignItems: "center"
+  }
+}));
+
+function MySnackbar(props) {
+  const classes = useStyles1();
+  const { className, message, onClose, variant, ...other } = props;
+  const Icon = variantIcon[variant];
+
+  return (
+    <SnackbarContent
+      className={clsx(classes[variant], className)}
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={clsx(classes.icon, classes.iconVariant)} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton
+          key="close"
+          aria-label="close"
+          color="inherit"
+          onClick={onClose}
+        >
+          <CloseIcon className={classes.icon} />
+        </IconButton>
+      ]}
+      {...other}
+    />
+  );
+}
+
+MySnackbar.propTypes = {
+  className: PropTypes.string,
+  message: PropTypes.string,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(["success"]).isRequired
+};
+
+const useStyles2 = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  }
+}));
+
+function EditMaterial(props) {
+  const [editMaterial, setEdit] = useState({
     description: "",
     source: "",
-    title: ""
+    title: "",
+    category: ""
   });
   const [categories, setCategory] = useState([]);
 
-  //   useEffect(() => {
-  //     let unsubscribe = firestore
-  //       .collection("trainingTabNav")
-  //       .onSnapshot(snapshot => {
-  //         let trainingCategories = snapshot.docs.map(doc => {
-  //           return doc.data().navName;
-  //         });
-  //         setCategory(trainingCategories);
-  //       });
-  //     return unsubscribe;
-  //   }, []);
+  const classes = useStyles2();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    let unsubscribe = firestore
+      .collection("trainingTabNav")
+      .onSnapshot(snapshot => {
+        let trainingCategories = snapshot.docs.map(doc => {
+          return doc.data().navName;
+        });
+        setCategory(trainingCategories);
+      });
+
+    setEdit({
+      description: props.material.description || "",
+      source: props.material.source || "",
+      title: props.material.title || "",
+      category: props.material.category || ""
+    });
+    return unsubscribe;
+  }, []);
 
   let handleChange = e => {
-    setNew({ [e.target.name]: e.target.value });
+    setEdit({ ...editMaterial, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const response = await firestore
+      .collection(`training/${editMaterial.category}/modules`)
+      .doc(props.material.id)
+      .update(editMaterial);
+    setTimeout(() => {
+      props.closeWindow();
+    }, 1000);
   };
 
   return (
     <>
       <Sidebar />
-      <div className="add-materialons">
+      <div className="add-materials">
         <MDBContainer>
           <MDBRow>
             <MDBCol>
               <MDBCard>
                 <MDBCardBody>
-                  <form>
-                    <p className="h4 text-center">
-                      Enter Information for New Training Material
-                    </p>
+                  <form onSubmit={handleSubmit}>
+                    <p className="h4 text-center">Edit Training Material</p>
                     <MDBInput
                       type="text"
                       label="heading"
-                      value={newMaterial.title}
+                      value={editMaterial.title}
                       name="title"
                       icon="heading"
-                      //   onChange={handleChange}
+                      onChange={handleChange}
                     />
                     <MDBInput
                       type="text"
                       label="material description"
-                      value={newMaterial.description}
+                      value={editMaterial.description}
                       name="description"
                       icon="align-justify"
                       onChange={handleChange}
@@ -71,27 +178,31 @@ function EditMaterial() {
                     <MDBInput
                       type="text"
                       label="enter a valid URL (https://www.example.com)"
-                      value={newMaterial.source}
+                      value={editMaterial.source}
                       name="source"
                       icon="link"
                       onChange={handleChange}
                     />
-                    <MDBDropdown>
-                      <MDBDropdownToggle caret color="primary">
-                        Select or Add New Category
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu basic>
-                        {categories.map(cat => (
-                          <MDBDropdownItem>{cat.toLowerCase()}</MDBDropdownItem>
-                        ))}
-                        <MDBDropdownItem divider />
-                        <MDBDropdownItem>Add New Category +</MDBDropdownItem>
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
+
+                    <MDBBtn color="orange" type="submit" onClick={handleClick}>
+                      Edit Material
+                    </MDBBtn>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                      }}
+                      open={open}
+                      autoHideDuration={1000}
+                      onClose={handleClose}
+                    >
+                      <MySnackbar
+                        onClose={handleClose}
+                        variant="success"
+                        message="Material has been updated!"
+                      />
+                    </Snackbar>
                   </form>
-                  <MDBBtn color="orange" type="submit">
-                    Add Materials
-                  </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

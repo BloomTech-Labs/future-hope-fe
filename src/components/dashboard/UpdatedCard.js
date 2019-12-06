@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 
 import photosGhana from "../dashboard/randomImages";
 import firebase from "../../config/fbConfig";
+import EditMaterial from "./admin-dashboard/EditMaterial";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -49,6 +50,7 @@ const MediaCard = props => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [editOpen, setEditOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -58,10 +60,18 @@ const MediaCard = props => {
     setOpen(false);
   };
 
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setEditOpen(false);
+  };
+
   const handleDelete = async id => {
     const deletedDoc = await firebase
       .firestore()
-      .collection(`training/${props.topic}/modules  `)
+      .collection(`training/${props.topic}/modules`)
       .doc(id)
       .delete();
 
@@ -89,19 +99,20 @@ const MediaCard = props => {
         </CardActionArea>
       </a>
       <CardActions>
-        {/* <Link
-          to="/edit-materials"
-          // to={{
-          //   pathname: "/edit-materials",
-          //   state: {
-          //     description: "Training Material" //hardcoding state for now but should use Firestore state
-          //   }
-          // }}
-        > */}
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleEditOpen}>
           Edit
         </Button>
-        {/* </Link> */}
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={editOpen}
+          onClose={handleEditClose}
+        >
+          <EditMaterial
+            material={props.material}
+            closeWindow={handleEditClose}
+          />
+        </Modal>
         <Button size="small" color="secondary" onClick={handleOpen}>
           Delete
         </Button>
