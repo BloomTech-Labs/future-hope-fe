@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import SideBar from "../../shared/components/Sidebar/SideBar.js";
-import { blue } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
