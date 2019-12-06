@@ -71,20 +71,19 @@ const UpdatedList = props => {
   return (
     <>
       <SideBar />
-
+      <div className="add-button">
+        <Link to="/add-materials">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.button}
+          >
+            {/* <Icon>add_circle </Icon> */}+ Add Material
+          </Button>
+        </Link>
+      </div>
       <div className="material-list">
-        <div className="add-button">
-          <Link to="/add-materials">
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              className={classes.button}
-            >
-              {/* <Icon>add_circle </Icon> */}+ Add Material
-            </Button>
-          </Link>
-        </div>
         {materials.map((material, index) => {
           return (
             <UpdateCard

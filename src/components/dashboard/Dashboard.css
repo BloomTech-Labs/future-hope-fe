@@ -53,14 +53,16 @@
 .md-form .prefix {
   font-size: 1rem;
   top: 1.2rem;
-
 }
 
-.progressBar{
+.progressBar {
   margin: 50px 0px;
-
 }
 
 .dropdown-menu {
   min-width: 16.8rem;
+}
+
+.add-button {
+  margin-left: 250px;
 }

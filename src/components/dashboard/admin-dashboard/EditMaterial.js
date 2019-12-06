@@ -89,8 +89,8 @@ const useStyles2 = makeStyles(theme => ({
   }
 }));
 
-function AddMaterial(props) {
-  const [newMaterial, setNew] = useState({
+function EditMaterial(props) {
+  const [editMaterial, setEdit] = useState({
     description: "",
     source: "",
     title: "",
@@ -122,21 +122,30 @@ function AddMaterial(props) {
         });
         setCategory(trainingCategories);
       });
+
+    setEdit({
+      description: props.material.description || "",
+      source: props.material.source || "",
+      title: props.material.title || "",
+      category: props.material.category || ""
+    });
     return unsubscribe;
   }, []);
 
   let handleChange = e => {
-    setNew({ ...newMaterial, [e.target.name]: e.target.value });
+    setEdit({ ...editMaterial, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const newDoc = await firestore
-      .collection(`training/${newMaterial.category}/modules`)
-      .add(newMaterial);
-
-    setNew({ description: "", source: "", title: "", category: "" });
+    const response = await firestore
+      .collection(`training/${editMaterial.category}/modules`)
+      .doc(props.material.id)
+      .update(editMaterial);
+    setTimeout(() => {
+      props.closeWindow();
+    }, 1000);
   };
 
   return (
@@ -149,13 +158,11 @@ function AddMaterial(props) {
               <MDBCard>
                 <MDBCardBody>
                   <form onSubmit={handleSubmit}>
-                    <p className="h4 text-center">
-                      Enter Information for New Training Material
-                    </p>
+                    <p className="h4 text-center">Edit Training Material</p>
                     <MDBInput
                       type="text"
                       label="heading"
-                      value={newMaterial.title}
+                      value={editMaterial.title}
                       name="title"
                       icon="heading"
                       onChange={handleChange}
@@ -163,7 +170,7 @@ function AddMaterial(props) {
                     <MDBInput
                       type="text"
                       label="material description"
-                      value={newMaterial.description}
+                      value={editMaterial.description}
                       name="description"
                       icon="align-justify"
                       onChange={handleChange}
@@ -171,31 +178,14 @@ function AddMaterial(props) {
                     <MDBInput
                       type="text"
                       label="enter a valid URL (https://www.example.com)"
-                      value={newMaterial.source}
+                      value={editMaterial.source}
                       name="source"
                       icon="link"
                       onChange={handleChange}
                     />
-                    <MDBDropdown>
-                      <MDBDropdownToggle caret color="primary">
-                        Select or Add New Category
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu basic name="category">
-                        {categories.map(cat => (
-                          <MDBDropdownItem
-                            name="category"
-                            value={cat.toLowerCase()}
-                            onClick={handleChange}
-                          >
-                            {cat}
-                          </MDBDropdownItem>
-                        ))}
-                        <MDBDropdownItem divider />
-                        <MDBDropdownItem>Add New Category +</MDBDropdownItem>
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
+
                     <MDBBtn color="orange" type="submit" onClick={handleClick}>
-                      Add Materials
+                      Edit Material
                     </MDBBtn>
                     <Snackbar
                       anchorOrigin={{
@@ -203,13 +193,13 @@ function AddMaterial(props) {
                         horizontal: "right"
                       }}
                       open={open}
-                      autoHideDuration={6000}
+                      autoHideDuration={1000}
                       onClose={handleClose}
                     >
                       <MySnackbar
                         onClose={handleClose}
                         variant="success"
-                        message="New material has been added!"
+                        message="Material has been updated!"
                       />
                     </Snackbar>
                   </form>
@@ -223,4 +213,4 @@ function AddMaterial(props) {
   );
 }
 
-export default AddMaterial;
+export default EditMaterial;
