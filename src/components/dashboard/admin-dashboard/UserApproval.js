@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MentorTable from "./MentorTable.js";
 import TeacherTable from "./TeacherTable.js";
 import SideBar from "../../shared/components/Sidebar/SideBar.js";
+import { blue } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,14 +28,14 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar
   },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto"
+  content: {  // commented out to get rid of the extra scrollbar
+    // flexGrow: 1,
+    // height: "100vh",
+    // overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
@@ -93,7 +94,7 @@ export default function UserApproval(props) {
       <CssBaseline />
       <SideBar />
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
+        {/* <div className={classes.appBarSpacer} /> */}
         <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
             {/* Mentor Table */}
