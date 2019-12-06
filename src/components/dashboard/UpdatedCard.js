@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,6 +11,7 @@ import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 
 import photosGhana from "../dashboard/randomImages";
+import firebase from "../../config/fbConfig";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -56,32 +58,50 @@ const MediaCard = props => {
     setOpen(false);
   };
 
-  // const DeleteClick = e => {
-  //   alert("Are you sure you would like to delete this material?");
-  // };
+  const handleDelete = async id => {
+    const deletedDoc = await firebase
+      .firestore()
+      .collection(`training/${props.topic}/modules  `)
+      .doc(id)
+      .delete();
+
+    console.log(deletedDoc);
+    setOpen(false);
+  };
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
+      <a href={props.material.source} target="_blank">
+        <CardActionArea>
+          {/* <CardMedia
           className={classes.media}
           image="/static/images/cards/contemplative-reptile.jpg"
           title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.material || "Lizard"}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+        /> */}
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {props.material.title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.material.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </a>
       <CardActions>
+        {/* <Link
+          to="/edit-materials"
+          // to={{
+          //   pathname: "/edit-materials",
+          //   state: {
+          //     description: "Training Material" //hardcoding state for now but should use Firestore state
+          //   }
+          // }}
+        > */}
         <Button size="small" color="primary">
           Edit
         </Button>
+        {/* </Link> */}
         <Button size="small" color="secondary" onClick={handleOpen}>
           Delete
         </Button>
@@ -95,7 +115,11 @@ const MediaCard = props => {
           <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">Delete this material?</h2>
             <p id="simple-modal-description">This action cannot be reversed.</p>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleDelete(props.material.id)}
+            >
               Yes, delete it.
             </Button>
             <Button variant="contained" color="secondary" onClick={handleClose}>

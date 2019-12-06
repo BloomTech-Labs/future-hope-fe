@@ -59,9 +59,10 @@ const useStyles = makeStyles(theme => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto"
+    // flexGrow: 1,
+    // height: "100vh",
+    // overflow: "auto"
+    width: "90vw"
   },
   container: {
     paddingTop: theme.spacing(2),
@@ -86,7 +87,7 @@ const AdminDashboard = props => {
       <CssBaseline />
       <SideBar />
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
+        {/* <div className={classes.appBarSpacer} /> */}
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
