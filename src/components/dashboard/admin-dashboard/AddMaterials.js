@@ -24,6 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from '@material-ui/icons/Add';
 
 const variantIcon = {
   success: CheckCircleIcon
@@ -96,6 +97,11 @@ function AddMaterial(props) {
     title: "",
     category: ""
   });
+
+  const [newCategory, setCat] = useState({
+    category: ""
+  });
+
   const [categories, setCategory] = useState([]);
 
   const classes = useStyles2();
@@ -138,6 +144,29 @@ function AddMaterial(props) {
 
     setNew({ description: "", source: "", title: "", category: "" });
   };
+
+// add category
+  useEffect(()=> {
+    firestore
+    .collection("trainingTabNav")
+  },[])
+
+  let handleCategoryChange = e => {
+    setCat({ ...newCategory, [e.target.name]: e.target.value });
+  };
+
+    const handleCategorySubmit = async e => {
+      e.preventDefault();
+
+      const newCat = await firestore
+        .collection(`training/${newCategory.category}/modules`)
+        .set(newCategory.category);
+
+      setCat({ category: "" });
+
+      console.log("category ", newCategory.category);
+    }
+    
 
   return (
     <>
@@ -192,9 +221,18 @@ function AddMaterial(props) {
                         ))}
                         <MDBDropdownItem divider />
                         <MDBDropdownItem>Add New Category +</MDBDropdownItem>
+                        <div className='add-category'>
+                          <MDBInput type="text" 
+                          label="enter new category" 
+                          value={newCategory.category}
+                          name="category" 
+                          onChange={handleCategoryChange}></MDBInput>
+                          <button type="submit" onClick={handleCategorySubmit}><AddIcon/></button>
+                        </div>
                       </MDBDropdownMenu>
                     </MDBDropdown>
                     <MDBBtn color="orange" type="submit" onClick={handleClick}>
+
                       Add Materials
                     </MDBBtn>
                     <Snackbar
