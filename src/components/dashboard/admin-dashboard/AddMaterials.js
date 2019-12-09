@@ -139,8 +139,7 @@ function AddMaterial(props) {
     e.preventDefault();
 
     const newDoc = await firestore
-      .collection(`training/${newMaterial.category}/modules`)
-      .add(newMaterial);
+      .collection('training').doc(newMaterial.category.toLowerCase()).collection('modules').add(newMaterial);
 
     setNew({ description: "", source: "", title: "", category: "" });
   };
@@ -159,14 +158,14 @@ function AddMaterial(props) {
       e.preventDefault();
 
       const newCat = await firestore
-        .collection(`training/${newCategory.category}/modules`)
-        .set(newCategory.category);
+        .collection(`training`).doc(newCategory.category.toLowerCase()).set({})
+              //updates categories in side nav
+        await firestore.collection('trainingTabNav').add({
+          navName: newCategory.category
+        })
 
       setCat({ category: "" });
-
-      console.log("category ", newCategory.category);
     }
-    
 
   return (
     <>
@@ -220,7 +219,7 @@ function AddMaterial(props) {
                           </MDBDropdownItem>
                         ))}
                         <MDBDropdownItem divider />
-                        <MDBDropdownItem>Add New Category +</MDBDropdownItem>
+                        {/* add new category input as dropdown item */}
                         <div className='add-category'>
                           <MDBInput type="text" 
                           label="enter new category" 
@@ -232,7 +231,6 @@ function AddMaterial(props) {
                       </MDBDropdownMenu>
                     </MDBDropdown>
                     <MDBBtn color="orange" type="submit" onClick={handleClick}>
-
                       Add Materials
                     </MDBBtn>
                     <Snackbar
