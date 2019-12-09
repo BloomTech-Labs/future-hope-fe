@@ -12,6 +12,11 @@
   max-height: 100px;
 }
 
+.add-category {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-right: 1rem;
+}
 /* use this class to style material cards beyond what React-Tiny-Link is capable of
 
 .react_tinylink_card.sc-gzVnrw.gilWtX {
