@@ -6,11 +6,13 @@ import { borderRight } from "@material-ui/system";
 
 
 
+
+
 const displayWidth = window.innerWidth
 
 const BorderLinearProgress = withStyles({
     root: {
-      height: 10,
+      height: 25,
       borderRadius: 50,
       backgroundColor: lighten('#bb535c', 0.7),
       width: displayWidth * .85,
@@ -23,16 +25,18 @@ const BorderLinearProgress = withStyles({
 
   const useStyles = makeStyles(theme => ({
     root: {
-      flexGrow: 3,
+      flexGrow: 1,
     },
     margin: {
       margin: theme.spacing(1),
-      marginTop: 85,
+      marginTop: 15,
       marginLeft: 250,
     },
   }));
 
-  export default function ProgressBar() {
+  const ProgressBar = props => {
+      
+    
     const classes = useStyles();
 
     return (
@@ -41,8 +45,10 @@ const BorderLinearProgress = withStyles({
         className={classes.margin}
         variant="determinate"
         color="secondary"
-        value={100}
-      />
+        value={props.completedTrainingNumber}
+        />
         </>
     )
 }
+
+export default ProgressBar
