@@ -27,10 +27,10 @@
 
 .material-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
-  padding-left: 250px;
+  padding-left: 183px;
   margin: 0 0 15px 0;
 }
 
