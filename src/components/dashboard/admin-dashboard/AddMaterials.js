@@ -1,4 +1,4 @@
-          import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../shared/components/Sidebar/SideBar.js";
 import {
   MDBContainer,
@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CloseIcon from "@material-ui/icons/Close";
-import { green, red } from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
