@@ -212,7 +212,7 @@ function AddMaterial(props) {
 
                     />
                     <MDBInput
-                      type="text"
+                      type="url"
                       label="enter a valid URL (https://www.example.com)"
                       value={newMaterial.source}
                       name="source"
