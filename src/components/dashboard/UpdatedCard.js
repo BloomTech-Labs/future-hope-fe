@@ -16,7 +16,8 @@ import EditMaterial from "./admin-dashboard/EditMaterial";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345
+    marginBottom: 15,
+    width: 345
   },
   media: {
     height: 140
