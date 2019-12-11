@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
 const UpdatedList = props => {
   const [materials, setMaterials] = useState([]);
   const [completedTraining, setCompletedTraining] = useState([])
-  const [progressCompleted, setProgressCompleted] = useState([])
+  const [anArray, setAnArray] = useState([])
+  const [comparedArray, setComparedArray] = useState([])
   const classes = useStyles();
 
   useEffect(() => {
@@ -38,13 +39,11 @@ const UpdatedList = props => {
         .get();
 
       test.docs.map(doc => {
-        // console.log("TEST:", doc.data());
       });
     }
 
     tryTest();
 
-    // console.log("PROPS", props);
 
     const unsubscribe = firebase
       .firestore()
@@ -76,13 +75,6 @@ const UpdatedList = props => {
     const unsubscribe = firebase
     .firestore()
     .collection(`users`).where("uid", "==", JSON.parse(localStorage.getItem("UID")))
-    // .get()
-    // .then(query => {
-    //   query.docs.forEach(user => {
-    //     user.data()
-    //   },
-    //   console.log(query))
-    // })
     .onSnapshot(
       snapshot => {
         const completedTrainingDocs = snapshot.docs.map(doc => {
@@ -101,45 +93,57 @@ const UpdatedList = props => {
     }
   }, [])
 
-  const completedTrainingNumber = () => {
-    if(completedTraining[0]){
-    return completedTraining[0].completedTrainingProgress.length / materials.length * 100
-    }
-  }
-
-  console.log(completedTraining)
-
-
-
-
   const compare = ( array1, array2) => {
     const comparedArray = []
-
-    // for(let item1 of array1){
-    //   for(let item2 of array2){
-    //     if(item1 == item2){
-    //       comparedArray.push(item2)
-    //     }
-    //   }
-    // }
 
     for(let item1 of array1){
       if(array2.includes(item1)){
         comparedArray.push(item1)
       }
     }
+
+    return console.log("comp", comparedArray)
   }
 
-   const testArr = ["asdfsdaf", "asdfasdfa", "adfahgsd", "4123412"]
-  // const onClickHandler = (m) => {
-  //   testArr.push(m.id)
-  //   console.log("testArr", testArr)
-  // }
 
+  const compareTrainingArrays = () => {
+    const materialIDs = materials.map(material => {
+      return material.id
+    })
+
+    console.log("MATERIALS:", materialIDs)
+
+    const completedIDs = completedTraining[0] ? completedTraining[0].completedTrainingProgress : []
+
+    console.log("ALL COMPLETED MATERIALS:", completedIDs)
+    
+    const comparedArray = []
+
+    if(!!completedIDs.length) {
+      for(let i = 0; i < completedIDs.length; i++) {
+        if(materialIDs.includes(completedIDs[i])) {
+          comparedArray.push(completedIDs[i])
+        }
+      }
+    }
+
+    console.log("COMPARED ARRAY:", comparedArray)
+
+    // materialIDs.forEach((e1)=>completedIDs.forEach((e2)=>{
+    //   if(e1 === e2){
+    //     comparedArray.push(e1)
+    //   }
+    // }))
+    
+    return comparedArray
+  }
+
+  const trainingProgress = compareTrainingArrays().length
+  
   return (
     <>
-<div className="progressText">Training Completed: {completedTraining[0] && completedTraining[0].completedTrainingProgress.length}</div>
-    <ProgressBar  completedTrainingNumber={completedTrainingNumber()} completedTraining={completedTraining.length}/>
+<div className="progressText">Training Completed: {trainingProgress}</div>
+    <ProgressBar  completedTrainingNumber={trainingProgress / materials.length * 100} completedTraining={completedTraining.length}/>
       <SideBar />
       <div className="add-button">
         <Link to="/add-materials">
@@ -157,7 +161,6 @@ const UpdatedList = props => {
         {materials.map((material, index) => {
           return (
             <UpdateCard
-              filteredTrainingProgress={testArr}
               topic={props.match.params.topic}
               material={material}
               index={index}
