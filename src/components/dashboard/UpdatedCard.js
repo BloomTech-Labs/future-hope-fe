@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -52,6 +52,7 @@ const MediaCard = props => {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
+  const [userData, setUserData] = useState([])
 
   const handleOpen = () => {
     setOpen(true);
@@ -79,6 +80,43 @@ const MediaCard = props => {
     console.log(deletedDoc);
     setOpen(false);
   };
+
+  useEffect(() => {
+    const unsubscribe = firebase
+    .firestore()
+    .collection(`users`).where("uid", "==", JSON.parse(localStorage.getItem("UID")))
+    .onSnapshot(
+      snapshot => {
+        const completedTrainingDocs = snapshot.docs.map(doc => {
+          return {
+            ...doc.data()
+          }
+        })
+        setUserData(completedTrainingDocs)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
+  const userID = JSON.parse(localStorage.getItem("UID"))
+
+  const trainingUpdate = () => {
+    if(userData[0].completedTrainingProgress.includes(props.material.id)){
+      return console.log("Already Completed")
+  } else {
+    const unsubscribe = firebase
+    .firestore()
+    .collection('users')
+    .doc(userID)
+    .update({completedTrainingProgress: [...userData[0].completedTrainingProgress, props.material.id]})
+    console.log(props.material.id)
+    }
+  }
 
   return (
     <Card className={classes.card}>
@@ -116,6 +154,10 @@ const MediaCard = props => {
         </Modal>
         <Button size="small" color="secondary" onClick={handleOpen}>
           Delete
+        </Button>
+
+        <Button size="small" color="secondary" onClick={trainingUpdate}>
+          Complete
         </Button>
         {/* Pop up window on Delete */}
         <Modal

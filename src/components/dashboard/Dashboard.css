@@ -51,6 +51,16 @@
   text-align: center;
 }
 
+.progressBar{
+  margin: 50px 0px;
+}
+
+.progressText{
+  text-align: center;
+  font-size: 28px;
+  margin: 20px 0px;
+}
+
 .btn-orange {
   text-align: right;
 }
