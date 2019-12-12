@@ -101,7 +101,8 @@ const UpdatedList = props => {
 
   const trainingProgress = compareTrainingArrays().length
 
-  const progressPercentage = (trainingProgress / materials.length) * 100 || 0
+  const progressPercentage =
+    Math.round((trainingProgress / materials.length) * 100) || 0
 
   return (
     <>
