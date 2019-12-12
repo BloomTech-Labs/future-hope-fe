@@ -114,3 +114,22 @@ describe('Edit materials form', () => {
     
   })
 })
+
+/*------------------------------------------------------------*/
+// Add Category Testing
+describe('Add category', () => {
+  // Add a category to Add Material Form
+  it('Add a category to Add Material Form', () => {
+    cy.visit('http://localhost:3000/add-materials')
+    cy.get("button").contains("Select or Add New Category").click()
+    cy.get(".add-category").click()
+
+    const typedTxt = 'Home'
+
+    cy.get('.form-control').eq(3)
+      .type(typedTxt)
+      .should('have.value', typedTxt)
+
+    cy.get('button').eq(1).click()
+  })
+})
