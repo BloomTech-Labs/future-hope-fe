@@ -166,6 +166,7 @@ function EditMaterial(props) {
                       name="title"
                       icon="heading"
                       onChange={handleChange}
+                      required
                     />
                     <MDBInput
                       type="text"
@@ -174,14 +175,16 @@ function EditMaterial(props) {
                       name="description"
                       icon="align-justify"
                       onChange={handleChange}
+                      required
                     />
                     <MDBInput
-                      type="text"
+                      type="url"
                       label="enter a valid URL (https://www.example.com)"
                       value={editMaterial.source}
                       name="source"
                       icon="link"
                       onChange={handleChange}
+                      required
                     />
 
                     <MDBBtn color="orange" type="submit" onClick={handleClick}>
