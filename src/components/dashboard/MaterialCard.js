@@ -5,9 +5,9 @@ import { ReactTinyLink } from 'react-tiny-link';
 import photosGhana from "../dashboard/randomImages";
 
 const MaterialCard = props => {
-  
-  return ([
-    
+
+  return (
+      <div data-cy="trainingCard">
       <ReactTinyLink
       cardSize="large"
       showGraphic={true}
@@ -20,8 +20,9 @@ const MaterialCard = props => {
       defaultMedia={props.photos}
       />,
       <br/>
+      </div>
     
-  ]);
+  );
 };
 
 export default MaterialCard

@@ -34,11 +34,10 @@ const MaterialList = props => {
     }
   }, [props.match.params.topic])
 
-
   return (
     <>
       <SideBar />
-      <div className="material-list" >
+      <div data-cy="materialList" className="material-list" >
         {materials.map((material, index) => {
           return <MaterialCard material={material} index={index} photos={photosGhana[Math.floor(Math.random() * photosGhana.length)]} />
         })}
