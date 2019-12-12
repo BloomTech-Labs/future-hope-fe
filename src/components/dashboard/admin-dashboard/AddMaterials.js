@@ -24,6 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from '@material-ui/icons/Add';
 
 const variantIcon = {
   success: CheckCircleIcon
@@ -96,6 +97,13 @@ function AddMaterial(props) {
     title: "",
     category: ""
   });
+
+  const [newCategory, setCat] = useState({
+    category: ""
+  });
+
+  const [validateCat, setValCat] = useState(false);
+
   const [categories, setCategory] = useState([]);
 
   const classes = useStyles2();
@@ -126,18 +134,50 @@ function AddMaterial(props) {
   }, []);
 
   let handleChange = e => {
+    if(e.target.name === 'category') {
+      setValCat(false)
+    }
     setNew({ ...newMaterial, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const newDoc = await firestore
-      .collection(`training/${newMaterial.category}/modules`)
-      .add(newMaterial);
-
-    setNew({ description: "", source: "", title: "", category: "" });
+    if(!newMaterial.category) {
+        setValCat(true)
+        console.log("cat: ", newMaterial.category)
+      } else {
+        console.log("cat: ", newMaterial.category)
+        const newDoc = await firestore
+        .collection('training').doc(newMaterial.category.toLowerCase()).collection('modules').add(newMaterial);
+      
+      setNew({ description: "", source: "", title: "", category: "" });
+      setValCat(false)
+      }
   };
+
+// add category
+  useEffect(()=> {
+    firestore
+    .collection("trainingTabNav")
+  },[])
+
+  let handleCategoryChange = e => {
+    setCat({ ...newCategory, [e.target.name]: e.target.value });
+  };
+
+    const handleCategorySubmit = async e => {
+      e.preventDefault();
+
+        const newCat = await firestore
+        .collection(`training`).doc(newCategory.category.toLowerCase()).set({})
+        
+        //updates categories in side nav
+        await firestore.collection('trainingTabNav').add({
+          navName: newCategory.category
+        })
+    }
+   
 
   return (
     <>
@@ -159,6 +199,7 @@ function AddMaterial(props) {
                       name="title"
                       icon="heading"
                       onChange={handleChange}
+                      required
                     />
                     <MDBInput
                       type="text"
@@ -167,19 +208,24 @@ function AddMaterial(props) {
                       name="description"
                       icon="align-justify"
                       onChange={handleChange}
+                      required
+
                     />
                     <MDBInput
-                      type="text"
+                      type="url"
                       label="enter a valid URL (https://www.example.com)"
                       value={newMaterial.source}
                       name="source"
                       icon="link"
                       onChange={handleChange}
+                      required
+
                     />
                     <MDBDropdown>
                       <MDBDropdownToggle caret color="primary">
                         Select or Add New Category
                       </MDBDropdownToggle>
+                      {<p style={{color: 'red', display: validateCat ? "block" : "none"}}>*Please select a category</p>}
                       <MDBDropdownMenu basic name="category">
                         {categories.map(cat => (
                           <MDBDropdownItem
@@ -191,7 +237,15 @@ function AddMaterial(props) {
                           </MDBDropdownItem>
                         ))}
                         <MDBDropdownItem divider />
-                        <MDBDropdownItem>Add New Category +</MDBDropdownItem>
+                        {/* add new category input as dropdown item */}
+                        <div className='add-category'>
+                          <MDBInput type="text" 
+                          label="enter new category" 
+                          value={newCategory.category}
+                          name="category" 
+                          onChange={handleCategoryChange}></MDBInput>
+                          <button type="submit" onClick={handleCategorySubmit}><AddIcon/></button>
+                        </div>
                       </MDBDropdownMenu>
                     </MDBDropdown>
                     <MDBBtn color="orange" type="submit" onClick={handleClick}>
