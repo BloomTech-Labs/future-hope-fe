@@ -77,3 +77,15 @@ describe('Route to Add Training Materials', () => {
   });
 
 });
+
+// route to edit materials form
+describe('Edit materials form', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/training/family')
+  })
+
+  it('route to edit materials form', () => {
+    cy.get('.edit').eq(0).click()
+  })
+
+})

@@ -1,9 +1,5 @@
 // Testing for Add Materials Form
 describe('Add materials form', () => {
-  beforeEach(() => {
-      cy.server()
-  })
-
   // enter heading accepts input
   it('enter heading accepts input', () => {
     const typedText = 'The Ocean'
@@ -31,10 +27,12 @@ describe('Add materials form', () => {
     const typedText = 'ocean.com'
     
     cy.visit('http://localhost:3000/add-materials')
-  
-      cy.get('.form-control').eq(1)
-          .type(typedText)
-          .should('have.value', typedText)
+    
+    cy.get('label').eq(2).click()
+    
+    cy.get('.form-control').eq(2)
+      .type(typedText)
+      .should('have.value', typedText)
   })
 
   // select a category
@@ -42,21 +40,77 @@ describe('Add materials form', () => {
     cy.visit('http://localhost:3000/add-materials')
     cy.get("button").contains("Select or Add New Category").click();  
   });
+
+  // Form submission
+  it('Form submission to add new material', () => {
+    cy.get('.btn-orange').contains('Add Material').click()
+  })
 })
 
-// Form submission
-context('Form submission', () => {
+/*------------------------------------------------------------*/
+// Testing for Edit Materials Form
+describe('Edit materials form', () => {
   beforeEach(() => {
-    cy.server()
+    cy.visit('http://localhost:3000/training/family')
+    .get('.edit').eq(0).click()
   })
   
-  // Adds a new material
-  it('Adds a new material', () => {
-    const itemText = 'The Ocean'
-    cy.route('POST', '/training/science', {
-      name: itemText,
-      id: 1,
-      isComplete: false
-    })
+  // enter heading accepts input
+  it('enter heading accepts input', () => {
+    const typedText = 'family'
+
+    cy.get('.form-control').eq(0)
+      .clear()
+      .type(typedText)
+      .should('have.value', typedText)
+  })
+
+  // enter description accepts input
+  it('enter description accepts input', () => {
+    const typedText = 'Family life education has a broad aim.'
+    
+    cy.get('.form-control').eq(1)
+      .clear()
+      .type(typedText)
+      .should('have.value', typedText)
+  })
+  
+  // enter URL accepts input
+  it('enter URL accepts input', () => {
+    const typedText = 'family.com'
+    
+    cy.get('.form-control').eq(2)
+      .clear()
+      .type(typedText)
+      .should('have.value', typedText)
+  })
+
+  // Form submission
+  it('submits the form for updates', () => {
+    const typedText = 'family'
+
+    cy.get('.form-control').eq(0)
+      .clear()
+      .type(typedText)
+      .should('have.value', typedText)
+
+    const typedTexts = 'Family life education has a broad aim.'
+    
+    cy.get('.form-control').eq(1)
+      .clear()
+      .type(typedTexts)
+      .should('have.value', typedTexts)
+
+    const typedTexty = 'family.com'
+    
+    cy.get('.form-control').eq(2)
+        .clear()
+        .type(typedTexty)
+        .should('have.value', typedTexty)  
+
+    cy.get('.btn-orange').contains('Edit Material').click()
+
+    cy.visit('http://localhost:3000/training/family')
+    
   })
 })
