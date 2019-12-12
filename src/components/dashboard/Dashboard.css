@@ -34,6 +34,10 @@
   margin: 0 0 15px 0;
 }
 
+.card-link {
+  flex: 1 auto;
+}
+
 /* AddMaterial.js Component Styling */
 
 .add-materials {
@@ -51,11 +55,11 @@
   text-align: center;
 }
 
-.progressBar{
+.progressBar {
   margin: 50px 0px;
 }
 
-.progressText{
+.progressText {
   text-align: center;
   font-size: 28px;
   margin: 20px 0px;
