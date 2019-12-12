@@ -60,9 +60,9 @@ describe('Routes to display Training', () => {
       cy.visit('http://localhost:3000/training/culture');
     });
 
-    // Route to "geography"
-    it('Route to "geography"', () => {
-      cy.visit('http://localhost:3000/training/geography');
+    // Route to "science"
+    it('Route to "science"', () => {
+      cy.visit('http://localhost:3000/training/science');
     });
 });
 
