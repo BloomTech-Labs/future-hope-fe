@@ -147,7 +147,7 @@ const MediaCard = props => {
         </CardActionArea>
       </a>
       <CardActions>
-        <Button size="small" color="primary" onClick={handleEditOpen}>
+        <Button className="edit" size="small" color="primary" onClick={handleEditOpen}>
           Edit
         </Button>
         <Modal
