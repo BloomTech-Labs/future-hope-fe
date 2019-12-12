@@ -161,7 +161,7 @@ const MediaCard = props => {
             closeWindow={handleEditClose}
           />
         </Modal>
-        <Button size="small" color="secondary" onClick={handleOpen}>
+        <Button className="delete" size="small" color="secondary" onClick={handleOpen}>
           Delete
         </Button>
 
@@ -179,6 +179,7 @@ const MediaCard = props => {
             <h2 id="simple-modal-title">Delete this material?</h2>
             <p id="simple-modal-description">This action cannot be reversed.</p>
             <Button
+              className="confirmDelete"
               variant="contained"
               color="primary"
               onClick={() => handleDelete(props.material.id)}
