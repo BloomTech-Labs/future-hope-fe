@@ -32,47 +32,48 @@ describe('Routes from Landing Page', () => {
 // Test routing to display Training
 describe('Routes to display Training', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/messaging');
+    cy.visit('http://localhost:3000/training');
   });
 
-    // Display training sidebar menu from dashboard
-    it('Route to display sidebar training menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-    })
-
-    // Route to "food" from sidebar menu
-    it('Route to "food" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/food"]').click();
-      cy.url().should("include", "/training/food");
+    // Route to "food"
+    it('Route to "food"', () => {
+      cy.visit('http://localhost:3000/training/food');
     });
 
-    // Route to "family" from sidebar menu
-    it('Route to "family" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/family"]').click();
-      cy.url().should("include", "/training/family");
+    // Route to "family"
+    it('Route to "family"', () => {
+      cy.visit('http://localhost:3000/training/family');
     });
 
-    // Route to "friends" from sidebar menu
-    it('Route to "friends" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/friends"]').click();
-      cy.url().should("include", "/training/friends");
+    // Route to "friends"
+    it('Route to "friends"', () => {
+      cy.visit('http://localhost:3000/training/friends');
     });
 
-    // Route to "geography" from sidebar menu
-    it('Route to "geography" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/geography"]').click();
-      cy.url().should("include", "/training/geography");
+    // Route to "geography"
+    it('Route to "geography"', () => {
+      cy.visit('http://localhost:3000/training/geography');
     });
 
-    // Route to "culture" from sidebar menu
-    it('Route to "culture" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/culture"]').click();
-      cy.url().should("include", "/training/culture");
+    // Route to "culture"
+    it('Route to "culture"', () => {
+      cy.visit('http://localhost:3000/training/culture');
     });
+
+    // Route to "science"
+    it('Route to "science"', () => {
+      cy.visit('http://localhost:3000/training/science');
+    });
+});
+
+// Test routing to Add Training
+describe('Route to Add Training Materials', () => {
+
+  // Route to "Add Materials" form
+  it('Route to add materials form', () => {
+    cy.visit('http://localhost:3000/training');
+    cy.get("button").contains("Add Material").click();
+    cy.url().should("include", "/add-materials");   
+  });
 
 });
