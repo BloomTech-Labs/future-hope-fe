@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { userStore } from "../../actions/auth.js";
+import React from "react"
+import { connect } from "react-redux"
+import { userStore } from "../../actions/auth.js"
 //styles
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
 
 import {
   MDBContainer,
@@ -15,19 +15,19 @@ import {
   MDBBtn,
   MDBCard,
   MDBCardBody
-} from "mdbreact";
+} from "mdbreact"
 
 import {
   signInWithGoogle,
   signInWithFacebook,
   firestore,
   auth
-} from "../../config/fbConfig.js";
+} from "../../config/fbConfig.js"
 
-import "./SignUp.scss";
+import "./SignUp.scss"
 
 //analytics
-import { logPageView, event } from "../Analytics";
+import { logPageView, event } from "../Analytics"
 
 //! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
@@ -48,39 +48,39 @@ class SignUp extends React.Component {
     password: "",
     photoUrl:
       "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
-  };
+  }
 
   componentDidMount = () => {
-    logPageView();
+    logPageView()
     // if this user is being pushed here, and there is a user on props, then
     // we want to use the info that we already recieved, as well as set
     // signingInWithOAuth to true so that we can conditionally render some UI
     if (auth.currentUser) {
-      const { email, displayName } = auth.currentUser;
+      const { email, displayName } = auth.currentUser
       this.setState({
         email,
         fullName: displayName,
         signingInWithOAuth: true
-      });
+      })
     }
-  };
+  }
 
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
-    });
-  };
+    })
+  }
 
   handleUserTypeChange = e => {
     this.setState({
       userType: e.target.value
-    });
-  };
+    })
+  }
 
   //signup with email
   handleSubmit = async e => {
-    e.preventDefault();
-    event("Email Signup", "User signedup in with Email", "SignUp");
+    e.preventDefault()
+    event("Email Signup", "User signedup in with Email", "SignUp")
     // console.log("triggered");
     // user is creating a brand new account with email and password
     if (!this.state.signingInWithOAuth) {
@@ -88,15 +88,15 @@ class SignUp extends React.Component {
         await auth.createUserWithEmailAndPassword(
           this.state.email,
           this.state.password
-        );
+        )
       } catch (err) {
-        alert(err.message);
-        return;
+        alert(err.message)
+        return
         //! return something after the error so that it doesn't keep going
       }
     }
-    const uid = auth.currentUser.uid;
-    const userRef = firestore.collection("users").doc(uid);
+    const uid = auth.currentUser.uid
+    const userRef = firestore.collection("users").doc(uid)
     //* Create the user account
     //things coming from auth.currentUser is info from Oauth
     await userRef.set({
@@ -112,51 +112,51 @@ class SignUp extends React.Component {
       aboutMe: this.state.aboutMe,
       // all users MUST be approved before gaining full access
       awaitingApproval: true
-    });
-    alert("created your new account with a username and password!");
+    })
+    alert("created your new account with a username and password!")
     // }
 
     // let uid = auth.currentUser.uid;
     // console.log("hi hey look here", uid);
     // get all of their info so we can set up a listener and route them
     // const userRef = firestore.collection("users").doc(uid);
-    const userInfo = await userRef.get();
+    const userInfo = await userRef.get()
     // console.log(userInfo);
     // set up the listener on app.js
     // console.log("setting up user listener!", userInfo);
-    this.props.setupUserListener(userInfo);
+    this.props.setupUserListener(userInfo)
     //! pushing to the awaiting approval component since the default after signing up is to await approval.
-    this.props.history.push("/applicationstatus");
-    this.props.userStore(auth.currentUser); //!added this, stores user info into redux store after signup
-  };
+    this.props.history.push("/applicationstatus")
+    this.props.userStore(auth.currentUser) //!added this, stores user info into redux store after signup
+  }
 
   //oAuth signup with Google
   signUpWithGoogle = async e => {
-    event("Google Signup", "User signedup in with Google", "SignUp");
-    e.preventDefault();
-    await signInWithGoogle();
+    event("Google Signup", "User signedup in with Google", "SignUp")
+    e.preventDefault()
+    await signInWithGoogle()
     // console.log(auth.currentUser);
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,
       fullName: auth.currentUser.displayName,
       email: auth.currentUser.email,
       phoneNumber: auth.currentUser.phoneNumber || ""
-    });
-  };
+    })
+  }
 
   //oAuth signup with Facebook
   signUpWithFacebook = async e => {
-    event("Facebook Signup", "User signedup in with Facebook", "SignUp");
-    e.preventDefault();
-    await signInWithFacebook();
+    event("Facebook Signup", "User signedup in with Facebook", "SignUp")
+    e.preventDefault()
+    await signInWithFacebook()
     // console.log(auth.currentUser);
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,
       fullName: auth.currentUser.displayName,
       email: auth.currentUser.email,
       phoneNumber: auth.currentUser.phoneNumber || ""
-    });
-  };
+    })
+  }
 
   render() {
     // console.log("auth.currentUser", auth.currentUser);
@@ -240,7 +240,7 @@ class SignUp extends React.Component {
                       {/* //! Country and State probably need to be select menus like userType is  */}
                       <MDBInput
                         required
-                        id="contry"
+                        id="country"
                         label="Country"
                         icon="globe-africa"
                         value={this.state.country}
@@ -277,7 +277,7 @@ class SignUp extends React.Component {
                           onChange={e => {
                             this.setState({
                               userType: e.target.value
-                            });
+                            })
                           }}
                         >
                           <MenuItem value="mentor">
@@ -328,7 +328,7 @@ class SignUp extends React.Component {
           </MDBContainer>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -336,17 +336,14 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     // signUp: user => dispatch(signUp(user)), //! This action is no longer being used. Leaving it here just in case
     userStore: user => dispatch(userStore(user))
-  };
-};
+  }
+}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp); //!need first arg of null on connect if not using mapStateToProps
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp) //!need first arg of null on connect if not using mapStateToProps
