@@ -143,6 +143,7 @@ describe('Routes to display Training', () => {
       cy.get('a').contains('TEFL').click()
 
       cy.url().should("include", "/training/tefl");
+
     });
 });
 
