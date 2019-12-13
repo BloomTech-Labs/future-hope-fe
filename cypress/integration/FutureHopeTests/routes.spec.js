@@ -32,37 +32,67 @@ describe('Routes from Landing Page', () => {
 // Test routing to display Training
 describe('Routes to display Training', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/training');
+    cy.visit('http://localhost:3000/');
   });
 
     // Route to "food"
     it('Route to "food"', () => {
-      cy.visit('http://localhost:3000/training/food');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Food').click()
+
+      cy.url().should("include", "/training/food");
     });
 
     // Route to "family"
     it('Route to "family"', () => {
-      cy.visit('http://localhost:3000/training/family');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Family').click()
+
+      cy.url().should("include", "/training/family");
     });
 
     // Route to "friends"
     it('Route to "friends"', () => {
-      cy.visit('http://localhost:3000/training/friends');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Friends').click()
+
+      cy.url().should("include", "/training/friends");
     });
 
     // Route to "geography"
     it('Route to "geography"', () => {
-      cy.visit('http://localhost:3000/training/geography');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Geography').click()
+
+      cy.url().should("include", "/training/geography");
     });
 
     // Route to "culture"
     it('Route to "culture"', () => {
-      cy.visit('http://localhost:3000/training/culture');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Culture').click()
+
+      cy.url().should("include", "/training/culture");
     });
 
-    // Route to "geography"
-    it('Route to "geography"', () => {
-      cy.visit('http://localhost:3000/training/geography');
+    // Route to "Tutoring"
+    it('Route to "Tutoring"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Tutoring').click()
+
+      cy.url().should("include", "/training/tutoring");
     });
 });
 
