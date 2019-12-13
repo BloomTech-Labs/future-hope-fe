@@ -11,7 +11,7 @@ describe("Login in and complete some training", () => {
         cy.get('.MuiAvatar-img').click()
         cy.get('li').contains('Dashboard').click()
         cy.get('svg').eq(7).click()
-        cy.get('a').contains('Family').click()
+        cy.get('a').contains('Geography').click()
     });
 
     afterEach(() => {
