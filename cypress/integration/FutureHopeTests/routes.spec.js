@@ -94,6 +94,56 @@ describe('Routes to display Training', () => {
 
       cy.url().should("include", "/training/tutoring");
     });
+
+    // Route to "School Syllabi"
+    it('Route to "School Syllabi"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('School Syllabi').click()
+
+      cy.url().should("include", "/training/school%20syllabi");
+    });
+
+    // Route to "Math"
+    it('Route to "Math"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Math').click()
+
+      cy.url().should("include", "/training/math");
+    });
+
+    // Route to "Science"
+    it('Route to "Science"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Science').click()
+
+      cy.url().should("include", "/training/science");
+    });
+
+    // Route to "Language"
+    it('Route to "Language"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Language').click()
+
+      cy.url().should("include", "/training/language");
+    });
+
+    // Route to "TEFL"
+    it('Route to "TEFL"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('TEFL').click()
+
+      cy.url().should("include", "/training/tefl");
+    });
 });
 
 // Test routing to Add Training
