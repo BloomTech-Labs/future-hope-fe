@@ -32,37 +32,118 @@ describe('Routes from Landing Page', () => {
 // Test routing to display Training
 describe('Routes to display Training', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/training');
+    cy.visit('http://localhost:3000/');
   });
 
     // Route to "food"
     it('Route to "food"', () => {
-      cy.visit('http://localhost:3000/training/food');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Food').click()
+
+      cy.url().should("include", "/training/food");
     });
 
     // Route to "family"
     it('Route to "family"', () => {
-      cy.visit('http://localhost:3000/training/family');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Family').click()
+
+      cy.url().should("include", "/training/family");
     });
 
     // Route to "friends"
     it('Route to "friends"', () => {
-      cy.visit('http://localhost:3000/training/friends');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Friends').click()
+
+      cy.url().should("include", "/training/friends");
     });
 
     // Route to "geography"
     it('Route to "geography"', () => {
-      cy.visit('http://localhost:3000/training/geography');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Geography').click()
+
+      cy.url().should("include", "/training/geography");
     });
 
     // Route to "culture"
     it('Route to "culture"', () => {
-      cy.visit('http://localhost:3000/training/culture');
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Culture').click()
+
+      cy.url().should("include", "/training/culture");
     });
 
-    // Route to "science"
-    it('Route to "science"', () => {
-      cy.visit('http://localhost:3000/training/science');
+    // Route to "Tutoring"
+    it('Route to "Tutoring"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Tutoring').click()
+
+      cy.url().should("include", "/training/tutoring");
+    });
+
+    // Route to "School Syllabi"
+    it('Route to "School Syllabi"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('School Syllabi').click()
+
+      cy.url().should("include", "/training/school%20syllabi");
+    });
+
+    // Route to "Math"
+    it('Route to "Math"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Math').click()
+
+      cy.url().should("include", "/training/math");
+    });
+
+    // Route to "Science"
+    it('Route to "Science"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Science').click()
+
+      cy.url().should("include", "/training/science");
+    });
+
+    // Route to "Language"
+    it('Route to "Language"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Language').click()
+
+      cy.url().should("include", "/training/language");
+    });
+
+    // Route to "TEFL"
+    it('Route to "TEFL"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('TEFL').click()
+
+      cy.url().should("include", "/training/tefl");
+
     });
 });
 
