@@ -1,18 +1,18 @@
-import React from "react";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
+import React from "react"
+import { withRouter } from "react-router"
+import { connect } from "react-redux"
 //styles
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import Container from "@material-ui/core/Container"
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
 
 // Internal Components
-import SideBar from "../shared/components/Sidebar/SideBar.js";
-import Calendar from "../calendar/Calendar.js";
+import SideBar from "../shared/components/Sidebar/SideBar.js"
+import Calendar from "../calendar/Calendar.js"
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,9 +59,10 @@ const useStyles = makeStyles(theme => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto"
+    // flexGrow: 1,
+    // height: "100vh",
+    // overflow: "auto"
+    width: "90vw"
   },
   container: {
     paddingTop: theme.spacing(2),
@@ -76,17 +77,17 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240
   }
-}));
+}))
 
 const AdminDashboard = props => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <SideBar />
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
+        {/* <div className={classes.appBarSpacer} /> */}
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -98,8 +99,8 @@ const AdminDashboard = props => {
         </Container>
       </main>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = state => {
   // console.log(state);
@@ -107,6 +108,6 @@ const mapStateToProps = state => {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
     userInfo: state.firebase.profile //need access to the users collection instead to check userType and render props in the tables
-  };
-};
-export default withRouter(connect(mapStateToProps)(AdminDashboard));
+  }
+}
+export default withRouter(connect(mapStateToProps)(AdminDashboard))
