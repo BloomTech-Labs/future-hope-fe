@@ -1,28 +1,42 @@
 import React from "react"
 
 //make training material Links pretty with react-tiny-link library
-import { ReactTinyLink } from 'react-tiny-link';
-import photosGhana from "../dashboard/randomImages";
+import { ReactTinyLink } from "react-tiny-link"
+import photosGhana from "../dashboard/randomImages"
 
 const MaterialCard = props => {
+  const { source, title, description } = props.material
 
-  return (
-      <div data-cy="trainingCard">
+  const indexOfId = source.indexOf("=") + 1
+
+  const videoId = source.slice(indexOfId)
+
+  const material = () => {
+    return source.includes("youtube") ? (
+      <iframe
+        title={title}
+        width="33%"
+        height="382"
+        className="material"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        frameborder="0"
+        allowfullscreen="1"
+      ></iframe>
+    ) : (
       <ReactTinyLink
-      cardSize="large"
-      showGraphic={true}
-      maxLine={3}
-      minLine={1}
-      proxyUrl="https://cors-anywhere.herokuapp.com/"
-      url={props.material.source}
-      header={props.material.title}
-      description={props.material.description}
-      defaultMedia={props.photos}
-      />,
-      <br/>
-      </div>
-    
-  );
-};
+        style={{ maxWidth: "640px" }}
+        className="material"
+        cardSize="large"
+        width="33%"
+        proxyUrl="https://cors-anywhere.herokuapp.com/"
+        url={source}
+        header={title}
+        description={description}
+        defaultMedia={props.photos}
+      />
+    )
+  }
+  return [material()]
+}
 
 export default MaterialCard
