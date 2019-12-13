@@ -165,7 +165,7 @@ const MediaCard = props => {
           Delete
         </Button>
 
-        <Button size="small" color="secondary" onClick={trainingUpdate}>
+        <Button size="small" color="secondary" className="complete-btn" onClick={trainingUpdate}>
           Complete
         </Button>
         {/* Pop up window on Delete */}
