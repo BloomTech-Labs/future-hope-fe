@@ -32,47 +32,141 @@ describe('Routes from Landing Page', () => {
 // Test routing to display Training
 describe('Routes to display Training', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/messaging');
+    cy.visit('http://localhost:3000/');
   });
 
-    // Display training sidebar menu from dashboard
-    it('Route to display sidebar training menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-    })
+    // Route to "food"
+    it('Route to "food"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Food').click()
 
-    // Route to "food" from sidebar menu
-    it('Route to "food" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/food"]').click();
       cy.url().should("include", "/training/food");
     });
 
-    // Route to "family" from sidebar menu
-    it('Route to "family" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/family"]').click();
+    // Route to "family"
+    it('Route to "family"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Family').click()
+
       cy.url().should("include", "/training/family");
     });
 
-    // Route to "friends" from sidebar menu
-    it('Route to "friends" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/friends"]').click();
+    // Route to "friends"
+    it('Route to "friends"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Friends').click()
+
       cy.url().should("include", "/training/friends");
     });
 
-    // Route to "geography" from sidebar menu
-    it('Route to "geography" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/geography"]').click();
+    // Route to "geography"
+    it('Route to "geography"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Geography').click()
+
       cy.url().should("include", "/training/geography");
     });
 
-    // Route to "culture" from sidebar menu
-    it('Route to "culture" from sidebar menu', () => {
-      cy.get("[data-cy=longmenu]").click();
-      cy.get('[href="/training/culture"]').click();
+    // Route to "culture"
+    it('Route to "culture"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Culture').click()
+
       cy.url().should("include", "/training/culture");
     });
 
+    // Route to "Tutoring"
+    it('Route to "Tutoring"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Tutoring').click()
+
+      cy.url().should("include", "/training/tutoring");
+    });
+
+    // Route to "School Syllabi"
+    it('Route to "School Syllabi"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('School Syllabi').click()
+
+      cy.url().should("include", "/training/school%20syllabi");
+    });
+
+    // Route to "Math"
+    it('Route to "Math"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Math').click()
+
+      cy.url().should("include", "/training/math");
+    });
+
+    // Route to "Science"
+    it('Route to "Science"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Science').click()
+
+      cy.url().should("include", "/training/science");
+    });
+
+    // Route to "Language"
+    it('Route to "Language"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('Language').click()
+
+      cy.url().should("include", "/training/language");
+    });
+
+    // Route to "TEFL"
+    it('Route to "TEFL"', () => {
+      cy.get('.MuiAvatar-img').click()
+      cy.get('li').contains('Dashboard').click()
+      cy.get('svg').eq(7).click()
+      cy.get('a').contains('TEFL').click()
+
+      cy.url().should("include", "/training/tefl");
+
+    });
 });
+
+// Test routing to Add Training
+describe('Route to Add Training Materials', () => {
+
+  // Route to "Add Materials" form
+  it('Route to add materials form', () => {
+    cy.visit('http://localhost:3000/training');
+    cy.get("button").contains("Add Material").click();
+    cy.url().should("include", "/add-materials");   
+  });
+
+});
+
+// route to edit materials form
+describe('Edit materials form', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/training/family')
+  })
+
+  it('route to edit materials form', () => {
+    cy.get('.edit').eq(0).click()
+  })
+
+})
