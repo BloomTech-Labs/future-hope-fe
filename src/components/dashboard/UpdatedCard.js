@@ -147,7 +147,7 @@ const MediaCard = props => {
         </CardActionArea>
       </a>
       <CardActions>
-        <Button size="small" color="primary" onClick={handleEditOpen}>
+        <Button className="edit" size="small" color="primary" onClick={handleEditOpen}>
           Edit
         </Button>
         <Modal
@@ -161,11 +161,13 @@ const MediaCard = props => {
             closeWindow={handleEditClose}
           />
         </Modal>
-        <Button size="small" color="secondary" onClick={handleOpen}>
+        <Button className="delete" size="small" color="secondary" onClick={handleOpen}>
           Delete
         </Button>
 
+
         <Button size="small" color="secondary" className="complete-btn" onClick={trainingUpdate}>
+
           Complete
         </Button>
         {/* Pop up window on Delete */}
@@ -179,6 +181,7 @@ const MediaCard = props => {
             <h2 id="simple-modal-title">Delete this material?</h2>
             <p id="simple-modal-description">This action cannot be reversed.</p>
             <Button
+              className="confirmDelete"
               variant="contained"
               color="primary"
               onClick={() => handleDelete(props.material.id)}
