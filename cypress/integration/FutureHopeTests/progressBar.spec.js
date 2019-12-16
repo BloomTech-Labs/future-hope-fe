@@ -1,23 +1,23 @@
 describe("Login in and complete some training", () => {
     beforeEach(() => {//log in before each test
         
-        cy.visit('https://staging.futurehopeschool.com/')
+        cy.visit('http://localhost:3000/')
         
         cy.get('button').contains('Login').click()
         cy.get('input').eq(0).type('hopeschooldevs@gmail.com')
         cy.get('input').eq(1).type('Pa$$w0rdz')
-        cy.get('button').eq(5).click()
+        cy.get('button').eq(2).click()
 
         cy.get('.MuiAvatar-img').click()
         cy.get('li').contains('Dashboard').click()
         cy.get('svg').eq(7).click()
-        cy.get('a').contains('Geography').click()
+        cy.get('a').contains('Science').click()
     });
 
-    afterEach(() => {
-        cy.get('.MuiAvatar-img').click()
-        cy.get('a').contains('Logout').click()//Log out after each test
-    })
+    // afterEach(() => {
+    //     cy.get('.MuiAvatar-img').click()
+    //     cy.get('a').contains('Logout').click()//Log out after each test
+    // })
 
     it("Navigates to topic and selects complete on a card", () => {
 
@@ -29,9 +29,9 @@ describe("Login in and complete some training", () => {
         cy.get('.progressText').should('not.have.text', 'NaN')
     })
 
-    it("Returns percentage value that is not equal to NaN", () => {
-        //accessibility attribute test
-        cy.get('.aria-valuenow').should('not.have.text', '100')
-    })
+    // it("Returns percentage value that is not equal to NaN, accessibility attr test", () => {
+    //     //accessibility attribute test
+    //     cy.get('.aria-valuenow').should('not.have.attr', '100')
+    // })
         
 })
