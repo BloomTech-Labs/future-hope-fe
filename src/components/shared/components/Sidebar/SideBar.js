@@ -1,5 +1,5 @@
 import React from "react";
-// import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   drawerPaper: {
-    // marginRight: "240px",
+
     position: "fixed",
     top: "80px",
     left: 0,
@@ -110,7 +110,6 @@ const SideBar = props => {
 };
 
 const mapStateToProps = state => {
-  // console.log("sidebar", state.firebase.props);
   return {
     userInfo: state.firebase.profile,
     training: state.firebase.training

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { withRouter, Link } from "react-router-dom"
+import { connect } from "react-redux"
 import firebase from "../../config/fbConfig"
 
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 
-import Icon from "@material-ui/core/Icon"
-
 //components
 import UpdateCard from "./UpdatedCard.js"
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 import ProgressBar from "./ProgressBar"
-
-import photosGhana from "../dashboard/randomImages"
 
 import "./Dashboard.css"
 
@@ -26,6 +23,7 @@ const UpdatedList = props => {
   const [materials, setMaterials] = useState([])
   const [completedTraining, setCompletedTraining] = useState([])
   const classes = useStyles()
+  const [type, setType] = useState(props.userInfo.userType)
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -73,6 +71,14 @@ const UpdatedList = props => {
       unsubscribe()
     }
   }, [])
+  
+  useEffect(() => {
+    if(!props.userInfo.isEmpty) {
+      setType(props.userInfo.userType)
+    } else {
+      console.log('User not loaded.')
+    }
+  }, [props.userInfo.isEmpty, props.userInfo.userType])
 
   const compareTrainingArrays = () => {
     // category's list of training material ids
@@ -122,7 +128,7 @@ const UpdatedList = props => {
             size="large"
             className={classes.button}
           >
-            {/* <Icon>add_circle </Icon> */}+ Add Material
+            + Add Material
           </Button>
         </Link>
       </div>
@@ -133,9 +139,7 @@ const UpdatedList = props => {
               key={index}
               topic={props.match.params.topic}
               material={material}
-              photos={
-                photosGhana[Math.floor(Math.random() * photosGhana.length)]
-              }
+              type={type}    
             />
           )
         })}
@@ -144,8 +148,11 @@ const UpdatedList = props => {
   )
 }
 
-export default UpdatedList
+const mapStateToProps = state => {
+  return {
+    userInfo: state.firebase.profile
+  };
+};
 
-//12-4-2019
-//Button added to training tab
-//style and functionality not completed
+export default withRouter(connect(mapStateToProps)(UpdatedList));
+
