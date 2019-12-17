@@ -51,13 +51,13 @@ describe('Add materials form', () => {
 // Testing for Edit Materials Form
 describe('Edit materials form', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/training/family')
+    cy.visit('http://localhost:3000/training/science')
     .get('.edit').eq(0).click()
   })
   
   // enter heading accepts input
   it('enter heading accepts input', () => {
-    const typedText = 'family'
+    const typedText = 'science'
 
     cy.get('.form-control').eq(0)
       .clear()
@@ -67,7 +67,7 @@ describe('Edit materials form', () => {
 
   // enter description accepts input
   it('enter description accepts input', () => {
-    const typedText = 'Family life education has a broad aim.'
+    const typedText = 'science life education has a broad aim.'
     
     cy.get('.form-control').eq(1)
       .clear()
@@ -77,7 +77,7 @@ describe('Edit materials form', () => {
   
   // enter URL accepts input
   it('enter URL accepts input', () => {
-    const typedText = 'family.com'
+    const typedText = 'science.com'
     
     cy.get('.form-control').eq(2)
       .clear()
@@ -87,21 +87,21 @@ describe('Edit materials form', () => {
 
   // Form submission
   it('submits the form for updates', () => {
-    const typedText = 'family'
+    const typedText = 'science'
 
     cy.get('.form-control').eq(0)
       .clear()
       .type(typedText)
       .should('have.value', typedText)
 
-    const typedTexts = 'Family life education has a broad aim.'
+    const typedTexts = 'science life education has a broad aim.'
     
     cy.get('.form-control').eq(1)
       .clear()
       .type(typedTexts)
       .should('have.value', typedTexts)
 
-    const typedTexty = 'family.com'
+    const typedTexty = 'science.com'
     
     cy.get('.form-control').eq(2)
         .clear()
@@ -110,7 +110,7 @@ describe('Edit materials form', () => {
 
     cy.get('.btn-orange').contains('Edit Material').click()
 
-    cy.visit('http://localhost:3000/training/family')
+    cy.visit('http://localhost:3000/training/science')
     
   })
 })
