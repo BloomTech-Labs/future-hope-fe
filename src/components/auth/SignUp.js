@@ -47,7 +47,8 @@ class SignUp extends React.Component {
     aboutMe: "",
     password: "",
     photoUrl:
-      "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
+      "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa",
+    completedTrainingProgress: []
   }
 
   componentDidMount = () => {
@@ -111,7 +112,8 @@ class SignUp extends React.Component {
       phoneNumber: this.state.phoneNumber,
       aboutMe: this.state.aboutMe,
       // all users MUST be approved before gaining full access
-      awaitingApproval: true
+      awaitingApproval: true,
+      completedTrainingProgress: this.state.completedTrainingProgress
     })
     alert("created your new account with a username and password!")
     // }
