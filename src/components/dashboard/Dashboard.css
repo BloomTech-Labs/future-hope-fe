@@ -17,13 +17,6 @@
   flex-wrap: nowrap;
   margin-right: 1rem;
 }
-/* use this class to style material cards beyond what React-Tiny-Link is capable of
-
-.react_tinylink_card.sc-gzVnrw.gilWtX {
-
-} 
-
-*/
 
 .material-list {
   display: flex;
@@ -32,6 +25,10 @@
   width: 100%;
   padding-left: 183px;
   margin: 0 0 15px 0;
+}
+
+.card-link {
+  flex: 1 auto;
 }
 
 /* AddMaterial.js Component Styling */
@@ -51,11 +48,11 @@
   text-align: center;
 }
 
-.progressBar{
+.progressBar {
   margin: 50px 0px;
 }
 
-.progressText{
+.progressText {
   text-align: center;
   font-size: 28px;
   margin: 20px 0px;
@@ -81,3 +78,8 @@
 .add-button {
   margin-left: 250px;
 }
+
+.off .MuiButton-label {
+  display: none !important;
+}
+
