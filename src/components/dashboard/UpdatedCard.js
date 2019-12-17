@@ -34,6 +34,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+
+
 function rand() {
   return Math.round(Math.random() * 20) - 10
 }
@@ -122,11 +124,9 @@ const MediaCard = props => {
             props.material.id
           ]
         })
+
     }
   }
-
-
-
 
 
   return (
