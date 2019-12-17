@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import Typography from "@material-ui/core/Typography";
+import React, { useState, useEffect } from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
+import CardActionArea from "@material-ui/core/CardActionArea"
+import CardActions from "@material-ui/core/CardActions"
+import CardContent from "@material-ui/core/CardContent"
+import Button from "@material-ui/core/Button"
+import Modal from "@material-ui/core/Modal"
+import Typography from "@material-ui/core/Typography"
 
-import firebase from "../../config/fbConfig";
-import EditMaterial from "./admin-dashboard/EditMaterial";
+import firebase from "../../config/fbConfig"
+import EditMaterial from "./admin-dashboard/EditMaterial"
 
 import "./Dashboard.css"
 
@@ -33,8 +33,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3)
   }
 }))
-
-
 
 function rand() {
   return Math.round(Math.random() * 20) - 10
@@ -105,7 +103,6 @@ const MediaCard = props => {
     return () => {
       unsubscribe()
     }
-    
   }, [])
 
   const userID = JSON.parse(localStorage.getItem("UID"))
@@ -124,14 +121,17 @@ const MediaCard = props => {
             props.material.id
           ]
         })
-
     }
   }
 
-
   return (
     <Card className={classes.card}>
-      <a className="card-link" href={props.material.source} target="_blank" rel="noopener noreferrer">
+      <a
+        className="card-link"
+        href={props.material.source}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
@@ -144,9 +144,12 @@ const MediaCard = props => {
         </CardActionArea>
       </a>
       <CardActions>
-        <Button className={(props.type === "admin") ? "edit" : "edit off"} size="small" color="primary" onClick={handleEditOpen}>
-          Edit
-        </Button>
+        {props.type === "admin" && (
+          <Button size="small" color="primary" onClick={handleEditOpen}>
+            Edit
+          </Button>
+        )}
+
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -158,12 +161,18 @@ const MediaCard = props => {
             closeWindow={handleEditClose}
           />
         </Modal>
-        <Button 
-        className={(props.type === "admin") ? "delete" : "delete off"}     size="small" color="secondary" onClick={handleOpen}>
-          Delete
-        </Button>
+        {props.type === "admin" && (
+          <Button size="small" color="secondary" onClick={handleOpen}>
+            Delete
+          </Button>
+        )}
 
-        <Button size="small" color="secondary" className="complete-btn" onClick={trainingUpdate}>
+        <Button
+          size="small"
+          color="secondary"
+          className="complete-btn"
+          onClick={trainingUpdate}
+        >
           Complete
         </Button>
         {/* Pop up window on Delete */}
@@ -194,4 +203,4 @@ const MediaCard = props => {
   )
 }
 
-export default MediaCard;
+export default MediaCard
