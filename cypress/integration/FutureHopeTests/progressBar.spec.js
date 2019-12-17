@@ -1,5 +1,5 @@
 describe("Login in and complete some training", () => {
-    beforeEach(() => {//log in before each test
+    beforeEach(() => { //log in before each test
         
         cy.visit('http://localhost:3000/')
         
@@ -14,24 +14,11 @@ describe("Login in and complete some training", () => {
         cy.get('a').contains('Science').click()
     });
 
-    // afterEach(() => {
-    //     cy.get('.MuiAvatar-img').click()
-    //     cy.get('a').contains('Logout').click()//Log out after each test
-    // })
-
     it("Navigates to topic and selects complete on a card", () => {
-
         cy.get('.complete-btn').eq(0).click()        
     })  
 
     it("Returns percentage value that is not equal to NaN", () => {
-
         cy.get('.progressText').should('not.have.text', 'NaN')
-    })
-
-    // it("Returns percentage value that is not equal to NaN, accessibility attr test", () => {
-    //     //accessibility attribute test
-    //     cy.get('.aria-valuenow').should('not.have.attr', '100')
-    // })
-        
+    })    
 })
