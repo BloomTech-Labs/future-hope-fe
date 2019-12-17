@@ -35,11 +35,9 @@ class Login extends React.Component {
   };
 
   componentDidUpdate = () => {
-    // HEY FUTURE PERSON WHO DOSNT UNDERSTAND WHAT THE HELL IS GOING ON!@#!@#!
-    // OUR ROUTE WASNT RERENDERING, SO WE HAD TO FORCE IT TO :D
-    // CHECK OUT APP.JS TO SEE WHAT THE HECK IS GOING ON :D
+    // OUR ROUTE WASNT RERENDERING, SO WE HAD TO FORCE IT TO
+    // CHECK OUT APP.JS TO SEE WHAT IS GOING ON (LABS 15)
 
-    // console.log("updating??", this.props.rerouteUser);
     if (this.props.rerouteUser) {
       this.props.history.push("/signup");
     }
@@ -59,7 +57,7 @@ class Login extends React.Component {
     event("Email Login", "User logged in with Email", "Login");
     e.preventDefault();
     event("User-Login", "Form Submitted", "Login form");
-    // this.props.login(this.state.user);
+
     try {
       // try logging the user in.
       await auth.signInWithEmailAndPassword(
@@ -74,37 +72,34 @@ class Login extends React.Component {
 
       // get all of their info so we can set up a listener and route them
       const userRef = firestore.collection("users").doc(uid);
-      // console.log("userRef", userRef);
+
       const userInfo = await userRef.get();
       // set up the listener on app.js
-      // console.log("setting up user listener!", userInfo);
-      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+
+      // This reroutes a user who is awaiting approval to the awaitingapproval component.
       if (this.props.userInfo.awaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         this.props.setupUserListener(userInfo);
-        // console.log("rerouting user", userInfo.data());
-        // const routeTo = this.props.routeUser(userInfo.data());
-        // console.log("userInfo", userInfo);
-        // console.log("auth.currentUser", auth.currentUser);
+
         this.props.history.push("/dashboard");
       }
     } catch (err) {
-      //this is to find out if the person loggin in has already made an account, or
-      //if they just typed their email / pw wrong
+      // this is to find out if the person loggin in has already made an account, or
+      // if they just typed their email / pw wrong
       const ifUser = await firestore
         .collection("users")
         .where("email", "==", this.state.user.email)
         .get();
-      //ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
+      // ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
       if (ifUser.docs.length) {
         alert("Incorrect Email or Password");
       } else {
-        //email doesn't exist, so sign it up dummy
+        // email doesn't exist
         alert("Account does not exist, please signup");
       }
     }
-    //* This calls the userStore action in order to store current user data in the redux store.
+    // This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
 
@@ -121,21 +116,17 @@ class Login extends React.Component {
 
       // get all of their info so we can set up a listener and route them
       const userRef = firestore.collection("users").doc(uid);
-      console.log(userRef);
+
       const userInfo = await userRef.get();
       // set up the listener on app.js
-      // console.log(this.props.userInfo, 'userInfo');
-      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
+
+      // reroutes a user who is awaiting approval to the awaitingapproval component.
       if (this.props.userInfo.usersAwaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         this.props.setupUserListener(userInfo);
-        console.log("rerouting user", userInfo.data());
+
         if (userInfo.data().userType) {
-          // const routeTo = this.props.routeUser(userInfo.data());
-          // this.props.userStore(auth.currentUser);
-          // this.props.history.push(routeTo);
-          //! Pretty sure this push is all we need, routeUser stuff is outdated
           this.props.history.push("/dashboard");
         } else {
           this.props.history.push("/signup");
@@ -160,22 +151,17 @@ class Login extends React.Component {
 
       // get all of their info so we can set up a listener and route them
       const userRef = firestore.collection("users").doc(uid);
-      console.log(userRef);
+
       const userInfo = await userRef.get();
-      console.log(this.props.userInfo, "userInfo from google");
-      //* This reroutes a user who is awaiting approval to the awaitingapproval component.
-      //! This one is named awaitingApproval, not usersAwaitingApproval for some reason.
+
+      // reroutes a user who is awaiting approval to the awaitingapproval component.
       if (this.props.userInfo.awaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         // set up the listener on app.js
         this.props.setupUserListener(userInfo);
-        console.log("rerouting user", userInfo.data());
+
         if (userInfo.data().userType) {
-          // const routeTo = this.props.rerouteUser(userInfo.data());
-          // this.props.userStore(auth.currentUser);
-          // this.props.history.push(routeTo);
-          //! I'm pretty sure this is all we need. This routeTO stuff may be outdated.
           this.props.history.push("/dashboard");
         } else {
           this.props.history.push("/signup");
@@ -266,7 +252,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // login: creds => dispatch(login(creds)), //! Not being used. Leaving here just in case, again.
     userStore: user => dispatch(userStore(user))
   };
 };

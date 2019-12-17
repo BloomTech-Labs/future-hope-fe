@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { userStore } from "../../actions/auth.js"
+
 //styles
 import InputLabel from "@material-ui/core/InputLabel"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -28,8 +29,6 @@ import "./SignUp.scss"
 
 //analytics
 import { logPageView, event } from "../Analytics"
-
-//! SAVE A DEFAULT IMAGE IF NONE IS PROVIDED
 
 class SignUp extends React.Component {
   state = {
@@ -82,7 +81,7 @@ class SignUp extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     event("Email Signup", "User signedup in with Email", "SignUp")
-    // console.log("triggered");
+
     // user is creating a brand new account with email and password
     if (!this.state.signingInWithOAuth) {
       try {
@@ -93,13 +92,12 @@ class SignUp extends React.Component {
       } catch (err) {
         alert(err.message)
         return
-        //! return something after the error so that it doesn't keep going
       }
     }
     const uid = auth.currentUser.uid
     const userRef = firestore.collection("users").doc(uid)
-    //* Create the user account
-    //things coming from auth.currentUser is info from Oauth
+    // Create the user account
+    // coming from auth.currentUser is info from Oauth
     await userRef.set({
       uid,
       email: this.state.email,
@@ -116,20 +114,14 @@ class SignUp extends React.Component {
       completedTrainingProgress: this.state.completedTrainingProgress
     })
     alert("created your new account with a username and password!")
-    // }
 
-    // let uid = auth.currentUser.uid;
-    // console.log("hi hey look here", uid);
-    // get all of their info so we can set up a listener and route them
-    // const userRef = firestore.collection("users").doc(uid);
     const userInfo = await userRef.get()
-    // console.log(userInfo);
+
     // set up the listener on app.js
-    // console.log("setting up user listener!", userInfo);
     this.props.setupUserListener(userInfo)
-    //! pushing to the awaiting approval component since the default after signing up is to await approval.
+    // pushing to the awaiting approval component since the default after signing up is to await approval.
     this.props.history.push("/applicationstatus")
-    this.props.userStore(auth.currentUser) //!added this, stores user info into redux store after signup
+    this.props.userStore(auth.currentUser) // stores user info into redux store after signup
   }
 
   //oAuth signup with Google
@@ -137,7 +129,7 @@ class SignUp extends React.Component {
     event("Google Signup", "User signedup in with Google", "SignUp")
     e.preventDefault()
     await signInWithGoogle()
-    // console.log(auth.currentUser);
+
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,
       fullName: auth.currentUser.displayName,
@@ -151,7 +143,7 @@ class SignUp extends React.Component {
     event("Facebook Signup", "User signedup in with Facebook", "SignUp")
     e.preventDefault()
     await signInWithFacebook()
-    // console.log(auth.currentUser);
+
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,
       fullName: auth.currentUser.displayName,
@@ -161,7 +153,6 @@ class SignUp extends React.Component {
   }
 
   render() {
-    // console.log("auth.currentUser", auth.currentUser);
     return (
       <div className="signup-wrapper">
         <div>
@@ -239,7 +230,6 @@ class SignUp extends React.Component {
                         margin="normal"
                         name="stateProvince"
                       />
-                      {/* //! Country and State probably need to be select menus like userType is  */}
                       <MDBInput
                         required
                         id="country"
@@ -343,9 +333,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // signUp: user => dispatch(signUp(user)), //! This action is no longer being used. Leaving it here just in case
     userStore: user => dispatch(userStore(user))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp) //!need first arg of null on connect if not using mapStateToProps
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
