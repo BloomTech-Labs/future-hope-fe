@@ -71,12 +71,12 @@ const UpdatedList = props => {
       unsubscribe()
     }
   }, [])
-  
+
   useEffect(() => {
-    if(!props.userInfo.isEmpty) {
+    if (!props.userInfo.isEmpty) {
       setType(props.userInfo.userType)
     } else {
-      console.log('User not loaded.')
+      console.log("User not loaded.")
     }
   }, [props.userInfo.isEmpty, props.userInfo.userType])
 
@@ -122,14 +122,16 @@ const UpdatedList = props => {
       <SideBar />
       <div className="add-button">
         <Link to="/add-materials">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={classes.button}
-          >
-            + Add Material
-          </Button>
+          {type === "admin" && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.button}
+            >
+              + Add Material
+            </Button>
+          )}
         </Link>
       </div>
       <div className="material-list">
@@ -139,7 +141,7 @@ const UpdatedList = props => {
               key={index}
               topic={props.match.params.topic}
               material={material}
-              type={type}    
+              type={type}
             />
           )
         })}
@@ -151,8 +153,7 @@ const UpdatedList = props => {
 const mapStateToProps = state => {
   return {
     userInfo: state.firebase.profile
-  };
-};
+  }
+}
 
-export default withRouter(connect(mapStateToProps)(UpdatedList));
-
+export default withRouter(connect(mapStateToProps)(UpdatedList))
