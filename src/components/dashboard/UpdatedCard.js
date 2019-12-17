@@ -14,6 +14,8 @@ import photosGhana from "../dashboard/randomImages";
 import firebase from "../../config/fbConfig";
 import EditMaterial from "./admin-dashboard/EditMaterial";
 
+
+
 const useStyles = makeStyles(theme => ({
   card: {
     marginBottom: 15,
@@ -31,6 +33,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3)
   }
 }));
+
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -114,7 +118,6 @@ const MediaCard = props => {
     .collection('users')
     .doc(userID)
     .update({completedTrainingProgress: [...userData[0].completedTrainingProgress, props.material.id]})
-    console.log(props.material.id)
     }
   }
 

@@ -99,7 +99,7 @@ const UpdatedList = props => {
 
   const trainingProgress = compareTrainingArrays().length
 
-  const progressPercentage = trainingProgress / materials.length * 100
+  const progressPercentage = trainingProgress / materials.length * 100 || 0
   
   return (
     <>
