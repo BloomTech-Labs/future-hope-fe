@@ -23,7 +23,6 @@ const MeetingModal = props => {
   const [meeting, setMeeting] = useState({
     title: "",
     start: Date.now()
-    // endDate: ""
   });
   const [participants, setParticipants] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -31,15 +30,15 @@ const MeetingModal = props => {
   const [searchResults, setSearchResults] = useState([]);
   const [displayParticipants, setDisplayParticipants] = useState("");
 
-  //* Used to submit new and updated meetings
+  // submit new and updated meetings
   const submitMeeting = e => {
     e.preventDefault();
-    //* Adds existing Participants to newParticipants obj. If new meeting, set blank arrays
+    // Adds existing Participants to newParticipants obj. If new meeting, set blank arrays
     let newParticipants = {
       participantUIDs: meeting.participantUIDs || [],
       participantNames: meeting.participantNames || []
     };
-    //* Checks if new participants have been added and if they are new, adds them to newParticipants obj
+    // Checks if new participants have been added and if they are new, adds them to newParticipants obj
     if (participants.length) {
       participants.forEach(participant => {
         if (!newParticipants.participantUIDs.includes(participant.uid)) {
@@ -53,26 +52,26 @@ const MeetingModal = props => {
       newParticipants.participantUIDs.push(props.user.uid);
       newParticipants.participantNames.push(props.user.fullName);
     }
-    //* Combine participant user info with meeting info into newMeeting Obj
+    // Combine participant user info with meeting info into newMeeting Obj
     let newMeeting = {
       ...meeting,
       ...newParticipants
     };
-    //* check if a previous meeting was clicked on to see if routing to new meeting or old
+    // check if a previous meeting was clicked on to see if routing to new meeting or old
     if (meeting.id) {
       props.editMeeting(newMeeting);
     } else {
-      //* Adding Event to Calendar
+      // Adding Event to Calendar
       props.addMeeting(newMeeting);
     }
-    //* reset meeting state
+    // reset meeting state
     setMeeting({ title: "", start: Date.now() });
-    //* Turning off the Modal
+    // Turning off the Modal
     props.toggle();
   };
 
-  //* Searches for users to add to meeting
-  //! NOTE: Only exact searches work. Need to implement fuzzy search
+  // Search for users to add to meeting
+  // Only exact searches work
   const searchParticipants = async searchTerm => {
     event(
       "Search-Users",
@@ -89,7 +88,7 @@ const MeetingModal = props => {
           searchArray.push(doc.data());
         });
       });
-    //* Set results in state, clear search term
+    // Set results in state, clear search term
     setSearchResults(searchArray);
     setSearchTerm("");
   };
@@ -98,9 +97,8 @@ const MeetingModal = props => {
     setShowSearchResults(!showSearchResults);
   };
 
-  //* Used to display all participant names in meeting and about to be invited
+  // Used to display all participant names in meeting and about to be invited
   const participantsDisplay = invitedUsers => {
-    // console.log("invitedUsers", invitedUsers);
     invitedUsers.forEach(invitedUser => {
       if (!displayParticipants) {
         setDisplayParticipants(displayParticipants + `${invitedUser.fullName}`);
@@ -112,21 +110,16 @@ const MeetingModal = props => {
     });
   };
 
-  //* Using useEffect to update the Modal with the item clicked on (date or event)
+  // Using useEffect to update the Modal with the item clicked on (date or event)
   useEffect(() => {
     setMeeting(props.clickedMeeting);
-    // debugger;
     if (props.clickedMeeting.id) {
       let participantNames = "";
       props.clickedMeeting.participantNames.forEach(participantName => {
-        // console.log("participant in useEffect", participantName);
         if (participantName !== props.user.fullName) {
           if (!participantNames) {
-            // console.log("should only run first time", displayParticipants);
             participantNames += participantName;
-            // console.log("displayParticipants", displayParticipants);
           } else {
-            // console.log("should run only after first time");
             participantNames += `, ${participantName}`;
           }
         }
@@ -150,8 +143,6 @@ const MeetingModal = props => {
         <MDBModalBody>
           <MDBInput
             label="Add title"
-            //   icon='envelope'
-            //   group
             size="lg"
             type="text"
             validate
@@ -163,7 +154,6 @@ const MeetingModal = props => {
               })
             }
           />
-          {/* //! Now that the date is updating should we change this to just a time picker? */}
           <DateTimePicker
             value={meeting.start}
             size="lg"
@@ -177,20 +167,6 @@ const MeetingModal = props => {
             label="Start time"
             showTodayButton
           />
-          {/* //! Removing end datetime picker for now. Needs to auto-populate based on start time. Might not need picker at all, just a length drop down, then parse the end date.
-          <DateTimePicker
-            value={endDate}
-            disablePast
-            onChange={handleEndDateChange}
-            label='End time'
-            showTodayButton
-          /> */}
-          {/* <MDBInput
-            label='Select Participants'
-            type='text'
-            value={participants}
-            onChange={e => changeParticipants(e.target.value)}
-          /> */}
           <MDBFormInline
             className="md-form"
             onSubmit={async e => {
