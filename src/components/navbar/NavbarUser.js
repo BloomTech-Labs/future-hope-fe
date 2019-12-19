@@ -52,8 +52,6 @@ const NavbarUser = props => {
   const dropdownItem = classNames({
     [classes.dropdownItem]: true,
     [classes[hoverColor + "Hover"]]: true
-    // [classes.noLiPadding]: noLiPadding,
-    // [classes.dropdownItemRTL]: rtlActive
   });
 
   return (
@@ -108,7 +106,6 @@ const NavbarUser = props => {
           </ClickAwayListener>
         </Popper>
       </div>
-      {/* <span className={classes.userName}>{user.displayName}</span> */}
     </div>
   );
 };

@@ -26,17 +26,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// No more sample data required
-// var meetingTime = new Date(2019, 7, 26, 12, 45, 0, 0);
-// var meetingTime2 = new Date(2019, 7, 27, 12, 45, 0, 0);
-// let meetingTime3 = new Date(1566879597866);
-
-// var events = [
-//   { title: 'Meeting', start: meetingTime },
-//   { title: 'Meeting', start: meetingTime2 },
-//   { title: 'Testing', start: meetingTime3 }
-// ];
-
 const SignedInNavBar = props => {
   const classes = useStyles();
 
