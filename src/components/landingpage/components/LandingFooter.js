@@ -10,7 +10,6 @@ const styles = theme => ({
   }
 });
 
-
 function LandingFooter(props) {
   const { classes } = props;
 
