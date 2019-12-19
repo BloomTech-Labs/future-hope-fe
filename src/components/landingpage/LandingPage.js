@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-// import Footer from "../components/footer/Footer";
 import GridContainer from "../shared/components/GridContainer";
 import GridItem from "../shared/components/GridItem";
 import Button from "../shared/components/Button";
 import Parallax from "./components/Parallax";
-
 import { landingPageStyle } from "./styles";
 
 // Sections for this page

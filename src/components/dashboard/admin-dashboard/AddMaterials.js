@@ -145,9 +145,7 @@ function AddMaterial(props) {
 
     if(!newMaterial.category) {
         setValCat(true)
-        console.log("cat: ", newMaterial.category)
       } else {
-        console.log("cat: ", newMaterial.category)
         const newDoc = await firestore
         .collection('training').doc(newMaterial.category.toLowerCase()).collection('modules').add(newMaterial);
       
@@ -209,7 +207,6 @@ function AddMaterial(props) {
                       icon="align-justify"
                       onChange={handleChange}
                       required
-
                     />
                     <MDBInput
                       type="url"
@@ -219,7 +216,6 @@ function AddMaterial(props) {
                       icon="link"
                       onChange={handleChange}
                       required
-
                     />
                     <MDBDropdown>
                       <MDBDropdownToggle caret color="primary">

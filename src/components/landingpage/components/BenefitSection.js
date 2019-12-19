@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -7,6 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import ForumIcon from "@material-ui/icons/Forum";
+
 // core components
 import GridContainer from "../../shared/components/GridContainer";
 import GridItem from "../../shared/components/GridItem";

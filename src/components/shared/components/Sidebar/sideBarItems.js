@@ -85,12 +85,7 @@ export const MainListItems = props => {
         </ListItemIcon>
         <ListItemText primary="Messages" />
       </ListItem>
-      {/* <ListItem button>
-        <ListItemIcon>
-          <LiveHelpIcon style={{ color: "#ff9800" }} />
-        </ListItemIcon>
-        <ListItemText primary="FAQs" />
-      </ListItem> */}
+     
       <ListItem button component={Link} to={"/update_profile"}>
         <ListItemIcon>
           <AccountBoxIcon style={{ color: "#ff9800" }} />

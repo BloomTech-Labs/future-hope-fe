@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import classNames from "classnames";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -20,7 +21,6 @@ import img3 from "../assets/img-three.png";
 function FeatureSection(props) {
   const { classes } = props;
   const imageClasses = classNames(
-    //classes.imgRaised,
     classes.imgRoundedCircle,
     classes.imgFluid
   );

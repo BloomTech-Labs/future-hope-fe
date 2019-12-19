@@ -1,6 +1,7 @@
 import React from "react"
 import { withRouter } from "react-router"
 import { connect } from "react-redux"
+
 //styles
 import { makeStyles } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
@@ -59,9 +60,6 @@ const useStyles = makeStyles(theme => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
-    // flexGrow: 1,
-    // height: "100vh",
-    // overflow: "auto"
     width: "90vw"
   },
   container: {
@@ -87,7 +85,6 @@ const AdminDashboard = props => {
       <CssBaseline />
       <SideBar />
       <main className={classes.content}>
-        {/* <div className={classes.appBarSpacer} /> */}
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -103,7 +100,6 @@ const AdminDashboard = props => {
 }
 
 const mapStateToProps = state => {
-  // console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,

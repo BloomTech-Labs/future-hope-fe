@@ -55,14 +55,3 @@ const AwaitingApproval = props => {
 
 export default withRouter(AwaitingApproval);
 
-/*
-here is that progress bar I was using.
-
-<div className = 'w-75'>
-                    <MDBProgress material value = {this.state.progress} height = '20px' width = '100%'>
-                        {`${this.state.progress}%`}
-                    </MDBProgress>
-                </div>
-
-
-*/
