@@ -135,13 +135,11 @@ const featureStyle = {
 
 const mobileStyle = {
   section: {
-    //padding: "50px 0",
     textAlign: "center"
   },
   title: {
     ...title,
     marginBottom: "1rem",
-    //marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none"
   },
@@ -182,8 +180,6 @@ const ctaStyle = {
   },
   title: {
     ...title,
-    //marginBottom: "50px",
-    //marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
     textAlign: "center"
