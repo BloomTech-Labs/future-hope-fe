@@ -34,8 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedMentorList = props => {
   const [users, setUsers] = useState([]);
-  // const { auth, userInfo } = props;
-  //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
   useEffect(() => {
@@ -47,7 +45,6 @@ const ApprovedMentorList = props => {
     const userRef = firestore.collection("users");
     await userRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        //console.log(doc.data());
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -66,7 +63,6 @@ const ApprovedMentorList = props => {
     props.history.push(`/profile/${uid}`);
   };
 
-  //if (!auth.uid) return <Redirect to="/" />;
   return (
     <div className="flex">
       <SideBar />
