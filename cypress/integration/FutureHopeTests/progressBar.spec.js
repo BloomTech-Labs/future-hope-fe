@@ -14,6 +14,7 @@ describe("Login in and complete some training", () => {
         cy.get('a').contains('Science').click()
     });
 
+
     it("Navigates to topic and selects complete on a card", () => {
         cy.get('.complete-btn').eq(0).click()        
     })  
