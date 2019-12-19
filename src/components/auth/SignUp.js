@@ -260,11 +260,13 @@ class SignUp extends React.Component {
                         margin="normal"
                         name="aboutMe"
                       />
-                      <FormControl style={{ minWidth: 80 }}>
+                      <FormControl style={{ minWidth: 80 }} required>
                         <InputLabel htmlFor="age-simple">
                           Choose an Account Type
                         </InputLabel>
                         <Select
+                          native
+                          required
                           value={this.state.userType}
                           onChange={e => {
                             this.setState({
