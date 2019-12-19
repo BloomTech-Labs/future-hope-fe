@@ -55,7 +55,6 @@ const footerStyle = {
     width: "18px",
     color: dangerColor,
     height: "18px",
-    // position: "relative",
     top: "3px"
   }
 };

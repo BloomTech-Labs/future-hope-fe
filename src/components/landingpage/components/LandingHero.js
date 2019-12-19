@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "../mui/Button";
 import Typography from "../mui/Typography";
-import Container from "@material-ui/core/Container";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import backgroundImage from "../assets/Ghana_school.jpg";
 
@@ -32,7 +31,6 @@ const styles = theme => ({
     backgroundRepeat: "no-repeat",
     zIndex: -2,
     backgroundPosition: "0px -100px",
-    // width: '50vw',
     transform: "scaleX(-1)"
   },
   button: {
@@ -72,10 +70,8 @@ const styles = theme => ({
     color: "black",
     flexDirection: "column",
     alignItems: "center",
-    // marginLeft: '33vw',
     paddingTop: "5vh",
     zIndex: 1,
-    // backgroundColor: '#00000082',
     width: "40vw",
     height: "65vmin"
   },
@@ -91,7 +87,7 @@ function LandingHero(props) {
     <section className={classes.landingHero}>
       <div className={classes.container} xl>
         {/* Helps background image load faster */}
-        <img style={{ display: "none" }} src={backgroundImage} alt="" />
+        <img style={{ display: "none" }} src={backgroundImage} alt="background img" />
 
         <div className={classes.heroBox}>
           <div className={classes.heroText}>
@@ -123,7 +119,6 @@ function LandingHero(props) {
               variant="outlined"
               size="medium"
               className={classes.button}
-              // component="a"
               href="/register"
             >
               Register

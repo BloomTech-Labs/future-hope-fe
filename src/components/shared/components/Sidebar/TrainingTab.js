@@ -7,8 +7,6 @@ import MoreVertIcon from "@material-ui/icons/MoreVert"
 import { firestore } from "../../../../config/fbConfig"
 import { Link } from "react-router-dom"
 
-// const options = ["Food", "Society", "Slang", "Geography"];
-
 const ITEM_HEIGHT = 48
 
 export default function TrainingTab() {
@@ -32,7 +30,6 @@ export default function TrainingTab() {
   useEffect(() => {
     let unsubcribe = firestore
       .collection("trainingTabNav")
-      // .collection("training")
       .onSnapshot(snapshot => {
         let trainingTabs = snapshot.docs.map(doc => {
           return doc.data().navName;
@@ -69,24 +66,22 @@ export default function TrainingTab() {
         onClose={handleClose}
         PaperProps={{
           style: {
-            // maxHeight: ITEM_HEIGHT * 4.5,
             width: 200
           }
         }}
       >
         {options.map(
-          option =>
-             (
-              <MenuItem
-                component={Link}
-                to={`/training/${option.toLowerCase()}`}
-                key={option}
-                selected={option === "Pyxis"}
-                onClick={handleClose}
-              >
-                {option}
-              </MenuItem>
-            )
+          option => (
+            <MenuItem
+              component={Link}
+              to={`/training/${option.toLowerCase()}`}
+              key={option}
+              selected={option === "Pyxis"}
+              onClick={handleClose}
+            >
+              {option}
+            </MenuItem>
+          )
         )}
       </Menu>
     </div>

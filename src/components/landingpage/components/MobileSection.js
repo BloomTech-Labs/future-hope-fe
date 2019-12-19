@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import classNames from "classnames";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -9,7 +10,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "../../shared/components/GridContainer";
 import GridItem from "../../shared/components/GridItem";
 import Card from "../../shared/components/card/Card";
-import Button from "../../shared/components/Button";
 
 import { mobileStyle } from "../styles";
 
@@ -18,7 +18,6 @@ import img4 from "../assets/img-mobile-two.png";
 function MobileSection(props) {
   const { classes } = props;
   const imageClasses = classNames(
-    //classes.imgRaised,
     classes.imgRoundedCircle,
     classes.imgFluid
   );
@@ -36,9 +35,6 @@ function MobileSection(props) {
                 If you have an iPhone, you will soon be able to manage your
                 schedule whenever you want via our iOS app.
                 <br />
-                {/* <Button href="#" color="warning">
-                  Download the app!
-                </Button> */}
               </h4>
             </Card>
           </GridItem>

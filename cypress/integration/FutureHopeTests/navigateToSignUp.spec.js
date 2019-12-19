@@ -1,12 +1,13 @@
 describe("Go to sign up from Landing page", function() {
   it("Signs up a new account", function() {
     //goes to site
-    //!MAKE SURE THIS IS THE SITE YOU ARE USING
     cy.visit("localhost:3000/")
+
     //finds a button that contains login, clicks it
     cy.get("button")
       .contains("Sign Up")
       .click()
+
     //verify's the url should include /login
     cy.url().should("include", "/signup")
 
@@ -42,11 +43,12 @@ describe("Go to sign up from Landing page", function() {
     cy.get("#about-me")
       .type("I'm the cypress Test!")
       .should("have.value", "I'm the cypress Test!")
-    //sign up after filling out form
+
+    // sign up after filling out form
     cy.get("#sign-up-btn").click()
-    //! This will not work, will only get an alert saying email is already in use.
-    //should redirect to /applicationstatus
-    // cy.url().should("include", "/applicationstatus");
+    
+    // This will not work, will only get an alert saying email is already in use.
+    // should redirect to /applicationstatus
     cy.on("window:alert", str => {
       expect(str).to.equal(
         "The email address is already in use by another account."

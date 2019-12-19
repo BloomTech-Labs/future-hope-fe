@@ -6,12 +6,11 @@ export const MEETING_CREATE_FAIL = "MEETING_CREATE_FAIL";
 
 // Create Meeting
 export const createMeeting = meeting => dispatch => {
-  // meeting = meeting data?
   dispatch({ type: MEETING_CREATE });
   return axios
-    .post("/api/meetings", meeting) //! endpoint unknonwn
+    .post("/api/meetings", meeting)
     .then(res => {
-      dispatch({ type: MEETING_CREATE_SUCCESS, payload: res.data }); //! Not sure what to return yet
+      dispatch({ type: MEETING_CREATE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       console.log(err);

@@ -5,15 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '../mui/Typography';
-// import { ReactComponent as TeacherIcon} from './images/chalkboard-teacher-solid.svg';
 import { ReactComponent as StudentIcon} from '../assets/student.svg';
 import '../styles.scss';
-
 
 const styles = theme => ({
   root: {
     display: 'flex',
-    // overflow: 'hidden',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 'calc(100vh - 10rem)',
@@ -21,9 +18,6 @@ const styles = theme => ({
   },
   impactLeft: {
     paddingTop: '2rem'
-  },
-  impactCardFirstGroup: {
-    // paddingTop: '2rem'
   },
   item: {
     display: 'flex',
