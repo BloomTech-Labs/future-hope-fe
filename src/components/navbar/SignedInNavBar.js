@@ -65,7 +65,6 @@ const SignedInNavBar = props => {
   );
 };
 
-//* This state.firebase.profile gives us all the profile info automatically stored into redux by firebase. Neat.
 const mapStateToProps = state => {
   return {
     userInfo: state.firebase.profile
