@@ -37,7 +37,7 @@ import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js
 import Dashboard from "./components/dashboard/Dashboard.js";
 import UpdatedList from "./components/dashboard/UpdatedList";
 import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js";
-// import EditMaterial from "./components/dashboard/admin-dashboard/EditMaterial.js";
+import OnBoarding from "./components/shared/components/OnBoarding.js";
 import "./App.css";
 
 class App extends React.Component {
@@ -150,7 +150,7 @@ class App extends React.Component {
             <Route path="/update_profile" component={EditProfileView} />
             <Route path="/user-approval" component={UserApproval} />
             <Route path="/add-materials" component={AddMaterial} />
-            {/* <Route path="/edit-materials" component={EditMaterial} /> */}
+            <Route path="/on_boarding" component={OnBoarding} />
           </Switch>
         </div>
         <Footer />
