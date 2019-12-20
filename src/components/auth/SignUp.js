@@ -47,8 +47,11 @@ class SignUp extends React.Component {
     password: "",
     photoUrl:
       "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa",
-    completedTrainingProgress: []
+    completedTrainingProgress: [],
+    validateSelect: "none"
   }
+
+
 
   componentDidMount = () => {
     logPageView()
@@ -81,19 +84,23 @@ class SignUp extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     event("Email Signup", "User signedup in with Email", "SignUp")
-
-    // user is creating a brand new account with email and password
-    if (!this.state.signingInWithOAuth) {
-      try {
-        await auth.createUserWithEmailAndPassword(
-          this.state.email,
-          this.state.password
-        )
-      } catch (err) {
-        alert(err.message)
-        return
+    if (this.state.userType === "") {
+      this.setState({validateSelect: "flex"})
+      console.log("User Type not selected")
+    } else {
+      // user is creating a brand new account with email and password
+      if (!this.state.signingInWithOAuth) {
+        try {
+          await auth.createUserWithEmailAndPassword(
+            this.state.email,
+            this.state.password
+          )
+        } catch (err) {
+          alert(err.message)
+          return
+        }
       }
-    }
+    
     const uid = auth.currentUser.uid
     const userRef = firestore.collection("users").doc(uid)
     // Create the user account
@@ -123,7 +130,7 @@ class SignUp extends React.Component {
     this.props.history.push("/applicationstatus")
     this.props.userStore(auth.currentUser) // stores user info into redux store after signup
   }
-
+  }
   //oAuth signup with Google
   signUpWithGoogle = async e => {
     event("Google Signup", "User signedup in with Google", "SignUp")
@@ -260,19 +267,25 @@ class SignUp extends React.Component {
                         margin="normal"
                         name="aboutMe"
                       />
-                      <FormControl style={{ minWidth: 80 }} required>
+                      
+                      <FormControl style={{ minWidth: 80 }} >
                         <InputLabel htmlFor="age-simple">
                           Choose an Account Type
                         </InputLabel>
+                        {<p style={{color: 'red', display: this.state.validateSelect}}>*Please select an account type.</p>}
                         <Select
-                          native
                           required
+                          name="selection"
                           value={this.state.userType}
-                          onChange={e => {
+                          onChange={e => 
+                          //   {if(this.state.userType === ""){
+                          //   this.state.validateSelect = false
+                          // } else {
                             this.setState({
                               userType: e.target.value
                             })
-                          }}
+                          // }}
+                        }
                         >
                           <MenuItem value="mentor">
                             I am a Mentor in North America
@@ -288,6 +301,15 @@ class SignUp extends React.Component {
                           variant="contained"
                           color="orange"
                           type="submit"
+                          onChange={e => 
+                            {if(this.state.userType === ""){
+                            this.state.validateSelect = false
+                          } else {
+                            this.setState({
+                              userType: e.target.value
+                            })
+                          }}
+                        }
                         >
                           Sign Up
                         </MDBBtn>
