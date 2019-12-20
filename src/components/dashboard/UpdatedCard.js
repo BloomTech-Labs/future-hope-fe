@@ -109,7 +109,10 @@ const MediaCard = props => {
 
   const trainingUpdate = () => {
     if (userData[0].completedTrainingProgress.includes(props.material.id)) {
-      return console.log("Already Completed")
+      let docRef = firebase.firestore().collection("users").doc(userID)
+      let removeMaterial = docRef.update({
+        "completedTrainingProgress": firebase.firestore.FieldValue.arrayRemove(props.material.id)
+      })
     } else {
       const unsubscribe = firebase
         .firestore()

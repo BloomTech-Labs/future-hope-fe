@@ -93,8 +93,8 @@ export const MainListItems = props => {
         <ListItemText primary="Update Profile" />
       </ListItem>
 
-     
-      <ListItem button>
+      {/* Training Tab */}
+      <ListItem button component={Link} to={"/on_boarding"}>
         <ListItemIcon>
           <SchoolIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
