@@ -8,10 +8,6 @@ import {
   MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem
 } from "mdbreact";
 import { firestore } from "../../../config/fbConfig";
 

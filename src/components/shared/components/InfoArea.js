@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import infoStyle from "../styles/infoStyle";

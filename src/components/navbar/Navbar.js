@@ -23,24 +23,16 @@ import NavbarUser from "./NavbarUser";
 import { navbarStyle } from "./navbarStyle";
 
 const Navbar = props => {
-  /*  Initial Navbar Config
-    Get path from router => get config based on pathname.
-    There is probably a cleaner way to implement this with
-    the update function below so there is only 1 function.
-    Anyone feel free to help :-D */
+ 
   const initConfig = () => {
     return !navConfig[route] ? navConfig["default"] : navConfig[route];
   };
 
   const auth = useSelector(state => state.firebase.profile);
-  //* Holds current route for conditional navbar rendering
   const [route, setRoute] = useState(props.history.location.pathname);
-  //* Holds current navbar config based on route
   const [config, setConfig] = useState(() => initConfig());
 
-  //Router pathname listener
-  //Detect change in route and run configUpdate function.
-  //Gets default config if no match found.
+
   useLayoutEffect(() => {
     const configUpdate = () => {
       const path = props.history.location.pathname;
@@ -61,8 +53,7 @@ const Navbar = props => {
     setMobileOpen(!mobileOpen);
   };
 
-  //Handler for header color change.
-  // Settings in config file
+
   const headerColorChange = () => {
     const { classes } = props;
     const windowsScrollTop = window.pageYOffset;
@@ -98,7 +89,7 @@ const Navbar = props => {
     [classes.fixed]: "fixed"
   });
 
-  // Navbar Sections (brand/right/left/user)
+
   const brandComponent = (
     <Link to="/">
       <Button className={classes.title}>{config.brand}</Button>

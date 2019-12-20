@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
-//import { Redirect } from "react-router-dom";
 
 //styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,8 +24,6 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    // marginLeft: theme.spacing(2),
-    // marginRight: theme.spacing(2),
     margin: "auto",
     padding: theme.spacing(2),
     width: "70%",
@@ -38,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 const ApprovedTeacherList = props => {
   const [users, setUsers] = useState([]);
-  //if (!auth.uid) return <Redirect to="/" />;
   const classes = useStyles();
 
   useEffect(() => {

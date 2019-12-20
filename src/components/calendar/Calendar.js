@@ -2,7 +2,7 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import interactionPlugin from "@fullcalendar/interaction";
 import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
 import MomentUtils from "@date-io/moment";
@@ -35,8 +35,7 @@ class Calendar extends React.Component {
     }
   };
 
-  //* Creates listener which pulls meetings containing current user's UID and sets to state.
-  //! NOTE: Since the GET is now a listener all setState calls in methods have been deleted
+  // Creates listener which pulls meetings containing current user's UID and sets to state.
   componentDidMount = () => {
     logPageView();
     const uid = JSON.parse(localStorage.getItem("UID")) || auth.currentUser.uid;
@@ -45,9 +44,8 @@ class Calendar extends React.Component {
       .where("participantUIDs", "array-contains", uid)
       .onSnapshot(querySnapshot => {
         let events = [];
-        // console.log(querySnapshot);
+
         querySnapshot.forEach(doc => {
-          // console.log(doc.data());
           const start = doc.data().start.seconds * 1000;
           events.push({
             title: doc.data().title,
@@ -67,15 +65,17 @@ class Calendar extends React.Component {
     });
   };
 
-  //* Adds meeting to Firebase and updates calendar
+  // Adds meeting to Firebase and updates calendar
   addMeeting = async meeting => {
-    //* add meeting to firestore
+    // add meeting to firestore
     try {
-      //* add blank meeting to firestore
+      // add blank meeting to firestore
       const meetingRef = firestore.collection("meetings").doc();
-      //* gets new meeting ID and inserts it into the record as id
+
+      // gets new meeting ID and inserts it into the record as id
       meeting.id = meetingRef.id;
-      //* Updates new firestore doc with meeting to add
+
+      // Updates new firestore doc with meeting to add
       await meetingRef.set(meeting);
       swal(`Your meeting has been created`, {
         icon: "success"
@@ -92,7 +92,7 @@ class Calendar extends React.Component {
     event("Edit-Meeting", "Edit Current meeting", "Calendar");
     console.log("meeting arg into editMeeting", meeting);
     try {
-      //* updating meeting in firebase
+      // updating meeting in firebase
       const meetingRef = firestore.collection("meetings").doc(meeting.id);
       await meetingRef.update(meeting);
     } catch (err) {
@@ -135,8 +135,6 @@ class Calendar extends React.Component {
   };
 
   render() {
-    // console.log("user", this.props.user);
-    // console.log("auth", auth.currentUser);
     return (
       <div className="calendar-app">
         <div className="calendar-app-top">
@@ -188,7 +186,7 @@ class Calendar extends React.Component {
     );
   }
 
-  //* Handles event drag and drop
+  // Handles event drag and drop
   handleEventDrop = async info => {
     try {
       // Verifies intention to drop
@@ -201,7 +199,7 @@ class Calendar extends React.Component {
       }).then(async changeDate => {
         // Checks if user verified intention to drop
         if (changeDate) {
-          //* updating meeting in firebase
+          // update meeting in firebase
           const meetingRef = firestore
             .collection("meetings")
             .doc(info.event.id);
@@ -223,7 +221,7 @@ class Calendar extends React.Component {
     }
   };
 
-  //* On Event click => Pulls event from firestore and sets it to state, populating and opening MeetingModal
+  // On Event click => Pulls event from firestore and sets it to state, populating and opening MeetingModal
   handleEventClick = async info => {
     event("Meeting-Clicked", "Clicked meeting on calendar", "Calendar");
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
@@ -240,8 +238,8 @@ class Calendar extends React.Component {
     this.toggleModal();
   };
 
-  //* Populates MeetingModal with clicked date and opens
-  //? NOTE Defaults to noon. Can this be improved?
+  // Populates MeetingModal with clicked date and opens
+  // Defaults to noon
   handleDateClick = async arg => {
     event("Meeting-Date", "Set meeting date", "Calendar");
     let meetingDate = await new Date(
