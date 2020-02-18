@@ -53,13 +53,29 @@ function Messaging(props) {
       firestore
         .collection("conversations")
         .where("participantUIDs", "array-contains", props.userInfo.uid)
-        .onSnapshot(querySnapshot => {
-          let conversations = [];
-          querySnapshot.forEach(conversation => {
-            conversations.push(conversation.data());
+        // .onSnapshot(querySnapshot => {
+        //   console.log('in useEffect()', querySnapshot)
+        //   let conversations = [];
+        //   querySnapshot.forEach(conversation => {
+        //     conversations.push(conversation.data());
+        //   });
+        //   setConversations(conversations);
+        // });
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }
+          let conversations = []
+
+          snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data())
+            conversations.push(doc.data())
           });
-          setConversations(conversations);
-        });
+          setConversations(conversations)
+        })
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
@@ -89,6 +105,31 @@ function Messaging(props) {
     conversation.uid = conversationRef.id;
     // sets new doc with conversation info
     conversationRef.set(conversation);
+    firestore
+      .collection("conversations")
+      .where("participantUIDs", "array-contains", props.userInfo.uid)
+      // .onSnapshot(querySnapshot => {
+      //   console.log('in useEffect()', querySnapshot)
+      //   let conversations = [];
+      //   querySnapshot.forEach(conversation => {
+      //     conversations.push(conversation.data());
+      //   });
+      //   setConversations(conversations);
+      // });
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }
+        let conversations = []
+
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data())
+          conversations.push(doc.data())
+        });
+        setConversations(conversations)
+      })
   };
 
   return (
@@ -120,6 +161,7 @@ function Messaging(props) {
                   display the other person's info
               */}
               {conversations.map(conversation => {
+                console.log(conversations)
                 let avatar = "";
                 let name = "";
                 let uid = "";
