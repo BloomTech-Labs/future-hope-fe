@@ -1,11 +1,9 @@
 # Future-Hope-Client
 
 > Ready For Stakeholder Branch
-
 ## Table of Contents
 
 - **[Project Overview](#project-overview)**<br>
-- **Hello World**<br>
 - **[Install](#install)**<br>
 - **[Deploy](#deploy)**<br>
 - **[Components](#components)**<br>
