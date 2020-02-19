@@ -43,6 +43,7 @@ function Messaging(props) {
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
   // const classes = useStyles();
+  console.log(conversations)
 
   // Sets up listener for all conversations current user is involved in from firestore and sets state
   useEffect(() => {
@@ -99,6 +100,17 @@ function Messaging(props) {
       participantNames: [fullName, props.userInfo.fullName],
       participantAvatars: [photoUrl, props.userInfo.photoUrl]
     };
+    let convoCheck = 0
+    conversations.forEach(e => {
+      if (e.participantUIDs[0] === uid) {
+        convoCheck = 1
+      }
+    })
+    console.log('check', convoCheck)
+    if (convoCheck === 1) {
+      console.log('you are already in a conversation with the selected user, creation failed')
+      return
+    }
     // creates new BLANK conversation doc, stores it into conversationRef
     const conversationRef = firestore.collection("conversations").doc();
     // adds uid of new doc to converstation obj
