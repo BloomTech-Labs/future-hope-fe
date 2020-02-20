@@ -53,16 +53,18 @@ class Calendar extends React.Component {
             id: doc.data().id
           });
         });
-        this.setState({
+        this.setState((prev) => ({
+          ...prev,
           events: events
-        });
+        }));
       });
   };
 
   toggleModal = () => {
-    this.setState({
+    this.setState(prev => ({
+      ...prev,
       showModal: !this.state.showModal
-    });
+    }));
   };
 
   // Adds meeting to Firebase and updates calendar
@@ -227,13 +229,14 @@ class Calendar extends React.Component {
     const meetingRef = firestore.collection("meetings").doc(info.event.id);
     meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);
-      this.setState({
-        ...this.state,
+      this.setState(prev => ({
+
+        ...prev,
         clickedMeeting: {
           ...doc.data(),
           start: start
         }
-      });
+      }));
     });
     this.toggleModal();
   };
@@ -251,11 +254,12 @@ class Calendar extends React.Component {
       0,
       0
     );
-    await this.setState({
+    await this.setState(prev => ({
+      ...prev,
       clickedMeeting: {
         start: meetingDate
       }
-    });
+    }));
     this.toggleModal();
   };
 }
