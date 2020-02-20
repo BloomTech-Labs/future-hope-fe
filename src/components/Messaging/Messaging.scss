@@ -10,6 +10,7 @@
     width: 35%;
     height: 75vh;
     margin: 20px;
+    overflow: auto;
     .conversation-list-item {
       cursor: pointer;
       background-color: white;
