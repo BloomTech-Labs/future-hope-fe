@@ -31,6 +31,7 @@ const SignedInNavBar = props => {
 
   function logout() {
     auth.signOut();
+    localStorage.removeItem('UID')
     props.history.push("/login");
   }
 
@@ -56,7 +57,7 @@ const SignedInNavBar = props => {
             Profile
           </Button>
           <Button color="primary">Appointments</Button>
-          <Button color="primary" href="/login" onClick={logout}>
+          <Button color="primary" onClick={logout}>
             Logout
           </Button>
         </Toolbar>
