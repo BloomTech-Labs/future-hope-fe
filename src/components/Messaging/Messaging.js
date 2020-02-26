@@ -43,6 +43,7 @@ function Messaging(props) {
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
   // const classes = useStyles();
+  console.log(conversations)
 
   // Sets up listener for all conversations current user is involved in from firestore and sets state
   useEffect(() => {
@@ -53,13 +54,29 @@ function Messaging(props) {
       firestore
         .collection("conversations")
         .where("participantUIDs", "array-contains", props.userInfo.uid)
-        .onSnapshot(querySnapshot => {
-          let conversations = [];
-          querySnapshot.forEach(conversation => {
-            conversations.push(conversation.data());
+        // .onSnapshot(querySnapshot => {
+        //   console.log('in useEffect()', querySnapshot)
+        //   let conversations = [];
+        //   querySnapshot.forEach(conversation => {
+        //     conversations.push(conversation.data());
+        //   });
+        //   setConversations(conversations);
+        // });
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }
+          let conversations = []
+
+          snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data())
+            conversations.push(doc.data())
           });
-          setConversations(conversations);
-        });
+          setConversations(conversations)
+        })
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
@@ -83,12 +100,48 @@ function Messaging(props) {
       participantNames: [fullName, props.userInfo.fullName],
       participantAvatars: [photoUrl, props.userInfo.photoUrl]
     };
+    let convoCheck = 0
+    conversations.forEach(e => {
+      if (e.participantUIDs[0] === uid) {
+        convoCheck = 1
+      }
+    })
+    console.log('check', convoCheck)
+    if (convoCheck === 1) {
+      console.log('you are already in a conversation with the selected user, creation failed')
+      return
+    }
     // creates new BLANK conversation doc, stores it into conversationRef
     const conversationRef = firestore.collection("conversations").doc();
     // adds uid of new doc to converstation obj
     conversation.uid = conversationRef.id;
     // sets new doc with conversation info
     conversationRef.set(conversation);
+    firestore
+      .collection("conversations")
+      .where("participantUIDs", "array-contains", props.userInfo.uid)
+      // .onSnapshot(querySnapshot => {
+      //   console.log('in useEffect()', querySnapshot)
+      //   let conversations = [];
+      //   querySnapshot.forEach(conversation => {
+      //     conversations.push(conversation.data());
+      //   });
+      //   setConversations(conversations);
+      // });
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }
+        let conversations = []
+
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data())
+          conversations.push(doc.data())
+        });
+        setConversations(conversations)
+      })
   };
 
   return (
@@ -120,6 +173,7 @@ function Messaging(props) {
                   display the other person's info
               */}
               {conversations.map(conversation => {
+                console.log(conversations)
                 let avatar = "";
                 let name = "";
                 let uid = "";

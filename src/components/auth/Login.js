@@ -77,7 +77,7 @@ class Login extends React.Component {
       // set up the listener on app.js
 
       // This reroutes a user who is awaiting approval to the awaitingapproval component.
-      if (this.props.userInfo.awaitingApproval) {
+      if (this.props.userInfo.usersAwaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         this.props.setupUserListener(userInfo);
@@ -155,7 +155,7 @@ class Login extends React.Component {
       const userInfo = await userRef.get();
 
       // reroutes a user who is awaiting approval to the awaitingapproval component.
-      if (this.props.userInfo.awaitingApproval) {
+      if (this.props.userInfo.usersAwaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         // set up the listener on app.js

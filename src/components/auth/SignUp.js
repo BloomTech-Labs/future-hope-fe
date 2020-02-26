@@ -85,7 +85,7 @@ class SignUp extends React.Component {
     e.preventDefault()
     event("Email Signup", "User signedup in with Email", "SignUp")
     if (this.state.userType === "") {
-      this.setState({validateSelect: "flex"})
+      this.setState({ validateSelect: "flex" })
       console.log("User Type not selected")
     } else {
       // user is creating a brand new account with email and password
@@ -100,36 +100,36 @@ class SignUp extends React.Component {
           return
         }
       }
-    
-    const uid = auth.currentUser.uid
-    const userRef = firestore.collection("users").doc(uid)
-    // Create the user account
-    // coming from auth.currentUser is info from Oauth
-    await userRef.set({
-      uid,
-      email: this.state.email,
-      fullName: this.state.fullName,
-      photoUrl: auth.currentUser.photoURL || this.state.photoUrl,
-      userType: this.state.userType,
-      city: this.state.city,
-      stateProvince: this.state.stateProvince,
-      country: this.state.country,
-      phoneNumber: this.state.phoneNumber,
-      aboutMe: this.state.aboutMe,
-      // all users MUST be approved before gaining full access
-      awaitingApproval: true,
-      completedTrainingProgress: this.state.completedTrainingProgress
-    })
-    alert("created your new account with a username and password!")
 
-    const userInfo = await userRef.get()
+      const uid = auth.currentUser.uid
+      const userRef = firestore.collection("users").doc(uid)
+      // Create the user account
+      // coming from auth.currentUser is info from Oauth
+      await userRef.set({
+        uid,
+        email: this.state.email,
+        fullName: this.state.fullName,
+        photoUrl: auth.currentUser.photoURL || this.state.photoUrl,
+        userType: this.state.userType,
+        city: this.state.city,
+        stateProvince: this.state.stateProvince,
+        country: this.state.country,
+        phoneNumber: this.state.phoneNumber,
+        aboutMe: this.state.aboutMe,
+        // all users MUST be approved before gaining full access
+        awaitingApproval: true,
+        completedTrainingProgress: this.state.completedTrainingProgress
+      })
+      alert("created your new account with a username and password!")
 
-    // set up the listener on app.js
-    this.props.setupUserListener(userInfo)
-    // pushing to the awaiting approval component since the default after signing up is to await approval.
-    this.props.history.push("/applicationstatus")
-    this.props.userStore(auth.currentUser) // stores user info into redux store after signup
-  }
+      const userInfo = await userRef.get()
+
+      // set up the listener on app.js
+      this.props.setupUserListener(userInfo)
+      // pushing to the awaiting approval component since the default after signing up is to await approval.
+      this.props.history.push("/applicationstatus")
+      this.props.userStore(auth.currentUser) // stores user info into redux store after signup
+    }
   }
   //oAuth signup with Google
   signUpWithGoogle = async e => {
@@ -267,25 +267,25 @@ class SignUp extends React.Component {
                         margin="normal"
                         name="aboutMe"
                       />
-                      
+
                       <FormControl style={{ minWidth: 80 }} >
                         <InputLabel htmlFor="age-simple">
                           Choose an Account Type
                         </InputLabel>
-                        {<p style={{color: 'red', display: this.state.validateSelect}}>*Please select an account type.</p>}
+                        {<p style={{ color: 'red', display: this.state.validateSelect }}>*Please select an account type.</p>}
                         <Select
                           required
                           name="selection"
                           value={this.state.userType}
-                          onChange={e => 
-                          //   {if(this.state.userType === ""){
-                          //   this.state.validateSelect = false
-                          // } else {
+                          onChange={e =>
+                            //   {if(this.state.userType === ""){
+                            //   this.state.validateSelect = false
+                            // } else {
                             this.setState({
                               userType: e.target.value
                             })
-                          // }}
-                        }
+                            // }}
+                          }
                         >
                           <MenuItem value="mentor">
                             I am a Mentor in North America
@@ -301,15 +301,16 @@ class SignUp extends React.Component {
                           variant="contained"
                           color="orange"
                           type="submit"
-                          onChange={e => 
-                            {if(this.state.userType === ""){
-                            this.state.validateSelect = false
-                          } else {
-                            this.setState({
-                              userType: e.target.value
-                            })
-                          }}
-                        }
+                          onChange={e => {
+                            if (this.state.userType === "") {
+                              this.state.validateSelect = false
+                            } else {
+                              this.setState({
+                                userType: e.target.value
+                              })
+                            }
+                          }
+                          }
                         >
                           Sign Up
                         </MDBBtn>

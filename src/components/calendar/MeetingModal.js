@@ -143,7 +143,7 @@ const MeetingModal = props => {
         <MDBModalBody>
           <MDBInput
             label="Add title"
-            size="lg"
+            size="medium"
             type="text"
             validate
             value={meeting.title}
@@ -156,7 +156,7 @@ const MeetingModal = props => {
           />
           <DateTimePicker
             value={meeting.start}
-            size="lg"
+            size="medium"
             disablePast
             onChange={date => {
               setMeeting({

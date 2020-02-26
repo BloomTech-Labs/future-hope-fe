@@ -1,3 +1,4 @@
+import { firestore } from '../config/fbConfig'
 export const SIGNUP_START = "SIGNUP_START";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
@@ -14,7 +15,7 @@ export const userStore = user => {
   //if user exists, then continue. If they don't then log in didn't work.
   if (user) {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-      const firestore = getFirestore();
+      // const firestore = getFirestore();
       let userInfo = null;
 
       //search firestore for the doc with current uid
