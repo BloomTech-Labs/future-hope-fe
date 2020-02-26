@@ -1,7 +1,6 @@
 # Future-Hope-Client
 
 > Ready For Stakeholder Branch
-
 ## Table of Contents
 
 - **[Project Overview](#project-overview)**<br>

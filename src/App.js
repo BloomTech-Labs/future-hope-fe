@@ -42,7 +42,7 @@ import "./App.css";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
-  unsubsribeFromUser = null;
+  unsubscribeFromUser = null;
 
   state = {
     rerouteUser: false,
@@ -53,7 +53,7 @@ class App extends React.Component {
   componentDidMount = () => {
     initGA();
     logPageView();
-    this.unsubsribeFromAuth = auth.onAuthStateChanged(async user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         let userRef = firestore.collection("users").doc(uid);
@@ -88,7 +88,7 @@ class App extends React.Component {
     // console.log(uid);
     // takes in the user thats logged in
     // sets up listenever to their document
-    this.unsubsribeFromUser = firestore
+    this.unsubscribeFromUser = firestore
       .collection("users")
       .doc(`${user.uid}`)
       .onSnapshot(snapshot => {
@@ -105,7 +105,7 @@ class App extends React.Component {
 
   componentWillUnmount = () => {
     this.unsubscribeFromAuth(); //clean up after yourself
-    this.unsubsribeFromUser();
+    this.unsubscribeFromUser();
   };
 
   render() {

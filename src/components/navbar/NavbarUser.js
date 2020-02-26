@@ -27,6 +27,7 @@ const NavbarUser = props => {
 
   function logout() {
     console.log("logged out");
+    localStorage.removeItem('UID')
     auth.signOut();
     props.history.push("/");
   }

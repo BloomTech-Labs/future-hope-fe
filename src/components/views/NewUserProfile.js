@@ -94,8 +94,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewUserProfile = props => {
-  //console.log("props", props);
+  console.log("props", props);
   const [user, setUser] = useState({});
+    const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     // grabs user UID from URL and searches users collection for a matching doc
@@ -107,6 +108,94 @@ const NewUserProfile = props => {
         setUser(querySnapshot.data());
       });
   }, [props.match.params.uid]);
+
+   useEffect(() => {
+    //  logPageView();
+     if (!props.userInfo.uid) {
+       return;
+     } else {
+       firestore
+         .collection("conversations")
+         .where("participantUIDs", "array-contains", props.userInfo.uid)
+         // .onSnapshot(querySnapshot => {
+         //   console.log('in useEffect()', querySnapshot)
+         //   let conversations = [];
+         //   querySnapshot.forEach(conversation => {
+         //     conversations.push(conversation.data());
+         //   });
+         //   setConversations(conversations);
+         // });
+         .get()
+         .then(snapshot => {
+           if (snapshot.empty) {
+             console.log("No matching documents.");
+             return;
+           }
+           let conversations = [];
+
+           snapshot.forEach(doc => {
+             console.log(doc.id, "=>", doc.data());
+             conversations.push(doc.data());
+           });
+           setConversations(conversations);
+         });
+     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [props.userInfo]);
+
+    const createConversation = selectedUser => {
+
+      const { uid, fullName, photoUrl } = selectedUser;
+      const conversation = {
+        participantUIDs: [uid, props.userInfo.uid],
+        participantNames: [fullName, props.userInfo.fullName],
+        participantAvatars: [photoUrl, props.userInfo.photoUrl]
+      };
+      let convoCheck = 0;
+      conversations.forEach(e => {
+        if (e.participantUIDs[0] === uid) {
+          convoCheck = 1;
+        }
+      });
+      console.log("check", convoCheck);
+      if (convoCheck === 1) {
+        console.log(
+          "you are already in a conversation with the selected user, creation failed"
+        );
+        return;
+      }
+      // creates new BLANK conversation doc, stores it into conversationRef
+      const conversationRef = firestore.collection("conversations").doc();
+      // adds uid of new doc to converstation obj
+      conversation.uid = conversationRef.id;
+      // sets new doc with conversation info
+      conversationRef.set(conversation);
+      firestore
+        .collection("conversations")
+        .where("participantUIDs", "array-contains", props.userInfo.uid)
+        // .onSnapshot(querySnapshot => {
+        //   console.log('in useEffect()', querySnapshot)
+        //   let conversations = [];
+        //   querySnapshot.forEach(conversation => {
+        //     conversations.push(conversation.data());
+        //   });
+        //   setConversations(conversations);
+        // });
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log("No matching documents.");
+            return;
+          }
+          let conversations = [];
+
+          snapshot.forEach(doc => {
+            console.log(doc.id, "=>", doc.data());
+            conversations.push(doc.data());
+          });
+          setConversations(conversations);
+        });
+    };
 
   const classes = useStyles();
 
@@ -151,7 +240,9 @@ const NewUserProfile = props => {
                 {user.country} and I am so excited to meet you!
               </p>
               <Button
-                onClick={() => props.history.push("/messaging")}
+                onClick={() => {
+                  createConversation(user);
+                  props.history.push("/messaging")}}
                 variant="contained"
                 color="warning"
               >
