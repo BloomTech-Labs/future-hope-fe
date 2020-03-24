@@ -39,6 +39,7 @@ import Dashboard from "./components/dashboard/Dashboard.js";
 import UpdatedList from "./components/dashboard/UpdatedList";
 import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js";
 import OnBoarding from "./components/shared/components/OnBoarding.js";
+import PrivacyPolicy from './components/MobileAppPrivacyPolicy'
 import "./App.css";
 
 class App extends React.Component {
@@ -153,6 +154,7 @@ class App extends React.Component {
             <Route path="/user-approval" component={UserApproval} />
             <Route path="/add-materials" component={AddMaterial} />
             <Route path="/on_boarding" component={OnBoarding} />
+            <Route path='/mobile-app-privacy-policy' component={PrivacyPolicy} />
           </Switch>
         </div>
         <Footer />
