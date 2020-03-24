@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { withRouter } from "react-router"
 import { connect } from "react-redux"
 
@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper"
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 import Calendar from "../calendar/Calendar.js"
+import AwaitingApproval from "../views/AwaitingApproval.js"
 
 const drawerWidth = 240
 
@@ -78,8 +79,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const AdminDashboard = props => {
+  useEffect(() => {
+    if (props && props.userInfo && props.userInfo.awaitingApproval) {
+      if (props.userInfo.userType !== 'admin')
+        props.history.push('/applicationstatus')
+    }
+  })
   const classes = useStyles()
-
+  console.log("in dashboard", props)
   return (
     <div className={classes.root}>
       <CssBaseline />

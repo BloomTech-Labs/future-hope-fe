@@ -227,9 +227,11 @@ const NewUserProfile = props => {
     await userRef
       .delete()
       .then(() => {
+
         swal(`User has been successfully removed.`, {
           icon: "success"
         });
+        props.history.push('/dashboard')
       })
       .catch(() => {
         swal(
