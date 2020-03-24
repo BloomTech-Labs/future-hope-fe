@@ -86,7 +86,7 @@ class SignUp extends React.Component {
     event("Email Signup", "User signedup in with Email", "SignUp")
     if (this.state.userType === "") {
       this.setState({ validateSelect: "flex" })
-      console.log("User Type not selected")
+
     } else {
       // user is creating a brand new account with email and password
       if (!this.state.signingInWithOAuth) {

@@ -40,7 +40,7 @@ const UpdatedList = props => {
           setMaterials(trainingDocs)
         },
         error => {
-          console.log(error)
+
         }
       )
 
@@ -64,7 +64,7 @@ const UpdatedList = props => {
           setCompletedTraining(completedTrainingDocs)
         },
         error => {
-          console.log(error)
+
         }
       )
     return () => {
@@ -75,8 +75,6 @@ const UpdatedList = props => {
   useEffect(() => {
     if (!props.userInfo.isEmpty) {
       setType(props.userInfo.userType)
-    } else {
-      console.log("User not loaded.")
     }
   }, [props.userInfo.isEmpty, props.userInfo.userType])
 
