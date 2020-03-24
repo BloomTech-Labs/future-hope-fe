@@ -16,7 +16,7 @@ import { logPageView } from "../Analytics";
 
 const MentorPublicPage = props => {
   const mentors = props.mentorData;
-  console.log(mentors);
+
 
   useEffect(() => {
     logPageView();

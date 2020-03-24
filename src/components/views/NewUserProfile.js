@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
 import { firestore } from "../../config/fbConfig.js";
 import { connect } from "react-redux";
+import swal from "@sweetalert/with-react";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../shared/components/Button";
@@ -94,9 +95,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewUserProfile = props => {
-  console.log("props", props);
+
   const [user, setUser] = useState({});
-    const [conversations, setConversations] = useState([]);
+  const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     // grabs user UID from URL and searches users collection for a matching doc
@@ -109,67 +110,11 @@ const NewUserProfile = props => {
       });
   }, [props.match.params.uid]);
 
-   useEffect(() => {
+  useEffect(() => {
     //  logPageView();
-     if (!props.userInfo.uid) {
-       return;
-     } else {
-       firestore
-         .collection("conversations")
-         .where("participantUIDs", "array-contains", props.userInfo.uid)
-         // .onSnapshot(querySnapshot => {
-         //   console.log('in useEffect()', querySnapshot)
-         //   let conversations = [];
-         //   querySnapshot.forEach(conversation => {
-         //     conversations.push(conversation.data());
-         //   });
-         //   setConversations(conversations);
-         // });
-         .get()
-         .then(snapshot => {
-           if (snapshot.empty) {
-             console.log("No matching documents.");
-             return;
-           }
-           let conversations = [];
-
-           snapshot.forEach(doc => {
-             console.log(doc.id, "=>", doc.data());
-             conversations.push(doc.data());
-           });
-           setConversations(conversations);
-         });
-     }
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [props.userInfo]);
-
-    const createConversation = selectedUser => {
-
-      const { uid, fullName, photoUrl } = selectedUser;
-      const conversation = {
-        participantUIDs: [uid, props.userInfo.uid],
-        participantNames: [fullName, props.userInfo.fullName],
-        participantAvatars: [photoUrl, props.userInfo.photoUrl]
-      };
-      let convoCheck = 0;
-      conversations.forEach(e => {
-        if (e.participantUIDs[0] === uid) {
-          convoCheck = 1;
-        }
-      });
-      console.log("check", convoCheck);
-      if (convoCheck === 1) {
-        console.log(
-          "you are already in a conversation with the selected user, creation failed"
-        );
-        return;
-      }
-      // creates new BLANK conversation doc, stores it into conversationRef
-      const conversationRef = firestore.collection("conversations").doc();
-      // adds uid of new doc to converstation obj
-      conversation.uid = conversationRef.id;
-      // sets new doc with conversation info
-      conversationRef.set(conversation);
+    if (!props.userInfo.uid) {
+      return;
+    } else {
       firestore
         .collection("conversations")
         .where("participantUIDs", "array-contains", props.userInfo.uid)
@@ -184,18 +129,165 @@ const NewUserProfile = props => {
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
-            console.log("No matching documents.");
+
             return;
           }
           let conversations = [];
 
           snapshot.forEach(doc => {
-            console.log(doc.id, "=>", doc.data());
+
             conversations.push(doc.data());
           });
           setConversations(conversations);
         });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.userInfo]);
+
+
+
+  const createConversation = selectedUser => {
+
+    const { uid, fullName, photoUrl } = selectedUser;
+    const conversation = {
+      participantUIDs: [uid, props.userInfo.uid],
+      participantNames: [fullName, props.userInfo.fullName],
+      participantAvatars: [photoUrl, props.userInfo.photoUrl]
     };
+    let convoCheck = 0;
+    conversations.forEach(e => {
+      if (e.participantUIDs[0] === uid) {
+        convoCheck = 1;
+      }
+    });
+
+    if (convoCheck === 1) {
+      console.log(
+        "you are already in a conversation with the selected user, creation failed"
+      );
+      return;
+    }
+    // creates new BLANK conversation doc, stores it into conversationRef
+    const conversationRef = firestore.collection("conversations").doc();
+    // adds uid of new doc to converstation obj
+    conversation.uid = conversationRef.id;
+    // sets new doc with conversation info
+    conversationRef.set(conversation);
+    firestore
+      .collection("conversations")
+      .where("participantUIDs", "array-contains", props.userInfo.uid)
+      // .onSnapshot(querySnapshot => {
+      //   console.log('in useEffect()', querySnapshot)
+      //   let conversations = [];
+      //   querySnapshot.forEach(conversation => {
+      //     conversations.push(conversation.data());
+      //   });
+      //   setConversations(conversations);
+      // });
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          return;
+        }
+        let conversations = [];
+
+        snapshot.forEach(doc => {
+
+          conversations.push(doc.data());
+        });
+        setConversations(conversations);
+      });
+  };
+  const makeAdmin = async () => {
+    swal("Warning, this action will make the selected user an admin and give them full privileges, only continue if you trust this user.", {
+      buttons: {
+        cancel: "Cancel",
+        confirm: {
+          text: 'Confirm',
+          value: 'confirm'
+        }
+      },
+    })
+      .then((value) => {
+        switch (value) {
+
+          case "confirm":
+            const uid = user.uid;
+            firestore.collection("users").doc(uid)
+              .update({
+                userType: 'admin'
+              })
+              .then(() => {
+                swal(`Your information has been updated`, {
+                  icon: "success"
+                });
+              })
+              .catch(() => {
+                swal(
+                  "There was a server error, your information could not be updated",
+                  {
+                    icon: "warning"
+                  }
+                );
+              });
+            break;
+
+          case "cancel":
+            swal("Cancelled", "Your file is safe", "error");
+            break;
+
+          default:
+            swal("Cancelled", "Your file is safe", "error");
+        }
+      });
+
+  };
+
+  const deleteUser = async () => {
+    swal("Are you sure you want to delete this user, this action cannot be undone.", {
+      buttons: {
+        cancel: "Cancel",
+        confirm: {
+          text: 'Confirm',
+          value: 'confirm'
+        }
+      },
+    })
+      .then((value) => {
+        switch (value) {
+
+          case "confirm":
+            const uid = user.uid;
+            firestore.collection("users").doc(uid)
+              .delete()
+              .then(() => {
+
+                swal(`User has been successfully removed.`, {
+                  icon: "success"
+                });
+                props.history.push('/dashboard')
+              })
+              .catch(() => {
+                swal(
+                  "There was a server error, your information could not be updated",
+                  {
+                    icon: "warning"
+                  }
+                );
+              });
+            break;
+
+          case "cancel":
+            swal("Cancelled", "Your file is safe", "error");
+            break;
+
+          default:
+            swal("Cancelled", "Your file is safe", "error");
+        }
+      });
+
+  };
 
   const classes = useStyles();
 
@@ -239,15 +331,30 @@ const NewUserProfile = props => {
                 I am located in {user.city}, {""} {user.stateProvince}{" "}
                 {user.country} and I am so excited to meet you!
               </p>
+              {props.userInfo.userType === 'admin' ? <Button
+                onClick={deleteUser}
+                variant="contained"
+                color="warning"
+              >
+                Delete User
+              </Button> : <div></div>}
               <Button
                 onClick={() => {
                   createConversation(user);
-                  props.history.push("/messaging")}}
+                  props.history.push("/messaging")
+                }}
                 variant="contained"
                 color="warning"
               >
                 Contact Me
               </Button>
+              {props.userInfo.userType === 'admin' ? <Button
+                onClick={makeAdmin}
+                variant="contained"
+                color="warning"
+              >
+                Promote to Admin
+              </Button> : <div></div>}
             </div>
           </Paper>
         </div>

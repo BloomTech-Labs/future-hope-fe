@@ -126,6 +126,7 @@ class Login extends React.Component {
       } else {
         this.props.setupUserListener(userInfo);
 
+
         if (userInfo.data().userType) {
           this.props.history.push("/dashboard");
         } else {

@@ -92,7 +92,7 @@ class Calendar extends React.Component {
   // Edits current meeting
   editMeeting = async meeting => {
     event("Edit-Meeting", "Edit Current meeting", "Calendar");
-    console.log("meeting arg into editMeeting", meeting);
+
     try {
       // updating meeting in firebase
       const meetingRef = firestore.collection("meetings").doc(meeting.id);

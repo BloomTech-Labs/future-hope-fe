@@ -97,7 +97,7 @@ const MediaCard = props => {
           setUserData(completedTrainingDocs)
         },
         error => {
-          console.log(error)
+
         }
       )
     return () => {

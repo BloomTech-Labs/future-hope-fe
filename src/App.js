@@ -28,6 +28,7 @@ import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 // import ViewUserProfile from "./components/views/ViewUserProfile";
+import ApprovedAdminList from './components/dashboard/ApprovedAdmins'
 import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
@@ -38,6 +39,7 @@ import Dashboard from "./components/dashboard/Dashboard.js";
 import UpdatedList from "./components/dashboard/UpdatedList";
 import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js";
 import OnBoarding from "./components/shared/components/OnBoarding.js";
+import PrivacyPolicy from './components/MobileAppPrivacyPolicy'
 import "./App.css";
 
 class App extends React.Component {
@@ -120,6 +122,7 @@ class App extends React.Component {
             <Route path="/FAQ" component={FAQ} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
+            <Route path='/approved-admins' component={ApprovedAdminList} />
             <Route path="/view-profile" component={NewUserProfile} />
             <Route
               exact
@@ -151,6 +154,7 @@ class App extends React.Component {
             <Route path="/user-approval" component={UserApproval} />
             <Route path="/add-materials" component={AddMaterial} />
             <Route path="/on_boarding" component={OnBoarding} />
+            <Route path='/mobile-app-privacy-policy' component={PrivacyPolicy} />
           </Switch>
         </div>
         <Footer />

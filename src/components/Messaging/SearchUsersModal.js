@@ -32,7 +32,7 @@ const SearchUsersModal = props => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data());
+
           searchArray.push(doc.data());
         });
       });
@@ -52,7 +52,7 @@ const SearchUsersModal = props => {
         >
           {`Search for ${
             props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-          }`}
+            }`}
         </MDBModalHeader>
         <MDBModalBody>
           <MDBFormInline
@@ -67,10 +67,10 @@ const SearchUsersModal = props => {
               type="text"
               placeholder={`Search ${
                 props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-              }`}
+                }`}
               aria-label={`Search ${
                 props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-              }`}
+                }`}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -91,7 +91,7 @@ const SearchUsersModal = props => {
                 <Typography variant="h6">
                   {`Select ${
                     props.userInfo.userType === "teacher" ? "Mentor" : "Teacher"
-                  }`}
+                    }`}
                 </Typography>
                 <List>
                   {searchResults.map(user => {
@@ -138,7 +138,7 @@ export default SearchUsersModal;
 /* <Grid container spacing={2}>
 <Grid item xs={12} md={6}>
   <Typography variant="h6">
-    {`Select ${props.userInfo.userType === 'teacher' ? 'Mentor' : 'Teacher'}`} 
+    {`Select ${props.userInfo.userType === 'teacher' ? 'Mentor' : 'Teacher'}`}
   </Typography>
     <List>
         <ListItem>

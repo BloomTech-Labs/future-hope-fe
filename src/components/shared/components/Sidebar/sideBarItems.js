@@ -79,13 +79,21 @@ export const MainListItems = props => {
           <ListItemText primary="Teachers" />
         </ListItem>
       )}
+      {props.userInfo.userType === "admin" && (
+        <ListItem button component={Link} to={"/approved-admins"}>
+          <ListItemIcon>
+            <PeopleIcon style={{ color: "#ff9800" }} />
+          </ListItemIcon>
+          <ListItemText primary="Admins" />
+        </ListItem>
+      )}
       <ListItem button component={Link} to={"/messaging"}>
         <ListItemIcon>
           <MessageIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Messages" />
       </ListItem>
-     
+
       <ListItem button component={Link} to={"/update_profile"}>
         <ListItemIcon>
           <AccountBoxIcon style={{ color: "#ff9800" }} />
@@ -116,11 +124,11 @@ export const SecondaryListItems = props => {
         <ListItemText primary="Approve Users" />
       </ListItem>
       <ListItem button component={Link} to={"/add-materials"}>
-      <ListItemIcon>
-        <AddBoxIcon style={{ color: "#ff9800" }} />
-      </ListItemIcon>
-      <ListItemText primary="Add Materials" />
-    </ListItem>
+        <ListItemIcon>
+          <AddBoxIcon style={{ color: "#ff9800" }} />
+        </ListItemIcon>
+        <ListItemText primary="Add Materials" />
+      </ListItem>
     </List>
   )
 }

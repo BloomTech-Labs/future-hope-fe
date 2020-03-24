@@ -43,7 +43,7 @@ function Messaging(props) {
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
   // const classes = useStyles();
-  console.log(conversations)
+
 
   // Sets up listener for all conversations current user is involved in from firestore and sets state
   useEffect(() => {
@@ -65,13 +65,13 @@ function Messaging(props) {
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
-            console.log('No matching documents.');
+
             return;
           }
           let conversations = []
 
           snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data())
+
             conversations.push(doc.data())
           });
           setConversations(conversations)
@@ -106,9 +106,9 @@ function Messaging(props) {
         convoCheck = 1
       }
     })
-    console.log('check', convoCheck)
+
     if (convoCheck === 1) {
-      console.log('you are already in a conversation with the selected user, creation failed')
+
       return
     }
     // creates new BLANK conversation doc, stores it into conversationRef
@@ -131,13 +131,13 @@ function Messaging(props) {
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
-          console.log('No matching documents.');
+
           return;
         }
         let conversations = []
 
         snapshot.forEach(doc => {
-          console.log(doc.id, '=>', doc.data())
+
           conversations.push(doc.data())
         });
         setConversations(conversations)
@@ -173,7 +173,7 @@ function Messaging(props) {
                   display the other person's info
               */}
               {conversations.map(conversation => {
-                console.log(conversations)
+
                 let avatar = "";
                 let name = "";
                 let uid = "";
