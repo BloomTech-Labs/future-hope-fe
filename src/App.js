@@ -28,6 +28,7 @@ import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 // import ViewUserProfile from "./components/views/ViewUserProfile";
+import ApprovedAdminList from './components/dashboard/ApprovedAdmins'
 import Messaging from "./components/Messaging/Messaging.js";
 import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
 import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
@@ -120,6 +121,7 @@ class App extends React.Component {
             <Route path="/FAQ" component={FAQ} />
             <Route path="/approved-teachers" component={ApprovedTeacherList} />
             <Route path="/approved-mentors" component={ApprovedMentorList} />
+            <Route path='/approved-admins' component={ApprovedAdminList} />
             <Route path="/view-profile" component={NewUserProfile} />
             <Route
               exact
