@@ -81,12 +81,14 @@ const useStyles = makeStyles(theme => ({
 const AdminDashboard = props => {
   useEffect(() => {
     if (props && props.userInfo && props.userInfo.awaitingApproval) {
-      if (props.userInfo.userType !== 'admin')
-        props.history.push('/applicationstatus')
+      if (props && props.userInfo && props.userInfo.userType === 'admin') {
+        return
+
+      } else { props.history.push('/applicationstatus') }
     }
   })
   const classes = useStyles()
-  console.log("in dashboard", props)
+
   return (
     <div className={classes.root}>
       <CssBaseline />

@@ -95,7 +95,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewUserProfile = props => {
-  console.log("props", props);
+
   const [user, setUser] = useState({});
   const [conversations, setConversations] = useState([]);
 
@@ -129,13 +129,13 @@ const NewUserProfile = props => {
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
-            console.log("No matching documents.");
+
             return;
           }
           let conversations = [];
 
           snapshot.forEach(doc => {
-            console.log(doc.id, "=>", doc.data());
+
             conversations.push(doc.data());
           });
           setConversations(conversations);
@@ -160,7 +160,7 @@ const NewUserProfile = props => {
         convoCheck = 1;
       }
     });
-    console.log("check", convoCheck);
+
     if (convoCheck === 1) {
       console.log(
         "you are already in a conversation with the selected user, creation failed"
@@ -193,7 +193,7 @@ const NewUserProfile = props => {
         let conversations = [];
 
         snapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data());
+
           conversations.push(doc.data());
         });
         setConversations(conversations);
