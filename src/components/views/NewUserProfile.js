@@ -199,48 +199,94 @@ const NewUserProfile = props => {
         setConversations(conversations);
       });
   };
-  const updateInfo = async () => {
-    const uid = user.uid;
-    const userRef = firestore.collection("users").doc(uid);
-    await userRef
-      .update({
-        userType: 'admin'
-      })
-      .then(() => {
-        swal(`Your information has been updated`, {
-          icon: "success"
-        });
-      })
-      .catch(() => {
-        swal(
-          "There was a server error, your information could not be updated",
-          {
-            icon: "warning"
-          }
-        );
+  const makeAdmin = async () => {
+    swal("Warning, this action will make the selected user an admin and give them full privileges, only continue if you trust this user.", {
+      buttons: {
+        cancel: "Cancel",
+        confirm: {
+          text: 'Confirm',
+          value: 'confirm'
+        }
+      },
+    })
+      .then((value) => {
+        switch (value) {
+
+          case "confirm":
+            const uid = user.uid;
+            firestore.collection("users").doc(uid)
+              .update({
+                userType: 'admin'
+              })
+              .then(() => {
+                swal(`Your information has been updated`, {
+                  icon: "success"
+                });
+              })
+              .catch(() => {
+                swal(
+                  "There was a server error, your information could not be updated",
+                  {
+                    icon: "warning"
+                  }
+                );
+              });
+            break;
+
+          case "cancel":
+            swal("Cancelled", "Your file is safe", "error");
+            break;
+
+          default:
+            swal("Cancelled", "Your file is safe", "error");
+        }
       });
+
   };
 
   const deleteUser = async () => {
-    const uid = user.uid;
-    const userRef = firestore.collection("users").doc(uid);
-    await userRef
-      .delete()
-      .then(() => {
+    swal("Are you sure you want to delete this user, this action cannot be undone.", {
+      buttons: {
+        cancel: "Cancel",
+        confirm: {
+          text: 'Confirm',
+          value: 'confirm'
+        }
+      },
+    })
+      .then((value) => {
+        switch (value) {
 
-        swal(`User has been successfully removed.`, {
-          icon: "success"
-        });
-        props.history.push('/dashboard')
-      })
-      .catch(() => {
-        swal(
-          "There was a server error, your information could not be updated",
-          {
-            icon: "warning"
-          }
-        );
+          case "confirm":
+            const uid = user.uid;
+            firestore.collection("users").doc(uid)
+              .delete()
+              .then(() => {
+
+                swal(`User has been successfully removed.`, {
+                  icon: "success"
+                });
+                props.history.push('/dashboard')
+              })
+              .catch(() => {
+                swal(
+                  "There was a server error, your information could not be updated",
+                  {
+                    icon: "warning"
+                  }
+                );
+              });
+            break;
+
+          case "cancel":
+            swal("Cancelled", "Your file is safe", "error");
+            break;
+
+          default:
+            swal("Cancelled", "Your file is safe", "error");
+        }
       });
+
   };
 
   const classes = useStyles();
@@ -303,7 +349,7 @@ const NewUserProfile = props => {
                 Contact Me
               </Button>
               {props.userInfo.userType === 'admin' ? <Button
-                onClick={updateInfo}
+                onClick={makeAdmin}
                 variant="contained"
                 color="warning"
               >
