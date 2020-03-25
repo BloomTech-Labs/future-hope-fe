@@ -219,7 +219,7 @@ const NewUserProfile = props => {
                 userType: 'admin'
               })
               .then(() => {
-                swal(`Your information has been updated`, {
+                swal(`Successfully upgraded this account to Administrator`, {
                   icon: "success"
                 });
               })
@@ -234,11 +234,11 @@ const NewUserProfile = props => {
             break;
 
           case "cancel":
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action has been successfully canceled", "error");
             break;
 
           default:
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action has been successfully canceled", "error");
         }
       });
 
@@ -279,11 +279,11 @@ const NewUserProfile = props => {
             break;
 
           case "cancel":
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action has been successfully canceled", "error");
             break;
 
           default:
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action has been successfully canceled", "error");
         }
       });
 
