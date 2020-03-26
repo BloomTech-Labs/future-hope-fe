@@ -219,13 +219,14 @@ const NewUserProfile = props => {
                 userType: 'admin'
               })
               .then(() => {
-                swal(`Your information has been updated`, {
+                swal(`User has been successfully promoted to administrator`, {
                   icon: "success"
                 });
+                props.history.push('/approved-admins')
               })
               .catch(() => {
                 swal(
-                  "There was a server error, your information could not be updated",
+                  "There was a server error, please try again",
                   {
                     icon: "warning"
                   }
@@ -234,11 +235,11 @@ const NewUserProfile = props => {
             break;
 
           case "cancel":
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action Canceled", "error");
             break;
 
           default:
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "Action Canceled", "error");
         }
       });
 
@@ -270,7 +271,7 @@ const NewUserProfile = props => {
               })
               .catch(() => {
                 swal(
-                  "There was a server error, your information could not be updated",
+                  "There was a server error, please try again.",
                   {
                     icon: "warning"
                   }
@@ -279,11 +280,11 @@ const NewUserProfile = props => {
             break;
 
           case "cancel":
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "User has not been removed.", "error");
             break;
 
           default:
-            swal("Cancelled", "Your file is safe", "error");
+            swal("Cancelled", "User has not been removed.", "error");
         }
       });
 
@@ -331,13 +332,13 @@ const NewUserProfile = props => {
                 I am located in {user.city}, {""} {user.stateProvince}{" "}
                 {user.country} and I am so excited to meet you!
               </p>
-              {props.userInfo.userType === 'admin' ? <Button
+              {/* {props.userInfo.userType === 'admin' ? <Button
                 onClick={deleteUser}
                 variant="contained"
                 color="warning"
               >
                 Delete User
-              </Button> : <div></div>}
+              </Button> : <div></div>} */}
               <Button
                 onClick={() => {
                   createConversation(user);
