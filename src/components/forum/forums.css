@@ -1,0 +1,25 @@
+.main {
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.thread {
+    padding: 1%;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-left: 1vw;
+    margin-right: 1vw;
+
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+.button {
+    width: 20vw;
+}

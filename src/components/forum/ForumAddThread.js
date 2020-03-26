@@ -45,7 +45,9 @@ const ForumMain = props => {
     };
 
     return (
-        <Button>Start a Thread</Button>
+        <div style={{ marginTop: 80 }}>
+            <Button>Start a Thread</Button>
+        </div>
     );
 };
 
