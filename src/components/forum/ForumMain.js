@@ -13,12 +13,14 @@ import './forums.css'
 
 const ForumMain = props => {
     const [threads, setThreads] = useState([]);
-    console.log()
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+
     useEffect(() => {
         firestore.collection("threads").onSnapshot(querySnapshot => {
             let threadArray = [];
             querySnapshot.forEach(doc => {
-                console.log(doc.data())
+
                 threadArray.push({
                     ...doc.data()
                 });
@@ -34,22 +36,60 @@ const ForumMain = props => {
 
     };
     const [modal, setModal] = useState(false)
-    const toggleModal = uid => {
+    const toggleModal = () => {
         setModal(!modal);
     };
 
+    const titleChange = (e) => {
+        setTitle(e.target.value)
+    }
+
+    const bodyChange = (e) => {
+        setBody(e.target.value)
+    }
+
+    let guid = () => {
+        let s4 = () => {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+
+
+    const handleSubmit = (e) => {
+        const date = new Date()
+        let post = {
+            postTime: date,
+            posterName: props.userInfo.fullName,
+            posterId: props.userInfo.uid,
+            threadBody: body,
+            threadName: title,
+            threadId: guid()
+        }
+
+        e.preventDefault()
+        console.log(title, body)
+        firestore.collection('threads').add(post)
+            .then(toggleModal())
+    }
 
     return (
         <div className='main'>
             <div className='button-container'>
-                {!modal ? <Button onClick={toggleModal}>Start a Thread</Button> : <div></div>}
+                {!modal ? <Button type='button' onClick={toggleModal}>Start a Thread</Button> : <div></div>}
                 {modal ?
-                    <div>
-                        <input style={{ width: '50vw' }} type='text' placeholder='Thread name...'></input>
-                        <div><Button onClick={toggleModal}>Cancel</Button>
-                            <Button onClick={toggleModal}>Confirm</Button>
+                    <form onSubmit={handleSubmit}>
+                        <h3>Title:</h3><input style={{ width: '50vw' }} type='text' onChange={titleChange} placeholder='Thread name...' />
+                        <h3>Body:</h3><textarea style={{ width: '50vw' }} type='text' onChange={bodyChange} placeholder='Thread name...' />
+                        <div>
+                            <Button type='button' onClick={toggleModal}>Cancel</Button>
+                            <Button type='submit' >Confirm</Button>
                         </div>
-                    </div> :
+                    </form> :
                     <div>
                     </div>}
             </div>
