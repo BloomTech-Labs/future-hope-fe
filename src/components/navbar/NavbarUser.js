@@ -50,6 +50,10 @@ const NavbarUser = props => {
     props.history.push("/dashboard");
   };
 
+  const pushToForum = () => {
+    props.history.push("/forums");
+  };
+
   const dropdownItem = classNames({
     [classes.dropdownItem]: true,
     [classes[hoverColor + "Hover"]]: true
@@ -84,6 +88,12 @@ const NavbarUser = props => {
                     onClick={() => pushToDashboard()}
                   >
                     Dashboard
+                  </MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
+                    onClick={() => pushToForum()}
+                  >
+                    Forums
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}

@@ -11,13 +11,15 @@ import './forums.css'
 
 
 
+
 const ForumMain = props => {
     const [threads, setThreads] = useState([]);
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
-
+    const [modal, setModal] = useState(false)
+    const [limit, setLimit] = useState(10)
     useEffect(() => {
-        firestore.collection("threads").onSnapshot(querySnapshot => {
+        firestore.collection("threads").orderBy('postTime', 'desc').limit(limit).onSnapshot(querySnapshot => {
             let threadArray = [];
             querySnapshot.forEach(doc => {
 
@@ -26,16 +28,18 @@ const ForumMain = props => {
                 });
             });
             setThreads(threadArray)
+
         });
-    }, []);
+    }, [limit]);
 
-    const pushToThreadView = uid => {
+    const pushToThreadView = e => {
 
-        props.history.push(`/forums/thread/${uid}`);
+
+        props.history.push(`/forums/thread/${e.threadId}`);
 
 
     };
-    const [modal, setModal] = useState(false)
+
     const toggleModal = () => {
         setModal(!modal);
     };
@@ -68,7 +72,8 @@ const ForumMain = props => {
             posterId: props.userInfo.uid,
             threadBody: body,
             threadName: title,
-            threadId: guid()
+            threadId: guid(),
+            pinned: false
         }
 
         e.preventDefault()
@@ -76,33 +81,41 @@ const ForumMain = props => {
         firestore.collection('threads').add(post)
             .then(toggleModal())
     }
-
+    const preventBubble = (e) => {
+        e.stopPropagation()
+    }
     return (
         <div className='main'>
-            <div className='button-container'>
-                {!modal ? <Button type='button' onClick={toggleModal}>Start a Thread</Button> : <div></div>}
+
+            <div onClick={toggleModal} className={modal ? 'modal display-block' : 'modal display-none'} >
+
                 {modal ?
-                    <form onSubmit={handleSubmit}>
-                        <h3>Title:</h3><input style={{ width: '50vw' }} type='text' onChange={titleChange} placeholder='Thread name...' />
-                        <h3>Body:</h3><textarea style={{ width: '50vw' }} type='text' onChange={bodyChange} placeholder='Thread name...' />
-                        <div>
-                            <Button type='button' onClick={toggleModal}>Cancel</Button>
-                            <Button type='submit' >Confirm</Button>
+                    <form onClick={preventBubble} className='modal-main' onSubmit={handleSubmit}>
+                        <h3>Start a new thread:</h3>
+                        <h5>Title:</h5><input style={{ width: '100%' }} type='text' onChange={titleChange} placeholder='Thread name...' />
+                        <h5>Body:</h5><textarea style={{ width: '100%' }} type='text' onChange={bodyChange} placeholder='Thread name...' />
+                        <div className='button-container'>
+                            <Button style={{ color: '#0042F2' }} type='button' onClick={toggleModal}>Cancel</Button>
+                            <Button variant='outlined' type='submit' style={{ backgroundColor: '#0042F2', color: 'white' }} >Confirm</Button>
                         </div>
                     </form> :
                     <div>
+
                     </div>}
             </div>
-
+            <div className='labels'><span style={{ width: '29%' }}>Thread</span><span style={{ width: '29%' }}>Posted by</span><span style={{ width: '29%' }}>Posted at</span><span style={{ width: '10%', cursor: 'pointer', color: '#0042F2' }} onClick={toggleModal}>New Thread</span></div>
             <div>
-                {threads.map(e => {
+                {threads.map((e, i) => {
                     return (
-                        <div className='thread' onClick={() => pushToThreadView(e.threadId)}> <span>Thread: {e.threadName} </span><span>Posted by: {e.posterName} on {e.postTime.toDate().toDateString()} at {e.postTime.toDate().toTimeString()} </span></div>
+                        <div className={i % 2 === 0 ? 'thread-odd' : 'thread'} > <span style={{ width: '29%', color: '#0042F2', cursor: 'pointer' }} onClick={() => pushToThreadView(e)}>{e.threadName} </span><span style={{ width: '29%' }}>{e.posterName}</span><span style={{ width: '29%' }}>{e.postTime.toDate().toLocaleString()} </span><span style={{ width: '10%' }}></span></div>
                     )
                 })}
             </div>
-
-        </div>
+            <div>
+                <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
+                {limit > 10 ? < Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(10)}>Show Less</Button> : <div></div>}
+            </div>
+        </div >
     );
 };
 
