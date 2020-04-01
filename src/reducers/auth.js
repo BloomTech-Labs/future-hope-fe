@@ -37,13 +37,13 @@ export const authReducer = (state = initialState, action) => {
         authError: null
       };
     case SIGNUP_SUCCESS:
-      console.log("signup success");
+
       return {
         ...state,
         authError: null
       };
     case SIGNUP_FAIL:
-      console.log("signup fail");
+
       return {
         ...state,
         authError: action.err.message
@@ -54,7 +54,6 @@ export const authReducer = (state = initialState, action) => {
         authError: null
       };
     case LOGIN_SUCCESS:
-      console.log("login success!");
       return {
         ...state,
         authError: null
@@ -65,8 +64,7 @@ export const authReducer = (state = initialState, action) => {
         authError: action.err.message
       };
     case GET_USER_INFO_SUCCESS:
-      console.log('getuserinfo success');
-      return{
+      return {
         ...state,
         user: {
           aboutMe: action.userInfo.aboutMe,
@@ -80,11 +78,10 @@ export const authReducer = (state = initialState, action) => {
           uid: action.userInfo.uid,
           userType: action.userInfo.userType,
           usersAwaitingApproval: action.userInfo.usersAwaitingApproval
-        } ,
+        },
         getUserInfoError: null
       }
     case GET_UESR_INFO_FAIL:
-      console.log('getuserinfo failed');
       return {
         ...state,
         getUserInfoError: action.message

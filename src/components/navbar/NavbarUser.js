@@ -26,7 +26,7 @@ const NavbarUser = props => {
   const hoverColor = "warning";
 
   function logout() {
-    console.log("logged out");
+
     localStorage.removeItem('UID')
     auth.signOut();
     props.history.push("/");
@@ -48,6 +48,10 @@ const NavbarUser = props => {
 
   const pushToDashboard = () => {
     props.history.push("/dashboard");
+  };
+
+  const pushToForum = () => {
+    props.history.push("/forums");
   };
 
   const dropdownItem = classNames({
@@ -84,6 +88,12 @@ const NavbarUser = props => {
                     onClick={() => pushToDashboard()}
                   >
                     Dashboard
+                  </MenuItem>
+                  <MenuItem
+                    className={dropdownItem}
+                    onClick={() => pushToForum()}
+                  >
+                    Forums
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}

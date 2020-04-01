@@ -32,7 +32,7 @@ export const logPageView = () => {
 
 //this function can be used to track any event in the app =)
 export const event = (category, action, label) => {
-  console.log("GOOGLE ANALYTICS EVENT FIRED");
+
   ReactGA.event(
     {
       category: category,
