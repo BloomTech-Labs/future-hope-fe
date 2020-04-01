@@ -121,9 +121,7 @@ const ForumMain = props => {
                 </div>}
             <div >
                 <div className='labels'>
-                    <span style={{ width: '27%' }}></span>
-                    <span style={{ width: '27%' }}></span>
-                    <span style={{ width: '27%' }}></span>
+
                     <span style={{ width: '23%', cursor: 'pointer', color: '#0042F2', fontSize: '1.2vw' }} onClick={toggleModal}>
                         New Comment
                     </span>
