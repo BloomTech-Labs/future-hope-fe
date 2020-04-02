@@ -19,6 +19,16 @@ const ForumMain = props => {
     const [comment, setComment] = useState([])
     const [modal, setModal] = useState(false)
     const [limit, setLimit] = useState(10)
+
+    useEffect(() => {
+        if (props && props.userInfo && props.userInfo.awaitingApproval === false) {
+            if (props && props.userInfo && props.userInfo.userType === 'admin') {
+                return
+
+            } else { props.history.push('/applicationstatus') }
+        } else { props.history.push('/applicationstatus') }
+    })
+
     useEffect(() => {
         firestore.collection("threads").where('threadId', '==', id)
             .get()

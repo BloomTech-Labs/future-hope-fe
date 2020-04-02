@@ -18,6 +18,16 @@ const ForumMain = props => {
     const [body, setBody] = useState('')
     const [modal, setModal] = useState(false)
     const [limit, setLimit] = useState(10)
+
+    // useEffect(() => {
+    //     console.log(props, props.userInfo.userType)
+    //     if (props && props.userInfo && props.userInfo.awaitingApproval === false) {
+    //         return
+    //     } else if (props && props.userInfo && props.userInfo.userType === 'admin') {
+    //         return
+    //     } else { props.history.push('/applicationstatus') }
+    // })
+
     useEffect(() => {
         firestore.collection("threads").orderBy('postTime', 'desc').limit(limit).onSnapshot(querySnapshot => {
             let threadArray = [];
@@ -105,11 +115,11 @@ const ForumMain = props => {
             </div>
             <div className='labels'><span style={{ width: '29%' }}>Thread</span><span style={{ width: '29%' }}>Posted by</span><span style={{ width: '29%' }}>Posted at</span><span style={{ width: '10%', cursor: 'pointer', color: '#0042F2' }} onClick={toggleModal}>New Thread</span></div>
             <div>
-                {threads.map((e, i) => {
+                {props.userInfo.awaitingApproval === false ? threads.map((e, i) => {
                     return (
                         <div className={i % 2 === 0 ? 'thread-odd' : 'thread'} > <span style={{ width: '29%', color: '#0042F2', cursor: 'pointer' }} onClick={() => pushToThreadView(e)}>{e.threadName} </span><span style={{ width: '29%' }}>{e.posterName}</span><span style={{ width: '29%' }}>{e.postTime.toDate().toLocaleString()} </span><span style={{ width: '10%' }}></span></div>
                     )
-                })}
+                }) : <h1>You must be logged in with an approved account to view forum threads.</h1>}
             </div>
             <div>
                 <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
