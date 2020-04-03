@@ -20,14 +20,6 @@ const ForumMain = props => {
     const [modal, setModal] = useState(false)
     const [limit, setLimit] = useState(10)
 
-    useEffect(() => {
-        if (props && props.userInfo && props.userInfo.awaitingApproval === false) {
-            if (props && props.userInfo && props.userInfo.userType === 'admin') {
-                return
-
-            } else { props.history.push('/applicationstatus') }
-        } else { props.history.push('/applicationstatus') }
-    })
 
     useEffect(() => {
         firestore.collection("threads").where('threadId', '==', id)
@@ -98,62 +90,64 @@ const ForumMain = props => {
     }
 
     return (
-        <div className='main'>
-            <div style={{ margin: '1%' }}>
-                {thread.map((e) => {
-                    return (<div>
+        <div className='outer'>
+            <div className='main'>
+                <div style={{ margin: '1%' }}>
+                    {thread.map((e) => {
+                        return (<div>
 
-                        <h3 style={{ fontWeight: 'bold' }}>
-                            {e.threadName}
-                        </h3>
-                        <p style={{ fontWeight: 'bold' }}>
-                            {e.threadBody}
-                        </p>
-                        <p>
-                            Posted by: {e.posterName} on {e.postTime.toDate().toDateString()} at {e.postTime.toDate().toTimeString()}
-                        </p>
-                    </div>)
-                })}
-
-            </div >
-
-            {modal ?
-                <div onClick={toggleModal} className='modal display-block'>
-                    <form onClick={preventBubble} className='modal-main' onSubmit={handleSubmit}>
-                        <h3>Comment:</h3><input style={{ width: '100%' }} type='text' onChange={commentChange} placeholder='Thread name...' />
-                        <div className='button-container'>
-                            <Button style={{ color: '#0042F2' }} type='button' onClick={toggleModal}>Cancel</Button>
-                            <Button variant='outlined' type='submit' style={{ backgroundColor: '#0042F2', color: 'white' }} >Confirm</Button>
-                        </div>
-                    </form>
-                </div> :
-                <div>
-                </div>}
-            <div >
-                <div className='labels'>
-
-                    <span style={{ width: '23%', cursor: 'pointer', color: '#0042F2', fontSize: '1.2vw' }} onClick={toggleModal}>
-                        New Comment
-                    </span>
-                </div>
-                {comments.map((e, i) => {
-                    return (
-                        <div className={i % 2 === 0 ? 'comment' : 'comment-odd'} >
-                            <p >
-                                {e.comment}
+                            <h3 style={{ fontWeight: 'bold' }}>
+                                {e.threadName}
+                            </h3>
+                            <p style={{ fontWeight: 'bold' }}>
+                                {e.threadBody}
                             </p>
-                            <div className='comment-footer'>
-                                <p >
-                                    {e.posterName}</p><span >{e.postTime.toDate().toLocaleString()}</span>
+                            <p>
+                                Posted by: {e.posterName} on {e.postTime.toDate().toDateString()} at {e.postTime.toDate().toTimeString()}
+                            </p>
+                        </div>)
+                    })}
 
+                </div >
+
+                {modal ?
+                    <div onClick={toggleModal} className='modal display-block'>
+                        <form onClick={preventBubble} className='modal-main' onSubmit={handleSubmit}>
+                            <h3>Comment:</h3><input style={{ width: '100%' }} type='text' onChange={commentChange} placeholder='Thread name...' />
+                            <div className='button-container'>
+                                <Button style={{ color: '#0042F2' }} type='button' onClick={toggleModal}>Cancel</Button>
+                                <Button variant='outlined' type='submit' style={{ backgroundColor: '#0042F2', color: 'white' }} >Confirm</Button>
                             </div>
-                        </div>
-                    )
-                })}
-            </div>
-            <div>
-                <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
-                {limit > 10 ? < Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(10)}>Show Less</Button> : <div></div>}
+                        </form>
+                    </div> :
+                    <div>
+                    </div>}
+                <div >
+                    <div className='labels'>
+
+                        <span style={{ width: '23%', cursor: 'pointer', color: '#0042F2', fontSize: '1.2vw' }} onClick={toggleModal}>
+                            New Comment
+                    </span>
+                    </div>
+                    {comments.map((e, i) => {
+                        return (
+                            <div className={i % 2 === 0 ? 'comment' : 'comment-odd'} >
+                                <p >
+                                    {e.comment}
+                                </p>
+                                <div className='comment-footer'>
+                                    <p >
+                                        {e.posterName}</p><span >{e.postTime.toDate().toLocaleString()}</span>
+
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div>
+                    <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
+                    {limit > 10 ? < Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(10)}>Show Less</Button> : <div></div>}
+                </div>
             </div>
         </div>
     );

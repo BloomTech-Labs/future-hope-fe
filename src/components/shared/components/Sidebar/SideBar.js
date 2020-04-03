@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     whiteSpace: "nowrap",
     width: drawerWidth,
-    height: "80vh",
+    height: "75vh",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
@@ -94,8 +94,8 @@ const SideBar = props => {
             {open ? (
               <ChevronLeftIcon style={{ color: "#ff9800" }} />
             ) : (
-              <ChevronRightIcon style={{ color: "#ff9800" }} />
-            )}
+                <ChevronRightIcon style={{ color: "#ff9800" }} />
+              )}
           </IconButton>
         </div>
         <Divider />

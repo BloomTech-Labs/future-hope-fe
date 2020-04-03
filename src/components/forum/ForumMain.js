@@ -19,14 +19,7 @@ const ForumMain = props => {
     const [modal, setModal] = useState(false)
     const [limit, setLimit] = useState(10)
 
-    // useEffect(() => {
-    //     console.log(props, props.userInfo.userType)
-    //     if (props && props.userInfo && props.userInfo.awaitingApproval === false) {
-    //         return
-    //     } else if (props && props.userInfo && props.userInfo.userType === 'admin') {
-    //         return
-    //     } else { props.history.push('/applicationstatus') }
-    // })
+
 
     useEffect(() => {
         firestore.collection("threads").orderBy('postTime', 'desc').limit(limit).onSnapshot(querySnapshot => {
@@ -95,37 +88,39 @@ const ForumMain = props => {
         e.stopPropagation()
     }
     return (
-        <div className='main'>
+        <div className='outer'>
+            <div className='main'>
 
-            <div onClick={toggleModal} className={modal ? 'modal display-block' : 'modal display-none'} >
+                <div onClick={toggleModal} className={modal ? 'modal display-block' : 'modal display-none'} >
 
-                {modal ?
-                    <form onClick={preventBubble} className='modal-main' onSubmit={handleSubmit}>
-                        <h3>Start a new thread:</h3>
-                        <h5>Title:</h5><input style={{ width: '100%' }} type='text' onChange={titleChange} placeholder='Thread name...' />
-                        <h5>Body:</h5><textarea style={{ width: '100%' }} type='text' onChange={bodyChange} placeholder='Thread name...' />
-                        <div className='button-container'>
-                            <Button style={{ color: '#0042F2' }} type='button' onClick={toggleModal}>Cancel</Button>
-                            <Button variant='outlined' type='submit' style={{ backgroundColor: '#0042F2', color: 'white' }} >Confirm</Button>
-                        </div>
-                    </form> :
-                    <div>
+                    {modal ?
+                        <form onClick={preventBubble} className='modal-main' onSubmit={handleSubmit}>
+                            <h3>Start a new thread:</h3>
+                            <h5>Title:</h5><input style={{ width: '100%' }} type='text' onChange={titleChange} placeholder='Thread name...' />
+                            <h5>Body:</h5><textarea style={{ width: '100%' }} type='text' onChange={bodyChange} placeholder='Thread name...' />
+                            <div className='button-container'>
+                                <Button style={{ color: '#0042F2' }} type='button' onClick={toggleModal}>Cancel</Button>
+                                <Button variant='outlined' type='submit' style={{ backgroundColor: '#0042F2', color: 'white' }} >Confirm</Button>
+                            </div>
+                        </form> :
+                        <div>
 
-                    </div>}
-            </div>
-            <div className='labels'><span style={{ width: '29%' }}>Thread</span><span style={{ width: '29%' }}>Posted by</span><span style={{ width: '29%' }}>Posted at</span><span style={{ width: '10%', cursor: 'pointer', color: '#0042F2' }} onClick={toggleModal}>New Thread</span></div>
-            <div>
-                {props.userInfo.awaitingApproval === false ? threads.map((e, i) => {
-                    return (
-                        <div className={i % 2 === 0 ? 'thread-odd' : 'thread'} > <span style={{ width: '29%', color: '#0042F2', cursor: 'pointer' }} onClick={() => pushToThreadView(e)}>{e.threadName} </span><span style={{ width: '29%' }}>{e.posterName}</span><span style={{ width: '29%' }}>{e.postTime.toDate().toLocaleString()} </span><span style={{ width: '10%' }}></span></div>
-                    )
-                }) : <h1>You must be logged in with an approved account to view forum threads.</h1>}
-            </div>
-            <div>
-                <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
-                {limit > 10 ? < Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(10)}>Show Less</Button> : <div></div>}
-            </div>
-        </div >
+                        </div>}
+                </div>
+                <div className='labels'><span style={{ width: '29%' }}>Thread</span><span style={{ width: '29%' }}>Posted by</span><span style={{ width: '29%' }}>Posted at</span><span style={{ width: '10%', cursor: 'pointer', color: '#0042F2' }} onClick={toggleModal}>New Thread</span></div>
+                <div>
+                    {props.userInfo.awaitingApproval === false ? threads.map((e, i) => {
+                        return (
+                            <div className={i % 2 === 0 ? 'thread-odd' : 'thread'} > <span style={{ width: '29%', color: '#0042F2', cursor: 'pointer' }} onClick={() => pushToThreadView(e)}>{e.threadName} </span><span style={{ width: '29%' }}>{e.posterName}</span><span style={{ width: '29%' }}>{e.postTime.toDate().toLocaleString()} </span><span style={{ width: '10%' }}></span></div>
+                        )
+                    }) : <h1>You must be logged in with an approved account to view forum threads.</h1>}
+                </div>
+                <div>
+                    <Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(limit + 10)}>Show More</Button>
+                    {limit > 10 ? < Button style={{ margin: '1%' }} variant='outlined' type='button' onClick={() => setLimit(10)}>Show Less</Button> : <div></div>}
+                </div>
+            </div >
+        </div>
     );
 };
 
