@@ -42,7 +42,7 @@ const LandingPage = props => {
               </h4>
               <br />
               <Button color="warning" size="lg" href="/signup">
-                SIGNUP
+                SIGN UP
               </Button>
             </GridItem>
           </GridContainer>

@@ -1,4 +1,10 @@
 .profile-photo {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
+}
+
+@media (max-width: 800px) {
+  .button-mobile {
+    font-size: 6rem;
   }
+}

@@ -8,14 +8,14 @@ import {
   MDBInput,
   MDBBtn,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
 } from "mdbreact";
 
 import {
   signInWithGoogle,
   auth,
   firestore,
-  signInWithFacebook
+  signInWithFacebook,
 } from "../../config/fbConfig.js";
 import "./Login.scss";
 
@@ -26,8 +26,8 @@ class Login extends React.Component {
   state = {
     user: {
       email: "",
-      password: ""
-    }
+      password: "",
+    },
   };
 
   componentDidMount = () => {
@@ -43,17 +43,17 @@ class Login extends React.Component {
     }
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       user: {
         ...this.state.user,
-        [e.target.name]: e.target.value
-      }
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
   //login with Email
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     event("Email Login", "User logged in with Email", "Login");
     e.preventDefault();
     event("User-Login", "Form Submitted", "Login form");
@@ -126,7 +126,6 @@ class Login extends React.Component {
       } else {
         this.props.setupUserListener(userInfo);
 
-
         if (userInfo.data().userType) {
           this.props.history.push("/dashboard");
         } else {
@@ -134,7 +133,7 @@ class Login extends React.Component {
         }
       }
     } catch (err) {
-      // handel error
+      // handle error
     }
   };
 
@@ -181,7 +180,7 @@ class Login extends React.Component {
             <MDBCol>
               <MDBCard>
                 <MDBCardBody>
-                  <form onSubmit={e => this.handleSubmit(e)}>
+                  <form onSubmit={(e) => this.handleSubmit(e)}>
                     <p className="h4 text-center py-4">Please Login</p>
 
                     <MDBInput
@@ -243,21 +242,18 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
-    userInfo: state.firebase.profile
+    userInfo: state.firebase.profile,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    userStore: user => dispatch(userStore(user))
+    userStore: (user) => dispatch(userStore(user)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
