@@ -19,7 +19,7 @@ import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 import "./Dashboard.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -28,11 +28,23 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "15vw",
+      width: "80%",
+    },
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+  },
+  city: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    }
   }
 }));
 
-const ApprovedMentorList = props => {
+const ApprovedMentorList = (props) => {
   const [users, setUsers] = useState([]);
   const classes = useStyles();
 
@@ -43,8 +55,8 @@ const ApprovedMentorList = props => {
   const approvedMentors = async () => {
     let userArray = [];
     const userRef = firestore.collection("users");
-    await userRef.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
+    await userRef.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -52,14 +64,14 @@ const ApprovedMentorList = props => {
           userType: doc.data().userType,
           city: doc.data().city,
           stateProvince: doc.data().stateProvince,
-          uid: doc.data().uid
+          uid: doc.data().uid,
         });
       });
     });
     setUsers(userArray);
   };
 
-  const pushToProfilePage = uid => {
+  const pushToProfilePage = (uid) => {
     props.history.push(`/profile/${uid}`);
   };
 
@@ -70,18 +82,18 @@ const ApprovedMentorList = props => {
         <Typography align="center" component="h2" variant="h2" gutterBottom>
           Approved Mentors
         </Typography>
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
-              <TableCell scope="col">Names</TableCell>
-              <TableCell scope="col">Account Type</TableCell>
-              <TableCell scope="col">City</TableCell>
-              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">Name</TableCell>
+              {/* <TableCell scope="col">Account Type</TableCell> */}
+              <TableCell className={classes.city} scope="col">City</TableCell>
+              <TableCell scope="col">State/ Province</TableCell>
               <TableCell scope="col">View Profile</TableCell>
             </TableRow>
           </TableHead>
-          {users.map(user => {
+          {users.map((user) => {
             if (user.userType === "mentor" && !user.approved) {
               return (
                 <TableBody key={user.uid}>
@@ -98,8 +110,8 @@ const ApprovedMentorList = props => {
                       />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.userType}</TableCell>
-                    <TableCell>{user.city}</TableCell>
+                    {/* <TableCell>{user.userType}</TableCell> */}
+                    <TableCell className={classes.city}>{user.city}</TableCell>
                     <TableCell>{user.stateProvince}</TableCell>
                     <TableCell>
                       <Button onClick={() => pushToProfilePage(user.uid)}>
@@ -119,11 +131,11 @@ const ApprovedMentorList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
-    userInfo: state.firebase.profile
+    userInfo: state.firebase.profile,
   };
 };
 

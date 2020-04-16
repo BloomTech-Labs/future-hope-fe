@@ -331,6 +331,7 @@ const NewUserProfile = (props) => {
                 <Button
                   onClick={deleteUser}
                   variant="contained"
+                  size="lg"
                   color="warning"
                 >
                   Delete User
@@ -344,13 +345,18 @@ const NewUserProfile = (props) => {
                   props.history.push("/messaging");
                 }}
                 variant="contained"
-                className="button-mobile"
+                size="lg"
                 color="warning"
               >
                 Contact Me
               </Button>
               {props.userInfo.userType === "admin" ? (
-                <Button onClick={makeAdmin} variant="contained" color="warning">
+                <Button
+                  onClick={makeAdmin}
+                  variant="contained"
+                  color="warning"
+                  size="lg"
+                >
                   Promote to Admin
                 </Button>
               ) : (
