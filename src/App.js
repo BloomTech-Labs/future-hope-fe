@@ -156,7 +156,7 @@ class App extends React.Component {
             <Route path="/user-approval" component={UserApproval} />
             <Route path="/add-materials" component={AddMaterial} />
             <Route path="/on_boarding" component={OnBoarding} />
-            <Route path='/mobile-app-privacy-policy' component={PrivacyPolicy} />
+            <Route path='/privacy-policy' component={PrivacyPolicy} />
             <Route exact path='/forums' ><ForumMain /></Route>
             <Route path='/forums/thread/:id' ><ForumThread /></Route>
           </Switch>

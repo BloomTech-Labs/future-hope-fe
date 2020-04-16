@@ -14,11 +14,11 @@ const Footer = ({ ...props }) => {
   const { classes, whiteFont } = props;
   const footerClasses = classNames({
     [classes.footer]: true,
-    [classes.footerWhiteFont]: whiteFont
+    [classes.footerWhiteFont]: whiteFont,
   });
   const aClasses = classNames({
     [classes.a]: true,
-    [classes.footerWhiteFont]: whiteFont
+    [classes.footerWhiteFont]: whiteFont,
   });
   return (
     <footer className={footerClasses}>
@@ -26,29 +26,17 @@ const Footer = ({ ...props }) => {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-                target="_blank"
-              >
+              <a href="/contact" className={classes.block}>
                 Contact
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-                target="_blank"
-              >
-                About
+              <a href="/mission" className={classes.block}>
+                Mission
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-                target="_blank"
-              >
+              <a href="/privacy-policy" className={classes.block}>
                 Privacy Policy
               </a>
             </ListItem>
@@ -69,11 +57,11 @@ const Footer = ({ ...props }) => {
       </div>
     </footer>
   );
-}
+};
 
 Footer.propTypes = {
   classes: PropTypes.object.isRequired,
-  whiteFont: PropTypes.bool
+  whiteFont: PropTypes.bool,
 };
 
 export default withStyles(footerStyle)(Footer);
