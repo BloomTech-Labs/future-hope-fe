@@ -9,7 +9,7 @@ import {
   MDBCardText,
   MDBContainer
 } from "mdbreact";
-import "./mentors.css";
+import "../styles/mentors.css";
 
 //analytics
 import { logPageView } from "../Analytics";

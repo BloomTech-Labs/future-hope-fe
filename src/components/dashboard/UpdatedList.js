@@ -11,7 +11,7 @@ import UpdateCard from "./UpdatedCard.js"
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 import ProgressBar from "./ProgressBar"
 
-import "./Dashboard.css"
+import "../styles/Dashboard.css"
 
 const useStyles = makeStyles(theme => ({
   button: {

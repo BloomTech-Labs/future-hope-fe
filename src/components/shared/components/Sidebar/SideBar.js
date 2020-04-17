@@ -13,7 +13,7 @@ import Divider from "@material-ui/core/Divider";
 
 import { MainListItems, SecondaryListItems } from "./sideBarItems.js";
 
-import "./SideBar.scss";
+import "../../../styles/SideBar.scss";
 
 const drawerWidth = 245;
 

@@ -7,13 +7,13 @@ import classNames from "classnames";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import GridContainer from "../../shared/components/GridContainer";
-import GridItem from "../../shared/components/GridItem";
-import Card from "../../shared/components/card/Card";
+import GridContainer from "../shared/components/GridContainer";
+import GridItem from "../shared/components/GridItem";
+import Card from "../shared/components/card/Card";
 
-import { mobileStyle } from "../styles";
+import { mobileStyle } from "./styles";
 
-import img4 from "../assets/img-mobile-two.png";
+import img4 from "./assets/img-mobile-two.png";
 
 function MobileSection(props) {
   const { classes } = props;

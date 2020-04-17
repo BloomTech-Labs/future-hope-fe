@@ -17,7 +17,7 @@ import {
   firestore,
   signInWithFacebook,
 } from "../../config/fbConfig.js";
-import "./Login.scss";
+import "../styles/auth_Login.scss";
 
 //analytics
 import { logPageView, event } from "../Analytics";

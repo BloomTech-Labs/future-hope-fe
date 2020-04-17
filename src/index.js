@@ -23,7 +23,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "./assets/scss/mdb.scss";
 
 import App from "./App";
-import "./index.css";
+import "./components/styles/index.css";
 import fbConfig from "./config/fbConfig";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -9,14 +9,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridContainer from "../shared/components/GridContainer";
 import GridItem from "../shared/components/GridItem";
 import Button from "../shared/components/Button";
-import Parallax from "./components/Parallax";
+import Parallax from "./Parallax";
 import { landingPageStyle } from "./styles";
 
 // Sections for this page
-import BenefitSection from "./components/BenefitSection";
-import FeatureSection from "./components/FeatureSection";
-import CTASection from "./components/CTASection";
-import MobileSection from "./components/MobileSection";
+import BenefitSection from "./BenefitSection";
+import FeatureSection from "./FeatureSection";
+import CTASection from "./CTASection";
+import MobileSection from "./MobileSection";
 
 //analytics
 import { logPageView } from "../Analytics";

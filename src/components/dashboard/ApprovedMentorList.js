@@ -17,7 +17,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

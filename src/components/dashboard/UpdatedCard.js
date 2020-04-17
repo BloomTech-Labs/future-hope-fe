@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography"
 import firebase from "../../config/fbConfig"
 import EditMaterial from "./admin-dashboard/EditMaterial"
 
-import "./Dashboard.css"
+import "../styles/Dashboard.css"
 
 const useStyles = makeStyles(theme => ({
   card: {

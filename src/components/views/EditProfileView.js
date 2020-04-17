@@ -10,7 +10,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import "./Profile.scss";
+import "../styles/views_Profile.scss";
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 const useStyles = makeStyles(theme => ({
