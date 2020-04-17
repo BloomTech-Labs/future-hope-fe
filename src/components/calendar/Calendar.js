@@ -15,8 +15,8 @@ import MeetingModal from "./MeetingModal";
 //analytics
 import { event, logPageView } from "../Analytics";
 
-import "../auth/Login.scss";
-import "./main.scss";
+import "../styles/auth_Login.scss";
+import "../styles/calendar_main.scss";
 
 class Calendar extends React.Component {
   calendarComponentRef = React.createRef();

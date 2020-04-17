@@ -15,7 +15,7 @@ import "firebase/auth";
 
 // core components
 import LandingPage from "./components/landingpage/LandingPage";
-import LandingMission from "./components/landingpage/components/LandingMission";
+import LandingMission from "./components/landingpage/LandingMission";
 import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
@@ -42,7 +42,7 @@ import OnBoarding from "./components/shared/components/OnBoarding.js";
 import PrivacyPolicy from './components/MobileAppPrivacyPolicy'
 import ForumMain from './components/forum/ForumMain'
 import ForumThread from './components/forum/ForumThread'
-import "./App.css";
+import "./components/styles/App.css";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;

@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "../shared/components/Button";
 import Paper from "@material-ui/core/Paper";
 import SideBar from "../shared/components/Sidebar/SideBar";
-import "./views.css";
+import "../styles/views.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

@@ -10,11 +10,11 @@ import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import ForumIcon from "@material-ui/icons/Forum";
 
 // core components
-import GridContainer from "../../shared/components/GridContainer";
-import GridItem from "../../shared/components/GridItem";
-import InfoArea from "../../shared/components/InfoArea";
+import GridContainer from "../shared/components/GridContainer";
+import GridItem from "../shared/components/GridItem";
+import InfoArea from "../shared/components/InfoArea";
 
-import { benefitStyle } from "../styles";
+import { benefitStyle } from "./styles";
 
 function BenefitSection(props) {
   const { classes } = props;

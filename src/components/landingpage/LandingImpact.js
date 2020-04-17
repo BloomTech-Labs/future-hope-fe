@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Typography from '../mui/Typography';
-import { ReactComponent as StudentIcon} from '../assets/student.svg';
-import '../styles.scss';
+import Typography from "./mui/Typography";
+import { ReactComponent as StudentIcon } from './assets/student.svg';
+import '../styles/landingpage_styles.scss';
 
 const styles = theme => ({
   root: {
@@ -77,13 +77,13 @@ function LandingImpact(props) {
         alignItems="center"
         className={classes.impactRight}
       >
-      <Grid
-        container
-        direction="column"
-        justify="flex-start"
-        alignItems="center"
-        className={classes.impactCardFirstGroup}
-      >
+        <Grid
+          container
+          direction="column"
+          justify="flex-start"
+          alignItems="center"
+          className={classes.impactCardFirstGroup}
+        >
           <Paper square={true} className={`${classes.impactCard} ${classes.impactCard1}`}>
             <Grid item className="cardIconWrapper">
               <StudentIcon className="cardIcon" />
@@ -97,10 +97,10 @@ function LandingImpact(props) {
             <Grid item className="cardIconWrapper">
               <StudentIcon className="cardIcon" />
             </Grid>
-              <Grid container direction="column">
-                <Typography className="cardTextHead" color="black" variant="h3" align="center" gutterBottom="true">4</Typography>
-                <Typography className="cardTextWrapper" variant="span" align="center">Hours a month to help students.</Typography>
-              </Grid>
+            <Grid container direction="column">
+              <Typography className="cardTextHead" color="black" variant="h3" align="center" gutterBottom="true">4</Typography>
+              <Typography className="cardTextWrapper" variant="span" align="center">Hours a month to help students.</Typography>
+            </Grid>
           </Paper>
         </Grid>
         <Grid>
@@ -109,7 +109,7 @@ function LandingImpact(props) {
               <StudentIcon className="cardIcon" />
             </Grid>
             <Grid container direction="column">
-            <Typography className="cardTextHead" color="black" variant="h3" align="center" gutterBottom="true">91</Typography>
+              <Typography className="cardTextHead" color="black" variant="h3" align="center" gutterBottom="true">91</Typography>
               <Typography className="cardTextWrapper" variant="span" align="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
             </Grid>
           </Paper>

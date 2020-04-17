@@ -25,7 +25,7 @@ import {
   auth,
 } from "../../config/fbConfig.js";
 
-import "./SignUp.scss";
+import "../styles/auth_SignUp.scss";
 
 //analytics
 import { logPageView, event } from "../Analytics";

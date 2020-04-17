@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import "../Dashboard.css";
+import "../../styles/Dashboard.css";
 
 const MentorTable = props => {
   const { users, history } = props;

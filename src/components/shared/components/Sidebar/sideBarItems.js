@@ -18,7 +18,7 @@ import SchoolIcon from "@material-ui/icons/School"
 import AddIcon from '@material-ui/icons/Add';
 import { Menu, MenuItem, MenuList } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import "./sidebar.css"
+import "../../../styles/sidebar.css"
 
 import TrainingTab from "./TrainingTab"
 

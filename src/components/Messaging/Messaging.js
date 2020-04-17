@@ -22,7 +22,7 @@ import SideBar from "../shared/components/Sidebar/SideBar.js";
 //analytics
 import { logPageView, event } from "../Analytics";
 
-import "./Messaging.scss";
+import "../styles/Messaging.scss";
 
 // const useStyles = makeStyles(theme => ({
 //   paper: {
