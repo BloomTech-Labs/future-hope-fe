@@ -2,6 +2,7 @@ import React from "react";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { toggleSidebar } from "../../../../actions/sidebar"
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -75,8 +76,9 @@ const SideBar = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
-  const handleDrawerToggle = () => {
-    setOpen(!open);
+  const handleDrawerToggle = (e) => {
+    props.toggleSidebar()
+    setOpen(props.sidebar);
   };
 
   return (
@@ -84,7 +86,7 @@ const SideBar = (props) => {
       <Drawer
         variant="permanent"
         classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          paper: clsx(classes.drawerPaper, props.sidebar && classes.drawerPaperClose),
         }}
         open={open}
       >
@@ -112,7 +114,8 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.firebase.profile,
     training: state.firebase.training,
+    sidebar: state.toggle.sidebar
   };
 };
 
-export default withRouter(connect(mapStateToProps)(SideBar));
+export default withRouter(connect(mapStateToProps, { toggleSidebar })(SideBar));

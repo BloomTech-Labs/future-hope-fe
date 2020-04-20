@@ -30,8 +30,8 @@ import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
 // import ViewUserProfile from "./components/views/ViewUserProfile";
 import ApprovedAdminList from './components/dashboard/ApprovedAdmins'
 import Messaging from "./components/Messaging/Messaging.js";
-import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
-import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
+// import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
+// import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";
 import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js";
@@ -43,6 +43,7 @@ import PrivacyPolicy from './components/MobileAppPrivacyPolicy'
 import ForumMain from './components/forum/ForumMain'
 import ForumThread from './components/forum/ForumThread'
 import "./components/styles/App.css";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -122,9 +123,9 @@ class App extends React.Component {
             <Route path="/mission" component={LandingMission} />
             <Route path="/mentors" component={MentorList} />
             <Route path="/FAQ" component={FAQ} />
-            <Route path="/approved-teachers" component={ApprovedTeacherList} />
-            <Route path="/approved-mentors" component={ApprovedMentorList} />
-            <Route path='/approved-admins' component={ApprovedAdminList} />
+            <PrivateRoute path="/approved-teachers" component={ApprovedTeacherList} />
+            <PrivateRoute path="/approved-mentors" component={ApprovedMentorList} />
+            <PrivateRoute path='/approved-admins' component={ApprovedAdminList} />
             <Route path="/view-profile" component={NewUserProfile} />
             <Route
               exact
@@ -144,18 +145,18 @@ class App extends React.Component {
               )}
             />
             <Route path="/profile/:uid" component={NewUserProfile} />
-            <Route path="/messaging" component={Messaging} />
+            <PrivateRoute path="/messaging" component={Messaging} />
             <Route path="/applicationstatus" component={AwaitingApproval} />
-            <Route path="/mentor-table" component={MentorTable} />
-            <Route path="/teacher-table" component={TeacherTable} />
-            <Route path="/training/:topic" component={UpdatedList} />
-            <Route path="/training" component={UpdatedList} />
-            <Route path="/dashboard/:test" component={Dashboard} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/update_profile" component={EditProfileView} />
-            <Route path="/user-approval" component={UserApproval} />
-            <Route path="/add-materials" component={AddMaterial} />
-            <Route path="/on_boarding" component={OnBoarding} />
+            {/* <Route path="/mentor-table" component={MentorTable} />
+            <Route path="/teacher-table" component={TeacherTable} /> */}
+            <PrivateRoute path="/training/:topic" component={UpdatedList} />
+            <PrivateRoute path="/training" component={UpdatedList} />
+            <PrivateRoute path="/dashboard/:test" component={Dashboard} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/update_profile" component={EditProfileView} />
+            <PrivateRoute path="/user-approval" component={UserApproval} />
+            <PrivateRoute path="/add-materials" component={AddMaterial} />
+            <PrivateRoute path="/on_boarding" component={OnBoarding} />
             <Route path='/privacy-policy' component={PrivacyPolicy} />
             <Route exact path='/forums' ><ForumMain /></Route>
             <Route path='/forums/thread/:id' ><ForumThread /></Route>

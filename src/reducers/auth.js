@@ -24,7 +24,7 @@ const initialState = {
     userType: '',
     usersAwaitingApproval: null
   },
-  getUserInfoError: null
+  getUserInfoError: null,
 };
 
 //! Just basic scaffolding, what to do with the payload?

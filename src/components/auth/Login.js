@@ -52,18 +52,8 @@ class Login extends React.Component {
     });
   };
 
-  //login with Email
-  handleSubmit = async (e) => {
-    event("Email Login", "User logged in with Email", "Login");
-    e.preventDefault();
-    event("User-Login", "Form Submitted", "Login form");
-
+  login = async () => {
     try {
-      // try logging the user in.
-      await auth.signInWithEmailAndPassword(
-        this.state.user.email,
-        this.state.user.password
-      );
       // get the now logged in users UID from the auth object
       let uid = auth.currentUser.uid;
 
@@ -76,13 +66,17 @@ class Login extends React.Component {
       const userInfo = await userRef.get();
       // set up the listener on app.js
 
-      // This reroutes a user who is awaiting approval to the awaitingapproval component.
+      // reroutes a user who is awaiting approval to the awaitingapproval component.
       if (this.props.userInfo.usersAwaitingApproval) {
         this.props.history.push("/applicationstatus");
       } else {
         this.props.setupUserListener(userInfo);
 
-        this.props.history.push("/dashboard");
+        if (userInfo.data().userType) {
+          this.props.history.push("/dashboard");
+        } else {
+          this.props.history.push("/signup");
+        }
       }
     } catch (err) {
       // this is to find out if the person loggin in has already made an account, or
@@ -98,79 +92,50 @@ class Login extends React.Component {
         // email doesn't exist
         alert("Account does not exist, please signup");
       }
+    
     }
+  }
+
+  //login with Email
+  handleSubmit = async (e) => {
+    event("Email Login", "User logged in with Email", "Login");
+    e.preventDefault();
+    event("User-Login", "Form Submitted", "Login form");
+
+      // try logging the user in.
+      await auth.signInWithEmailAndPassword(
+        this.state.user.email,
+        this.state.user.password
+    );
+    
+    this.login()
+      
     // This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
 
+
+
   //oAuth login with Facebook btn
   loginWithFacebook = async () => {
     event("Facebook Login", "User logged in with Facebook", "Login");
-    try {
-      await signInWithFacebook();
-      // get the now logged in users UID from the auth object
-      let uid = auth.currentUser.uid;
 
-      // Store the uid into localStorage as a work around for losing the currentUser on refresh
-      localStorage.setItem("UID", JSON.stringify(uid));
+    await signInWithFacebook();
 
-      // get all of their info so we can set up a listener and route them
-      const userRef = firestore.collection("users").doc(uid);
-
-      const userInfo = await userRef.get();
-      // set up the listener on app.js
-
-      // reroutes a user who is awaiting approval to the awaitingapproval component.
-      if (this.props.userInfo.usersAwaitingApproval) {
-        this.props.history.push("/applicationstatus");
-      } else {
-        this.props.setupUserListener(userInfo);
-
-        if (userInfo.data().userType) {
-          this.props.history.push("/dashboard");
-        } else {
-          this.props.history.push("/signup");
-        }
-      }
-    } catch (err) {
-      // handle error
-    }
+    this.login();
   };
+
 
   //oAuth login with Google btn
   loginWithGoogle = async () => {
     event("Google Login", "User logged in with Google", "Login");
-    try {
-      await signInWithGoogle();
 
-      // get the now logged in users UID from the auth object
-      let uid = auth.currentUser.uid;
+    await signInWithGoogle();
 
-      // Store the uid into localStorage as a work around for losing the currentUser on refresh
-      localStorage.setItem("UID", JSON.stringify(uid));
+      this.login()
 
-      // get all of their info so we can set up a listener and route them
-      const userRef = firestore.collection("users").doc(uid);
-
-      const userInfo = await userRef.get();
-
-      // reroutes a user who is awaiting approval to the awaitingapproval component.
-      if (this.props.userInfo.usersAwaitingApproval) {
-        this.props.history.push("/applicationstatus");
-      } else {
-        // set up the listener on app.js
-        this.props.setupUserListener(userInfo);
-
-        if (userInfo.data().userType) {
-          this.props.history.push("/dashboard");
-        } else {
-          this.props.history.push("/signup");
-        }
-      }
-    } catch (err) {
-      // handel error
-    }
   };
+
 
   render() {
     return (
