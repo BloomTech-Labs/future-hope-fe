@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -74,7 +74,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBar = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+
+  const [open, setOpen] = React.useState(true)
+
+  useEffect(() => {
+    setOpen(props.sidebar)
+  }, [])
 
   const handleDrawerToggle = (e) => {
     props.toggleSidebar()

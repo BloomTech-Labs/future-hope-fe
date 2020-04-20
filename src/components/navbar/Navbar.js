@@ -124,15 +124,19 @@ const Navbar = props => {
         </Hidden>
         {/* Hidden hamburger menu available on mobile widths */}
         <Hidden mdUp>
-          <IconButton
+        {auth.isEmpty ? (
+            <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
           >
             <Menu />
           </IconButton>
+          ) : (
+            <NavbarUser user={auth} history={props.history} />
+          )}
         </Hidden>
-      </Toolbar>
+        </Toolbar>
       <Hidden mdUp implementation="js">
         <Drawer
           variant="temporary"
@@ -149,7 +153,8 @@ const Navbar = props => {
           </div>
         </Drawer>
       </Hidden>
-    </AppBar>
+      
+      </AppBar>
   );
 };
 

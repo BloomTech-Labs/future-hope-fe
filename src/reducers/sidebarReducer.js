@@ -1,7 +1,7 @@
 import { TOGGLE_SIDEBAR } from '../actions/sidebar'
 
 const initialState = {
-  sidebar: false
+  sidebar: window.screen.width <= 600 ? true : false
 }
 
 const reducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
     case TOGGLE_SIDEBAR:
       return {
         ...state,
-        sidebar: !state.sidebar
+        sidebar: action.payload || !state.sidebar
       }
     default:
       return {

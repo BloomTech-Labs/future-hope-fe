@@ -9,6 +9,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import ListSubheader from "@material-ui/core/ListSubheader"
 import MessageIcon from "@material-ui/icons/Message"
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 import PeopleIcon from "@material-ui/icons/People"
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday"
 import AccountBoxIcon from "@material-ui/icons/AccountBox"
@@ -74,7 +76,7 @@ export const MainListItems = props => {
       {props.userInfo.userType === "admin" && (
         <ListItem button component={Link} to={"/approved-teachers"}>
           <ListItemIcon>
-            <PeopleIcon style={{ color: "#ff9800" }} />
+            <SchoolIcon style={{ color: "#ff9800" }} />
           </ListItemIcon>
           <ListItemText primary="Teachers" />
         </ListItem>
@@ -82,7 +84,7 @@ export const MainListItems = props => {
       {props.userInfo.userType === "admin" && (
         <ListItem button component={Link} to={"/approved-admins"}>
           <ListItemIcon>
-            <PeopleIcon style={{ color: "#ff9800" }} />
+            <AccountTreeIcon style={{ color: "#ff9800" }} />
           </ListItemIcon>
           <ListItemText primary="Admins" />
         </ListItem>
@@ -104,7 +106,7 @@ export const MainListItems = props => {
       {/* Training Tab */}
       <ListItem button component={Link} to={"/on_boarding"}>
         <ListItemIcon>
-          <SchoolIcon style={{ color: "#ff9800" }} />
+          <LibraryAddCheckIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Training" />
         <TrainingTab />

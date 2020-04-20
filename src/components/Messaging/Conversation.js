@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
+import "../styles/messaging_button.css";
 
 //analytics
 import { event } from "../Analytics";
+
 
 const Conversation = props => {
   const [text, setText] = useState("");
@@ -91,18 +93,21 @@ const Conversation = props => {
             }}
           >
             <input
+              className="myInput"
               placeholder="Enter A Message"
               type="text"
               value={text}
               onChange={e => setText(e.target.value)}
             />
             <button
+              className="myButton"
               onClick={e => {
                 e.preventDefault();
                 createMessage(text);
               }}
+
             >
-              Send Message
+              Send
             </button>
           </form>
         </div>
