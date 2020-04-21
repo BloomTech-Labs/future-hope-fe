@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-
+// import Button from "@material-ui/core/Button";
 // core components
 import GridContainer from "../shared/components/GridContainer";
 import GridItem from "../shared/components/GridItem";
@@ -19,8 +19,8 @@ function CTASection(props) {
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
           <h2 className={classes.title}>Ready to be a changemaker?</h2>
-          <Button fullWidth color="warning" size="lg" href="/signup">
-            JOIN US
+          <Button fontSize="button" fullWidth color="warning" size="lg" href="/signup">
+            <span className={classes.label}>JOIN US</span>
           </Button>
         </GridItem>
       </GridContainer>

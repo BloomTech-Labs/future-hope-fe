@@ -75,6 +75,8 @@ class Login extends React.Component {
         if (userInfo.data().userType) {
           this.props.history.push("/dashboard");
         } else {
+          localStorage.removeItem('UID')
+          auth.signOut();
           this.props.history.push("/signup");
         }
       }
@@ -92,7 +94,7 @@ class Login extends React.Component {
         // email doesn't exist
         alert("Account does not exist, please signup");
       }
-    
+
     }
   }
 
@@ -102,14 +104,14 @@ class Login extends React.Component {
     e.preventDefault();
     event("User-Login", "Form Submitted", "Login form");
 
-      // try logging the user in.
-      await auth.signInWithEmailAndPassword(
-        this.state.user.email,
-        this.state.user.password
+    // try logging the user in.
+    await auth.signInWithEmailAndPassword(
+      this.state.user.email,
+      this.state.user.password
     );
-    
+
     this.login()
-      
+
     // This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
@@ -132,7 +134,7 @@ class Login extends React.Component {
 
     await signInWithGoogle();
 
-      this.login()
+    this.login()
 
   };
 

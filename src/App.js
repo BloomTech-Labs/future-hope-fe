@@ -40,7 +40,7 @@ import UpdatedList from "./components/dashboard/UpdatedList";
 import AddMaterial from "./components/dashboard/admin-dashboard/AddMaterials.js";
 import OnBoarding from "./components/shared/components/OnBoarding.js";
 import PrivacyPolicy from './components/MobileAppPrivacyPolicy'
-//import ContactForm from './components/contact/ContactForm.js'
+import ContactForm from './components/contact/ContactForm.js'
 import ForumMain from './components/forum/ForumMain'
 import ForumThread from './components/forum/ForumThread'
 import "./components/styles/App.css";
@@ -159,6 +159,7 @@ class App extends React.Component {
             <PrivateRoute path="/add-materials" component={AddMaterial} />
             <PrivateRoute path="/on_boarding" component={OnBoarding} />
             <Route path='/privacy-policy' component={PrivacyPolicy} />
+            <Route path='/contact' component={ContactForm} />
             <Route exact path='/forums' ><ForumMain /></Route>
             <Route path='/forums/thread/:id' ><ForumThread /></Route>
           </Switch>

@@ -40,9 +40,8 @@ const LandingPage = props => {
                 Ghanaian and Nigerian students wishing to qualify for admission
                 into secondary and vocational schools.
               </h4>
-              <br />
-              <Button color="warning" size="lg" href="/signup">
-                SIGN UP
+              <Button className={classes.label} fontSize="button" color="warning" size="lg" href="/signup">
+                <span className={classes.label}>SIGN UP</span>
               </Button>
             </GridItem>
           </GridContainer>
@@ -58,7 +57,7 @@ const LandingPage = props => {
         </div>
       </div>
       {/* <Footer /> */}
-    </div>
+    </div >
   );
 };
 

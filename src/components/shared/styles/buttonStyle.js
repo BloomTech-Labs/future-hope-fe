@@ -10,8 +10,8 @@ import {
 
 const buttonStyle = {
   button: {
-    minHeight: "auto",
-    minWidth: "auto",
+    minHeight: "30px",
+    minWidth: "90px",
     backgroundColor: grayColor,
     color: "#FFFFFF",
     boxShadow:
@@ -19,9 +19,9 @@ const buttonStyle = {
     border: "none",
     borderRadius: "3px",
     position: "relative",
-    padding: "12px 30px",
+    // padding: "12px 30px",
     margin: ".3125rem 1px",
-    fontSize: "22px",
+    fontSize: "24px",
     fontWeight: "400",
     textTransform: "uppercase",
     letterSpacing: "0",
@@ -259,7 +259,7 @@ const buttonStyle = {
   lg: {
     padding: "1.125rem 2.25rem",
     fontSize: "0.875rem",
-    lineHeight: "1.333333",
+    lineHeight: "1.33333",
     borderRadius: "0.2rem",
   },
   sm: {
@@ -267,6 +267,9 @@ const buttonStyle = {
     fontSize: "0.6875rem",
     lineHeight: "1.5",
     borderRadius: "0.2rem",
+  },
+  text: {
+    fontSize: "24px",
   },
   round: {
     borderRadius: "30px",

@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
 
 import {
   MDBContainer,
@@ -50,6 +51,8 @@ class SignUp extends React.Component {
     completedTrainingProgress: [],
     validateSelect: "none",
   };
+
+  // classes = useStyles();
 
   componentDidMount = () => {
     logPageView();
@@ -128,18 +131,24 @@ class SignUp extends React.Component {
       this.props.userStore(auth.currentUser); // stores user info into redux store after signup
     }
   };
-  //oAuth signup with Google
-  signUpWithGoogle = async (e) => {
-    event("Google Sign Up", "User signed up in with Google", "Sign Up");
-    e.preventDefault();
-    await signInWithGoogle();
 
+  oAuth = () => {
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,
       fullName: auth.currentUser.displayName,
       email: auth.currentUser.email,
       phoneNumber: auth.currentUser.phoneNumber || "",
     });
+    localStorage.removeItem('UID')
+    auth.signOut();
+  }
+
+  //oAuth signup with Google
+  signUpWithGoogle = async (e) => {
+    event("Google Sign Up", "User signed up in with Google", "Sign Up");
+    e.preventDefault();
+    await signInWithGoogle();
+    this.oAuth()
   };
 
   //oAuth signup with Facebook
@@ -147,13 +156,7 @@ class SignUp extends React.Component {
     event("Facebook Sign Up", "User signed up in with Facebook", "Sign Up");
     e.preventDefault();
     await signInWithFacebook();
-
-    this.setState({
-      signingInWithOAuth: !this.state.signingInWithOAuth,
-      fullName: auth.currentUser.displayName,
-      email: auth.currentUser.email,
-      phoneNumber: auth.currentUser.phoneNumber || "",
-    });
+    this.oAuth()
   };
 
   render() {
@@ -274,44 +277,46 @@ class SignUp extends React.Component {
                       />
                       <br />
 
-                      <FormControl style={{ minWidth: 80 }}>
-                        <InputLabel htmlFor="age-simple">
-                          Choose an Account Type
+                      <div className='signup-input'>
+                        <FormControl>
+                          <InputLabel htmlFor="age-simple">
+                            Choose an Account Type
                         </InputLabel>
-                        {
-                          <p
-                            style={{
-                              color: "red",
-                              display: this.state.validateSelect,
-                            }}
-                          >
-                            *Please select an account type.
+                          {
+                            <p
+                              style={{
+                                color: "red",
+                                display: this.state.validateSelect,
+                              }}
+                            >
+                              *Please select an account type.
                           </p>
-                        }
-                        <br />
-                        <Select
-                          required
-                          name="selection"
-                          value={this.state.userType}
-                          onChange={
-                            (e) =>
-                              //   {if(this.state.userType === ""){
-                              //   this.state.validateSelect = false
-                              // } else {
-                              this.setState({
-                                userType: e.target.value,
-                              })
-                            // }}
                           }
-                        >
-                          <MenuItem value="mentor">
-                            I am a Mentor in North America
+                          <br />
+                          <Select
+                            required
+                            name="selection"
+                            value={this.state.userType}
+                            onChange={
+                              (e) =>
+                                //   {if(this.state.userType === ""){
+                                //   this.state.validateSelect = false
+                                // } else {
+                                this.setState({
+                                  userType: e.target.value,
+                                })
+                              // }}
+                            }
+                          >
+                            <MenuItem value="mentor">
+                              I am a Mentor in North America
                           </MenuItem>
-                          <MenuItem value="teacher">
-                            I am a Teacher in Ghana
+                            <MenuItem value="teacher">
+                              I am a Teacher in Ghana
                           </MenuItem>
-                        </Select>
-                      </FormControl>
+                          </Select>
+                        </FormControl>
+                      </div>
                       <div className="text-center mt-3">
                         <MDBBtn
                           id="sign-up-btn"
@@ -360,7 +365,7 @@ class SignUp extends React.Component {
             </MDBRow>
           </MDBContainer>
         </div>
-      </div>
+      </div >
     );
   }
 }

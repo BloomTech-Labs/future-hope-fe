@@ -24,6 +24,14 @@
   }
 }
 
+.signup-input {
+  min-width: 80px;
+  width: 81%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .signup-wrapper .signup-form .hidden {
   display: none;
 }
