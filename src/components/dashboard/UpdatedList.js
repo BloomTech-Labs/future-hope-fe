@@ -15,7 +15,7 @@ import "../styles/Dashboard.css"
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   bar: {
     width: "70%",
@@ -115,12 +115,14 @@ const UpdatedList = props => {
   return (
     <>
       <div className="progressText">
+
         Training Completed: {String(progressPercentage) + "%"}
       </div>
       <ProgressBar className={classes.bar}
         completedTrainingNumber={progressPercentage}
         completedTraining={completedTraining.length}
       />
+
       <SideBar />
       <div className="add-button">
         <Link to="/add-materials">
@@ -131,7 +133,9 @@ const UpdatedList = props => {
               size="large"
               className={classes.button}
             >
-              + Add Material
+              <span className="aButton">
+                + Add Material
+                 </span>
             </Button>
           )}
         </Link>

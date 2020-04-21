@@ -97,7 +97,7 @@ const SideBar = (props) => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerToggle}>
-            {open ? (
+            {props.sidebar ? (
               <ChevronLeftIcon style={{ color: "#ff9800" }} />
             ) : (
                 <ChevronRightIcon style={{ color: "#ff9800" }} />

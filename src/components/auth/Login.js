@@ -27,6 +27,7 @@ class Login extends React.Component {
     user: {
       email: "",
       password: "",
+      error: ""
     },
   };
 
@@ -89,10 +90,20 @@ class Login extends React.Component {
         .get();
       // ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
       if (ifUser.docs.length) {
-        alert("Incorrect Email or Password");
+        // alert("Incorrect Email or Password");
+        this.setState({
+          ...this.state,
+          error: "Incorrect Email Or Password"
+        })
+        console.log('Error Successful', this.error, err)
       } else {
         // email doesn't exist
-        alert("Account does not exist, please signup");
+        // alert("Account does not exist, please signup");
+        this.setState({
+          ...this.state,
+          error: "Account does not exist, please signup"
+        })
+        console.log('Error Successful', this.error, err)
       }
 
     }
@@ -110,8 +121,7 @@ class Login extends React.Component {
       this.state.user.password
     );
 
-    this.login()
-
+    await this.login()
     // This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
@@ -121,21 +131,16 @@ class Login extends React.Component {
   //oAuth login with Facebook btn
   loginWithFacebook = async () => {
     event("Facebook Login", "User logged in with Facebook", "Login");
-
     await signInWithFacebook();
-
-    this.login();
+    await this.login();
   };
 
 
   //oAuth login with Google btn
   loginWithGoogle = async () => {
     event("Google Login", "User logged in with Google", "Login");
-
     await signInWithGoogle();
-
-    this.login()
-
+    await this.login()
   };
 
 
@@ -143,6 +148,7 @@ class Login extends React.Component {
     return (
       <div className="login-container">
         <MDBContainer>
+          {this.error ? <p>{this.error}</p> : ''}
           <MDBRow>
             <MDBCol>
               <MDBCard>

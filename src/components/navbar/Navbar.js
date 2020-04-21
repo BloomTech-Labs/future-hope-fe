@@ -97,6 +97,7 @@ const Navbar = props => {
   );
   const rightLinks = <NavbarLinks config={config} />;
   const leftLinks = null;
+
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
