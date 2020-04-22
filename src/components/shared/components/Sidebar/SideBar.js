@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     whiteSpace: "nowrap",
     width: drawerWidth,
-    height: "75vh",
+    height: "81vh",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -97,7 +97,7 @@ const SideBar = (props) => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerToggle}>
-            {props.sidebar ? (
+            {!props.sidebar ? (
               <ChevronLeftIcon style={{ color: "#ff9800" }} />
             ) : (
                 <ChevronRightIcon style={{ color: "#ff9800" }} />

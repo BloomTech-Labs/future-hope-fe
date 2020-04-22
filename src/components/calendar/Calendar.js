@@ -152,15 +152,19 @@ class Calendar extends React.Component {
             themeSystem="standard"
             defaultView="dayGridMonth"
             header={{
-              left: "prev,next today",
+              left: window.screen.width > 900 ? "prev,today,next" : '',
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+              right: window.screen.width > 900 ? "dayGridMonth,timeGridWeek,timeGridDay,listWeek" : ''
             }}
             buttonText={{
               today: "Today",
               month: "Month",
               week: "Week",
               day: "Day"
+            }}
+            footer={{
+              left: window.screen.width <= 900 ? "prev,today,next" : '',
+              right: window.screen.width <= 900 ? "dayGridMonth,timeGridWeek,timeGridDay,listWeek" : ''
             }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable
@@ -171,7 +175,7 @@ class Calendar extends React.Component {
             eventClick={this.handleEventClick}
             eventDrop={this.handleEventDrop}
             allDayDefault={false}
-            handleWindowResize
+            handleWindowResize={true}
           />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <MeetingModal
@@ -230,7 +234,6 @@ class Calendar extends React.Component {
     meetingRef.get().then(doc => {
       const start = new Date(doc.data().start.seconds * 1000);
       this.setState(prev => ({
-
         ...prev,
         clickedMeeting: {
           ...doc.data(),

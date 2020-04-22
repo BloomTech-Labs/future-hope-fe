@@ -22,9 +22,17 @@ import { Menu, MenuItem, MenuList } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import "../../../styles/sidebar.css"
 
+import { makeStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+
 import TrainingTab from "./TrainingTab"
 
 export const MainListItems = props => {
+
+
   const [navItems, setNavItems] = useState([])
   const [newCat, setNewCat] = useState({})
 
@@ -44,6 +52,24 @@ export const MainListItems = props => {
     })
     setNavItems(linkArray)
   }
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
+  }));
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
     <List>
@@ -104,13 +130,23 @@ export const MainListItems = props => {
       </ListItem>
 
       {/* Training Tab */}
-      <ListItem button component={Link} to={"/on_boarding"}>
+      <ListItem button onClick={handleClick}>
+        {/* button component={Link} to={"/on_boarding"}> */}
         <ListItemIcon>
           <LibraryAddCheckIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Training" />
-        <TrainingTab />
+        {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
+      {/* <TrainingTab /> */}
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <TrainingTab />
+          </ListItem>
+        </List>
+      </Collapse>
+
     </List>
   )
 }

@@ -27,7 +27,8 @@ export default class extends React.Component {
       <div className="contactform-container">
         <MDBCard>
           <MDBCardBody>
-            <form className="mailing">
+            <form
+            >
               <MDBInput
                 type="text"
                 name="name"
@@ -38,30 +39,32 @@ export default class extends React.Component {
                 name="email"
                 label="Email"
               />
-              <MDBInput
-                type="text"
-                label="Message..."
-                name="message"
-              // value={this.state.message}
-              />
             </form>
           </MDBCardBody>
-          <div>
-            <MDBBtn
-              type="submit"
-            > Submit</MDBBtn>
-          </div>
-        </MDBCard>
 
+          <MDBInput
+            type="textarea"
+            label="Message..."
+            name="message"
+            rows="5"
+          // value={this.state.message}
+          />
+        </MDBCard>
+        <div>
+          <MDBBtn
+            type="submit"
+          > Submit</MDBBtn>
+        </div>
       </div >
     )
   }
 
-  handleChange(event) {
-    this.setState({ feedback: event.target.value })
+  handleChange(e) {
+    this.setState({ feedback: e.target.value })
   }
 
-  handleSubmit(event) {
+  handleSubmit(e) {
+    e.target.reset();
     const templateId = 'template_id';
 
     this.sendFeedback(templateId, { message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email })

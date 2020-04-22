@@ -26,8 +26,7 @@ class Login extends React.Component {
   state = {
     user: {
       email: "",
-      password: "",
-      error: ""
+      password: ""
     },
   };
 
@@ -76,36 +75,14 @@ class Login extends React.Component {
         if (userInfo.data().userType) {
           this.props.history.push("/dashboard");
         } else {
+          // stop google from auto logging in an unauthorized user, and push user to signup with prefilled info.
           localStorage.removeItem('UID')
           auth.signOut();
           this.props.history.push("/signup");
         }
       }
     } catch (err) {
-      // this is to find out if the person loggin in has already made an account, or
-      // if they just typed their email / pw wrong
-      const ifUser = await firestore
-        .collection("users")
-        .where("email", "==", this.state.user.email)
-        .get();
-      // ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
-      if (ifUser.docs.length) {
-        // alert("Incorrect Email or Password");
-        this.setState({
-          ...this.state,
-          error: "Incorrect Email Or Password"
-        })
-        console.log('Error Successful', this.error, err)
-      } else {
-        // email doesn't exist
-        // alert("Account does not exist, please signup");
-        this.setState({
-          ...this.state,
-          error: "Account does not exist, please signup"
-        })
-        console.log('Error Successful', this.error, err)
-      }
-
+      // handle error
     }
   }
 
@@ -116,12 +93,39 @@ class Login extends React.Component {
     event("User-Login", "Form Submitted", "Login form");
 
     // try logging the user in.
-    await auth.signInWithEmailAndPassword(
-      this.state.user.email,
-      this.state.user.password
-    );
+    try {
+      await auth.signInWithEmailAndPassword(
+        this.state.user.email,
+        this.state.user.password
+      );
+    } catch (err) {
+      // this is to find out if the person loggin in has already made an account, or
+      // if they just typed their email / pw wrong
+      const ifUser = await firestore
+        .collection("users")
+        .where("email", "==", this.state.user.email)
+        .get();
+      // ifUser.docs.length is truthy (1), then the email exists, but they typed in in wrong. This means that the PW was wrong.
+      if (ifUser.docs.length) {
+        alert("Incorrect Email or Password");
+        this.setState({
+          ...this.state,
+          error: "Incorrect Email Or Password"
+        })
+        console.log('Error Successful', this.state.error, err)
+      } else {
+        // email doesn't exist
+        alert("Account does not exist, please signup");
+        this.setState({
+          ...this.state,
+          error: "Account does not exist, please signup"
+        })
+        console.log('Error Successful', this.state.error, err)
+      }
+    }
 
     await this.login()
+
     // This calls the userStore action in order to store current user data in the redux store.
     this.props.userStore(auth.currentUser);
   };
@@ -148,7 +152,6 @@ class Login extends React.Component {
     return (
       <div className="login-container">
         <MDBContainer>
-          {this.error ? <p>{this.error}</p> : ''}
           <MDBRow>
             <MDBCol>
               <MDBCard>

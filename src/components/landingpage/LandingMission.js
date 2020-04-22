@@ -22,8 +22,7 @@ const styles = theme => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column",
-    height: "120vh"
+    flexDirection: "column"
   },
   cta: {
     fontSize: ".8rem",
