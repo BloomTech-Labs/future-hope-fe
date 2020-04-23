@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { toggleSidebar } from "../../../../actions/sidebar"
+import { toggleSidebar, toggleTraining } from "../../../../actions/sidebar"
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +12,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
-import { MainListItems, SecondaryListItems } from "./sideBarItems.js";
+import { SecondaryListItems } from "./sideBarItems.js";
+import MainListItems from './sideBarItems.js'
 
 import "../../../styles/SideBar.scss";
 
@@ -74,15 +75,16 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBar = (props) => {
   const classes = useStyles();
-
   const [open, setOpen] = React.useState(true)
 
+  //Updates drawer when sidebar global state changes
   useEffect(() => {
     setOpen(props.sidebar)
   }, [])
 
+  //Handles drawer toggle
   const handleDrawerToggle = (e) => {
-    props.toggleSidebar()
+    props.toggleSidebar(!props.sidebar)
     setOpen(props.sidebar);
   };
 
@@ -123,4 +125,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, { toggleSidebar })(SideBar));
+export default withRouter(connect(mapStateToProps, { toggleSidebar, toggleTraining })(SideBar));

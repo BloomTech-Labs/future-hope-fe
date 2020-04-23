@@ -16,19 +16,21 @@ import {
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: 'Name', email: 'email@example.com', message: '' };
+    this.state = { name: 'Name', email: 'example@email.com', message: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  resetForm = () => {
+    this.state({ name: '', email: '', message: '' })
+  }
 
   render() {
     return (
+
       <div className="contactform-container">
-        <MDBCard>
-          <MDBCardBody>
-            <form
-            >
+        <form onReset={this.resetForm}>
+          <MDBCard>
+            <MDBCardBody>
               <MDBInput
                 type="text"
                 name="name"
@@ -39,32 +41,30 @@ export default class extends React.Component {
                 name="email"
                 label="Email"
               />
-            </form>
-          </MDBCardBody>
+            </MDBCardBody>
 
-          <MDBInput
-            type="textarea"
-            label="Message..."
-            name="message"
-            rows="5"
-          // value={this.state.message}
-          />
-        </MDBCard>
-        <div>
-          <MDBBtn
-            type="submit"
-          > Submit</MDBBtn>
-        </div>
+            <MDBInput
+              type="textarea"
+              label="Message..."
+              name="message"
+              rows="5"
+            />
+          </MDBCard>
+          <div>
+            <MDBBtn
+              type="submit"
+            > Submit</MDBBtn>
+          </div>
+        </form>
       </div >
+
     )
   }
-
   handleChange(e) {
     this.setState({ feedback: e.target.value })
   }
 
   handleSubmit(e) {
-    e.target.reset();
     const templateId = 'template_id';
 
     this.sendFeedback(templateId, { message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email })
@@ -80,6 +80,8 @@ export default class extends React.Component {
       .catch(err => console.error('error occured', err))
   }
 }
+
+
 
 // export default ContactForm
 

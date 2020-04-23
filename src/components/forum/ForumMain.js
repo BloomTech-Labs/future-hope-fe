@@ -82,7 +82,6 @@ const ForumMain = props => {
   return (
     <div className='outer'>
       <div className='main'>
-
         <div onClick={toggleModal} className={modal ? 'modal display-block' : 'modal display-none'} >
 
           {modal ?

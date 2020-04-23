@@ -132,6 +132,7 @@ class SignUp extends React.Component {
     }
   };
 
+  //Autofills form with fb/google login info
   oAuth = () => {
     this.setState({
       signingInWithOAuth: !this.state.signingInWithOAuth,

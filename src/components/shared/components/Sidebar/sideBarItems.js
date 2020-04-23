@@ -3,6 +3,9 @@ import { Link } from "react-router-dom"
 import { firestore } from "../../../../config/fbConfig"
 import swal from "sweetalert"
 
+import { connect } from 'react-redux'
+import { toggleSidebar, toggleTraining } from '../../../../actions/sidebar'
+
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
@@ -30,9 +33,7 @@ import StarBorder from '@material-ui/icons/StarBorder';
 
 import TrainingTab from "./TrainingTab"
 
-export const MainListItems = props => {
-
-
+const MainListItems = props => {
   const [navItems, setNavItems] = useState([])
   const [newCat, setNewCat] = useState({})
 
@@ -67,19 +68,26 @@ export const MainListItems = props => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
+  //Handles training drawer toggle
+  const handleDrawerOpen = (e) => {
+    props.toggleTraining(!props.training)
+    setOpen(props.training)
   };
+
+  //Updates drawer if training global state changes
+  useEffect(() => {
+    setOpen(props.training)
+  }, [props.training])
 
   return (
     <List>
       <ListItem button component={Link} to={"/dashboard"}>
+        {/* Link to dashboard */}
         <ListItemIcon>
           <CalendarTodayIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Schedule" />
       </ListItem>
-
       <ListItem
         button
         component={Link}
@@ -88,7 +96,7 @@ export const MainListItems = props => {
             ? "/approved-teachers"
             : "/approved-mentors"
         }
-      >
+      >{/* Link to Mentors */}
         <ListItemIcon>
           <PeopleIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
@@ -101,6 +109,7 @@ export const MainListItems = props => {
       </ListItem>
       {props.userInfo.userType === "admin" && (
         <ListItem button component={Link} to={"/approved-teachers"}>
+          {/* Link to teachers */}
           <ListItemIcon>
             <SchoolIcon style={{ color: "#ff9800" }} />
           </ListItemIcon>
@@ -109,6 +118,7 @@ export const MainListItems = props => {
       )}
       {props.userInfo.userType === "admin" && (
         <ListItem button component={Link} to={"/approved-admins"}>
+          {/* Link to admins */}
           <ListItemIcon>
             <AccountTreeIcon style={{ color: "#ff9800" }} />
           </ListItemIcon>
@@ -116,6 +126,7 @@ export const MainListItems = props => {
         </ListItem>
       )}
       <ListItem button component={Link} to={"/messaging"}>
+        {/* Link to messaging */}
         <ListItemIcon>
           <MessageIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
@@ -123,22 +134,21 @@ export const MainListItems = props => {
       </ListItem>
 
       <ListItem button component={Link} to={"/update_profile"}>
+        {/* Link to  */}
         <ListItemIcon>
           <AccountBoxIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Update Profile" />
       </ListItem>
 
-      {/* Training Tab */}
-      <ListItem button onClick={handleClick}>
-        {/* button component={Link} to={"/on_boarding"}> */}
+      {/* Training Pulldown to list */}
+      <ListItem button onClick={handleDrawerOpen}>
         <ListItemIcon>
           <LibraryAddCheckIcon style={{ color: "#ff9800" }} />
         </ListItemIcon>
         <ListItemText primary="Training" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {open ? < ExpandLess /> : <ExpandMore />}
       </ListItem>
-      {/* <TrainingTab /> */}
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested}>
@@ -150,6 +160,15 @@ export const MainListItems = props => {
     </List>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    sidebar: state.toggle.sidebar,
+    training: state.toggle.training
+  }
+}
+
+export default connect(mapStateToProps, { toggleSidebar, toggleTraining })(MainListItems);
 
 export const SecondaryListItems = props => {
   return (

@@ -52,6 +52,7 @@ class Login extends React.Component {
     });
   };
 
+  //Logs user in after firebase auth function authenticates user
   login = async () => {
     try {
       // get the now logged in users UID from the auth object
