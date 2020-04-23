@@ -24,9 +24,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   margin: {
-    margin: theme.spacing(1),
-    marginTop: 15,
-    marginLeft: 250
+    margin: "auto",
+    width: "60%"
   }
 }))
 

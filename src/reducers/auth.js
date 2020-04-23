@@ -24,10 +24,9 @@ const initialState = {
     userType: '',
     usersAwaitingApproval: null
   },
-  getUserInfoError: null
+  getUserInfoError: null,
 };
 
-//! Just basic scaffolding, what to do with the payload?
 export const authReducer = (state = initialState, action) => {
   // console.log("signupReducer", action);
   switch (action.type) {

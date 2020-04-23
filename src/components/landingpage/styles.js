@@ -19,6 +19,9 @@ const landingPageStyle = {
     color: "#FFFFFF",
     textDecoration: "none"
   },
+  label: {
+    fontSize: "20px",
+  },
   subtitle: {
     fontSize: "1.313rem",
     maxWidth: "500px",
@@ -183,6 +186,9 @@ const ctaStyle = {
     minHeight: "32px",
     textDecoration: "none",
     textAlign: "center"
+  },
+  label: {
+    fontSize: "20px",
   },
   description: {
     color: "#999",

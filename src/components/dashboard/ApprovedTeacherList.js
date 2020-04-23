@@ -18,9 +18,9 @@ import Avatar from "@material-ui/core/Avatar";
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -29,18 +29,30 @@ const useStyles = makeStyles(theme => ({
     width: "70%",
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "15vw",
+      width: "80%",
+    },
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+  },
+  city: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    }
   }
 }));
 
-const ApprovedTeacherList = props => {
+const ApprovedTeacherList = (props) => {
   const [users, setUsers] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
-    firestore.collection("users").onSnapshot(querySnapshot => {
+    firestore.collection("users").onSnapshot((querySnapshot) => {
       let userArray = [];
-      querySnapshot.forEach(doc => {
+      querySnapshot.forEach((doc) => {
         userArray.push({
           approved: doc.data().awaitingApproval,
           name: doc.data().fullName,
@@ -48,14 +60,14 @@ const ApprovedTeacherList = props => {
           userType: doc.data().userType,
           city: doc.data().city,
           stateProvince: doc.data().stateProvince,
-          uid: doc.data().uid
+          uid: doc.data().uid,
         });
       });
       setUsers(userArray);
     });
   }, []);
 
-  const pushToProfilePage = uid => {
+  const pushToProfilePage = (uid) => {
     props.history.push(`/profile/${uid}`);
   };
 
@@ -70,14 +82,14 @@ const ApprovedTeacherList = props => {
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
-              <TableCell scope="col">Names</TableCell>
-              <TableCell scope="col">Account Type</TableCell>
-              <TableCell scope="col">City</TableCell>
-              <TableCell scope="col">State/Province</TableCell>
+              <TableCell scope="col">Name</TableCell>
+              {/* <TableCell scope="col">Account Type</TableCell> */}
+              <TableCell className={classes.city} scope="col">City</TableCell>
+              <TableCell scope="col">State/ Province</TableCell>
               <TableCell scope="col">View Profile</TableCell>
             </TableRow>
           </TableHead>
-          {users.map(user => {
+          {users.map((user) => {
             if (user.userType === "teacher" && !user.approved) {
               return (
                 <TableBody key={user.uid}>
@@ -94,8 +106,8 @@ const ApprovedTeacherList = props => {
                       />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.userType}</TableCell>
-                    <TableCell>{user.city}</TableCell>
+                    {/* <TableCell>{user.userType}</TableCell> */}
+                    <TableCell className={classes.city}>{user.city}</TableCell>
                     <TableCell>{user.stateProvince}</TableCell>
                     <TableCell>
                       <Button onClick={() => pushToProfilePage(user.uid)}>
@@ -115,10 +127,10 @@ const ApprovedTeacherList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    users: state.firestore.ordered.users
+    users: state.firestore.ordered.users,
   };
 };
 

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react"
 import IconButton from "@material-ui/core/IconButton"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
-import ListItem from "@material-ui/core/ListItem"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import { firestore } from "../../../../config/fbConfig"
 import { Link } from "react-router-dom"
+
+import Button from '@material-ui/core/Button';
+import BookIcon from '@material-ui/icons/Book';
+import ListItemIcon from "@material-ui/core/ListItemIcon"
 
 const ITEM_HEIGHT = 48
 
@@ -50,15 +53,7 @@ export default function TrainingTab() {
 
   return (
     <div>
-      <IconButton
-        aria-label="more"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
+      {/* <Menu
         id="long-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -69,21 +64,21 @@ export default function TrainingTab() {
             width: 200
           }
         }}
-      >
-        {options.map(
-          option => (
-            <MenuItem
-              component={Link}
-              to={`/training/${option.toLowerCase()}`}
-              key={option}
-              selected={option === "Pyxis"}
-              onClick={handleClose}
-            >
-              {option}
-            </MenuItem>
-          )
-        )}
-      </Menu>
+      > */}
+      {options.map(
+        option => (
+          <MenuItem
+            component={Link}
+            to={`/training/${option.toLowerCase()}`}
+            key={option}
+            selected={option === "Pyxis"}
+            onClick={handleClose}
+          >
+            {option}
+          </MenuItem>
+        )
+      )}
+      {/* </Menu> */}
     </div>
   )
 }

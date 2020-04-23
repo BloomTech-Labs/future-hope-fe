@@ -1,33 +1,23 @@
-.signup-wrapper {
+.hidden {
+  display: none;
+}
+
+.login-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 16px;
-  width: 50%;
+  justify-content: center;
   margin: auto;
+  width: 100%;
+  max-width: 700px;
   button {
     width: 190px;
     height: 45px;
     margin: 8px 0;
     text-align: center;
   }
-  input {
-    padding: 8px;
-  }
-  .signup-form {
-    display: flex;
-    flex-direction: column;
-    .hidden {
-      display: none;
-    }
-  }
 }
 
-.signup-wrapper .signup-form .hidden {
-  display: none;
-}
-
-//forces bootstrap styles to be orange on signup form
+//forces bootstrap styles to be orange on login form
 .md-form input:focus {
   box-shadow: 0 1px 0 0 orange !important;
   border-bottom: 1px solid orange !important;

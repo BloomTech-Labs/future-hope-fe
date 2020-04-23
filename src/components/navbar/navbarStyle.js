@@ -208,9 +208,9 @@ const navbarLinksStyle = theme => ({
   navLink: {
     color: "inherit",
     position: "relative",
-    padding: "0.9375rem",
+    padding: "0.925rem",
     fontWeight: "400",
-    fontSize: "12px",
+    fontSize: "15px",
     textTransform: "uppercase",
     borderRadius: "3px",
     lineHeight: "20px",
@@ -223,6 +223,7 @@ const navbarLinksStyle = theme => ({
     },
     [theme.breakpoints.down("sm")]: {
       width: "calc(100% - 30px)",
+      fontSize: "12px",
       marginLeft: "15px",
       marginBottom: "8px",
       marginTop: "8px",

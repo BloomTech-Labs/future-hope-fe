@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "../mui/Button";
-import Typography from "../mui/Typography";
+import Button from "./mui/Button";
+import Typography from "./mui/Typography";
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import backgroundImage from "../assets/Ghana_school.jpg";
+import backgroundImage from "./assets/Ghana_school.jpg";
 
 const styles = theme => ({
   landingHero: {

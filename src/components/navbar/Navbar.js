@@ -9,7 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 
@@ -23,7 +23,7 @@ import NavbarUser from "./NavbarUser";
 import { navbarStyle } from "./navbarStyle";
 
 const Navbar = props => {
- 
+
   const initConfig = () => {
     return !navConfig[route] ? navConfig["default"] : navConfig[route];
   };
@@ -92,11 +92,12 @@ const Navbar = props => {
 
   const brandComponent = (
     <Link to="/">
-      <Button className={classes.title}>{config.brand}</Button>
+      <MenuItem className={classes.title}>{config.brand}</MenuItem>
     </Link>
   );
   const rightLinks = <NavbarLinks config={config} />;
   const leftLinks = null;
+
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
@@ -107,8 +108,8 @@ const Navbar = props => {
               {leftLinks}
             </Hidden>
           ) : (
-            brandComponent
-          )}
+              brandComponent
+            )}
         </div>
         {/* Loads links to the left of avatar depending on login state, setup in navConfig auth flag */}
         <Hidden smDown implementation="css">
@@ -119,18 +120,22 @@ const Navbar = props => {
           {auth.isLoaded && auth.isEmpty ? (
             ""
           ) : (
-            <NavbarUser user={auth} history={props.history} />
-          )}
+              <NavbarUser user={auth} history={props.history} />
+            )}
         </Hidden>
         {/* Hidden hamburger menu available on mobile widths */}
         <Hidden mdUp>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
+          {auth.isEmpty ? (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+            >
+              <Menu />
+            </IconButton>
+          ) : (
+              <NavbarUser user={auth} history={props.history} />
+            )}
         </Hidden>
       </Toolbar>
       <Hidden mdUp implementation="js">
@@ -149,6 +154,7 @@ const Navbar = props => {
           </div>
         </Drawer>
       </Hidden>
+
     </AppBar>
   );
 };
