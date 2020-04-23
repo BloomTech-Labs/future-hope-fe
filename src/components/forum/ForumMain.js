@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../config/fbConfig.js";
 import '../styles/forums.css'
+import SideBar from "../shared/components/Sidebar/SideBar.js"
 
 const ForumMain = props => {
   const [threads, setThreads] = useState([]);
@@ -81,7 +82,9 @@ const ForumMain = props => {
   }
   return (
     <div className='outer'>
+      <SideBar />
       <div className='main'>
+
         <div onClick={toggleModal} className={modal ? 'modal display-block' : 'modal display-none'} >
 
           {modal ?
