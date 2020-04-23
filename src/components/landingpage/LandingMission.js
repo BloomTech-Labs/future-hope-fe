@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Typography from "../mui/Typography";
+import Typography from "./mui/Typography";
 import ListItem from "@material-ui/core/ListItem";
 import Paper from "@material-ui/core/Paper";
 
 //analytics
-import { logPageView } from "../../Analytics";
+import { logPageView } from "../Analytics";
 
 const styles = theme => ({
   root: {
@@ -22,8 +22,7 @@ const styles = theme => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column",
-    height: "120vh"
+    flexDirection: "column"
   },
   cta: {
     fontSize: ".8rem",

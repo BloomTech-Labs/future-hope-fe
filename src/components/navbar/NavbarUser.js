@@ -44,14 +44,17 @@ const NavbarUser = props => {
 
   const pushToProfilePage = uid => {
     props.history.push(`/profile/${user.uid}`);
+    setOpen(false)
   };
 
   const pushToDashboard = () => {
     props.history.push("/dashboard");
+    setOpen(false)
   };
 
   const pushToForum = () => {
     props.history.push("/forums");
+    setOpen(false)
   };
 
   const dropdownItem = classNames({
@@ -103,7 +106,7 @@ const NavbarUser = props => {
                   </MenuItem>
                   <MenuItem
                     className={dropdownItem}
-                    onClick={e => props.history.push("/update_profile")}
+                    onClick={e => { setOpen(false), props.history.push("/update_profile") }}
                   >
                     Edit Profile
                   </MenuItem>

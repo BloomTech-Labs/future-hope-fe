@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
+import "../styles/messaging_button.css";
 
 //analytics
 import { logPageView } from "../Analytics";
 
 const useStyles = makeStyles({
   avatar: {
-    margin: 10
+    margin: 5
   }
 });
 
@@ -26,13 +27,13 @@ const Message = props => {
       <div
         className={`message-wrapper ${
           props.message.sentBy === props.userInfo.uid ? "right" : "left"
-        }`}
+          }`}
       >
         <div className="message-sender">
           <h6>{props.message.name}</h6>
         </div>
         <div className="message-content">
-          <p>{props.message.content}</p>
+          <p className="message">{props.message.content}</p>
         </div>
         <div className="sent-span">
           <span className="sent-date">
@@ -45,7 +46,7 @@ const Message = props => {
           props.message.sentBy === props.userInfo.uid
             ? "avatar-right"
             : "avatar-left"
-        }`}
+          }`}
       >
         <Avatar
           alt="user avatar"

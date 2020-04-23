@@ -1,0 +1,51 @@
+.signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  button {
+    width: 190px;
+    height: 45px;
+    margin: 8px 0;
+    text-align: center;
+  }
+  input {
+    padding: 8px;
+  }
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    .hidden {
+      display: none;
+    }
+  }
+}
+
+.signup-input {
+  min-width: 80px;
+  width: 81%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-wrapper .signup-form .hidden {
+  display: none;
+}
+
+//forces bootstrap styles to be orange on signup form
+.md-form input:focus {
+  box-shadow: 0 1px 0 0 orange !important;
+  border-bottom: 1px solid orange !important;
+}
+
+.md-form input:focus:not([readonly]) + label {
+  color: orange !important;
+}
+
+.md-form .prefix.active {
+  color: orange !important;
+}

@@ -7,16 +7,16 @@ import classNames from "classnames";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import GridContainer from "../../shared/components/GridContainer";
-import GridItem from "../../shared/components/GridItem";
-import Card from "../../shared/components/card/Card";
-import CardBody from "../../shared/components/card/CardBody";
+import GridContainer from "../shared/components/GridContainer";
+import GridItem from "../shared/components/GridItem";
+import Card from "../shared/components/card/Card";
+import CardBody from "../shared/components/card/CardBody";
 
-import { featureStyle } from "../styles";
+import { featureStyle } from "./styles"
 
-import img1 from "../assets/img-one.png";
-import img2 from "../assets/img-two.png";
-import img3 from "../assets/img-three.png";
+import img1 from "./assets/img-one.png";
+import img2 from "./assets/img-two.png";
+import img3 from "./assets/img-three.png";
 
 function FeatureSection(props) {
   const { classes } = props;

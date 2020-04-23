@@ -4,7 +4,7 @@ import MentorPublicPage from "./MentorPublicPage";
 import { firestore } from "../../config/fbConfig";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import "./mentors.css";
+import "../styles/mentors.css";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -51,7 +51,7 @@ const MentorList = props => {
     <Paper className={classes.paper}>
       <div>
         <h1 className="mentor-page-title">
-          Our <span className="mentor-page-title-span">Mentors</span> are
+          Our mentors are
           retired professionals living across the globe.
         </h1>
         <div className="mentor-page-cards-wrapper">

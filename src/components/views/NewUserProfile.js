@@ -9,13 +9,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "../shared/components/Button";
 import Paper from "@material-ui/core/Paper";
 import SideBar from "../shared/components/Sidebar/SideBar";
-import "./views.css";
+import "../styles/views.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
     flexDirection: "column",
-    paddingBottom: theme.spacing(5)
+    paddingBottom: theme.spacing(5),
   },
   profile: {
     textAlign: "center",
@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
       marginTop: "20px",
       maxWidth: "160px",
       width: "100%",
-      margin: "0 auto"
-    }
+      margin: "0 auto",
+    },
   },
   description: {
     margin: "1.071rem auto 0",
@@ -35,21 +35,21 @@ const useStyles = makeStyles(theme => ({
     fontFamily: `"Roboto Slab", "Times New Roman", serif`,
     fontWeight: "400",
     color: "#3C4858",
-    textAlign: "center !important"
+    textAlign: "center !important",
   },
   main: {
     background: "#FFFFFF",
     position: "relative",
-    zIndex: "3"
+    zIndex: "3",
   },
   mainRaised: {
     margin: "-30px 30px 0px",
     borderRadius: "6px",
     boxShadow:
-      "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+      "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
   },
   name: {
-    marginTop: "50px"
+    marginTop: "50px",
   },
   title: {
     color: "#3C4858",
@@ -60,17 +60,17 @@ const useStyles = makeStyles(theme => ({
     display: "inline-block",
     position: "relative",
     marginTop: "20px",
-    minHeight: "32px"
+    minHeight: "32px",
   },
   imgFluid: {
     maxWidth: "100%",
-    height: "auto"
+    height: "auto",
   },
   imgRounded: {
-    borderRadius: "6px !important"
+    borderRadius: "6px !important",
   },
   imgRoundedCircle: {
-    borderRadius: "50% !important"
+    borderRadius: "50% !important",
   },
   container: {
     marginTop: "100px",
@@ -80,22 +80,21 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "auto",
     width: "100%",
     "@media (min-width: 576px)": {
-      maxWidth: "540px"
+      maxWidth: "540px",
     },
     "@media (min-width: 768px)": {
-      maxWidth: "720px"
+      maxWidth: "720px",
     },
     "@media (min-width: 992px)": {
-      maxWidth: "960px"
+      maxWidth: "960px",
     },
     "@media (min-width: 1200px)": {
-      maxWidth: "1140"
-    }
-  }
+      maxWidth: "1140",
+    },
+  },
 }));
 
-const NewUserProfile = props => {
-
+const NewUserProfile = (props) => {
   const [user, setUser] = useState({});
   const [conversations, setConversations] = useState([]);
 
@@ -105,7 +104,7 @@ const NewUserProfile = props => {
       .collection("users")
       .doc(props.match.params.uid)
       .get()
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         setUser(querySnapshot.data());
       });
   }, [props.match.params.uid]);
@@ -127,15 +126,13 @@ const NewUserProfile = props => {
         //   setConversations(conversations);
         // });
         .get()
-        .then(snapshot => {
+        .then((snapshot) => {
           if (snapshot.empty) {
-
             return;
           }
           let conversations = [];
 
-          snapshot.forEach(doc => {
-
+          snapshot.forEach((doc) => {
             conversations.push(doc.data());
           });
           setConversations(conversations);
@@ -144,18 +141,15 @@ const NewUserProfile = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userInfo]);
 
-
-
-  const createConversation = selectedUser => {
-
+  const createConversation = (selectedUser) => {
     const { uid, fullName, photoUrl } = selectedUser;
     const conversation = {
       participantUIDs: [uid, props.userInfo.uid],
       participantNames: [fullName, props.userInfo.fullName],
-      participantAvatars: [photoUrl, props.userInfo.photoUrl]
+      participantAvatars: [photoUrl, props.userInfo.photoUrl],
     };
     let convoCheck = 0;
-    conversations.forEach(e => {
+    conversations.forEach((e) => {
       if (e.participantUIDs[0] === uid) {
         convoCheck = 1;
       }
@@ -185,108 +179,110 @@ const NewUserProfile = props => {
       //   setConversations(conversations);
       // });
       .get()
-      .then(snapshot => {
+      .then((snapshot) => {
         if (snapshot.empty) {
           console.log("No matching documents.");
           return;
         }
         let conversations = [];
 
-        snapshot.forEach(doc => {
-
+        snapshot.forEach((doc) => {
           conversations.push(doc.data());
         });
         setConversations(conversations);
       });
   };
   const makeAdmin = async () => {
-    swal("Warning, this action will make the selected user an admin and give them full privileges, only continue if you trust this user.", {
-      buttons: {
-        cancel: "Cancel",
-        confirm: {
-          text: 'Confirm',
-          value: 'confirm'
-        }
-      },
-    })
-      .then((value) => {
-        switch (value) {
-
-          case "confirm":
-            const uid = user.uid;
-            firestore.collection("users").doc(uid)
-              .update({
-                userType: 'admin'
-              })
-              .then(() => {
-                swal(`Successfully upgraded this account to Administrator`, {
-                  icon: "success"
-                });
-              })
-              .catch(() => {
-                swal(
-                  "There was a server error, your information could not be updated",
-                  {
-                    icon: "warning"
-                  }
-                );
+    swal(
+      "Warning, this action will make the selected user an admin and give them full privileges, only continue if you trust this user.",
+      {
+        buttons: {
+          cancel: "Cancel",
+          confirm: {
+            text: "Confirm",
+            value: "confirm",
+          },
+        },
+      }
+    ).then((value) => {
+      switch (value) {
+        case "confirm":
+          const uid = user.uid;
+          firestore
+            .collection("users")
+            .doc(uid)
+            .update({
+              userType: "admin",
+            })
+            .then(() => {
+              swal(`Successfully upgraded this account to Administrator`, {
+                icon: "success",
               });
-            break;
+            })
+            .catch(() => {
+              swal(
+                "There was a server error, your information could not be updated",
+                {
+                  icon: "warning",
+                }
+              );
+            });
+          break;
 
-          case "cancel":
-            swal("Cancelled", "Action has been successfully canceled", "error");
-            break;
+        case "cancel":
+          swal("Cancelled", "Action has been successfully canceled", "error");
+          break;
 
-          default:
-            swal("Cancelled", "Action has been successfully canceled", "error");
-        }
-      });
-
+        default:
+          swal("Cancelled", "Action has been successfully canceled", "error");
+      }
+    });
   };
 
   const deleteUser = async () => {
-    swal("Are you sure you want to delete this user, this action cannot be undone.", {
-      buttons: {
-        cancel: "Cancel",
-        confirm: {
-          text: 'Confirm',
-          value: 'confirm'
-        }
-      },
-    })
-      .then((value) => {
-        switch (value) {
-
-          case "confirm":
-            const uid = user.uid;
-            firestore.collection("users").doc(uid)
-              .delete()
-              .then(() => {
-
-                swal(`User has been successfully removed.`, {
-                  icon: "success"
-                });
-                props.history.push('/dashboard')
-              })
-              .catch(() => {
-                swal(
-                  "There was a server error, your information could not be updated",
-                  {
-                    icon: "warning"
-                  }
-                );
+    swal(
+      "Are you sure you want to delete this user, this action cannot be undone.",
+      {
+        buttons: {
+          cancel: "Cancel",
+          confirm: {
+            text: "Confirm",
+            value: "confirm",
+          },
+        },
+      }
+    ).then((value) => {
+      switch (value) {
+        case "confirm":
+          const uid = user.uid;
+          firestore
+            .collection("users")
+            .doc(uid)
+            .delete()
+            .then(() => {
+              swal(`User has been successfully removed.`, {
+                icon: "success",
               });
-            break;
+              props.history.push("/dashboard");
+            })
+            .catch(() => {
+              swal(
+                "There was a server error, your information could not be updated",
+                {
+                  icon: "warning",
+                }
+              );
+            });
+          break;
 
-          case "cancel":
-            swal("Cancelled", "Action has been successfully canceled", "error");
-            break;
+        case "cancel":
+          swal("Cancelled", "Action has been successfully canceled", "error");
+          break;
 
-          default:
-            swal("Cancelled", "Action has been successfully canceled", "error");
-        }
-      });
-
+        default:
+          swal("Cancelled", "Action has been successfully canceled", "error");
+      }
+    });
   };
 
   const classes = useStyles();
@@ -331,30 +327,41 @@ const NewUserProfile = props => {
                 I am located in {user.city}, {""} {user.stateProvince}{" "}
                 {user.country} and I am so excited to meet you!
               </p>
-              {props.userInfo.userType === 'admin' ? <Button
-                onClick={deleteUser}
-                variant="contained"
-                color="warning"
-              >
-                Delete User
-              </Button> : <div></div>}
+              {props.userInfo.userType === "admin" ? (
+                <Button
+                  onClick={deleteUser}
+                  variant="contained"
+                  size="lg"
+                  color="warning"
+                >
+                  Delete User
+                </Button>
+              ) : (
+                  <div></div>
+                )}
               <Button
                 onClick={() => {
                   createConversation(user);
-                  props.history.push("/messaging")
+                  props.history.push("/messaging");
                 }}
                 variant="contained"
+                size="lg"
                 color="warning"
               >
                 Contact Me
               </Button>
-              {props.userInfo.userType === 'admin' ? <Button
-                onClick={makeAdmin}
-                variant="contained"
-                color="warning"
-              >
-                Promote to Admin
-              </Button> : <div></div>}
+              {props.userInfo.userType === "admin" ? (
+                <Button
+                  onClick={makeAdmin}
+                  variant="contained"
+                  color="warning"
+                  size="lg"
+                >
+                  Promote to Admin
+                </Button>
+              ) : (
+                  <div></div>
+                )}
             </div>
           </Paper>
         </div>
@@ -363,9 +370,9 @@ const NewUserProfile = props => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userInfo: state.firebase.profile
+    userInfo: state.firebase.profile,
   };
 };
 

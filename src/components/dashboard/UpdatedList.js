@@ -11,11 +11,15 @@ import UpdateCard from "./UpdatedCard.js"
 import SideBar from "../shared/components/Sidebar/SideBar.js"
 import ProgressBar from "./ProgressBar"
 
-import "./Dashboard.css"
+import "../styles/Dashboard.css"
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+  },
+  bar: {
+    width: "70%",
+    // marginRight: theme.spacing(1)
   }
 }))
 
@@ -111,12 +115,14 @@ const UpdatedList = props => {
   return (
     <>
       <div className="progressText">
+
         Training Completed: {String(progressPercentage) + "%"}
       </div>
-      <ProgressBar
+      <ProgressBar className={classes.bar}
         completedTrainingNumber={progressPercentage}
         completedTraining={completedTraining.length}
       />
+
       <SideBar />
       <div className="add-button">
         <Link to="/add-materials">
@@ -127,7 +133,9 @@ const UpdatedList = props => {
               size="large"
               className={classes.button}
             >
-              + Add Material
+              <span className="aButton">
+                + Add Material
+                 </span>
             </Button>
           )}
         </Link>

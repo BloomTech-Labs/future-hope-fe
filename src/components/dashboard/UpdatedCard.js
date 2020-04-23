@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography"
 import firebase from "../../config/fbConfig"
 import EditMaterial from "./admin-dashboard/EditMaterial"
 
-import "./Dashboard.css"
+import "../styles/Dashboard.css"
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -149,7 +149,7 @@ const MediaCard = props => {
       <CardActions>
         {props.type === "admin" && (
           <Button size="small" color="primary" onClick={handleEditOpen}>
-            Edit
+            <span className="aButton">Edit</span>
           </Button>
         )}
 
@@ -166,7 +166,7 @@ const MediaCard = props => {
         </Modal>
         {props.type === "admin" && (
           <Button size="small" color="secondary" onClick={handleOpen}>
-            Delete
+            <span className="aButton">Delete</span>
           </Button>
         )}
 
@@ -176,7 +176,7 @@ const MediaCard = props => {
           className="complete-btn"
           onClick={trainingUpdate}
         >
-          Complete
+          <span className="aButton">Complete</span>
         </Button>
         {/* Pop up window on Delete */}
         <Modal
