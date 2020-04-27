@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 
 import { firestore } from "../../config/fbConfig.js";
 import SearchResults from "../shared/components/SearchResults.js";
+import "../styles/calendar_main.scss";
 
 //analytics
 import { event } from "../Analytics";
@@ -130,7 +131,7 @@ const MeetingModal = props => {
 
   return (
     <MDBContainer>
-      <MDBModal isOpen={props.showModal} toggle={props.toggle} centered>
+      <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggle} centered>
         <MDBModalHeader
           toggle={e => {
             setMeeting({ title: "", start: Date.now() });
