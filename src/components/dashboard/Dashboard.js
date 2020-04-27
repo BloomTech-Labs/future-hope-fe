@@ -70,8 +70,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: theme.spacing(2),
+    // marginTop: theme.spacing(0),
+    // marginBottom: theme.spacing(3),
+    // paddingBottom: theme.spacing(4),
+    // flexDirection: "column",
+    // [theme.breakpoints.up("md")]: {
+    //   margin: "0 auto",
+    // },
+    // [theme.breakpoints.down("sm")]: {
+    //   marginTop: theme.spacing(0),
+    //   marginLeft: "15vw",
+    //   width: "80%",
+    // },
+    // [theme.breakpoints.up("xs")]: {
+    //   marginLeft: "17.4vw",
+    //   width: "80%",
+    // },
+    marginTop: theme.spacing(0),
     paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
+      width: "100%",
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: "4vw",
+        width: "96%",
+      },
+    },
   },
   paper: {
     padding: theme.spacing(2),
