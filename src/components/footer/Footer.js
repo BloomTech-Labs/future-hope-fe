@@ -51,7 +51,7 @@ const Footer = ({ ...props }) => {
             target="_blank"
           >
             Lambda School
-          </a>{" "}
+          </a>{" "}<br />
           for a better web & better world.
         </div>
       </div>

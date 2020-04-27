@@ -8,7 +8,6 @@ import {
   MDBCardBody,
 } from "mdbreact";
 
-
 export default class extends React.Component {
   constructor(props) {
     super(props);
