@@ -34,3 +34,10 @@
   left: 46%;
   bottom: 65%;
 }
+
+@media (max-width: 681px) {
+  .modal-md{
+    max-width: 80%;
+    margin-left: 75px;
+  }
+}

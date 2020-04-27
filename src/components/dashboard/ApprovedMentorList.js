@@ -84,9 +84,9 @@ const ApprovedMentorList = (props) => {
     <div className="flex">
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
-        <Typography align="center" component="h2" variant="h2" gutterBottom>
+        <h2 align="center" component="h2" variant="h2" gutterBottom>
           Approved Mentors
-        </Typography>
+        </h2>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>

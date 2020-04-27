@@ -38,7 +38,7 @@ const MentorPublicPage = props => {
             alt="profile picture"
             waves
             style={{
-              width: "200px",
+              maxWidth: "200px",
               height: "200px",
               borderRadius: "50%"
             }}

@@ -43,14 +43,15 @@ const Footer = ({ ...props }) => {
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()} made
+          by{" "}
           <a
             href="https://lambdaschool.com/"
             className={aClasses}
             target="_blank"
           >
             Lambda School
+
           </a>{" "}<br />
           for a better web & better world.
         </div>
