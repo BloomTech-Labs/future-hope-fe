@@ -18,6 +18,9 @@ import FeatureSection from "./FeatureSection";
 import CTASection from "./CTASection";
 import MobileSection from "./MobileSection";
 
+// css styles for description
+import '../styles/LandPage_Extra.css';
+
 //analytics
 import { logPageView } from "../Analytics";
 
@@ -34,12 +37,12 @@ const LandingPage = props => {
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={8} md={6}>
-              <h1 className={classes.title}>You Can Make A Difference</h1>
-              <h4>
-                Become a changemaker and start making an impact on the lives of
-                Ghanaian and Nigerian students wishing to qualify for admission
-                into secondary and vocational schools.
-              </h4>
+                <h1 className={classes.title}>You Can Make A Difference</h1>
+                <h4 className="xDD">
+                  Become a changemaker and start making an impact on the lives of
+                  Ghanaian and Nigerian students wishing to qualify for admission
+                  into secondary and vocational schools.
+                </h4>
               <Button className={classes.label} fontSize="button" color="warning" size="lg" href="/signup">
                 <span className={classes.label}>SIGN UP</span>
               </Button>

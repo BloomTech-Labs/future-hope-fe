@@ -10,5 +10,14 @@
     height: 45px;
     margin: 8px 0;
     text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+@media(max-width: 750px){
+  .contactform-container{
+    width: 80%;
   }
 }
