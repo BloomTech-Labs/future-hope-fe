@@ -43,8 +43,8 @@ const Footer = ({ ...props }) => {
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()} made
+          by{" "}
           <a
             href="https://lambdaschool.com/"
             className={aClasses}
@@ -52,7 +52,7 @@ const Footer = ({ ...props }) => {
           >
             Lambda School
           </a>{" "}
-          for a better web & better world.
+          for a better world.
         </div>
       </div>
     </footer>
