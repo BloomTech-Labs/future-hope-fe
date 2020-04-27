@@ -136,6 +136,8 @@ class Calendar extends React.Component {
     this.toggleModal();
   };
 
+  screen = window.screen.width <= 600 ? true : false // Paste this outside of the return
+
   render() {
     return (
       <div className="calendar-app">
@@ -152,19 +154,19 @@ class Calendar extends React.Component {
             themeSystem="standard"
             defaultView="dayGridMonth"
             header={{
-              left: window.screen.width > 900 ? "prev,today,next" : '',
+              left: this.screen ? '' : "prev,today,next",
               center: "title",
-              right: window.screen.width > 900 ? "dayGridMonth,timeGridWeek,timeGridDay,listWeek" : ''
+              right: this.screen ? '' : "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             }}
             buttonText={{
               today: "Today",
-              month: "Month",
-              week: "Week",
-              day: "Day"
+              month: this.screen ? "M" : "Month",
+              week: this.screen ? "W" : "Week",
+              day: this.screen ? "D" : "Day"
             }}
             footer={{
-              left: window.screen.width <= 900 ? "prev,today,next" : '',
-              right: window.screen.width <= 900 ? "dayGridMonth,timeGridWeek,timeGridDay,listWeek" : ''
+              left: this.screen ? "prev,today,next" : '',
+              right: this.screen ? "dayGridMonth,timeGridWeek,timeGridDay,listWeek" : ''
             }}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable
