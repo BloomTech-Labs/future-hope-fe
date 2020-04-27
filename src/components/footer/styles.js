@@ -12,14 +12,6 @@ const footerStyle = {
     position: "relative",
     display: "block"
   },
-  left: {
-    paddingLeft: "30px",
-    margin: "0 auto",
-  },
-  right: {
-    padding: "0 15px",
-    margin: "0 auto",
-  },
   footer: {
     padding: "0.9375rem 0",
     textAlign: "center",
@@ -27,7 +19,8 @@ const footerStyle = {
     zIndex: "2",
     position: "relative",
     bottom: "0",
-    width: "100%"
+    width: "100%",
+    marginLeft: "9vw"
   },
   a: {
     color: dangerColor,
