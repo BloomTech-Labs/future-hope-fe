@@ -14,6 +14,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js";
@@ -76,12 +77,15 @@ const ApprovedTeacherList = (props) => {
     props.history.push(`/profile/${uid}`);
   };
 
+  const mobile = window.screen.width <= 600 ? true : false
+  const tablet = window.screen.width <= 900 ? true : false
+
   return (
     <div className="flex">
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
         <Typography align="center" component="h2" variant="h2" gutterBottom>
-          Approved Teachers
+          Teachers
         </Typography>
         <Table>
           <TableHead>
@@ -89,12 +93,12 @@ const ApprovedTeacherList = (props) => {
               <TableCell scope="col">Profile Photo</TableCell>
               <TableCell scope="col">Name</TableCell>
               {/* <TableCell scope="col">Account Type</TableCell> */}
-              <TableCell className={classes.city} scope="col">City</TableCell>
-              <TableCell scope="col">State/ Province</TableCell>
-              <TableCell scope="col">View Profile</TableCell>
+              {tablet ? "" : <TableCell className={classes.city} scope="col">City</TableCell>}
+              {mobile ? "" : <TableCell scope="col">State/ Province</TableCell>}
+              <TableCell scope="col">More Info</TableCell>
             </TableRow>
           </TableHead>
-          {users.map((user) => {
+          {users.map(user => {
             if (user.userType === "teacher" && !user.approved) {
               return (
                 <TableBody key={user.uid}>
@@ -104,7 +108,7 @@ const ApprovedTeacherList = (props) => {
                       <Avatar
                         id="approved-list-photo"
                         src={
-                          user.photoUrl ||
+                          user.photoURL ||
                           "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
                         alt="profile photo"
@@ -112,12 +116,10 @@ const ApprovedTeacherList = (props) => {
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
                     {/* <TableCell>{user.userType}</TableCell> */}
-                    <TableCell className={classes.city}>{user.city}</TableCell>
-                    <TableCell>{user.stateProvince}</TableCell>
+                    {tablet ? "" : <TableCell className={classes.city}>{user.city}</TableCell>}
+                    {mobile ? "" : <TableCell>{user.stateProvince}</TableCell>}
                     <TableCell>
-                      <Button onClick={() => pushToProfilePage(user.uid)}>
-                        View Profile
-                      </Button>
+                      <ArrowForwardIcon onClick={() => pushToProfilePage(user.uid)} style={{ color: "#ff9800" }} />
                     </TableCell>
                   </TableRow>
                 </TableBody>

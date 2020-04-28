@@ -132,6 +132,7 @@ const MeetingModal = props => {
   return (
 
     <MDBContainer>
+      <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggle} centered>
         <MDBModalHeader
           toggle={e => {
             setMeeting({ title: "", start: Date.now() });
@@ -232,10 +233,8 @@ const MeetingModal = props => {
             Save changes
           </MDBBtn>
         </MDBModalFooter>
-
       </MDBModal>
     </MDBContainer>
-
   );
 };
 
