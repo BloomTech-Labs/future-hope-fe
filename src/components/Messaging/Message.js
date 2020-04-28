@@ -32,7 +32,9 @@ const Message = props => {
           }`}
       >
         <div className="message-sender">
+
           <h6>{props.message.name}</h6>
+
         </div>
         <div className="message-content">
           <p className="message">{props.message.content}</p>
@@ -41,9 +43,10 @@ const Message = props => {
           <span className="sent-date">
             Sent {moment(props.message.timestamp.toDate()).fromNow()}
           </span>
+
         </div>
       </div>
-      <div
+      {/* <div
         className={`message-avatar ${
           props.message.sentBy === props.userInfo.uid
             ? "avatar-right"
@@ -55,8 +58,8 @@ const Message = props => {
           src={`${props.message.avatar}`}
           className={classes.avatar}
         />
-      </div>
-    </div>
+      </div> */}
+    </div >
   );
 };
 

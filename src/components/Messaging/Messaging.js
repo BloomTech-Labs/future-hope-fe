@@ -14,6 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
@@ -38,17 +40,16 @@ import "../styles/Messaging.scss";
 // }));
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(0),
     marginBottom: theme.spacing(3),
-    // marginLeft: "auto",
-    // marginRight: "auto",
-    padding: theme.spacing(1),
+    margin: "0 auto",
+    padding: theme.spacing(2),
+    width: "60%",
     display: "flex",
-    // overflow: "auto",
+    overflow: "auto",
     flexDirection: "column",
-    width: "70%",
     [theme.breakpoints.up("md")]: {
-      margin: "0 auto",
+      marginLeft: "25vw",
     },
     [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(0),
@@ -70,6 +71,15 @@ function Messaging(props) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   // const classes = useStyles();
 
 

@@ -7,7 +7,7 @@
   //     width
   .list-conversations-wrapper {
     // width: 50%;
-    height: 75vh;
+    height: 78vh;
     margin: 20px;
     overflow: auto;
     .conversation-list-item {
@@ -21,7 +21,7 @@
     }
   }
   .conversations-wrapper {
-    width: 90%;
+    width: 96%;
     margin: 20px;
     height: 45vh;
     background-color: white;
@@ -77,7 +77,7 @@
       // border-bottom-right-radius: 0px;
       // margin-right: 10%;
       .message-content {
-        border: black solid 1.5px;
+        // border: lightgrey solid 1.5px;
         background-color: lightgrey;
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
@@ -113,15 +113,17 @@
     }
     .input-wrapper {
       form {
+        background-color: white;
         position: absolute;
         top: 89%;
         display: flex;
-        width: 50%;
+        width: 92%;
         height: 35px;
-        margin-top: 8px;
+        margin-top: 10px;
+        padding-right: 5%;
         input {
-          padding-right: 5%;
-          margin-right: 5%;
+          padding-left: 5%;
+          // margin-right: 5%;
         }
       }
     }

@@ -67,14 +67,20 @@ const Conversation = props => {
       timestamp: new Date()
     };
     try {
-      const messageRef = await firestore
-        .collection("conversations")
-        .doc(conversation.uid)
-        .collection("messages")
-        .doc();
+      if (messageText.length > 256) {
+        alert("Message must be less than 256 characters.");
+      } else if (messageText == 0) {
+        alert("Message length must be greater than 0 characters.");
+      } else {
+        const messageRef = await firestore
+          .collection("conversations")
+          .doc(conversation.uid)
+          .collection("messages")
+          .doc();
 
-      newMessage.uid = messageRef.id;
-      messageRef.set(newMessage);
+        newMessage.uid = messageRef.id;
+        messageRef.set(newMessage);
+      }
     } catch (err) {
       console.log("Error occured in creating message:", err);
     }
@@ -82,6 +88,8 @@ const Conversation = props => {
   };
   return (
     <div className="conversations-wrapper">
+
+
       {messages.map(message => {
         // console.log(message, "IS THERE AN EMPTY?");
         return (
@@ -92,6 +100,7 @@ const Conversation = props => {
           />
         );
       })}
+
       {/* if there is a selected converstaion, diplay the input. otherwise no input fo you*/}
       {props.selectedConversation.uid && (
         <div className="input-wrapper">
@@ -101,6 +110,7 @@ const Conversation = props => {
               createMessage(text);
             }}
           >
+
             <MDBInput
               className="myInput"
               placeholder="Enter A Message"
