@@ -14,13 +14,13 @@ const footerStyle = {
   },
   footer: {
     padding: "0.9375rem 0",
+    paddingLeft: "12vw",
     textAlign: "center",
     display: "flex",
     zIndex: "2",
     position: "relative",
     bottom: "0",
-    width: "100%",
-    marginLeft: "9vw"
+    width: "100%"
   },
   a: {
     color: dangerColor,
