@@ -7,11 +7,13 @@ import "../styles/messaging_button.css";
 //analytics
 import { logPageView } from "../Analytics";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   avatar: {
-    margin: 5
+    margin: 5,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
   }
-});
+}));
 
 // Component for displaying each message sent back and forth
 const Message = props => {

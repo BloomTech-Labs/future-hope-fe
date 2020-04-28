@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+import {
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+} from "mdbreact";
+
+import SendIcon from '@material-ui/icons/Send';
+
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
-import "../styles/messaging_button.css";
+// import "../styles/messaging_button.css";
 
 //analytics
 import { event } from "../Analytics";
@@ -92,23 +101,20 @@ const Conversation = props => {
               createMessage(text);
             }}
           >
-            <input
+            <MDBInput
               className="myInput"
               placeholder="Enter A Message"
               type="text"
               value={text}
               onChange={e => setText(e.target.value)}
             />
-            <button
-              className="myButton"
+            <SendIcon
               onClick={e => {
                 e.preventDefault();
                 createMessage(text);
               }}
-
-            >
-              Send
-            </button>
+              style={{ color: "#ff9800" }}
+            />
           </form>
         </div>
       )}

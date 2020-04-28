@@ -4,13 +4,13 @@ import { firestore } from "../../config/fbConfig.js";
 import Button from "@material-ui/core/Button";
 
 // Material UI Components
-// import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
-// import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+import Paper from '@material-ui/core/Paper';
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
@@ -24,19 +24,47 @@ import { logPageView, event } from "../Analytics";
 
 import "../styles/Messaging.scss";
 
-// const useStyles = makeStyles(theme => ({
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//     marginLeft: "100",
+//   },
 //   paper: {
-//     marginTop: theme.spacing(3),
-//     marginBottom: theme.spacing(3),
-//     marginLeft: "auto",
-//     marginRight: "auto",
 //     padding: theme.spacing(2),
-//     display: "flex",
-//     overflow: "auto",
-//     flexDirection: "column",
-//     width: "70%"
-//   }
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+
+//   },
 // }));
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    padding: theme.spacing(1),
+    display: "flex",
+    // overflow: "auto",
+    flexDirection: "column",
+    width: "70%",
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(0),
+      marginLeft: "15vw",
+      width: "80%",
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: "17.4vw",
+        width: "80%",
+      },
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+}));
 
 function Messaging(props) {
   const [conversations, setConversations] = useState([]);
@@ -144,13 +172,17 @@ function Messaging(props) {
       })
   };
 
+  const classes = useStyles();
+
   return (
-    <div className="messaging-wrapper">
-      <SideBar />
-      {/* <Paper className={classes.paper} elevation={20}> */}
-      <div className="list-conversations-wrapper">
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+    <div className={classes.root}>
+      <div className="messaging-wrapper">
+        <SideBar />
+        <Paper className={classes.paper} elevation={20}>
+
+          <div className="list-conversations-wrapper">
+            {/* <Grid container spacing={2}> */}
+            {/* <Grid item xs={6}> */}
             <Typography variant="h6">Conversations</Typography>
             <List>
               <Button
@@ -205,7 +237,7 @@ function Messaging(props) {
                           src={
                             avatar ||
                             "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
-                          }
+                          } className={classes.small}
                           alt="User"
                         />
                       </ListItemAvatar>
@@ -214,15 +246,21 @@ function Messaging(props) {
                   </div>
                 );
               })}
+              <Conversation
+                selectedConversation={selectedConversation}
+                userInfo={props.userInfo}
+              />
             </List>
-          </Grid>
-        </Grid>
-      </div>
-      <Conversation
+
+            {/* </Grid> */}
+            {/* </Grid> */}
+          </div>
+          {/* <Conversation
         selectedConversation={selectedConversation}
         userInfo={props.userInfo}
-      />
-      {/* </Paper> */}
+      /> */}
+        </Paper>
+      </div >
     </div>
   );
 }

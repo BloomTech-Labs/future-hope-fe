@@ -1,13 +1,12 @@
 .messaging-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
+  // display: flex;
+  // flex-wrap: nowrap;
 
   // h1 {
   //     text-align: center;
   //     width
-  // }
   .list-conversations-wrapper {
-    width: 35%;
+    // width: 50%;
     height: 75vh;
     margin: 20px;
     overflow: auto;
@@ -22,9 +21,9 @@
     }
   }
   .conversations-wrapper {
-    width: 60%;
+    width: 90%;
     margin: 20px;
-    height: 75vh;
+    height: 45vh;
     background-color: white;
     overflow: auto;
     // display: flex;
@@ -37,13 +36,13 @@
       display: block;
       position: relative;
       padding: 0.25em 0.5em;
-      // border: black solid 1.5px;
+      border: none;
       // -webkit-border-radius: 11px;
       // -moz-border-radius: 11px;
       // border-radius: 15px;
       margin-bottom: 2em;
       clear: both;
-      max-width: 50%;
+      // max-width: 50%;
     }
 
     .message-sender {
@@ -51,21 +50,23 @@
     }
     .right {
       float: right;
+      // width: 20%;
       // margin-left: 10%;
       // background: lightblue;
       // border-bottom-left-radius: 0px;
       .message-content {
-        font-size: 1.3rem;
+        font-size: 0.9rem;
         background: lightblue;
-        border: black solid 1.5px;
+        border: lightblue solid 1.5px;
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
         border-radius: 15px;
+
         border-bottom-right-radius: 0px;
         // height: 35px;
-        padding: 6%;
+        padding: 7% 5% 5% 5%;
         p {
-          font-size: 1.3rem;
+          font-size: 1rem;
           line-height: normal;
         }
       }
@@ -115,15 +116,12 @@
         position: absolute;
         top: 89%;
         display: flex;
-        width: 33%;
+        width: 50%;
         height: 35px;
         margin-top: 8px;
         input {
           padding-right: 5%;
           margin-right: 5%;
-        }
-        button {
-          background: lightgreen;
         }
       }
     }
