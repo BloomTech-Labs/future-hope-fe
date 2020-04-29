@@ -8,7 +8,7 @@
   .list-conversations-wrapper {
     // width: 50%;
     height: 78vh;
-    margin: 20px;
+    margin: 10px;
     overflow: auto;
     .conversation-list-item {
       margin-top: 20px;
@@ -21,13 +21,21 @@
     }
   }
   .conversations-wrapper {
-    width: 96%;
-    margin: 20px;
-    height: 45vh;
+    width: 100%;
+    // margin-bottom: 20px;
+    height: 60vh;
     background-color: white;
     overflow: auto;
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: 600px) {
+      width: 95%;
+    }
+    @media screen and (max-width: 500px) {
+      width: 92%;
+      height: 56vh;
+    }
 
     .message-wrapper {
       //   height: 80%;
@@ -87,7 +95,7 @@
         padding: 6%;
 
         p {
-          font-size: 1.3rem;
+          font-size: 1rem;
           line-height: normal;
         }
       }
@@ -121,6 +129,9 @@
         height: 35px;
         margin-top: 10px;
         padding-right: 5%;
+        @media screen and (max-width: 600px) {
+          width: 90%;
+        }
         input {
           padding-left: 5%;
           // margin-right: 5%;
@@ -128,4 +139,10 @@
       }
     }
   }
+}
+
+.menu-item-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

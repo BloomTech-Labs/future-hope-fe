@@ -16,6 +16,8 @@ import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import SearchUsersModal from "./SearchUsersModal.js";
 import Conversation from "./Conversation";
@@ -43,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(3),
     margin: "0 auto",
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
     width: "60%",
     display: "flex",
     overflow: "auto",
@@ -193,7 +195,7 @@ function Messaging(props) {
           <div className="list-conversations-wrapper">
             {/* <Grid container spacing={2}> */}
             {/* <Grid item xs={6}> */}
-            <Typography variant="h6">Conversations</Typography>
+            {/* <Typography variant="h6">Conversations</Typography> */}
             <List>
               <Button
                 variant="outlined"
@@ -214,48 +216,68 @@ function Messaging(props) {
                   Map again to get the avatar, name, and uid that is not the current users
                   display the other person's info
               */}
-              {conversations.map(conversation => {
+              <div>
+                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                  Open Conversations
+                  <ExpandMoreIcon color="primary" />
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <div className='menu-item-div'>
 
-                let avatar = "";
-                let name = "";
-                let uid = "";
-                conversation.participantAvatars.forEach(participantAvatar => {
-                  if (participantAvatar !== props.userInfo.photoUrl) {
-                    avatar = participantAvatar;
-                  }
-                });
-                conversation.participantNames.forEach(participantName => {
-                  if (participantName !== props.userInfo.fullName) {
-                    name = participantName;
-                  }
-                });
-                uid = conversation.uid;
-                // Creates list of all conversations on left that current user is involved in
-                return (
-                  <div
-                    key={uid}
-                    className="conversation-list-item"
-                    onClick={e => {
-                      setSelectedConversation({
-                        ...conversation
+                    {conversations.map(conversation => {
+
+                      let avatar = "";
+                      let name = "";
+                      let uid = "";
+                      conversation.participantAvatars.forEach(participantAvatar => {
+                        if (participantAvatar !== props.userInfo.photoUrl) {
+                          avatar = participantAvatar;
+                        }
                       });
-                    }}
-                  >
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar
-                          src={
-                            avatar ||
-                            "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
-                          } className={classes.small}
-                          alt="User"
-                        />
-                      </ListItemAvatar>
-                      <ListItemText primary={name} />
-                    </ListItem>
+                      conversation.participantNames.forEach(participantName => {
+                        if (participantName !== props.userInfo.fullName) {
+                          name = participantName;
+                        }
+                      });
+                      uid = conversation.uid;
+                      // Creates list of all conversations on left that current user is involved in
+                      return (
+                        <MenuItem onClick={handleClose}>
+                          <div
+                            key={uid}
+                            className="conversation-list-item"
+                            onClick={e => {
+                              setSelectedConversation({
+                                ...conversation
+                              });
+                            }}
+                          >
+                            <ListItem>
+                              <ListItemAvatar>
+                                <Avatar
+                                  src={
+                                    avatar ||
+                                    "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
+                                  } className={classes.small}
+                                  alt="User"
+                                />
+                              </ListItemAvatar>
+                              <ListItemText primary={name} />
+                            </ListItem>
+                          </div>
+                        </MenuItem>
+                      );
+                    })}
+
                   </div>
-                );
-              })}
+                </Menu>
+              </div>
               <Conversation
                 selectedConversation={selectedConversation}
                 userInfo={props.userInfo}

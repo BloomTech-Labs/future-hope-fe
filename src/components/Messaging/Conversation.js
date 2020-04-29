@@ -67,10 +67,23 @@ const Conversation = props => {
       timestamp: new Date()
     };
     try {
+      // testing word length
+      const words = messageText.split(" ")
+      let result = false
+      words.forEach(word => {
+        if (word.length < 20) {
+          //do nothing
+        } else {
+          result = true
+        }
+      })
+
       if (messageText.length > 256) {
         alert("Message must be less than 256 characters.");
       } else if (messageText == 0) {
         alert("Message length must be greater than 0 characters.");
+      } else if (result === true) {
+        alert("A word cannot be longer than 20 characters");
       } else {
         const messageRef = await firestore
           .collection("conversations")
@@ -109,8 +122,8 @@ const Conversation = props => {
               e.preventDefault();
               createMessage(text);
             }}
+            className='conversation-form'
           >
-
             <MDBInput
               className="myInput"
               placeholder="Enter A Message"
