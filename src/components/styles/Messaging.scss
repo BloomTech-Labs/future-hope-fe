@@ -120,6 +120,11 @@
       }
     }
     .input-wrapper {
+      .conversation-form {
+        width: 70%;
+        margin: 0 auto;
+        right: 10%;
+      }
       form {
         background-color: white;
         position: absolute;
@@ -128,15 +133,33 @@
         width: 92%;
         height: 35px;
         margin-top: 10px;
-        padding-right: 5%;
         @media screen and (max-width: 600px) {
           width: 90%;
         }
+        .md-form {
+          margin: 0px;
+        }
+        .send-icon {
+          margin-top: 2%;
+          padding-top: 0.5%;
+        }
         input {
-          padding-left: 5%;
+          padding-left: 1%;
+          padding-right: 5%;
           // margin-right: 5%;
         }
       }
+    }
+  }
+}
+
+.conversation-selection {
+  // background: black;
+  width: 40%;
+  font-size: 5rem;
+  button {
+    @media screen and (max-width: 600px) {
+      font-size: 100px;
     }
   }
 }

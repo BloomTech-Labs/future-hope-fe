@@ -197,26 +197,26 @@ function Messaging(props) {
             {/* <Grid item xs={6}> */}
             {/* <Typography variant="h6">Conversations</Typography> */}
             <List>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={e => toggleModal()}
-              >
-                <CreateIcon color="inherit" />
+              <div className='conversation-selection'>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={e => toggleModal()}
+                >
+                  <CreateIcon color="inherit" />
                 Start a Conversation
               </Button>
-              <SearchUsersModal
-                toggleModal={toggleModal}
-                showModal={showModal}
-                userInfo={props.userInfo}
-                createConversation={createConversation}
-                setSelectedConversation={setSelectedConversation}
-              />
-              {/* Map over conversation props, pull out the info we want.
+                <SearchUsersModal
+                  toggleModal={toggleModal}
+                  showModal={showModal}
+                  userInfo={props.userInfo}
+                  createConversation={createConversation}
+                  setSelectedConversation={setSelectedConversation}
+                />
+                {/* Map over conversation props, pull out the info we want.
                   Map again to get the avatar, name, and uid that is not the current users
                   display the other person's info
               */}
-              <div>
                 <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                   Open Conversations
                   <ExpandMoreIcon color="primary" />
