@@ -35,7 +35,19 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(0),
+      marginLeft: "15vw",
+      width: "80%",
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: "17.4vw",
+        width: "80%",
+      },
+    },
   },
   fixedHeight: {
     height: 240

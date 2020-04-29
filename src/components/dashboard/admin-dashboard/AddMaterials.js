@@ -201,6 +201,7 @@ function AddMaterial(props) {
                       onChange={handleChange}
                       required
                     />
+                    <br />
                     <MDBInput
                       type="text"
                       label="material description"
@@ -209,14 +210,17 @@ function AddMaterial(props) {
                       onChange={handleChange}
                       required
                     />
+                    <br />
                     <MDBInput
                       type="url"
-                      label="enter a valid URL (https://www.example.com)"
+                      label="Enter a link"
                       value={newMaterial.source}
                       name="source"
                       onChange={handleChange}
                       required
                     />
+                    <br />
+                    <br />
                     <MDBDropdown>
                       <MDBDropdownToggle caret color="primary">
                         Select or Add New Category

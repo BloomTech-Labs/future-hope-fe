@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  MDBInput,
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-} from "mdbreact";
+import { MDBInput } from "mdbreact";
 
 import SendIcon from '@material-ui/icons/Send';
 
