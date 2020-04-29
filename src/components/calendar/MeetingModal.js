@@ -130,7 +130,6 @@ const MeetingModal = props => {
   }, [props.clickedMeeting, props.user.fullName]);
 
   return (
-
     <MDBContainer>
       <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggle} centered>
         <MDBModalHeader
