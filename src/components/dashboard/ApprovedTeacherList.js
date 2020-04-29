@@ -15,6 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Fab from '@material-ui/core/Fab';
 
 // Internal Components
 import SideBar from "../shared/components/Sidebar/SideBar.js";
@@ -119,7 +120,9 @@ const ApprovedTeacherList = (props) => {
                     {tablet ? "" : <TableCell className={classes.city}>{user.city}</TableCell>}
                     {mobile ? "" : <TableCell>{user.stateProvince}</TableCell>}
                     <TableCell>
-                      <ArrowForwardIcon onClick={() => pushToProfilePage(user.uid)} style={{ color: "#ff9800" }} />
+                      <Fab aria-label="arrow" size="small">
+                        <ArrowForwardIcon onClick={() => pushToProfilePage(user.uid)} style={{ color: "#ff9800" }} />
+                      </Fab>
                     </TableCell>
                   </TableRow>
                 </TableBody>

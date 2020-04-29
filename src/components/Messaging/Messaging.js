@@ -204,8 +204,10 @@ function Messaging(props) {
                   onClick={e => toggleModal()}
                 >
                   <CreateIcon color="inherit" />
-                Start a Conversation
-              </Button>
+                  <span className="aButton">
+                    Start a Conversation
+                </span>
+                </Button>
                 <SearchUsersModal
                   toggleModal={toggleModal}
                   showModal={showModal}
@@ -218,7 +220,9 @@ function Messaging(props) {
                   display the other person's info
               */}
                 <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                  Open Conversations
+                  <span className="aButton">
+                    Open Conversations
+                  </span>
                   <ExpandMoreIcon color="primary" />
                 </Button>
                 <Menu
