@@ -127,6 +127,7 @@ const Conversation = props => {
               onChange={e => setText(e.target.value)}
             />
             <SendIcon
+              className='send-icon'
               onClick={e => {
                 e.preventDefault();
                 createMessage(text);
