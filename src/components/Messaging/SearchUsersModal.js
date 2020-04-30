@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -23,22 +23,44 @@ import blank_user from "../../assets/img/blank_user.png";
 const SearchUsersModal = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchArray, setSearchArray] = useState([]);
 
   const searchParticipants = async searchTerm => {
-    let searchArray = [];
-    const usersRef = firestore.collection("users");
+    const arr = []
+    const arr2 = []
+    const usersRef = await firestore.collection("users");
     await usersRef
-      .where("fullName", "==", searchTerm)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-
-          searchArray.push(doc.data());
+      .then(snapshot => {
+        snapshot.Pm.docChanges.map(userSnap => {
+          const user = userSnap.doc.proto.fields.fullName.stringValue
+          if (user.toLowerCase().includes(`${searchTerm.toLowerCase()}`)) {
+            arr.push(user)
+          }
+        })
+      })
+    const search = async (name) => {
+      const usersRefTwo = await firestore.collection("users");
+      await usersRefTwo
+        .where("fullName", "==", name)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            arr2.push(doc.data());
+            setSearchArray(arr2)
+          });
         });
-      });
+    }
+    await arr.forEach(name => {
+      search(name)
+    })
     setSearchResults(searchArray);
     setSearchTerm("");
   };
+
+  useEffect(() => {
+    setSearchResults(searchArray);
+  }, [searchArray])
 
   return (
     <MDBContainer>
