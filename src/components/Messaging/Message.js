@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 // Component for displaying each message sent back and forth
 const Message = props => {
   const classes = useStyles();
-  // const {timestamp} = props;
 
   useEffect(() => {
     logPageView();
@@ -46,52 +45,8 @@ const Message = props => {
 
         </div>
       </div>
-      {/* <div
-        className={`message-avatar ${
-          props.message.sentBy === props.userInfo.uid
-            ? "avatar-right"
-            : "avatar-left"
-          }`}
-      >
-        <Avatar
-          alt="user avatar"
-          src={`${props.message.avatar}`}
-          className={classes.avatar}
-        />
-      </div> */}
     </div >
   );
 };
 
 export default Message;
-
-//With overflow: auto, a scroll bar is available with messages to check older ones. Do we need a limit if we have that
-//capability? Do we change limit on scroll up?
-//! TO put the name and sent by outside of the message div, maybe do div styling around p tag only
-/*
-
-  <div className="message-container">
-      <div
-        className={`message-wrapper ${
-          props.message.sentBy === props.userInfo.uid ? "match" : "no-match"
-        }`}
-      >
-        <p>{props.message.content}</p>
-      </div>
-      <div
-        className={`message-avatar ${
-          props.message.sentBy === props.userInfo.uid ? "match" : "no-match"
-        }`}
-      >
-        <Avatar
-          alt="user avatar"
-          src={`${props.message.avatar}`}
-          className={classes.avatar}
-        />
-      </div>
-    </div>
-
-
-
-
-*/

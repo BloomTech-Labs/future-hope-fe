@@ -28,29 +28,16 @@ const SearchUsersModal = props => {
 
   const searchParticipants = async searchTerm => {
     let searchArray = [];
-    const arr = []
-    const usersRef = await firestore.collection("users");
+    const usersRef = firestore.collection("users");
     await usersRef
+      .where("fullName", "==", searchTerm)
       .get()
-      .then(snapshot => {
-        console.log(snapshot)
-        snapshot.Pm.docChanges.map(userSnap => {
-          const user = userSnap.doc.proto.fields.fullName.stringValue
-          // console.log(user)
-          if (user.toLowerCase().includes(`${searchTerm.toLowerCase()}`)) {
-            arr.push(user)
-          }
-        })
-      })
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
 
-    //   .where("fullName", "==", searchTerm)
-    //   .get()
-    //   .then(querySnapshot => {
-    //     querySnapshot.forEach(doc => {
-    //       searchArray.push(doc.data());
-    //     });
-    //   });
-    // console.log(searchArray)
+          searchArray.push(doc.data());
+        });
+      });
     setSearchResults(searchArray);
     setSearchTerm("");
   };
@@ -136,7 +123,6 @@ const SearchUsersModal = props => {
               Close
             </span>
           </MDBBtn>
-
         </MDBModalFooter>
       </MDBModal>
     </MDBContainer>
@@ -144,25 +130,3 @@ const SearchUsersModal = props => {
 };
 
 export default SearchUsersModal;
-
-// {s
-/* <Grid container spacing={2}>
-<Grid item xs={12} md={6}>
-  <Typography variant="h6">
-    {`Select ${props.userInfo.userType === 'teacher' ? 'Mentor' : 'Teacher'}`}
-  </Typography>
-    <List>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Single-line item"
-          />
-        </ListItem>,
-    </List>
-</Grid>
-</Grid> */
-// }
