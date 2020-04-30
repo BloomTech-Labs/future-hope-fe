@@ -117,7 +117,7 @@ const Conversation = props => {
           >
             <MDBInput
               className="myInput"
-              placeholder="Enter A Message"
+              label="Type Message.."
               type="text"
               value={text}
               onChange={e => setText(e.target.value)}

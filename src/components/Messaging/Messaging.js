@@ -178,7 +178,6 @@ function Messaging(props) {
                 <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                   <span className="aButton">
                     Open Conversations
-                  </span>
                   <ExpandMoreIcon color="primary" />
                 </Button>
                 <Menu
