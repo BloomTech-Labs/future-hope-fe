@@ -45,8 +45,6 @@ const useStyles1 = makeStyles(theme => ({
     marginRight: theme.spacing(5)
   },
   message: {
-    // display: "flex",
-    // alignItems: "center"
   }
 }));
 

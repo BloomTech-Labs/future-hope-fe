@@ -93,7 +93,6 @@ const ApprovedTeacherList = (props) => {
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
               <TableCell scope="col">Name</TableCell>
-              {/* <TableCell scope="col">Account Type</TableCell> */}
               {tablet ? "" : <TableCell className={classes.city} scope="col">City</TableCell>}
               {mobile ? "" : <TableCell scope="col">State/ Province</TableCell>}
               <TableCell scope="col">More Info</TableCell>

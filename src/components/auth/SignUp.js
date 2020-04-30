@@ -52,8 +52,6 @@ class SignUp extends React.Component {
     validateSelect: "none",
   };
 
-  // classes = useStyles();
-
   componentDidMount = () => {
     logPageView();
     // if this user is being pushed here, and there is a user on props, then
@@ -277,7 +275,6 @@ class SignUp extends React.Component {
                         name="aboutMe"
                       />
                       <br />
-
                       <div className='signup-input'>
                         <FormControl>
                           <InputLabel htmlFor="age-simple">
@@ -300,13 +297,9 @@ class SignUp extends React.Component {
                             value={this.state.userType}
                             onChange={
                               (e) =>
-                                //   {if(this.state.userType === ""){
-                                //   this.state.validateSelect = false
-                                // } else {
                                 this.setState({
                                   userType: e.target.value,
                                 })
-                              // }}
                             }
                           >
                             <MenuItem value="mentor">

@@ -34,7 +34,6 @@ const SearchUsersModal = props => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-
           searchArray.push(doc.data());
         });
       });

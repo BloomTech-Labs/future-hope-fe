@@ -96,7 +96,6 @@ const SideBar = (props) => {
           paper: clsx(classes.drawerPaper, props.sidebar && classes.drawerPaperClose),
         }}
         open={open}
-      // onMouseOver={handleDrawerToggle}
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerToggle}>
