@@ -217,7 +217,7 @@ function Messaging(props) {
                   Map again to get the avatar, name, and uid that is not the current users
                   display the other person's info
               */}
-                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" className='open-conversation-button' onClick={handleClick}>
                   Open Conversations
                   <ExpandMoreIcon color="primary" />
                 </Button>

@@ -142,6 +142,7 @@
         .send-icon {
           margin-top: 2%;
           padding-top: 0.5%;
+          margin-left: 2%;
         }
         input {
           padding-left: 1%;
@@ -162,6 +163,10 @@
       font-size: 100px;
     }
   }
+}
+
+.open-conversation-button {
+  margin: 500px;
 }
 
 .menu-item-div {
