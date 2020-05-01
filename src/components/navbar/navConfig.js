@@ -26,8 +26,8 @@ const navConfig = {
     },
     links: [
       {
-        href: "/mentors",
-        text: "View Mentors",
+        href: "/dashboard",
+        text: "Calendar",
         auth: true
       },
       {
