@@ -24,6 +24,16 @@ const styles = theme => ({
     overflow: "auto",
     flexDirection: "column"
   },
+  cta: {
+    fontSize: ".8rem",
+    padding: "1.2rem",
+    color: "white",
+    fontWeight: 700,
+    letterSpacing: ".1rem",
+    lineHeight: "1.4rem",
+    textTransform: "uppercase",
+    marginBottom: theme.spacing(3)
+  },
   container: {
     marginLeft: "1rem",
     marginBottom: theme.spacing(5),
@@ -36,6 +46,10 @@ const styles = theme => ({
     alignItems: "center",
     padding: theme.spacing(0, 5)
   },
+  title: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
+  }
 });
 
 function LandingMission(props) {

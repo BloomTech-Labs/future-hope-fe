@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-import { MDBInput } from "mdbreact";
+import {
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+} from "mdbreact";
 
 import SendIcon from '@material-ui/icons/Send';
 
 import Message from "./Message.js";
 import { firestore } from "../../config/fbConfig.js";
+// import "../styles/messaging_button.css";
 
 //analytics
 import { event } from "../Analytics";
@@ -95,7 +101,10 @@ const Conversation = props => {
   };
   return (
     <div className="conversations-wrapper">
+
+
       {messages.map(message => {
+        // console.log(message, "IS THERE AN EMPTY?");
         return (
           <Message
             key={message.uid}
