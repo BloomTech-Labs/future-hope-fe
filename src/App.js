@@ -22,11 +22,16 @@ import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
+// import Calendar from "./components/calendar/Calendar";
+// import AdminDashboard from "./components/dashboard/admin-dashboard/AdminDashboard.js";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
 import ApprovedMentorList from "./components/dashboard/ApprovedMentorList.js";
 import ApprovedTeacherList from "./components/dashboard/ApprovedTeacherList.js";
+// import ViewUserProfile from "./components/views/ViewUserProfile";
 import ApprovedAdminList from './components/dashboard/ApprovedAdmins'
 import Messaging from "./components/Messaging/Messaging.js";
+// import MentorTable from "./components/dashboard/admin-dashboard/MentorTable";
+// import TeacherTable from "./components/dashboard/admin-dashboard/TeacherTable";
 import NewUserProfile from "./components/views/NewUserProfile.js";
 import EditProfileView from "./components/views/EditProfileView.js";
 import UserApproval from "./components/dashboard/admin-dashboard/UserApproval.js";
@@ -59,6 +64,7 @@ class App extends React.Component {
         const { uid, email, displayName, photoURL } = user;
         let userRef = firestore.collection("users").doc(uid);
         let isUser = await userRef.get();
+        // console.log(isUser, "isUser");
         if (isUser.exists) {
           this.setupUserListener(isUser.data());
         } else {
@@ -75,6 +81,7 @@ class App extends React.Component {
             user: userReturn.data(),
             rerouteUser: true
           });
+          // console.log(userReturn.data(), "user returned");
         }
       }
     });
@@ -84,6 +91,7 @@ class App extends React.Component {
     if (this.state.userListenerCreated) {
       return;
     }
+    // console.log(uid);
     // takes in the user thats logged in
     // sets up listenever to their document
     this.unsubscribeFromUser = firestore
@@ -94,6 +102,7 @@ class App extends React.Component {
           uid: snapshot.id,
           ...snapshot.data()
         };
+        // console.log("cur state of user", curStateOfUser);
       });
     this.setState({
       userListenerCreated: true
@@ -139,6 +148,8 @@ class App extends React.Component {
             <Route path="/profile/:uid" component={NewUserProfile} />
             <PrivateRoute path="/messaging" component={Messaging} />
             <Route path="/applicationstatus" component={AwaitingApproval} />
+            {/* <Route path="/mentor-table" component={MentorTable} />
+            <Route path="/teacher-table" component={TeacherTable} /> */}
             <PrivateRoute path="/training/:topic" component={UpdatedList} />
             <PrivateRoute path="/training" component={UpdatedList} />
             <PrivateRoute path="/dashboard/:test" component={Dashboard} />

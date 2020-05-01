@@ -66,9 +66,9 @@ export default class extends React.Component {
             </div>
           </MDBCard>
           <div>
-            <MDBBtn color="warning"
+            <MDBBtn
               type="submit"
-            > <span className="aButton">Submit</span></MDBBtn>
+            > Submit</MDBBtn>
           </div>
         </form>
       </div >

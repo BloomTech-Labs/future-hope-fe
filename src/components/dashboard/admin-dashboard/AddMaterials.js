@@ -45,6 +45,8 @@ const useStyles1 = makeStyles(theme => ({
     marginRight: theme.spacing(5)
   },
   message: {
+    // display: "flex",
+    // alignItems: "center"
   }
 }));
 
@@ -199,7 +201,6 @@ function AddMaterial(props) {
                       onChange={handleChange}
                       required
                     />
-                    <br />
                     <MDBInput
                       type="text"
                       label="material description"
@@ -208,17 +209,14 @@ function AddMaterial(props) {
                       onChange={handleChange}
                       required
                     />
-                    <br />
                     <MDBInput
                       type="url"
-                      label="Enter a link"
+                      label="enter a valid URL (https://www.example.com)"
                       value={newMaterial.source}
                       name="source"
                       onChange={handleChange}
                       required
                     />
-                    <br />
-                    <br />
                     <MDBDropdown>
                       <MDBDropdownToggle caret color="primary">
                         Select or Add New Category
