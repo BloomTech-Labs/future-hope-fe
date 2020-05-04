@@ -1,6 +1,6 @@
 import { container, dangerColor } from "../shared/styles/sharedStyle";
 
-const footerStyle = {
+export const footerStyle = {
   block: {
     color: "inherit",
     padding: "0.9375rem",
@@ -12,15 +12,23 @@ const footerStyle = {
     position: "relative",
     display: "block"
   },
+  left: {
+    float: "left!important",
+    display: "block"
+  },
+  right: {
+    padding: "15px 0",
+    margin: "0",
+    float: "right!important",
+  },
   footer: {
     padding: "0.9375rem 0",
-    paddingLeft: "12vw",
     textAlign: "center",
     display: "flex",
     zIndex: "2",
     position: "relative",
     bottom: "0",
-    width: "100%"
+    width: "100%",
   },
   a: {
     color: dangerColor,
@@ -50,4 +58,3 @@ const footerStyle = {
     top: "3px"
   }
 };
-export default footerStyle;

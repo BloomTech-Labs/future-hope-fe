@@ -1,6 +1,7 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useRouteMatch } from 'react-router-dom'
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import { List, ListItem, withStyles } from "@material-ui/core";
@@ -8,7 +9,7 @@ import { List, ListItem, withStyles } from "@material-ui/core";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
-import footerStyle from "./styles";
+import { footerStyle } from "./styles";
 
 const Footer = ({ ...props }) => {
   const { classes, whiteFont } = props;
@@ -43,17 +44,16 @@ const Footer = ({ ...props }) => {
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} made
-          by{" "}
+          &copy; {1900 + new Date().getYear()} made with{" "}
+          <Favorite className={classes.icon} /> by{" "}
           <a
             href="https://lambdaschool.com/"
             className={aClasses}
             target="_blank"
           >
             Lambda School
-
-          </a>{" "}<br />
-          for a better web & better world.
+          </a>{" "}
+          {" "}for a better web & better world.
         </div>
       </div>
     </footer>
