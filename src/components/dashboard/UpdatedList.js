@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
   bar: {
     width: "70%",
-    // marginRight: theme.spacing(1)
   }
 }))
 
@@ -44,10 +43,9 @@ const UpdatedList = props => {
           setMaterials(trainingDocs)
         },
         error => {
-
+          //handle error
         }
       )
-
     return () => {
       unsubscribe()
     }
@@ -68,7 +66,7 @@ const UpdatedList = props => {
           setCompletedTraining(completedTrainingDocs)
         },
         error => {
-
+          //handle error
         }
       )
     return () => {
@@ -115,14 +113,12 @@ const UpdatedList = props => {
   return (
     <>
       <div className="progressText">
-
         Training Completed: {String(progressPercentage) + "%"}
       </div>
       <ProgressBar className={classes.bar}
         completedTrainingNumber={progressPercentage}
         completedTraining={completedTraining.length}
       />
-
       <SideBar />
       <div className="add-button">
         <Link to="/add-materials">
@@ -135,7 +131,7 @@ const UpdatedList = props => {
             >
               <span className="aButton">
                 + Add Material
-                 </span>
+                </span>
             </Button>
           )}
         </Link>

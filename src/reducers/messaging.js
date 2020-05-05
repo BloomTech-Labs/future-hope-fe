@@ -11,7 +11,6 @@ const initialState = {};
 
 //! Just basic scaffolding, what to do with the payload?
 const messagingReducer = (state = initialState, action) => {
-  // console.log("reducer", action);
   switch (action.type) {
     case MESSAGE_CREATE:
       return {
