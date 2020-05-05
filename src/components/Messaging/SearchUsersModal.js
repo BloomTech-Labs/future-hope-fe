@@ -17,6 +17,8 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 
+import "../styles/Messaging.scss";
+
 import { firestore } from "../../config/fbConfig.js";
 import blank_user from "../../assets/img/blank_user.png";
 
@@ -64,7 +66,7 @@ const SearchUsersModal = props => {
 
   return (
     <MDBContainer>
-      <MDBModal isOpen={props.showModal} toggle={props.toggleModal} centered>
+      <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggleModal} centered>
         <MDBModalHeader
           toggle={e => {
             setSearchTerm("");
@@ -72,9 +74,7 @@ const SearchUsersModal = props => {
             props.toggleModal();
           }}
         >
-          {`Search for ${
-            props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-            }`}
+          {`Search for Mentors Teachers & Admins`}
         </MDBModalHeader>
         <MDBModalBody>
           <MDBFormInline
@@ -87,12 +87,8 @@ const SearchUsersModal = props => {
             <input
               className="form-control form-control-sm w-75"
               type="text"
-              placeholder={`Search ${
-                props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-                }`}
-              aria-label={`Search ${
-                props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-                }`}
+              placeholder={`Search`}
+              aria-label={`Search`}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -111,9 +107,7 @@ const SearchUsersModal = props => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h6">
-                  {`Select ${
-                    props.userInfo.userType === "teacher" ? "Mentor" : "Teacher"
-                    }`}
+                  {`Select`}
                 </Typography>
                 <List>
                   {searchResults.map(user => {
@@ -138,7 +132,8 @@ const SearchUsersModal = props => {
           )}
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn
+
+          <MDBBtn size="lg"
             color="secondary"
             onClick={e => {
               setSearchTerm("");
@@ -146,7 +141,9 @@ const SearchUsersModal = props => {
               props.toggleModal();
             }}
           >
-            Close
+            <span className="aButton">
+              Close
+            </span>
           </MDBBtn>
         </MDBModalFooter>
       </MDBModal>
@@ -155,25 +152,3 @@ const SearchUsersModal = props => {
 };
 
 export default SearchUsersModal;
-
-// {s
-/* <Grid container spacing={2}>
-<Grid item xs={12} md={6}>
-  <Typography variant="h6">
-    {`Select ${props.userInfo.userType === 'teacher' ? 'Mentor' : 'Teacher'}`}
-  </Typography>
-    <List>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Single-line item"
-          />
-        </ListItem>,
-    </List>
-</Grid>
-</Grid> */
-// }

@@ -28,24 +28,11 @@ import { logPageView, event } from "../Analytics";
 
 import "../styles/Messaging.scss";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//     marginLeft: "100",
-//   },
-//   paper: {
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-
-//   },
-// }));
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(3),
     margin: "0 auto",
-    // padding: theme.spacing(2),
     width: "60%",
     display: "flex",
     overflow: "auto",
@@ -82,7 +69,6 @@ function Messaging(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const classes = useStyles();
 
 
   // Sets up listener for all conversations current user is involved in from firestore and sets state
@@ -94,24 +80,13 @@ function Messaging(props) {
       firestore
         .collection("conversations")
         .where("participantUIDs", "array-contains", props.userInfo.uid)
-        // .onSnapshot(querySnapshot => {
-        //   console.log('in useEffect()', querySnapshot)
-        //   let conversations = [];
-        //   querySnapshot.forEach(conversation => {
-        //     conversations.push(conversation.data());
-        //   });
-        //   setConversations(conversations);
-        // });
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
-
             return;
           }
           let conversations = []
-
           snapshot.forEach(doc => {
-
             conversations.push(doc.data())
           });
           setConversations(conversations)
@@ -160,24 +135,13 @@ function Messaging(props) {
     firestore
       .collection("conversations")
       .where("participantUIDs", "array-contains", props.userInfo.uid)
-      // .onSnapshot(querySnapshot => {
-      //   console.log('in useEffect()', querySnapshot)
-      //   let conversations = [];
-      //   querySnapshot.forEach(conversation => {
-      //     conversations.push(conversation.data());
-      //   });
-      //   setConversations(conversations);
-      // });
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
-
           return;
         }
         let conversations = []
-
         snapshot.forEach(doc => {
-
           conversations.push(doc.data())
         });
         setConversations(conversations)
@@ -191,11 +155,7 @@ function Messaging(props) {
       <div className="messaging-wrapper">
         <SideBar />
         <Paper className={classes.paper} elevation={20}>
-
           <div className="list-conversations-wrapper">
-            {/* <Grid container spacing={2}> */}
-            {/* <Grid item xs={6}> */}
-            {/* <Typography variant="h6">Conversations</Typography> */}
             <List>
               <div className='conversation-selection'>
                 <Button
@@ -204,8 +164,10 @@ function Messaging(props) {
                   onClick={e => toggleModal()}
                 >
                   <CreateIcon color="inherit" />
-                Start a Conversation
-              </Button>
+                  <span className="aButton">
+                    Start a Conversation
+                </span>
+                </Button>
                 <SearchUsersModal
                   toggleModal={toggleModal}
                   showModal={showModal}
@@ -213,12 +175,9 @@ function Messaging(props) {
                   createConversation={createConversation}
                   setSelectedConversation={setSelectedConversation}
                 />
-                {/* Map over conversation props, pull out the info we want.
-                  Map again to get the avatar, name, and uid that is not the current users
-                  display the other person's info
-              */}
-                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" className='open-conversation-button' onClick={handleClick}>
-                  Open Conversations
+                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                  <span className="aButton">
+                    Open Conversations
                   <ExpandMoreIcon color="primary" />
                 </Button>
                 <Menu
@@ -229,9 +188,7 @@ function Messaging(props) {
                   onClose={handleClose}
                 >
                   <div className='menu-item-div'>
-
                     {conversations.map(conversation => {
-
                       let avatar = "";
                       let name = "";
                       let uid = "";
@@ -274,7 +231,6 @@ function Messaging(props) {
                         </MenuItem>
                       );
                     })}
-
                   </div>
                 </Menu>
               </div>
@@ -283,14 +239,7 @@ function Messaging(props) {
                 userInfo={props.userInfo}
               />
             </List>
-
-            {/* </Grid> */}
-            {/* </Grid> */}
           </div>
-          {/* <Conversation
-        selectedConversation={selectedConversation}
-        userInfo={props.userInfo}
-      /> */}
         </Paper>
       </div >
     </div>

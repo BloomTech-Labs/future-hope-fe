@@ -131,23 +131,18 @@ class Login extends React.Component {
     this.props.userStore(auth.currentUser);
   };
 
-
-
   //oAuth login with Facebook btn
   loginWithFacebook = async () => {
     event("Facebook Login", "User logged in with Facebook", "Login");
     await signInWithFacebook();
     await this.login();
   };
-
-
   //oAuth login with Google btn
   loginWithGoogle = async () => {
     event("Google Login", "User logged in with Google", "Login");
     await signInWithGoogle();
     await this.login()
   };
-
 
   render() {
     return (
