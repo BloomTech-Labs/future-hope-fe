@@ -147,7 +147,6 @@ function Messaging(props) {
         setConversations(conversations)
       })
   };
-
   const classes = useStyles();
 
   return (
@@ -155,6 +154,7 @@ function Messaging(props) {
       <div className="messaging-wrapper">
         <SideBar />
         <Paper className={classes.paper} elevation={20}>
+
           <div className="list-conversations-wrapper">
             <List>
               <div className='conversation-selection'>
@@ -166,7 +166,7 @@ function Messaging(props) {
                   <CreateIcon color="inherit" />
                   <span className="aButton">
                     Start a Conversation
-                </span>
+                  </span>
                 </Button>
                 <SearchUsersModal
                   toggleModal={toggleModal}
@@ -175,9 +175,10 @@ function Messaging(props) {
                   createConversation={createConversation}
                   setSelectedConversation={setSelectedConversation}
                 />
-                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" className='open-conversation-button' onClick={handleClick}>
                   <span className="aButton">
                     Open Conversations
+                  </span>
                   <ExpandMoreIcon color="primary" />
                 </Button>
                 <Menu
@@ -188,7 +189,9 @@ function Messaging(props) {
                   onClose={handleClose}
                 >
                   <div className='menu-item-div'>
+
                     {conversations.map(conversation => {
+
                       let avatar = "";
                       let name = "";
                       let uid = "";
