@@ -62,15 +62,9 @@ const Conversation = props => {
     };
     try {
       // testing word length
-      const words = messageText.split(" ")
-      let result = false
-      words.forEach(word => {
-        if (word.length < 20) {
-          //do nothing
-        } else {
-          result = true
-        }
-      })
+      const words = messageText.split(" ");
+      let result = false;
+      words.forEach(w => w.length < 20 ? result = false : result = true);
 
       if (messageText.length > 256) {
         alert("Message must be less than 256 characters.");
