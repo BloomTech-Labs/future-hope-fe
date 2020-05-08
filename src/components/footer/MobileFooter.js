@@ -8,17 +8,17 @@ import { List, ListItem, withStyles } from "@material-ui/core";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
-import { footerStyle } from "./styles";
+import { mobileFooterStyle } from "./styles";
 
 const Footer = ({ ...props }) => {
   const { classes, whiteFont } = props;
   const footerClasses = classNames({
     [classes.footer]: true,
-    [classes.footerWhiteFont]: whiteFont
+    [classes.footerWhiteFont]: whiteFont,
   });
   const aClasses = classNames({
     [classes.a]: true,
-    [classes.footerWhiteFont]: whiteFont
+    [classes.footerWhiteFont]: whiteFont,
   });
   return (
     <footer className={footerClasses}>
@@ -43,26 +43,26 @@ const Footer = ({ ...props }) => {
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()} made
+          by{" "}
           <a
             href="https://lambdaschool.com/"
             className={aClasses}
             target="_blank"
           >
             Lambda School
-          </a>{" "}
+
+          </a>{" "}<br />
           for a better web & better world.
         </div>
       </div>
     </footer>
   );
-}
+};
 
 Footer.propTypes = {
   classes: PropTypes.object.isRequired,
-  whiteFont: PropTypes.bool
+  whiteFont: PropTypes.bool,
 };
 
-
-export default withStyles(footerStyle)(Footer);
+export default withStyles(mobileFooterStyle)(Footer);

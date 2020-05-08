@@ -19,10 +19,23 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: theme.spacing(5),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    maxWidth: '800px',
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(0),
+      marginLeft: "15vw",
+      width: "80%",
+    },
+    [theme.breakpoints.up("xs")]: {
+      marginLeft: "17.4vw",
+      width: "80%",
+    },
   }
 }));
 
@@ -155,7 +168,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.fullName}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               label="State or Province"
@@ -164,7 +177,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.stateProvince}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               label="City"
@@ -173,7 +186,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.city}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               type="text"
@@ -182,7 +195,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.country}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               label="Phone Number"
@@ -191,7 +204,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.phoneNumber}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               label="Email"
@@ -200,7 +213,7 @@ const EditProfileView = props => {
               onFocus={handleFocus}
               value={user.email}
               onChange={handleChanges}
-            />
+            /><br />
             <TextField
               className="profile-input"
               label="About Me"
@@ -209,7 +222,7 @@ const EditProfileView = props => {
               name="aboutMe"
               value={user.aboutMe}
               onChange={handleChanges}
-            />
+            /><br />
             <div className="upload-photo-wrapper">
               <Input type="file" id="img-upload" onChange={inputOnChange} />
               <label htmlFor="img-upload">

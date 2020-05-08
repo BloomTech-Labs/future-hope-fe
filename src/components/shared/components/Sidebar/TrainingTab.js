@@ -53,18 +53,6 @@ export default function TrainingTab() {
 
   return (
     <div>
-      {/* <Menu
-        id="long-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            width: 200
-          }
-        }}
-      > */}
       {options.map(
         option => (
           <MenuItem
@@ -78,7 +66,6 @@ export default function TrainingTab() {
           </MenuItem>
         )
       )}
-      {/* </Menu> */}
     </div>
   )
 }

@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 
 import { firestore } from "../../config/fbConfig.js";
 import SearchResults from "../shared/components/SearchResults.js";
+import "../styles/calendar_main.scss";
 
 //analytics
 import { event } from "../Analytics";
@@ -29,6 +30,7 @@ const MeetingModal = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [displayParticipants, setDisplayParticipants] = useState("");
+  const [searchArray, setSearchArray] = useState([]);
 
   // submit new and updated meetings
   const submitMeeting = e => {
@@ -70,28 +72,45 @@ const MeetingModal = props => {
     props.toggle();
   };
 
-  // Search for users to add to meeting
-  // Only exact searches work
   const searchParticipants = async searchTerm => {
-    event(
-      "Search-Users",
-      "Searching for users to add to a meeting",
-      "Calendar Meeting Modal"
-    );
-    let searchArray = [];
-    const usersRef = firestore.collection("users");
+    const arr = []
+    const arr2 = []
+    const usersRef = await firestore.collection("users");
     await usersRef
-      .where("fullName", "==", searchTerm)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          searchArray.push(doc.data());
+      .then(snapshot => {
+        snapshot.Pm.docChanges.map(userSnap => {
+          const user = userSnap.doc.proto.fields.fullName.stringValue
+          if (user.toLowerCase().includes(`${searchTerm.toLowerCase()}`)) {
+            arr.push(user)
+          }
+        })
+      })
+    const search = async (name) => {
+      const usersRefTwo = await firestore.collection("users");
+      await usersRefTwo
+        .where("fullName", "==", name)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            arr2.push(doc.data());
+            setSearchArray(arr2)
+          });
         });
-      });
-    // Set results in state, clear search term
+    }
+    await arr.forEach(name => {
+      search(name)
+    })
     setSearchResults(searchArray);
     setSearchTerm("");
   };
+
+  useEffect(() => {
+    setSearchResults([{ fullName: "Loading..." }])
+    setTimeout(() => {
+      setSearchResults(searchArray);
+    }, 500)
+  }, [searchArray])
 
   const toggleSearchModal = () => {
     setShowSearchResults(!showSearchResults);
@@ -130,7 +149,7 @@ const MeetingModal = props => {
 
   return (
     <MDBContainer>
-      <MDBModal isOpen={props.showModal} toggle={props.toggle} centered>
+      <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggle} centered>
         <MDBModalHeader
           toggle={e => {
             setMeeting({ title: "", start: Date.now() });

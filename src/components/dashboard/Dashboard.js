@@ -70,8 +70,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: theme.spacing(2),
+    marginTop: theme.spacing(0),
     paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up("md")]: {
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
+      width: "100%",
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: "4vw",
+        width: "96%",
+      },
+    },
   },
   paper: {
     padding: theme.spacing(2),
@@ -104,7 +115,7 @@ const AdminDashboard = (props) => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={20}>
                 <Calendar />
               </Paper>
             </Grid>

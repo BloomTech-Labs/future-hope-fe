@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -17,32 +17,59 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 
+import "../styles/Messaging.scss";
+
 import { firestore } from "../../config/fbConfig.js";
 import blank_user from "../../assets/img/blank_user.png";
 
 const SearchUsersModal = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchArray, setSearchArray] = useState([]);
 
   const searchParticipants = async searchTerm => {
-    let searchArray = [];
-    const usersRef = firestore.collection("users");
+    const arr = []
+    const arr2 = []
+    const usersRef = await firestore.collection("users");
     await usersRef
-      .where("fullName", "==", searchTerm)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-
-          searchArray.push(doc.data());
+      .then(snapshot => {
+        snapshot.Pm.docChanges.map(userSnap => {
+          const user = userSnap.doc.proto.fields.fullName.stringValue
+          if (user.toLowerCase().includes(`${searchTerm.toLowerCase()}`)) {
+            arr.push(user)
+          }
+        })
+      })
+    const search = async (name) => {
+      const usersRefTwo = await firestore.collection("users");
+      await usersRefTwo
+        .where("fullName", "==", name)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            arr2.push(doc.data());
+            setSearchArray(arr2)
+          });
         });
-      });
+    }
+    await arr.forEach(name => {
+      search(name)
+    })
     setSearchResults(searchArray);
     setSearchTerm("");
   };
 
+  useEffect(() => {
+    setSearchResults([{ fullName: "Loading..." }])
+    setTimeout(() => {
+      setSearchResults(searchArray);
+    }, 500)
+  }, [searchArray])
+
   return (
     <MDBContainer>
-      <MDBModal isOpen={props.showModal} toggle={props.toggleModal} centered>
+      <MDBModal className="modal-md" isOpen={props.showModal} toggle={props.toggleModal} centered>
         <MDBModalHeader
           toggle={e => {
             setSearchTerm("");
@@ -50,9 +77,7 @@ const SearchUsersModal = props => {
             props.toggleModal();
           }}
         >
-          {`Search for ${
-            props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-            }`}
+          {`Search for Mentors Teachers & Admins`}
         </MDBModalHeader>
         <MDBModalBody>
           <MDBFormInline
@@ -65,12 +90,8 @@ const SearchUsersModal = props => {
             <input
               className="form-control form-control-sm w-75"
               type="text"
-              placeholder={`Search ${
-                props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-                }`}
-              aria-label={`Search ${
-                props.userInfo.userType === "teacher" ? "Mentors" : "Teachers"
-                }`}
+              placeholder={`Search`}
+              aria-label={`Search`}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -89,9 +110,7 @@ const SearchUsersModal = props => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h6">
-                  {`Select ${
-                    props.userInfo.userType === "teacher" ? "Mentor" : "Teacher"
-                    }`}
+                  {`Select`}
                 </Typography>
                 <List>
                   {searchResults.map(user => {
@@ -116,7 +135,8 @@ const SearchUsersModal = props => {
           )}
         </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn
+
+          <MDBBtn size="lg"
             color="secondary"
             onClick={e => {
               setSearchTerm("");
@@ -124,7 +144,9 @@ const SearchUsersModal = props => {
               props.toggleModal();
             }}
           >
-            Close
+            <span className="aButton">
+              Close
+            </span>
           </MDBBtn>
         </MDBModalFooter>
       </MDBModal>
@@ -133,25 +155,3 @@ const SearchUsersModal = props => {
 };
 
 export default SearchUsersModal;
-
-// {s
-/* <Grid container spacing={2}>
-<Grid item xs={12} md={6}>
-  <Typography variant="h6">
-    {`Select ${props.userInfo.userType === 'teacher' ? 'Mentor' : 'Teacher'}`}
-  </Typography>
-    <List>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Single-line item"
-          />
-        </ListItem>,
-    </List>
-</Grid>
-</Grid> */
-// }

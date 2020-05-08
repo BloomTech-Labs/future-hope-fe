@@ -14,27 +14,34 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Fab from '@material-ui/core/Fab';
 
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 import "../styles/Dashboard.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    marginLeft: "auto",
-    marginRight: "auto",
+    margin: "auto",
     padding: theme.spacing(2),
+    width: "70%",
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: "15vw",
-      width: "80%",
-    },
     [theme.breakpoints.up("md")]: {
       margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(0),
+      marginLeft: "15vw",
+      width: "80%",
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: "17.4vw",
+        width: "80%",
+      },
     },
   },
   city: {
@@ -75,25 +82,27 @@ const ApprovedMentorList = (props) => {
     props.history.push(`/profile/${uid}`);
   };
 
+  const mobile = window.screen.width <= 600 ? true : false
+  const tablet = window.screen.width <= 900 ? true : false
+
   return (
     <div className="flex">
       <SideBar />
       <Paper className={classes.paper} elevation={20}>
         <Typography align="center" component="h2" variant="h2" gutterBottom>
-          Approved Mentors
+          Mentors
         </Typography>
-        <Table className={classes.table}>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell scope="col">Profile Photo</TableCell>
               <TableCell scope="col">Name</TableCell>
-              {/* <TableCell scope="col">Account Type</TableCell> */}
-              <TableCell className={classes.city} scope="col">City</TableCell>
-              <TableCell scope="col">State/ Province</TableCell>
-              <TableCell scope="col">View Profile</TableCell>
+              {tablet ? "" : <TableCell className={classes.city} scope="col">City</TableCell>}
+              {mobile ? "" : <TableCell scope="col">State/ Province</TableCell>}
+              <TableCell scope="col">More Info</TableCell>
             </TableRow>
           </TableHead>
-          {users.map((user) => {
+          {users.map(user => {
             if (user.userType === "mentor" && !user.approved) {
               return (
                 <TableBody key={user.uid}>
@@ -103,20 +112,19 @@ const ApprovedMentorList = (props) => {
                       <Avatar
                         id="approved-list-photo"
                         src={
-                          user.photoUrl ||
+                          user.photoUrl || user.photoURL ||
                           "https://firebasestorage.googleapis.com/v0/b/future-hope-school.appspot.com/o/users%2Fblank_user%2Fblank_user.png?alt=media&token=9a7ffce8-9fc6-40ef-9678-ad5cf6449eaa"
                         }
                         alt="profile photo"
                       />
                     </TableCell>
                     <TableCell>{user.name}</TableCell>
-                    {/* <TableCell>{user.userType}</TableCell> */}
-                    <TableCell className={classes.city}>{user.city}</TableCell>
-                    <TableCell>{user.stateProvince}</TableCell>
+                    {tablet ? "" : <TableCell className={classes.city}>{user.city}</TableCell>}
+                    {mobile ? "" : <TableCell>{user.stateProvince}</TableCell>}
                     <TableCell>
-                      <Button onClick={() => pushToProfilePage(user.uid)}>
-                        View Profile
-                      </Button>
+                      <Fab aria-label="arrow" size="small">
+                        <ArrowForwardIcon onClick={() => pushToProfilePage(user.uid)} style={{ color: "#ff9800" }} />
+                      </Fab>
                     </TableCell>
                   </TableRow>
                 </TableBody>

@@ -23,7 +23,7 @@ function MobileSection(props) {
   );
   return (
     <div className={classes.section}>
-      <h2 className={classes.title}>Coming Soon to the App Store.</h2>
+      <h2 className={classes.title}>Coming Soon to the Google Play Store.</h2>
       <div>
         <GridContainer>
           <GridItem>
@@ -32,8 +32,8 @@ function MobileSection(props) {
                 <img src={img4} alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                If you have an iPhone, you will soon be able to manage your
-                schedule whenever you want via our iOS app.
+                If you have an Android, you will soon be able to manage your
+                schedule whenever you want via our Google Play app.
                 <br />
               </h4>
             </Card>

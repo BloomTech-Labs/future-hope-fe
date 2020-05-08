@@ -1,151 +1,79 @@
 import React, { useState } from 'react';
+import * as emailjs from 'emailjs-com';
 import "../styles/ContactForm.scss";
 import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
   MDBInput,
   MDBBtn,
   MDBCard,
   MDBCardBody,
 } from "mdbreact";
 
-// const[text, setText] = useState("");
-
-
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: 'Name', email: 'example@email.com', message: '' };
+    this.state = { user_name: '', user_email: '', message: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  resetForm = () => {
-    this.state({ name: '', email: '', message: '' })
+
+  handleChange(event) {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    emailjs.sendForm('gmail', 'template_VLC4TuFz', e.target, 'user_4z7SOwP1t76jrtCUwnSHT').then((res) => {
+      console.log(res.text)
+    }, (error) => {
+      console.log(error.text)
+    });
+    this.setState({ user_name: '', user_email: '', message: '' })
   }
 
   render() {
     return (
-
       <div className="contactform-container">
-        <form onReset={this.resetForm}>
+        <form onSubmit={this.handleSubmit}>
           <MDBCard>
             <MDBCardBody>
               <MDBInput
                 type="text"
-                name="name"
+                name="user_name"
                 label="Name"
+                value={this.state.user_name}
+                onChange={this.handleChange}
               />
               <MDBInput
                 type="email"
-                name="email"
+                name="user_email"
                 label="Email"
+                value={this.state.user_email}
+                onChange={this.handleChange}
               />
             </MDBCardBody>
-
-            <MDBInput
-              type="textarea"
-              label="Message..."
-              name="message"
-              rows="5"
-            />
+            <div className='contact-message'>
+              <MDBInput
+                type="textarea"
+                label="Message..."
+                name="message"
+                value={this.state.message}
+                onChange={this.handleChange}
+                rows="5"
+              />
+            </div>
           </MDBCard>
           <div>
-            <MDBBtn
+            <MDBBtn color="warning"
               type="submit"
-            > Submit</MDBBtn>
+              className='contact-button'
+            ><span className='aButton'>Submit</span> </MDBBtn>
           </div>
         </form>
       </div >
-
     )
   }
-  handleChange(e) {
-    this.setState({ feedback: e.target.value })
-  }
-
-  handleSubmit(e) {
-    const templateId = 'template_id';
-
-    this.sendFeedback(templateId, { message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email })
-  }
-
-  sendFeedback(templateId, variables) {
-    window.emailjs.send(
-      'gmail', templateId,
-      variables
-    ).then(res => {
-      console.log('Message sent!')
-    })
-      .catch(err => console.error('error occured', err))
-  }
 }
-
-
-
-// export default ContactForm
-
-  // const ContactForm = () => {
-  //     const [formData, setFormData] = useState({})
-
-  //     const updateInput = e => {
-  //         setFormData({
-  //             ...formData,
-  //             [e.target.name]: e.target.value,
-  //         })
-  //     }
-  //     const handleSubmit = event => {
-  //         event.preventDefault()
-  //         sendEmail()
-  //         setFormData({
-  //             name: '',
-  //             email: '',
-  //             message: '',
-  //         })
-  //     }
-  //     const sendEmail = () =>{
-  //         Axios.post(
-  //             '', formData
-  //         )
-  //         .then(res =>{
-  //             db.collection('emails').add({
-  //             name: formData.name,
-  //             email: formData.email,
-  //             message: formData.message,
-  //         })
-  //     })
-  //     .catch(error => {
-  //         console.log(error)
-  //     })
-  // }
-
-  // return(
-  //     <>
-  //     <form onSubmit={handleSubmit}>
-  //         <input
-  //             type="text"
-  //             name="name"
-  //             placeholder="Name"
-  //             onChange={updateInput}
-  //             value={formData.name || ''}
-  //             />
-  //             <input
-  //             type="email"
-  //             name="email"
-  //             placeholder="Email"
-  //             onChange={updateInput}
-  //             value={formData.email ||''}
-  //             />
-  //             <textarea
-  //             type="text"
-  //             name="message"
-  //             placeholder="Message..."
-  //             onChange={updateInput}
-  //             value={formData.message ||''}
-  //             > </textarea>
-  //             <button type="submit">Submit</button>
-  //             </form>
-  //             </>
-  //     )
-  // }
 
