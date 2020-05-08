@@ -21,13 +21,13 @@ import SideBar from "../shared/components/Sidebar/SideBar.js";
 
 import "../styles/Dashboard.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    marginLeft: "auto",
-    marginRight: "auto",
+    margin: "auto",
     padding: theme.spacing(2),
+    width: "70%",
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
