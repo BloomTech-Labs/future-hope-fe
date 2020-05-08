@@ -61,7 +61,10 @@ const SearchUsersModal = props => {
   };
 
   useEffect(() => {
-    setSearchResults(searchArray);
+    setSearchResults([{ fullName: "Loading..." }])
+    setTimeout(() => {
+      setSearchResults(searchArray);
+    }, 500)
   }, [searchArray])
 
   return (

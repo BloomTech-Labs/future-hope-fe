@@ -20,6 +20,7 @@ import SignUp from "./components/auth/SignUp.js";
 import Login from "./components/auth/Login";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import MobileFooter from "./components/footer/MobileFooter";
 import MentorList from "./components/mentors/MentorList";
 import FAQ from "./components/FAQ/FAQ";
 import AwaitingApproval from "./components/views/AwaitingApproval.js";
@@ -153,7 +154,7 @@ class App extends React.Component {
             <Route path='/forums/thread/:id' ><ForumThread /></Route>
           </Switch>
         </div>
-        <Footer />
+        {window.screen.width >= 600 ? <Footer /> : <MobileFooter />}
       </Router>
     );
   }
