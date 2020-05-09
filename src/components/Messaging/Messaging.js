@@ -9,14 +9,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import SearchUsersModal from "./SearchUsersModal.js";

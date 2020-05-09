@@ -30,7 +30,6 @@
     margin-bottom: 7%;
 
     @media screen and (max-width: 600px) {
-      // width: 95%;
       margin-bottom: 20%;
     }
     @media screen and (max-width: 500px) {
@@ -38,19 +37,13 @@
     }
 
     .message-wrapper {
-      //   height: 80%;
-      //   width: 90%;
       line-height: 100%;
       display: block;
       position: relative;
       padding: 0.25em 0.5em;
       border: none;
-      // -webkit-border-radius: 11px;
-      // -moz-border-radius: 11px;
-      // border-radius: 15px;
       margin-bottom: 0.5em;
       clear: both;
-      // max-width: 50%;
     }
 
     .message-sender {

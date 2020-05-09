@@ -3,7 +3,7 @@ import imagesStyle from "../shared/styles/imagesStyles";
 
 const landingPageStyle = {
   "app-container": {
-    paddingTop: "0px"
+    paddingTop: "0px",
   },
   container: {
     zIndex: "12",
@@ -20,7 +20,10 @@ const landingPageStyle = {
     textDecoration: "none"
   },
   label: {
-    fontSize: "20px",
+    marginBottom: "18%"
+  },
+  labelSpan: {
+    fontSize: "20px"
   },
   subtitle: {
     fontSize: "1.313rem",

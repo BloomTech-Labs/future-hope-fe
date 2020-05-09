@@ -1,5 +1,6 @@
 import { container, dangerColor } from "../shared/styles/sharedStyle";
 
+
 export const mobileFooterStyle = {
   block: {
     color: "inherit",
@@ -15,6 +16,16 @@ export const mobileFooterStyle = {
   footer: {
     padding: "0.9375rem 0",
     paddingLeft: "12vw",
+    textAlign: "center",
+    display: "flex",
+    zIndex: "2",
+    position: "relative",
+    bottom: "0",
+    width: "100%"
+  },
+  landingFooter: {
+    padding: "0.9375rem 0",
+    // paddingLeft: "12vw",
     textAlign: "center",
     display: "flex",
     zIndex: "2",
@@ -51,6 +62,7 @@ export const mobileFooterStyle = {
   }
 };
 
+
 export const footerStyle = {
   block: {
     color: "inherit",
@@ -73,6 +85,15 @@ export const footerStyle = {
     float: "right!important"
   },
   footer: {
+    padding: "0.9375rem 0",
+    textAlign: "center",
+    display: "flex",
+    zIndex: "2",
+    position: "relative",
+    bottom: "0",
+    width: "100%"
+  },
+  landingFooter: {
     padding: "0.9375rem 0",
     textAlign: "center",
     display: "flex",

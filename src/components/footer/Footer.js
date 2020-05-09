@@ -1,9 +1,10 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import { List, ListItem, withStyles } from "@material-ui/core";
+import { useRouteMatch } from 'react-router-dom'
 
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
@@ -11,6 +12,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import { footerStyle, mobileFooterStyle } from "./styles";
 
 const Footer = ({ ...props }) => {
+  const match = useRouteMatch().path
   const { classes, whiteFont } = props;
   const footerClasses = classNames({
     [classes.footer]: true,
