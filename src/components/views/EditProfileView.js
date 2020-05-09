@@ -241,7 +241,7 @@ const EditProfileView = props => {
                 onClick={photoCameraClick}
                 color={showPreview ? "secondary" : "primary"}
               />
-            </div>
+            </div><br />
             <Button
               className="profile-button-save"
               onClick={e => {
