@@ -165,7 +165,7 @@ function Messaging(props) {
                 >
                   <CreateIcon color="inherit" />
                   <span className="aButton">
-                    Start a Conversation
+                    New Conversation
                   </span>
                 </Button>
                 <SearchUsersModal
@@ -177,7 +177,7 @@ function Messaging(props) {
                 />
                 <Button color="primary" aria-controls="simple-menu" aria-haspopup="true" className='open-conversation-button' onClick={handleClick}>
                   <span className="aButton">
-                    Open Conversations
+                    My Conversations
                   </span>
                   <ExpandMoreIcon color="primary" />
                 </Button>
