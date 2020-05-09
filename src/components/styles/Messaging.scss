@@ -1,13 +1,16 @@
 .messaging-wrapper {
-  // display: flex;
-  // flex-wrap: nowrap;
-
-  // h1 {
-  //     text-align: center;
-  //     width
+  // height: 80vh;
+  .message-h2 {
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 0.35em;
+    @media screen and (max-width: 600px) {
+      font-size: 25px;
+    }
+  }
   .list-conversations-wrapper {
     // width: 50%;
-    height: 78vh;
+    // height: 78vh;
     margin: 10px;
     overflow: auto;
     .conversation-list-item {
@@ -19,6 +22,12 @@
         border-radius: 100%;
       }
     }
+    // @media screen and (max-width: 500px) {
+    //   height: 60vh;
+    // }
+    // @media screen and (max-width: 400px) {
+    //   height: 60vh;
+    // }
   }
   .conversations-wrapper {
     width: 100%;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestore } from "../../config/fbConfig.js";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,23 +28,27 @@ import "../styles/Messaging.scss";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(0),
+    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-    margin: "0 auto",
-    width: "60%",
+    margin: "auto",
+    padding: theme.spacing(2),
+    width: "70%",
+    height: "90vh",
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
     [theme.breakpoints.up("md")]: {
-      marginLeft: "25vw",
+      margin: "0 auto",
     },
     [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(0),
       marginLeft: "15vw",
       width: "80%",
+      height: "87vh",
       [theme.breakpoints.up("xs")]: {
         marginLeft: "17.4vw",
         width: "80%",
+        height: "90vh",
       },
     },
   },
@@ -147,10 +152,13 @@ function Messaging(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <div className="messaging-wrapper">
-        <SideBar />
-        <Paper className={classes.paper} elevation={20}>
+    <div className="flex">
+      <SideBar />
+
+      <Paper className={classes.paper} elevation={20}>
+        <div className="messaging-wrapper">
+
+          <h2 className='message-h2'>Send A Message</h2>
 
           <div className="list-conversations-wrapper">
             <List>
@@ -240,8 +248,8 @@ function Messaging(props) {
               />
             </List>
           </div>
-        </Paper>
-      </div >
+        </div >
+      </Paper>
     </div>
   );
 }
