@@ -53,17 +53,15 @@ export default class extends React.Component {
                 value={this.state.user_email}
                 onChange={this.handleChange}
               />
-            </MDBCardBody>
-            <div className='contact-message'>
               <MDBInput
                 type="textarea"
-                label="Message..."
+                label="Message"
                 name="message"
                 value={this.state.message}
                 onChange={this.handleChange}
                 rows="5"
               />
-            </div>
+            </MDBCardBody>
           </MDBCard>
           <div>
             <MDBBtn color="warning"
