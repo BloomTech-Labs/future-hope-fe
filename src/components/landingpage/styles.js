@@ -8,7 +8,8 @@ const landingPageStyle = {
   container: {
     zIndex: "12",
     color: "#FFFFFF",
-    ...container
+    ...container,
+    marginTop: "33px"
   },
   title: {
     ...title,
@@ -95,7 +96,8 @@ const benefitStyle = {
 
 const featureStyle = {
   section: {
-    padding: "40px 0",
+    padding: "0",
+    paddingTop: "40px",
     textAlign: "center"
   },
   title: {
