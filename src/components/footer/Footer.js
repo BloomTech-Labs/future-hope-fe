@@ -8,7 +8,7 @@ import { List, ListItem, withStyles } from "@material-ui/core";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
-import { footerStyle } from "./styles";
+import { footerStyle, mobileFooterStyle } from "./styles";
 
 const Footer = ({ ...props }) => {
   const { classes, whiteFont } = props;
@@ -65,4 +65,4 @@ Footer.propTypes = {
 };
 
 
-export default withStyles(footerStyle)(Footer);
+export default withStyles(window.screen.width >= 600 ? footerStyle : mobileFooterStyle)(Footer);

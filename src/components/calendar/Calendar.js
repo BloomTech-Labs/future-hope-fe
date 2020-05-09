@@ -140,7 +140,7 @@ class Calendar extends React.Component {
 
   render() {
     return (
-      <div className="calendar-app">
+      <div className="calendar-app" >
         <div className="calendar-app-top">
           <h1>Schedule a Meeting</h1>
         </div>
