@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     margin: "auto",
     padding: theme.spacing(2),
     width: "70%",
-    height: "90vh",
+    height: "92vh",
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
