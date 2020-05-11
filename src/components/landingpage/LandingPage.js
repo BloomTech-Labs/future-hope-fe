@@ -37,16 +37,23 @@ const LandingPage = props => {
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={8} md={6}>
-                <h1 className={classes.title}>You Can Make A Difference</h1>
-                <h4 className="xDD">
-                  Become a changemaker and start making an impact on the lives of
-                  Ghanaian and Nigerian students wishing to qualify for admission
-                  into secondary and vocational schools.
+              <h1 className={classes.title}>Become A Changemaker</h1>
+              {window.screen.width >= 400 ? <h4 className="xDD">
+                We are a Global Community of Changemakers. Our goal is to
+                create a level playing field in education for developing countries
+                by providing supplemental, virtual mentors to underserved rural and
+                urban-poor schools. We need your help.
+                </h4> : ''}
+              <h4 className="xDD">
+                Become a changemaker and start making an impact on the lives of
+                Ghanaian and Nigerian students wishing to qualify for admission
+                into secondary and vocational schools.
                 </h4>
               <Button className={classes.label} fontSize="button" color="warning" size="lg" href="/signup">
-                <span className={classes.label}>SIGN UP</span>
+                <span className={classes.labelSpan}>SIGN UP</span>
               </Button>
             </GridItem>
+
           </GridContainer>
         </div>
       </Parallax>

@@ -10,6 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import SideBar from "../shared/components/Sidebar/SideBar.js";
 import Calendar from "../calendar/Calendar.js";
 
+const drawerWidth = 240;
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),

@@ -1,13 +1,16 @@
 .messaging-wrapper {
-  // display: flex;
-  // flex-wrap: nowrap;
-
-  // h1 {
-  //     text-align: center;
-  //     width
+  // height: 80vh;
+  .message-h2 {
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 0.35em;
+    @media screen and (max-width: 600px) {
+      font-size: 25px;
+    }
+  }
   .list-conversations-wrapper {
     // width: 50%;
-    height: 78vh;
+    // height: 78vh;
     margin: 10px;
     overflow: auto;
     .conversation-list-item {
@@ -22,35 +25,28 @@
   }
   .conversations-wrapper {
     width: 100%;
-    // margin-bottom: 20px;
-    height: 60vh;
+    height: 50vh;
     background-color: white;
     overflow: auto;
     display: flex;
     flex-direction: column;
+    margin-bottom: 7%;
 
     @media screen and (max-width: 600px) {
-      width: 95%;
+      margin-bottom: 20%;
     }
     @media screen and (max-width: 500px) {
-      width: 92%;
-      height: 56vh;
+      height: 48vh;
     }
 
     .message-wrapper {
-      //   height: 80%;
-      //   width: 90%;
       line-height: 100%;
       display: block;
       position: relative;
       padding: 0.25em 0.5em;
       border: none;
-      // -webkit-border-radius: 11px;
-      // -moz-border-radius: 11px;
-      // border-radius: 15px;
-      margin-bottom: 2em;
+      margin-bottom: 0.5em;
       clear: both;
-      // max-width: 50%;
     }
 
     .message-sender {
@@ -58,10 +54,6 @@
     }
     .right {
       float: right;
-      // width: 20%;
-      // margin-left: 10%;
-      // background: lightblue;
-      // border-bottom-left-radius: 0px;
       .message-content {
         font-size: 0.9rem;
         background: lightblue;
@@ -69,9 +61,7 @@
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
         border-radius: 15px;
-
         border-bottom-right-radius: 0px;
-        // height: 35px;
         padding: 7% 5% 5% 5%;
         p {
           font-size: 1rem;
@@ -80,20 +70,16 @@
       }
     }
     .left {
-      // background-color: lightgrey;
       float: left;
-      // border-bottom-right-radius: 0px;
-      // margin-right: 10%;
       .message-content {
-        // border: lightgrey solid 1.5px;
+        font-size: 0.9rem;
         background-color: lightgrey;
+        border: lightgrey solid 1.5px;
         -webkit-border-radius: 11px;
         -moz-border-radius: 11px;
         border-radius: 15px;
         border-bottom-left-radius: 0px;
-        // height: 35px;
-        padding: 6%;
-
+        padding: 7% 5% 5% 5%;
         p {
           font-size: 1rem;
           line-height: normal;
@@ -156,12 +142,20 @@
 
 .conversation-selection {
   // background: black;
-  width: 40%;
+  width: 80%;
+  margin: 2% auto;
+  margin-bottom: 4%;
   font-size: 5rem;
+  display: flex;
   button {
+    width: 100%;
+    padding: 2%;
     @media screen and (max-width: 600px) {
-      font-size: 100px;
+      font-size: 20px;
     }
+  }
+  @media screen and (max-width: 600px) {
+    display: block;
   }
 }
 
