@@ -3,12 +3,12 @@ import imagesStyle from "../shared/styles/imagesStyles";
 
 const landingPageStyle = {
   "app-container": {
-    paddingTop: "0px"
+    paddingTop: "0px",
   },
   container: {
     zIndex: "12",
     color: "#FFFFFF",
-    ...container
+    ...container,
   },
   title: {
     ...title,
@@ -20,7 +20,10 @@ const landingPageStyle = {
     textDecoration: "none"
   },
   label: {
-    fontSize: "20px",
+    marginBottom: "18%"
+  },
+  labelSpan: {
+    fontSize: "20px"
   },
   subtitle: {
     fontSize: "1.313rem",
@@ -34,8 +37,6 @@ const landingPageStyle = {
   },
   mainRaised: {
     margin: "-60px 30px 0px",
-    //boxShadow:
-    // "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
   }
 };
 
@@ -75,7 +76,6 @@ const parallaxStyle = {
 
 const benefitStyle = {
   section: {
-    //padding: "70px 0",
     textAlign: "center"
   },
   title: {
@@ -95,7 +95,8 @@ const benefitStyle = {
 
 const featureStyle = {
   section: {
-    padding: "40px 0",
+    padding: "0",
+    paddingTop: "40px",
     textAlign: "center"
   },
   title: {

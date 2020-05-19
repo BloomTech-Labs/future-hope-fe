@@ -22,15 +22,6 @@ function BenefitSection(props) {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
-          <div className='landing-page-about'>
-            <h5 className={classes.description}>
-              We are a Global Community of Changemakers. <br /> Our goal is to
-            create a level playing field in education for developing countries
-            by providing supplemental, virtual mentors to underserved rural and
-            urban-poor schools. <br /> We need your help.
-            </h5>
-          </div>
-          <br />
           <h2 className={classes.title}>You can make a difference.</h2>
         </GridItem>
       </GridContainer>
