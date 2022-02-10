@@ -23,7 +23,7 @@
     "firebase-tools": "^7.13.1",
     "mdbreact": "^4.25.2",
     "moment": "^2.24.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "opentok-react": "^0.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
